@@ -1,2 +1,2 @@
 ### TODO:
-1) list the projects with more description
+1) Write about my projects
