@@ -24,11 +24,11 @@ author:
   avatar           : "/images/profile.jpg"
   name             : "Jiakai Wang"
   pronouns         : # example: "she/her"  
-  bio              : "Short biography for the left-hand sidebar"
+  bio              : "I'm interested in superconducting quantum computing and more broadly how quantum computers integrate with the HPC systems"
   location         : "Madison, WI"
   employer         : #""
   uri              : # URL
-  email            : "jwang2648@wisc.edu" 
+  email            : "mailto:jwang2648@wisc.edu" 
 
   # Academic websites
   arxiv            : # URL - Update with the correct link to your profile
@@ -42,7 +42,7 @@ author:
   bitbucket        : # Username - Update with your username on the site
   codepen          : # Username
   dribbble         : # Username
-  github           : "https://github.com/jiakaiw"
+  github           : "jiakaiw"
   kaggle           : # Username  
   stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
 
