@@ -16,8 +16,8 @@ main:
   # - title: "Portfolio"
   #   url: https://scholar.google.com/citations?user=PweNV4EAAAAJ&hl=en
         
-  # - title: "Blog Posts"
-  #   url: /year-archive/
+  - title: "Posts"
+    url: /year-archive/
     
 
   # - title: "Guide"
