@@ -9,7 +9,7 @@ redirect_from:
 
 I was supposed to become a software engineer and by some twist of fate I'm now a quantum computing guy ~~with a mix of crappy programming skills and crappy physics knowledge 🤣~~. Because of my background I look at the problems more from a numerical/coding perspective and less like a physicist.
 
-I have experience and interest in several different quantum computing tech stacks listed in the table below.
+I have experiences and interest in several different quantum computing tech stacks listed in the table below.
 
 I'm also interested in using advanced machine learning models or low-level programming to better solve problems I met in quantum computing research.
 
