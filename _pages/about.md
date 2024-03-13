@@ -12,13 +12,13 @@ I have interest across several quantum computing tech stacks, down to physical q
 
 | QC tech stack                               | My experince                                  | Do I want to work in this layer?|
 |---------------------------------------------|-----------------------------------------------|----------------------|
-| Application layer                           |                                               | (not in the short term) |
-| System layer                                |                                               |   ✅   |
-| Classical control hardware/software         |                                               |      |
-| Error correction layer                      |Simulate and decode surface code with erasure detection (with false negatives), Measurement-free steane code fault-tolerance analysis     |     ✅ |
-| Abstracted hardware/QPU layer<br>(c-QED/atomic physics)    | Neutral atom multi-qubit gate simulation, fluxonium readout/2-qubit gate simulation           |   ✅ (co-design with QEC layer)   |
-| Hardware layer                              |      |      |
-| Supporting layer <br>(material science in fabrication<br>/laser developement)    |      |      |
+| Application layer                           |                                               |(not in the short term)|
+| System layer                                |                                               |   ✅                 |
+| Classical control hardware/software         |                                               |                      |
+| Error correction layer                      |Simulate and decode surface code with erasure detection (with false negatives), Measurement-free steane code fault-tolerance analysis     |✅ |
+| Abstracted hardware/QPU layer<br>(c-QED/atomic physics)| Neutral atom multi-qubit gate simulation, fluxonium readout/2-qubit gate simulation |   ✅ (co-design with QEC layer)|
+| Hardware layer                              |                                               |                       |
+| Supporting layer <br>(material science in fabrication<br>/laser developement)    |          |                       |
 
 
 
