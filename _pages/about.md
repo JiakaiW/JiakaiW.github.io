@@ -10,13 +10,13 @@ redirect_from:
 I have interest across several quantum computing tech stacks, down to physical qubit hamiltonian simulation and up to error correction/decoding. I have experince with hamiltonian simulation of neutral atom physical gates and superconducting qubit measurements, as well as customized simulation and decoding of the surface code. 
 
 
-| QC tech stack                               | My experince                                  |  Am I interested?    |
+| QC tech stack                               | My experince                                  | Do I want to work in this layer?|
 |---------------------------------------------|-----------------------------------------------|----------------------|
-| Application layer                           |                                               |      |
-| System layer                                |                                               |      |
+| Application layer                           |                                               | (not in the short term) |
+| System layer                                |                                               |   ✅   |
 | Classical control hardware/software         |                                               |      |
-| Error correction layer                      |                                               |      |
-| Abstracted hardware/QPU layer<br>(c-QED/atomic physics)    |                                |      |
+| Error correction layer                      |Simulate and decode surface code with erasure detection (with false negatives), Measurement-free steane code fault-tolerance analysis     |     ✅ |
+| Abstracted hardware/QPU layer<br>(c-QED/atomic physics)    | Neutral atom multi-qubit gate simulation, fluxonium readout/2-qubit gate simulation           |   ✅ (co-design with QEC layer)   |
 | Hardware layer                              |      |      |
 | Supporting layer <br>(material science in fabrication<br>/laser developement)    |      |      |
 
