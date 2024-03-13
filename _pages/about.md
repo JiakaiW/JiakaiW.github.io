@@ -13,11 +13,11 @@ I've experience and interest in several different quantum computing tech stacks 
 
 I'm also interested in using advanced machine learning models or low-level programming to better solve problems I met in quantum computing research.
 
-| QC tech stack                               | My experince                                  | Do I want to work in this layer?|
+| QC tech stack                               | My research experince                         | Do I want to work on this layer?|
 |---------------------------------------------|-----------------------------------------------|----------------------|
-| Application layer<br>(algorithms, quantum simulation/drug discovery)           |                                               |                      |
+| Application layer<br>(algorithms, quantum simulation/drug discovery)|                       |                      |
 | System layer (compiler)                     | Readout error mitigation project              |   ✅                 |
-| Classical control hardware/software<br>(FPGA programming)  |                                               |                      |
+| Classical control hardware/software<br>(FPGA programming)  |                                |                      |
 | Error correction layer                      |(1) Simulate and decode surface code<br>with erasure detection (with false negatives),<br>(2) Measurement-free steane code fault-tolerance analysis     |✅ |
 | Abstracted hardware/QPU layer<br>(c-QED/atomic physics)| (1) Neutral atom multi-qubit gate,<br>(2) Fluxonium readout/2-qubit cross-resonance gate |   ✅ (co-design with QEC layer)|
 | Hardware layer                              |                                               |                       |
@@ -29,7 +29,7 @@ I'm also interested in using advanced machine learning models or low-level progr
 
 # Leakage detection in Integer Fluxonium 
 
-[Talk](https://meetings.aps.org/Meeting/MAR24/Session/G47.8)
+[Talk I gave](https://meetings.aps.org/Meeting/MAR24/Session/G47.8)
 
 
 ------
@@ -38,4 +38,4 @@ I'm also interested in using advanced machine learning models or low-level progr
 
 [Paper](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426)
 
-[Talk](https://meetings.aps.org/Meeting/MAR24/Session/A49.8)
+[Talk I gave](https://meetings.aps.org/Meeting/MAR24/Session/A49.8)
