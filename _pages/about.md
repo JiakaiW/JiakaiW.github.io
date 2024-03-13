@@ -31,6 +31,7 @@ I'm also interested in using advanced machine learning models or low-level progr
 
 [Talk I gave](https://meetings.aps.org/Meeting/MAR24/Session/G47.8)
 
+(paper in progress)
 
 ------
 
