@@ -11,7 +11,7 @@ I was supposed to become a software engineer and by some twist of fate I'm now a
 
 I have experiences and interest in several different quantum computing tech stacks listed in the table below.
 
-I'm also interested in using advanced machine learning models or low-level programming to better solve problems I met in quantum computing research.
+I'm also interested in using advanced machine learning models or low-level programming to better solve problems I meet in quantum computing research.
 
 | QC tech stack                               | My research experince                         | Do I want to work on this layer?|
 |---------------------------------------------|-----------------------------------------------|----------------------|
