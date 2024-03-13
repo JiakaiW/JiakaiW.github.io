@@ -21,7 +21,7 @@ I'm also interested in using advanced machine learning models or low-level progr
 | Error correction layer                      |(1) Simulate and decode surface code<br>with erasure detection (with false negatives),<br>(2) Measurement-free steane code fault-tolerance analysis     |✅ |
 | Abstracted hardware/QPU layer<br>(c-QED/atomic physics)| (1) Neutral atom multi-qubit gate,<br>(2) Fluxonium readout/2-qubit cross-resonance gate |   ✅ (co-design with QEC layer)|
 | Hardware layer<br>MW/RF electronics,finite element           |                                               |                       |
-| Supporting layer <br>(material science in fabrication<br>/laser developement)    |          |                       |
+| Supporting layer <br>(material science in fabrication<br>/laser/fridge design)    |          |                       |
 
 
 
