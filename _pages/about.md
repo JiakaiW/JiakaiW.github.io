@@ -12,7 +12,7 @@ I have interest across several quantum computing tech stacks, down to physical q
 
 | QC tech stack                               | My experince                                  | Do I want to work in this layer?|
 |---------------------------------------------|-----------------------------------------------|----------------------|
-| Application layer                           |                                               | ✅(in the long term) |
+| Application layer                           |                                               |                      |
 | System layer (compiler)                     | Readout error mitigation project              |   ✅                 |
 | Classical control hardware/software         |                                               |                      |
 | Error correction layer                      |Simulate and decode surface code<br>with erasure detection (with false negatives),<br>Measurement-free steane code fault-tolerance analysis     |✅ |
