@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 
-I have interest across several quantum computing tech stacks, down to physical qubit hamiltonian simulation up to error correction code and decoding. I have experince with hamiltonian simulation of neutral atom physical gates and superconducting qubit measurements as well as customized simulation and decoding of the surface code. 
+I have interest across several quantum computing tech stacks, down to physical qubit hamiltonian simulation and up to error correction/decoding. I have experince with hamiltonian simulation of neutral atom physical gates and superconducting qubit measurements, as well as customized simulation and decoding of the surface code. 
 
 ------
 
