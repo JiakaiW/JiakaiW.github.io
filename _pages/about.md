@@ -10,23 +10,23 @@ redirect_from:
 I have interest across several quantum computing tech stacks, down to physical qubit hamiltonian simulation and up to error correction/decoding. I have experince with hamiltonian simulation of neutral atom physical gates and superconducting qubit measurements, as well as customized simulation and decoding of the surface code. 
 
 
-| QC tech stack | My experince |  Am I interested? |
-|----------|----------|----------|
-| Application layer    |      | Data     |
-| System layer    |# Leakage detection in Integer Fluxonium 
-
-[Talk](https://meetings.aps.org/Meeting/MAR24/Session/G47.8)| Data     |
-| Classical control hardware/software    |      | Data     |
-| Error correction layer    | Data     | Data     |
-| Abstracted hardware/QPU layer (c-QED/atomic physics)    | Data     | Data     |
-| Hardware layer    | Data     | Data     |
-| Supporting layer (material science in fabrication/laser developement)    | Data     | Data     |
+| QC tech stack                               | My experince                                  |  Am I interested?    |
+|---------------------------------------------|-----------------------------------------------|----------------------|
+| Application layer                           |                                               |      |
+| System layer                                |                                               |      |
+| Classical control hardware/software         |                                               |      |
+| Error correction layer                      |                                               |      |
+| Abstracted hardware/QPU layer<br>(c-QED/atomic physics)    |                                |      |
+| Hardware layer                              |      |      |
+| Supporting layer <br>(material science in fabrication<br>/laser developement)    |      |      |
 
 
 
 ------
 
+# Leakage detection in Integer Fluxonium 
 
+[Talk](https://meetings.aps.org/Meeting/MAR24/Session/G47.8)
 
 
 ------
