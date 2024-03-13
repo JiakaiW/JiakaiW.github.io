@@ -7,8 +7,11 @@ redirect_from:
   - /about.html
 ---
 
-I have interest across several quantum computing tech stacks, down to physical qubit hamiltonian simulation and up to error correction/decoding. I have experince with hamiltonian simulation of neutral atom physical gates and superconducting qubit measurements, as well as customized simulation and decoding of the surface code. 
+I was supposed to become a software engineer and by some twist of fate I'm now a quantum computing guy ~with a mix of crappy programming skills and crappy physics knowledge 🤣~ with looking at things more from a numerical/coding perspective.
 
+I've experience and interest in several different quantum computing tech stacks listed in the table below.
+
+I'm also interested in using advanced machine learning models or low-level programming to better solve problems I met in quantum computing research.
 
 | QC tech stack                               | My experince                                  | Do I want to work in this layer?|
 |---------------------------------------------|-----------------------------------------------|----------------------|
