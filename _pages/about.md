@@ -12,6 +12,7 @@ I have interest across several quantum computing tech stacks, down to physical q
 ------
 
 # Leakage detection in Integer Fluxonium 
+
 [Talk](https://meetings.aps.org/Meeting/MAR24/Session/G47.8)
 
 
