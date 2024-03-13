@@ -13,7 +13,7 @@ I have experiences and interest in several different quantum computing tech stac
 
 I'm also interested in using advanced machine learning models or low-level programming to better solve problems I meet in quantum computing research.
 
-| QC tech stack                               | My research experince                         | Do I want to work on this layer?|
+| QC tech stack                               | My research experience                         | Do I want to work on this layer?|
 |---------------------------------------------|-----------------------------------------------|----------------------|
 | Application layer<br>(algorithms, quantum simulation/drug discovery)|                       |                      |
 | System layer (compiler)                     | Readout error mitigation project              |   ✅                 |
