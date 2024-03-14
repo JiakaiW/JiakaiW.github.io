@@ -27,7 +27,7 @@ I'm also interested in using advanced machine learning models or low-level progr
 | Superconducting qubits tech stack           |  Problems I'm most interested in                        |
 |---------------------------------------------|---------------------------------------------------------|
 | Error correction layer                      | QLDPC code with **satisfyingly efficient** logical gates|
-| Hardware theory layer                       | How can protected qubits<br>(fluxonium molecule, soft 0-pi)<br>be incorporated in a QPU based on QLDPC code?|
+| Hardware theory layer                       | How can protected qubits<br>(like fluxonium molecule, soft 0-pi)<br>be incorporated in a QPU based on QLDPC code?|
 
 
 
