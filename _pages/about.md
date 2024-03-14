@@ -7,7 +7,7 @@ redirect_from:
   - /about.html
 ---
 
-I was supposed to become a software engineer and by some twist of fate I'm now a quantum computing guy ~~with a mix of crappy programming skills and crappy physics knowledge 🤣~~. Because of my background I look at the problems more from a numerical/coding perspective and less like a physicist.
+I was supposed to become a software engineer and by some twists of fate I'm now a quantum computing guy ~~with a mix of crappy programming skills and crappy physics knowledge 🤣~~. Because of my background I look at the problems more from a numerical/coding perspective and less like a physicist.
 
 I have experiences and interest in several different quantum computing tech stacks listed in the table below.
 
