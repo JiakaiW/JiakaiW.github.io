@@ -20,7 +20,7 @@ I'm also interested in using advanced machine learning models or low-level progr
 | Classical control hardware/software<br>(FPGA programming)  |                                |  I'm curious about        |
 | Error correction layer                      |(1) Simulate and decode surface code<br>with erasure detection (with false negatives),<br>(2) Measurement-free steane code fault-tolerance analysis     |✅ |
 | Abstracted hardware/QPU layer<br>(c-QED/atomic physics)| (1) Neutral atom multi-qubit gate,<br>(2) Fluxonium readout/2-qubit cross-resonance gate | ✅ (co-design to support interesting new ideas in QEC layer)|
-| Hardware layer<br>MW/RF electronics,finite element           |                                               |   less curious about       |
+| Hardware layer<br>MW/RF electronics,energy participation ratio           |                                               |   less curious about       |
 | Supporting layer <br>(material science in fabrication<br>/laser/fridge design)    |          |  almost  no interest        |
 
 
