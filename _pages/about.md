@@ -7,31 +7,6 @@ redirect_from:
   - /about.html
 ---
 
-I was supposed to become a software engineer and by some twists of fate I'm now a quantum computing guy ~~with a mix of crappy programming skills and crappy physics knowledge 🤣~~. Because of my background I look at the problems more from a numerical/coding perspective and less like a physicist.
-
-I have experiences and interest in several different quantum computing tech stacks listed in the table below.
-
-I'm also interested in using advanced machine learning models or low-level programming to better solve problems I meet in quantum computing research.
-
-| QC tech stack (mostly about superconducting qubits)                    | My research experience                         | Do I want to work on this layer?|
-|---------------------------------------------|-----------------------------------------------|----------------------|
-| Application layer<br>(algorithms, quantum simulation/drug discovery)|                       |  I'm curious about       |
-| System layer (compiler)                     | Readout error mitigation project              |  I'm curious about       |
-| Classical control hardware/software<br>(FPGA programming)  |                                |  I'm curious about        |
-| Error correction layer                      |(1) Simulate and decode surface code<br>with erasure detection (with false negatives),<br>(2) Measurement-free steane code fault-tolerance analysis     |✅ |
-| Abstracted hardware/QPU layer<br>(c-QED/atomic physics)| (1) Neutral atom multi-qubit gate,<br>(2) Fluxonium readout/2-qubit cross-resonance gate | ✅ (co-design to support interesting new ideas in QEC layer)|
-| Hardware layer<br>MW/RF electronics,energy participation ratio           |                                               |   less curious about       |
-| Supporting layer <br>(material science in fabrication<br>/laser/fridge design)    |          |  almost  no interest        |
-
-
-| Superconducting qubits tech stack           |  Problems I'm interested in most                       |
-|---------------------------------------------|---------------------------------------------------------|
-| Error correction layer                      | QLDPC code with **satisfyingly efficient** logical gates|
-| Hardware theory layer                       | How can protected qubits<br>(like fluxonium molecule, soft 0-pi)<br>be incorporated in a QLDPC code-based QPU?|
-
-
-
-
 ------
 
 # Leakage detection in Integer Fluxonium 
