@@ -12,9 +12,12 @@ redirect_from:
 Hamiltonian simulation and optimization of superconducting qubits, implementation of quantum error correction, algorithms and software for quantum error correction
 
 
+
 ------
 
-# Leakage detection in Integer Fluxonium 
+# Projects
+
+## Leakage detection in Integer Fluxonium 
 
 <a href="https://meetings.aps.org/Meeting/MAR24/Session/G47.8" target="_blank">Talk I gave</a>
 
@@ -44,7 +47,7 @@ During this project, I developed two Python packages focused on efficiency and r
 
 ------
 
-# Measurement-free quantum error correction with multiqubit gates
+## Measurement-free quantum error correction with multiqubit gates
 
 <a href="https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426" target="_blank">Paper</a>
 
