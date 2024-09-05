@@ -26,7 +26,7 @@ During this project, I developed two Python packages focused on efficiency and r
 
 <div align="center">
   <img src="/images/QEC_tolerance.png" alt="QEC_tolerance" width="500">
-  <p><small><b>Figure 2:</b> To achieve a target logical error rate ((a) 10e-6, (b) 10-12 for) at a given distance, physical error rates must be below a certain "tolerance" level.</small></p>
+  <p><small><b>Figure 2:</b> To achieve a target logical error rate ((a) 10e-6, (b) 10-12) at a given distance, physical error rates must be below a certain "tolerance" level.</small></p>
 </div>
 
 <div align="center">
