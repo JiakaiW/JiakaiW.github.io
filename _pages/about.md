@@ -26,7 +26,7 @@ During this project, I developed two Python packages focused on efficiency and r
 
 <div align="center">
   <img src="/images/QEC_tolerance.png" alt="QEC_tolerance" width="500">
-  <p><small><b>Figure 2:</b> To achieve a target logical error rate ((a) 10e-6, (b) 10-12) at a given distance, physical error rates must be below a certain "tolerance" level. The erasure error rate in fluxonium-based qubits is very small, thus future work can focus on achieving decoherence-limited gate protocols</small></p>
+  <p><small><b>Figure 2:</b> To achieve a target logical error rate ((a) 10e-6, (b) 10-12) at a given distance, physical error rates must be below a certain "tolerance" level. The erasure error rate in fluxonium-based qubits is small enough to be below the tolerance level for very low logical error rates at relatively small code distances. Future work can focus on achieving decoherence-limited gate protocols</small></p>
 </div>
 
 <div align="center">
