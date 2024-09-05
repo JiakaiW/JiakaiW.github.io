@@ -19,14 +19,19 @@ During this project, I wrote two Python packages with a focus on efficiency and 
 
 <div align="center">
   <img src="/images/IFQ_detection.png" alt="IFQ_detection" width="500">
-  <p>The resonator gives the same response when coupled to computational states, while giving different response when coupled to the leakage state.</p>
+  <p><b>Figure 1:</b> <small>The resonator gives the same response when coupled to computational states, while giving different response when coupled to the leakage state.</p>
 </div>
 
 [EfficientSurfaceCodeSim](https://github.com/JiakaiW/EfficientSurfaceCodeSim) abstracts the noise model into multiple layers so they can support deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits.)
 
 <div align="center">
   <img src="/images/QEC_tolerance.png" alt="QEC_tolerance" width="500">
-  <p>To reach a certain logical error rate (10e-6 for (a), 10-12 for (b)) at certain distance, physical error rates has to be beneath certain level.</p>
+  <p><b>Figure 2:</b> <small>To reach a certain logical error rate (10e-6 for (a), 10-12 for (b)) at certain distance, physical error rates has to be beneath certain level.</p>
+</div>
+
+<div align="center">
+  <img src="/images/importance_sampling.png" alt="importance_sampling" width="500">
+  <p><b>Figure 3:</b> <small>The package enables efficient sampling with fixed number of errors, which enables various algorithms to be used on logical error rate estimation at very small physical error rate.</p>
 </div>
 
 (paper in progress)
@@ -41,5 +46,5 @@ During this project, I wrote two Python packages with a focus on efficiency and 
 
 <div align="center">
   <img src="/images/MFQEC_circ.png" alt="MFQEC_circ" width="500">
-  <p>The FT MFQEC circuit.</p>
+  <p><b>Figure 4:</b> <small>The MFQEC circuit that utilize combinatorial-design-based syndrome redundancy and logical ancilla to achieve FT.</p>
 </div>
