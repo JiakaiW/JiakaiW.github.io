@@ -7,6 +7,11 @@ redirect_from:
   - /about.html
 ---
 
+# Research interests:
+
+Hamiltonian simulation and optimization of superconducting qubits, implementation of quantum error correction, algorithms and software for quantum error correction
+
+
 ------
 
 # Leakage detection in Integer Fluxonium 
