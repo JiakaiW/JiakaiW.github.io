@@ -17,7 +17,11 @@ During this project, I wrote two Python packages with a focus on efficiency and 
 
 [CoupledQuantumSystems](https://github.com/JiakaiW/CoupledQuantumSystems) encapsulates some commonly used workflows in hardware simulation, and addresses some niche problems in numerical simulation and analysis of quantum object evolution.
 
+![Husimi](/images/IFQ_detection.png)
+
 [EfficientSurfaceCodeSim](https://github.com/JiakaiW/EfficientSurfaceCodeSim) abstracts the noise model into multiple layers so they can support deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits.)
+
+![QEC_tolerance](/images/QEC_tolerance.png)
 
 (paper in progress)
 
@@ -28,3 +32,5 @@ During this project, I wrote two Python packages with a focus on efficiency and 
 [Paper](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426)
 
 [Talk I gave](https://meetings.aps.org/Meeting/MAR24/Session/A49.8)
+
+![MFQEC_circ](/images/MFQEC_circ.png)
