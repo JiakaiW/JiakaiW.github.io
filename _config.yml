@@ -25,10 +25,10 @@ author:
   name             : "Jiakai Wang"
   pronouns         : # example: "she/her"  
   bio              : "Research Intern on fluxonium/QEC"
-  location         : "Madison, WI"
+  # location         : "Madison, WI"
   employer         : "UW-Madison"
   uri              : # URL
-  email            : "jwang2648@wisc.edu" 
+  # email            : "jwang2648@wisc.edu" 
 
   # Academic websites
   arxiv            : # URL - Update with the correct link to your profile
@@ -56,7 +56,7 @@ author:
   keybase          : # Username
   instagram        : # Username
   lastfm           : # Username
-  linkedin         : jiakaiW
+  linkedin         : # Username
   mastodon         : # URL
   medium           : # URL
   pinterest        : # Username
