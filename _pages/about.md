@@ -11,20 +11,20 @@ redirect_from:
 
 # Leakage detection in Integer Fluxonium 
 
-[Talk I gave](https://meetings.aps.org/Meeting/MAR24/Session/G47.8)
+<a href="https://meetings.aps.org/Meeting/MAR24/Session/G47.8" target="_blank">Talk I gave</a>
 
 (paper in progress)
 
 During this project, I developed two Python packages focused on efficiency and reusability.
 
-[CoupledQuantumSystems](https://github.com/JiakaiW/CoupledQuantumSystems) encapsulates common workflows in hardware simulation and addresses niche problems in the numerical simulation and analysis of quantum object evolution. (early alpha stage)
+<a href="https://github.com/JiakaiW/CoupledQuantumSystems" target="_blank">CoupledQuantumSystems</a> encapsulates common workflows in hardware simulation and addresses niche problems in the numerical simulation and analysis of quantum object evolution. (early alpha stage)
 
 <div align="center">
   <img src="/images/IFQ_detection.png" alt="IFQ_detection" width="600">
   <p><small><b>Figure 1:</b> The resonator gives the same response when coupled to computational states, but a different response when coupled to the leakage state.</small></p>
 </div>
 
-[EfficientSurfaceCodeSim](https://github.com/JiakaiW/EfficientSurfaceCodeSim) abstracts the noise model into multiple layers, enabling support for deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits).
+<a href="https://github.com/JiakaiW/EfficientSurfaceCodeSim" target="_blank">EfficientSurfaceCodeSim</a> abstracts the noise model into multiple layers, enabling support for deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits).
 
 <div align="center">
   <img src="/images/QEC_tolerance.png" alt="QEC_tolerance" width="600">
@@ -41,9 +41,9 @@ During this project, I developed two Python packages focused on efficiency and r
 
 # Measurement-free quantum error correction with multiqubit gates
 
-[Paper](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426)
+<a href="https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426" target="_blank">Paper</a>
 
-[Talk I gave](https://meetings.aps.org/Meeting/MAR24/Session/A49.8)
+<a href="https://meetings.aps.org/Meeting/MAR24/Session/A49.8" target="_blank">Talk I gave</a>
 
 <div align="center">
   <img src="/images/MFQEC_circ.png" alt="MFQEC_circ" width="600">
