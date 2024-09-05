@@ -13,25 +13,25 @@ redirect_from:
 
 [Talk I gave](https://meetings.aps.org/Meeting/MAR24/Session/G47.8)
 
-During this project, I wrote two Python packages with a focus on efficiency and reusability.
+During this project, I developed two Python packages focused on efficiency and reusability.
 
-[CoupledQuantumSystems](https://github.com/JiakaiW/CoupledQuantumSystems) encapsulates some commonly used workflows in hardware simulation, and addresses some niche problems in numerical simulation and analysis of quantum object evolution.
+[CoupledQuantumSystems](https://github.com/JiakaiW/CoupledQuantumSystems) encapsulates common workflows in hardware simulation and addresses niche problems in the numerical simulation and analysis of quantum object evolution. (early alpha stage)
 
 <div align="center">
   <img src="/images/IFQ_detection.png" alt="IFQ_detection" width="500">
-  <p><b>Figure 1:</b> <small>The resonator gives the same response when coupled to computational states, while giving different response when coupled to the leakage state.</p>
+  <p><b>Figure 1:</b> <small>The resonator gives the same response when coupled to computational states, but a different response when coupled to the leakage state.</p>
 </div>
 
-[EfficientSurfaceCodeSim](https://github.com/JiakaiW/EfficientSurfaceCodeSim) abstracts the noise model into multiple layers so they can support deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits.)
+[EfficientSurfaceCodeSim](https://github.com/JiakaiW/EfficientSurfaceCodeSim) abstracts the noise model into multiple layers, enabling support for deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits).
 
 <div align="center">
   <img src="/images/QEC_tolerance.png" alt="QEC_tolerance" width="500">
-  <p><b>Figure 2:</b> <small>To reach a certain logical error rate (10e-6 for (a), 10-12 for (b)) at certain distance, physical error rates has to be beneath certain level.</p>
+  <p><b>Figure 2:</b> <small>To achieve a target logical error rate ((a) 10e-6, (b) 10-12 for) at a given distance, physical error rates must be below a certain "tolerance" level.</p>
 </div>
 
 <div align="center">
   <img src="/images/importance_sampling.png" alt="importance_sampling" width="500">
-  <p><b>Figure 3:</b> <small>The package enables efficient sampling with fixed number of errors, which enables various algorithms to be used on logical error rate estimation at very small physical error rate.</p>
+  <p><b>Figure 3:</b> <small>The package enables efficient sampling with a fixed number of errors, allowing various algorithms be utilized to estimate logical error rates at very low physical error rates.</p>
 </div>
 
 (paper in progress)
@@ -46,5 +46,5 @@ During this project, I wrote two Python packages with a focus on efficiency and 
 
 <div align="center">
   <img src="/images/MFQEC_circ.png" alt="MFQEC_circ" width="500">
-  <p><b>Figure 4:</b> <small>The MFQEC circuit that utilize combinatorial-design-based syndrome redundancy and logical ancilla to achieve FT.</p>
+  <p><b>Figure 4:</b> <small>The MFQEC circuit utilizes combinatorial-design-based syndrome redundancy and logical ancillas to achieve fault tolerance.</p>
 </div>
