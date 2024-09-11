@@ -25,11 +25,11 @@ Hamiltonian simulation and optimization of superconducting qubits, implementatio
 
 During this project, I developed two Python packages focused on efficiency and reusability.
 
-The first package is build to support simulation and decoding of quantum error correction with non-traditional error models. <a href="https://github.com/JiakaiW/EfficientSurfaceCodeSim" target="_blank">EfficientSurfaceCodeSim</a> abstracts a generic noise model into multiple layers, enabling support for deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits).
+The first package is built to support simulation and decoding of quantum error correction with non-traditional error models. <a href="https://github.com/JiakaiW/EfficientSurfaceCodeSim" target="_blank">EfficientSurfaceCodeSim</a> abstracts a generic noise model into multiple layers, enabling support for deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits).
 
 <div align="center">
   <img src="/images/PackageDescription.png" alt="EfficientSurfaceCodeSimPackageOrganization" width="600">
-  <p><small><b>Figure 1:</b> The structure of my package EfficientSurfaceCodeSim. Text in green means it's not implemented yet but is a reasonable extension of the current architecture.</small></p>
+  <p><small><b>Figure 1:</b> The structure of EfficientSurfaceCodeSim is contained in the dashed blue rectangles. Text in green means the feature is not implemented yet but is a reasonable extension of the current design.</small></p>
 </div>
 
 
