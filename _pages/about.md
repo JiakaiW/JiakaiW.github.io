@@ -25,36 +25,37 @@ Hamiltonian simulation and optimization of superconducting qubits, implementatio
 
 During this project, I developed two Python packages focused on efficiency and reusability.
 
-The first package, <a href="https://github.com/JiakaiW/CoupledQuantumSystems" target="_blank">CoupledQuantumSystems</a>, encapsulates common functionalities in hardware simulation and addresses niche problems in the numerical simulation and analysis of coupled quantum objects.
-
-<div align="center">
-  <img src="/images/CoupledQuantumSystems.png" alt="CoupledQuantumSystemsPackageOrganization" width="600">
-  <p><small><b>Figure 1:</b> Workflow of using CoupledQuantumSystems to steamline superconducting qubits simulation workflow.</small></p>
-</div>
-
-
-<a href="https://github.com/JiakaiW/EfficientSurfaceCodeSim" target="_blank">EfficientSurfaceCodeSim</a> abstracts the noise model into multiple layers, enabling support for deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits).
+The first package is build to support simulation and decoding of quantum error correction with non-traditional error models. <a href="https://github.com/JiakaiW/EfficientSurfaceCodeSim" target="_blank">EfficientSurfaceCodeSim</a> abstracts a generic noise model into multiple layers, enabling support for deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits).
 
 <div align="center">
   <img src="/images/PackageDescription.png" alt="EfficientSurfaceCodeSimPackageOrganization" width="600">
-  <p><small><b>Figure 2:</b> The structure of my package EfficientSurfaceCodeSim.</small></p>
+  <p><small><b>Figure 1:</b> The structure of my package EfficientSurfaceCodeSim. Text in green means it's not implemented yet but is a reasonable extension of the current architecture.</small></p>
 </div>
 
-A glimpse of some cool results.
+
+The second package, <a href="https://github.com/JiakaiW/CoupledQuantumSystems" target="_blank">CoupledQuantumSystems</a>, encapsulates common functionalities in hardware simulation and addresses niche problems in the numerical simulation and analysis of coupled quantum objects.
+
+<div align="center">
+  <img src="/images/CoupledQuantumSystems.png" alt="CoupledQuantumSystemsPackageOrganization" width="600">
+  <p><small><b>Figure 2:</b> Workflow of using CoupledQuantumSystems to steamline superconducting qubits simulation workflow.</small></p>
+</div>
+
+
+A glimpse of some cool results based on using this package:
 
 <div align="center">
   <img src="/images/IFQ_detection.png" alt="IFQ_detection" width="600">
-  <p><small><b>Figure 3:</b> The resonator gives the same response when coupled to computational states, but a different response when coupled to the leakage state.</small></p>
+  <p><small><b>Figure 3:</b> The resonator gives the same response when coupled to computational states, but a different response when coupled to the leakage state. This protocol is a proof-of-concept numerical demonstration of leakage detection in fluxonium. </small></p>
 </div>
 
 <div align="center">
   <img src="/images/QEC_tolerance.png" alt="QEC_tolerance" width="600">
-  <p><small><b>Figure 4:</b> To achieve a target logical error rate ((a) 10e-6, (b) 10-12) at a given distance, physical error rates must be below a certain "tolerance" level. The erasure error rate in fluxonium-based qubits is small enough to be below the tolerance level for very low logical error rates at relatively small code distances. Since superconducting qubit gate fidelities are mostly limited by coherence time, these tolerance levels can be interpreted as $T_2$ requirements. Our proposed qubit is very promising in this regard.</small></p>
+  <p><small><b>Figure 4:</b> To achieve a target logical error rate ((a) 10e-6, (b) 10-12) at a given distance, physical error rates must be below a certain "tolerance" level. Since superconducting qubit gate fidelities are mostly limited by coherence time, these tolerance levels can be interpreted as $T_2$ requirements. Our proposed qubit based on fluxonium is very promising in this regard.</small></p>
 </div>
 
 <div align="center">
   <img src="/images/importance_sampling.png" alt="importance_sampling" width="600">
-  <p><small><b>Figure 5:</b> EfficientSurfaceCodeSim enables efficient sampling with a fixed number of errors, allowing various algorithms be utilized to estimate logical error rates at very low physical error rates. For example, only a fraction of the f(x) distribution need to be calculated, then the logical error rate can be effectively inferred. </small></p>
+  <p><small><b>Figure 5:</b> EfficientSurfaceCodeSim enables efficient simulation and decoding of the circuit when injected a fixed number of errors (at random locations). This allows various algorithms be utilized to estimate logical error rates at very low physical error rates. For example, once a fraction of the f(x) distribution is calculated, the whole landscape can be reconstructed by, say, compressed sensing. </small></p>
 </div>
 
 
