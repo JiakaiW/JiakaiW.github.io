@@ -8,22 +8,26 @@ redirect_from:
 ---
 
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Research interests:](#research-interests)
+1. [Personal introduction](#personal-introduction)
+2. [Near term research interests:](#research-interests)
+3. [Past/ongoing projects](#past/ongoing-projects)
    - [Leakage detection in Integer Fluxonium ](#leakage-detection-in-integer-fluxonium )
-      - [EfficientSurfaceCodeSim](#efficientSurfaceCodeSim)
-      - [CoupledQuantumSystems](#coupledquantumsystems)
+      - [package: EfficientSurfaceCodeSim](#package:-efficientsurfacecodesim)
+      - [package: CoupledQuantumSystems](#package:-coupledquantumsystems)
    - [Measurement-free quantum error correction with multiqubit gates](measurement-free-quantum-error-correction-with-multiqubit-gates)
+
+# Personal introduction:
+
+After ~two years since I pivoted my career to quantum computing, I realized the important role of low-level (relative to business-application level) computer science developments is to quantum computing. My research heavily relies on vectorized execution and a lot of matrix multiplication. Till now I have only been optimizing my workflow based on numpy. This semester (Fall 2024), I will learn advanced applied computer science concepts in High Performance Computing (ECE 759) here at UW-Madison during the master program. I am excited to combine my experience with low-level superconducting qubits simulation, quantum error correction with high-performance computing in future projects.
 
 # Research interests:
 
-Hamiltonian simulation and optimization of superconducting qubits, implementation of quantum error correction, algorithms and software for quantum error correction
-
+Hamiltonian simulation and optimization of superconducting qubits, implementation of quantum error correction
 
 
 ------
 
-# Projects
+# Past/ongoing projects
 
 ## Leakage detection in Integer Fluxonium 
 
@@ -33,7 +37,7 @@ Hamiltonian simulation and optimization of superconducting qubits, implementatio
 
 During this project, I developed two Python packages focused on efficiency and reusability.
 
-### EfficientSurfaceCodeSim
+### package: EfficientSurfaceCodeSim
 
 The first package is built to support simulation and decoding of quantum error correction with non-traditional error models. <a href="https://github.com/JiakaiW/EfficientSurfaceCodeSim" target="_blank">EfficientSurfaceCodeSim</a> abstracts a generic noise model into multiple layers, enabling support for deterministic error injection (for importance sampling) and posterior probability (for decoding erasure conversion circuits).
 
@@ -42,7 +46,7 @@ The first package is built to support simulation and decoding of quantum error c
   <p><small><b>Figure 1:</b> The structure of EfficientSurfaceCodeSim is contained in the dashed blue rectangles. Text in green means the feature is not implemented yet but is a reasonable extension of the current design.</small></p>
 </div>
 
-### CoupledQuantumSystems
+### package: CoupledQuantumSystems
 
 The second package, <a href="https://github.com/JiakaiW/CoupledQuantumSystems" target="_blank">CoupledQuantumSystems</a>, encapsulates common functionalities in hardware simulation and addresses niche problems in the numerical simulation and analysis of coupled quantum objects.
 
