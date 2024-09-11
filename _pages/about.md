@@ -41,7 +41,7 @@ The second package, <a href="https://github.com/JiakaiW/CoupledQuantumSystems" t
 </div>
 
 
-A glimpse of some cool results based on using this package:
+A glimpse of some cool results based on using these packages:
 
 <div align="center">
   <img src="/images/IFQ_detection.png" alt="IFQ_detection" width="600">
