@@ -18,7 +18,7 @@ redirect_from:
 
 # Personal introduction:
 
-After ~two years since I pivoted my career to quantum computing, I realized the important role of low-level (relative to business-production level) computer science is to quantum computing. My research heavily relies on vectorized code execution and matrix multiplication in ODE solving. Till now I have only been optimizing my workflow on top of NumPy. This semester (Fall 2024), I will learn advanced applied computer science concepts in High Performance Computing (ECE 759) here at UW-Madison during the master program. I am excited to combine my experience with low-level superconducting qubits simulation, quantum error correction with high-performance computing in future ambitious projects.
+After ~two years since I pivoted my career to quantum computing, I realized the important role of low-level (relative to business-production level) computer science is to quantum computing. My research heavily relies on vectorized code execution and matrix multiplication in ODE solving. Till now I have only been optimizing my workflow on top of NumPy. This semester (Fall 2024), I will learn High Performance Computing (ECE 759) here at UW-Madison during the master program. I am excited to combine my experience with low-level superconducting qubits simulation, quantum error correction with high-performance computing enabled by low-level classical programming of both CPU and GPU in ambitious future projects.
 
 # Research interests:
 
