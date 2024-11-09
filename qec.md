@@ -13,8 +13,7 @@ permalink: /qec/
 ---
 
 # FlexibleQECSim
-[FlexibleQECSim](https://github.com/JiakaiW/FlexibleQECSim)
-A QEC-simulation package built on top of stim
+[FlexibleQECSim](https://github.com/JiakaiW/FlexibleQECSim) is a python package built on top of stim, that facilitate generating circuit for sampling (both direct Monte Carlo and importance sampling) and decoding (via generating decoding graph from circuit with posterior probabilities based on erasure detection results).
 
 <pre style="background-color: #f1f1f1; padding: 10px; border-radius: 5px; display: flex; align-items: center; justify-content: space-between; border: none;">
   <code>pip3 install git+https://github.com/JiakaiW/FlexibleQECSim</code>
@@ -30,6 +29,11 @@ function copyToClipboard(text) {
   });
 }
 </script>
+
+<div style="text-align: center;">
+  <img src="/files/2024/FlexibleQECSim.png" style="width: 500px;" alt="Organization of the package FlexibleQECSim">
+  <p>Organization of the package. Text in green are features not implemented yet.</p>
+</div>
 
 ---
 

@@ -8,14 +8,16 @@ header {
     background-color: #333;
     color: white;
     padding: 1em 0;
+    display: flex;
+    justify-content: center; /* Center the content in the header */
+    align-items: center;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
+nav {
     justify-content: center;
+    width: 100%;
 }
+
 
 nav ul li {
     margin: 0 1em;
@@ -46,4 +48,21 @@ img {
     height: auto;
     display: block;
     margin: 0 auto;
+}
+
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode header {
+    background-color: #2e2e2e; /* Change to dark grey */
+}
+
+.dark-mode footer {
+    background-color: #2e2e2e; /* Change to dark grey */
+}
+
+.dark-mode nav ul li a {
+    color: #ffffff;
 }
