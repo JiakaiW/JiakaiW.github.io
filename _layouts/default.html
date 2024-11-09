@@ -29,13 +29,44 @@
     </script>
     <style>
         footer {
-            display: none;
+            display: block;
             position: fixed;
             bottom: 0;
             width: 100%;
             background-color: #f1f1f1;
             text-align: center;
             padding: 10px;
+        }
+        .gallery-wrapper {
+            position: relative;
+            text-align: center;
+        }
+        .gallery-container {
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        .gallery-item {
+            display: inline-block;
+            margin: 0 10px;
+            transition: transform 0.5s ease;
+        }
+        .gallery-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        .gallery-arrow.left {
+            left: 10px;
+        }
+        .gallery-arrow.right {
+            right: 10px;
         }
     </style>
 </head>
@@ -62,12 +93,18 @@
     <script>
         document.addEventListener('scroll', function() {
             const footer = document.getElementById('footer');
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
                 footer.style.display = 'block';
             } else {
                 footer.style.display = 'none';
             }
         });
+
+        function scrollGallery(direction) {
+            const container = document.querySelector('.gallery-container');
+            const itemWidth = container.querySelector('.gallery-item').offsetWidth + 20; // 20 is the margin
+            container.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
