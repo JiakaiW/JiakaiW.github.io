@@ -5,7 +5,16 @@ title: Home
 
 # 👋 Welcome to Jiakai Wang's Portfolio
 
-I'm currently in a physics master program student speicialied in quantum computing at University of Wisconsin-Madison.
+I'm currently in a physics master program student speicialied in quantum computing at University of Wisconsin-Madison. Previously, I obtained a Data Science Bachelor's degree at UW-Madison. 
+
+I'm interested in modern AI application, fault-tolerant quantum computing logical operations, specifically for qubit-efficient qLDPC codes. 
+
+Since qLDPC code are still not implemented yet, I'm also interested in the physical implementations. I previously specialize in superconducting qubits, but I'm also curious about integrated photonics, QCCD ion traps platforms.
+
+
+
+
+# Random pics
 
 <div class="gallery-wrapper">
   <div class="gallery-container">
