@@ -40,9 +40,6 @@
         .gallery-wrapper {
             position: relative;
             text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         .gallery-container {
             overflow: hidden;
@@ -55,6 +52,9 @@
             transition: transform 0.5s ease;
         }
         .gallery-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
             background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
@@ -63,10 +63,10 @@
             z-index: 1;
         }
         .gallery-arrow.left {
-            margin-right: 10px;
+            left: 10px;
         }
         .gallery-arrow.right {
-            margin-left: 10px;
+            right: 10px;
         }
     </style>
 </head>
