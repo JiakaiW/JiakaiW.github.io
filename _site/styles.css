@@ -5,8 +5,8 @@ body {
 }
 
 header {
-    background-color: #222; /* Change to a darker grey */
-    color: white;
+    background-color: #d3d3d3; /* Change to light grey */
+    color: black; /* Change text color to black */
     padding: 1em 0;
     display: flex;
     justify-content: center; /* Center the content in the header */
@@ -37,8 +37,8 @@ nav ul li a {
 }
 
 nav ul li button {
-    background-color: #333; /* Match header background color */
-    color: white;
+    background-color: #d3d3d3; /* Match header background color */
+    color: black; /* Change text color to black */
     border: none;
     padding: 5px 10px; /* Reduce padding */
     text-align: center;
@@ -65,8 +65,8 @@ main {
 }
 
 footer {
-    background-color: #222; /* Change to a darker grey */
-    color: white;
+    background-color: #d3d3d3; /* Change to light grey */
+    color: black; /* Change text color to black */
     text-align: center;
     padding: 1em 0;
     width: 100%;
@@ -110,6 +110,7 @@ a:visited {
 
 .dark-mode footer {
     background-color: #2e2e2e; /* Change to dark grey */
+    color: white; /* Ensure footer text is white in dark mode */
 }
 
 .dark-mode nav ul li a {

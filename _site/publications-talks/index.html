@@ -8,16 +8,19 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const theme = localStorage.getItem('theme');
+            const themeToggle = document.getElementById('theme-toggle');
             if (theme === 'dark') {
                 document.body.classList.add('dark-mode');
-                document.getElementById('theme-toggle').textContent = 'Light Mode';
+                themeToggle.textContent = 'Light Mode'; // Ensure consistency
+            } else {
+                themeToggle.textContent = 'Dark Mode'; // Ensure consistency
             }
         });
 
         function toggleTheme() {
             const body = document.body;
-            body.classList.toggle('dark-mode');
             const themeToggle = document.getElementById('theme-toggle');
+            body.classList.toggle('dark-mode');
             if (body.classList.contains('dark-mode')) {
                 themeToggle.textContent = 'Light Mode';
                 localStorage.setItem('theme', 'dark');
@@ -100,7 +103,7 @@
 
     </main>
     <footer id="footer">
-        &copy; 2024 Jiakai Wang
+        &copy; 2024 Jiakai Wang, built using GIthub Copilot
     </footer>
     <script>
         document.addEventListener('scroll', function() {
