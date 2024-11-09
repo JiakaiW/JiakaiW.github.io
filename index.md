@@ -8,14 +8,14 @@ title: Home
 My skills and interests include:
 
 <div class="tags">
-    <span class="tag">Quantum Computing</span>
-    <span class="tag">Quantum Error Correction Codes</span>
-    <span class="tag">Fault-Tolerant Quantum Computing</span>
-    <span class="tag">Atomic Molecular & Optical physics</span>
-    <span class="tag">Statistics</span>
-    <span class="tag">Machine Learning</span>
-    <span class="tag">CPU/GPU HPC</span>
-    <span class="tag">(deployement of) LLM</span>
+    <span class="tag">🔬 Quantum Computing</span>
+    <span class="tag">🛠️ Quantum Error Correction Codes</span>
+    <span class="tag">🛡️ Fault-Tolerant Quantum Computing</span>
+    <span class="tag">🔭 Atomic Molecular & Optical physics</span>
+    <span class="tag">📊 Statistics</span>
+    <span class="tag">🤖 Machine Learning</span>
+    <span class="tag">💻 CPU/GPU HPC</span>
+    <span class="tag">🧠 (deployement of) LLM</span>
 </div>
 
 <style>
@@ -48,7 +48,6 @@ Since qLDPC code are still not implemented yet, I'm also interested in the physi
 
 
 
-Damn! Years of midwestern life really can turn a city boy into a rural Wisconsinite!
 
 
 
@@ -61,12 +60,10 @@ Damn! Years of midwestern life really can turn a city boy into a rural Wisconsin
       <img src="/files/photo.jpg" alt="My Photo">
       <p class="caption">me presenting a poster at IMSI workshop on Quantum Hardware</p>
     </div>
-    
     <div class="gallery-item">
       <img src="/files/tracker.jpg" alt="My Photo with a bunch of sheep">
-      <p class="caption">text text text text text text text text text text text text text text text text </p>
+      <p class="caption">Damn! Years of midwestern life really can<br>turn a city boy into a rural Wisconsinite!</p>
     </div>
-    
     <div class="gallery-item">
       <img src="/files/sheep.jpg" alt="My Photo with a bunch of sheep">
       <p class="caption">Sheeps are cute though.</p>
