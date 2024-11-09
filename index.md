@@ -34,7 +34,7 @@ I'm currently in a physics master program student speicialied in quantum computi
 <style>
   .gallery-invisible {
     position: absolute;
-    top: 0;
+    top: 0; 
     bottom: 0;
     width: 30%;
     cursor: pointer;

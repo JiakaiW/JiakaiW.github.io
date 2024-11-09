@@ -186,3 +186,16 @@ a:visited {
 div img {
     border-radius: 20px;
 }
+
+.gallery-item img {
+    width: auto; /* Allow images to maintain their natural width */
+    max-width: 100%; /* Ensure images don't exceed container width */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 700px; /* Ensure the images do not exceed the specified height */
+}
+
+@media (min-width: 800px) {
+    .gallery-item img {
+        height: auto; /* Unfix the height of images */
+    }
+}
