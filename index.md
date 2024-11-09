@@ -5,7 +5,7 @@ title: Home
 
 # 👋 Welcome to Jiakai Wang's Portfolio
 
-My interests include:
+My skills and interests include:
 
 <div class="tags">
     <span class="tag">Quantum Computing</span>
@@ -25,12 +25,15 @@ My interests include:
     flex-wrap: wrap; /* Allow tags to wrap to the next line */
   }
   .tag {
-    background-color: #333;
+    background-color: #5d8fb3; /* Change background color to #5d8fb3 */
     color: white;
     padding: 0.5em;
     border-radius: 7.5px;
     margin: 0.5em; /* Add margin to prevent overlap */
     display: inline-block;
+  }
+  .dark-mode .tag {
+    background-color: #333; /* Change background color to dark grey in dark mode */
   }
 </style>
 
