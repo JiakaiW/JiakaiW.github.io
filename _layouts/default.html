@@ -5,15 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }}</title>
     <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
             <ul>
                 <li><a href="{{ '/' | relative_url }}">Home</a></li>
+                
                 <li><a href="{{ '/sc-qubit/' | relative_url }}">SC-qubit</a></li>
-                <li><a href="{{ '/optimal-control/' | relative_url }}">Optimal Control</a></li>
                 <li><a href="{{ '/qec/' | relative_url }}">QEC</a></li>
+                <li><a href="{{ '/hpc/' | relative_url }}">HPC</a></li>
                 <li><a href="{{ '/ai/' | relative_url }}">AI</a></li>
                 <li><a href="{{ '/publications-talks/' | relative_url }}">Publications/Talks</a></li>
             </ul>
@@ -23,7 +39,7 @@
         {{ content }}
     </main>
     <footer>
-        <p>&copy; 2023 Your Name</p>
+        <p>&copy; 2025 Jiakai Wang</p>
     </footer>
 </body>
 </html>

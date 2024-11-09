@@ -4,10 +4,11 @@ title: QEC
 permalink: /qec/
 ---
 
-# QEC
+# "NISQ is dead"
 
-Content about Quantum Error Correction (QEC).
+---
 
-## Related Articles
+# MFQEC
 
-- [Fault-tolerant measurement-free quantum error correction with multiqubit gates](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426)
+Michael A. Perlin, Vickram N. Premakumar, Jiakai Wang, Mark Saffman, and Robert Joynt, "[Fault-tolerant measurement-free quantum error correction with multiqubit gates](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426)", Phys. Rev. A 108, 062426 – Published 26 December 2023
+
