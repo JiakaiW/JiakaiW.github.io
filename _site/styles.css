@@ -11,6 +11,7 @@ header {
     display: flex;
     justify-content: center; /* Center the content in the header */
     align-items: center;
+    position: relative; /* Ensure the button can be positioned */
 }
 
 nav {
@@ -18,14 +19,25 @@ nav {
     width: 100%;
 }
 
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center the tabs */
+    width: 100%;
+}
 
 nav ul li {
     margin: 0 1em;
 }
 
 nav ul li a {
-    color: white;
+    color: white; /* Ensure header tabs are white in light mode */
     text-decoration: none;
+}
+
+header a {
+    color: white; /* Ensure header links are white in light mode */
 }
 
 main {
@@ -50,13 +62,22 @@ img {
     margin: 0 auto;
 }
 
+a {
+    color: #00bfff; /* Light blue color for hyperlinks */
+}
+
+a:visited {
+    color: #00bfff; /* Light blue color for visited hyperlinks */
+}
+
 .dark-mode {
     background-color: #121212;
     color: #ffffff;
 }
 
-.dark-mode header {
-    background-color: #2e2e2e; /* Change to dark grey */
+.dark-mode header, .dark-mode header * {
+    background-color: #2e2e2e !important; /* Change to dark grey */
+    color: #ffffff !important;
 }
 
 .dark-mode footer {
@@ -65,4 +86,69 @@ img {
 
 .dark-mode nav ul li a {
     color: #ffffff;
+}
+
+#theme-toggle {
+    position: absolute;
+    right: 1em;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dark-mode #theme-toggle {
+    background-color: #555;
+    color: white;
+}
+
+.dark-mode pre {
+    background-color: #333;
+    color: #ffffff;
+    border-radius: 5px; /* Ensure the rounded corners are maintained */
+}
+
+.dark-mode code {
+    background-color: #333;
+    color: #ffffff;
+}
+
+.code-block {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    flex-wrap: wrap; /* Allow wrapping if needed */
+}
+
+.dark-mode .code-block {
+    background-color: #333;
+}
+
+.copy-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    align-self: center; /* Align button vertically */
+}
+
+.dark-mode .copy-button {
+    background-color: #555;
 }
