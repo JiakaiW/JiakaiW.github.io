@@ -186,3 +186,9 @@ a:visited {
 div img {
     border-radius: 20px;
 }
+
+@media (max-width: 800px) {
+    .gallery-item img {
+        height: auto; /* Unfix the height of images */
+    }
+}
