@@ -3,8 +3,8 @@ layout: default
 title: Home
 ---
 
-# Welcome to My Personal Website
+# Welcome to Jiakai Wang's Personal Website
 
-This is the home page.
+I'm currently in a physics master program student speicialied in quantum computing at University of Wisconsin-Madison.
 
-![My Photo](/files/photo.jpg)
+![My Photo](/files/your-photo.jpg){:style="width: 50%;"}
