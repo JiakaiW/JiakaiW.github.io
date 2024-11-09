@@ -190,8 +190,8 @@ div img {
 .gallery-item img {
     width: auto;
     height: auto;
-    max-width: 35%; /* Reduce max-width to 35% */
-    max-height: 56vw; /* Reduce max-height to 56% of viewport width for narrow screens */
+    max-width: 80%;
+    max-height: 70vw;
     display: block;
     margin: 0 auto;
 }
