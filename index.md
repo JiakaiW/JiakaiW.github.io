@@ -7,4 +7,4 @@ title: Home
 
 I'm currently in a physics master program student speicialied in quantum computing at University of Wisconsin-Madison.
 
-![My Photo](/files/your-photo.jpg){:style="width: 50%;"}
+![My Photo](/files/photo.jpg){:style="width: 50%;"}
