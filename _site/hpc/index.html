@@ -18,6 +18,16 @@
                 themeToggle.textContent = 'Light Mode';
                 localStorage.setItem('theme', 'dark');
             }
+
+            // Add prefix to figure captions
+            let figIdx = 1;
+            document.querySelectorAll('img').forEach(img => {
+                const caption = img.nextElementSibling;
+                if (caption && caption.tagName.toLowerCase() === 'p') {
+                    caption.classList.add('figure-caption');
+                    caption.textContent = `Fig. ${figIdx++}: ${caption.textContent}`;
+                }
+            });
         });
 
         function toggleTheme() {

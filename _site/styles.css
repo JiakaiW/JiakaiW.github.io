@@ -258,3 +258,9 @@ div img {
         margin-top: 1em;
     }
 }
+
+.figure-caption {
+    font-style: italic;
+    margin-top: 0.5em;
+    text-align: center;
+}
