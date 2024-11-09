@@ -36,6 +36,23 @@ nav ul li a {
     text-decoration: none;
 }
 
+nav ul li button {
+    background-color: #333; /* Match header background color */
+    color: white;
+    border: none;
+    padding: 5px 10px; /* Reduce padding */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+nav ul li button:hover {
+    background-color: #555; /* Slightly lighter on hover */
+}
+
 header a {
     color: white; /* Ensure header links are white in light mode */
 }
@@ -75,8 +92,16 @@ a:visited {
     color: #ffffff;
 }
 
-.dark-mode header, .dark-mode header * {
+.dark-mode header {
     background-color: #2e2e2e !important; /* Change to dark grey */
+}
+
+.dark-mode header a {
+    color: #ffffff !important; /* Ensure header links are white in dark mode */
+}
+
+.dark-mode header button {
+    background-color: #2e2e2e !important; /* Match dark mode header background */
     color: #ffffff !important;
 }
 
