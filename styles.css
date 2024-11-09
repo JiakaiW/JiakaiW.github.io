@@ -92,7 +92,7 @@ a:visited {
 
 .dark-mode {
     background-color: #121212;
-    color: #ffffff;
+    color: #d3d3d3; /* Change text color to slightly grey */
 }
 
 .dark-mode header {
@@ -115,6 +115,15 @@ a:visited {
 
 .dark-mode nav ul li a {
     color: #ffffff;
+}
+
+.dark-mode header a,
+.dark-mode header button,
+.dark-mode footer,
+.dark-mode nav ul li a,
+.dark-mode pre,
+.dark-mode code {
+    color: #d3d3d3 !important; /* Ensure all text elements are slightly grey in dark mode */
 }
 
 #theme-toggle {
@@ -198,7 +207,7 @@ div img {
 
 @media (min-width: 800px) {
     .gallery-item img {
-        max-height: 560px; /* Reduce max-height to 560px for larger screens */
+        max-height: 700px; /* Reduce max-height to 560px for larger screens */
     }
 }
 
