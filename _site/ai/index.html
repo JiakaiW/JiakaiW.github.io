@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI</title>
     <link rel="stylesheet" href="/styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('theme-toggle').textContent = 'Switch to Light Mode';
+            }
+        });
+
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const themeToggle = document.getElementById('theme-toggle');
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.textContent = 'Switch to Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = 'Switch to Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -33,17 +55,5 @@
     <footer>
         &copy; 2024 Jiakai Wang
     </footer>
-    <script>
-        function toggleTheme() {
-            const body = document.body;
-            body.classList.toggle('dark-mode');
-            const themeToggle = document.getElementById('theme-toggle');
-            if (body.classList.contains('dark-mode')) {
-                themeToggle.textContent = 'Switch to Light Mode';
-            } else {
-                themeToggle.textContent = 'Switch to Dark Mode';
-            }
-        }
-    </script>
 </body>
 </html>
