@@ -5,7 +5,7 @@ body {
 }
 
 header {
-    background-color: #333;
+    background-color: #222; /* Change to a darker grey */
     color: white;
     padding: 1em 0;
     display: flex;
@@ -60,17 +60,17 @@ header a {
 main {
     padding: 2em;
     text-align: center;
-    max-width: 800px; /* Set a maximum width for the main content */
+    max-width: 1000px; /* Set a maximum width for the main content */
     margin: 0 auto; /* Center the main content */
 }
 
 footer {
-    background-color: #333;
+    background-color: #222; /* Change to a darker grey */
     color: white;
     text-align: center;
     padding: 1em 0;
-    position: fixed;
     width: 100%;
+    position: relative; /* Change to relative positioning */
     bottom: 0;
 }
 

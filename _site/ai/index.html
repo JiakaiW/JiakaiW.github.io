@@ -27,6 +27,17 @@
             }
         }
     </script>
+    <style>
+        footer {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -64,8 +75,18 @@
 <p>Things that can be enhanced include: quantum-EDA, gate-level QEC protocol discovery (thanks to the proposal of “detecting regions”), fault-tolerant operation optimization.</p>
 
     </main>
-    <footer>
+    <footer id="footer">
         &copy; 2024 Jiakai Wang
     </footer>
+    <script>
+        document.addEventListener('scroll', function() {
+            const footer = document.getElementById('footer');
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+                footer.style.display = 'block';
+            } else {
+                footer.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
