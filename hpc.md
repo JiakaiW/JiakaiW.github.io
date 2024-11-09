@@ -11,6 +11,12 @@ permalink: /hpc/
 
 ---
 
+# A Tableau simulator based on CUDA
+
+DEMO soon available. This will first appear in the form of a course project for ECE 759 taught by [Tsung-Wei Huang](https://tsung-wei-huang.github.io/).
+
+---
+
 # CoupledQuantumSystems
 If you count NumPy as HPC, then introducing [FlexibleQECSim](https://github.com/JiakaiW/CoupledQuantumSystems), a python package built on top of scqubits, qutip, dynamiqs to futher encapsulate commonly used workflows in hamiltonian simulation of superconducting qubits.
 
