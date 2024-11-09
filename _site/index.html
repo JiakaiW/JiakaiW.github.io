@@ -88,7 +88,7 @@
         <button id="theme-toggle" onclick="toggleTheme()">Dark Mode</button>
     </header>
     <main>
-        <h1 id="-welcome-to-jiakai-wangs-personal-website">👋 Welcome to Jiakai Wang’s Personal Website</h1>
+        <h1 id="-welcome-to-jiakai-wangs-portfolio">👋 Welcome to Jiakai Wang’s Portfolio</h1>
 
 <p>I’m currently in a physics master program student speicialied in quantum computing at University of Wisconsin-Madison.</p>
 
@@ -109,14 +109,41 @@
       <p>Sheeps are cute though.</p>
     </div>
   </div>
+  <div class="gallery-invisible left" onclick="scrollGallery(-1)"></div>
+  <div class="gallery-invisible right" onclick="scrollGallery(1)"></div>
 </div>
 
 <p><button class="gallery-arrow left" onclick="scrollGallery(-1)">❮</button>
 <button class="gallery-arrow right" onclick="scrollGallery(1)">❯</button></p>
 
+<style>
+  .gallery-invisible {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    cursor: pointer;
+  }
+  .gallery-invisible.left {
+    left: 0;
+  }
+  .gallery-invisible.right {
+    right: 0;
+  }
+</style>
+
+<script>
+  function scrollGallery(direction) {
+    const container = document.querySelector('.gallery-container');
+    const itemWidth = container.querySelector('.gallery-item').offsetWidth + 20; // 20 is the margin
+    container.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
+  }
+</script>
+
+
     </main>
     <footer id="footer">
-        &copy; 2024 Jiakai Wang, built using GIthub Copilot
+        &copy; 2024 Jiakai Wang, built using GitHub Copilot
     </footer>
     <script>
         document.addEventListener('scroll', function() {
