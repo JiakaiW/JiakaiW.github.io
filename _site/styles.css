@@ -80,11 +80,11 @@ img {
 }
 
 a {
-    color: #00bfff; /* Light blue color for hyperlinks */
+    color: #5d8fb3; /* Change hyperlink color to #5d8fb3 */
 }
 
 a:visited {
-    color: #00bfff; /* Light blue color for visited hyperlinks */
+    color: #5d8fb3; /* Change visited hyperlink color to #5d8fb3 */
 }
 
 .dark-mode {
@@ -116,7 +116,7 @@ a:visited {
 #theme-toggle {
     position: absolute;
     right: 1em;
-    background-color: #008CBA;
+    background-color: #5d8fb3; /* Change button color to #5d8fb3 */
     color: white;
     border: none;
     padding: 5px 10px;
@@ -160,7 +160,7 @@ a:visited {
 }
 
 .copy-button {
-    background-color: #008CBA;
+    background-color: #5d8fb3;
     color: white;
     border: none;
     padding: 5px 10px;
