@@ -60,6 +60,8 @@ header a {
 main {
     padding: 2em;
     text-align: center;
+    max-width: 800px; /* Set a maximum width for the main content */
+    margin: 0 auto; /* Center the main content */
 }
 
 footer {
@@ -77,6 +79,7 @@ img {
     height: auto;
     display: block;
     margin: 0 auto;
+    border-radius: 20px; /* Add rounded edges to all images */
 }
 
 a {
@@ -176,4 +179,9 @@ a:visited {
 
 .dark-mode .copy-button {
     background-color: #555;
+}
+
+/* Ensure rounded edges for images inside divs */
+div img {
+    border-radius: 20px;
 }
