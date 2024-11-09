@@ -17,6 +17,7 @@ Since qLDPC code are still not implemented yet, I'm also interested in the physi
 # Random pics
 
 <div class="gallery-wrapper">
+  <button class="gallery-arrow left" onclick="scrollGallery(-1)">&#10094;</button>
   <div class="gallery-container">
     <div class="gallery-item">
       <img src="/files/photo.jpg" alt="My Photo">
@@ -33,14 +34,28 @@ Since qLDPC code are still not implemented yet, I'm also interested in the physi
       <p>Sheeps are cute though.</p>
     </div>
   </div>
-  <div class="gallery-invisible left" onclick="scrollGallery(-1)"></div>
-  <div class="gallery-invisible right" onclick="scrollGallery(1)"></div>
+  <button class="gallery-arrow right" onclick="scrollGallery(1)">&#10095;</button>
 </div>
 
-<button class="gallery-arrow left" onclick="scrollGallery(-1)">&#10094;</button>
-<button class="gallery-arrow right" onclick="scrollGallery(1)">&#10095;</button>
-
 <style>
+  .gallery-wrapper {
+    display: flex;
+    align-items: center; /* Center items vertically */
+  }
+  .gallery-arrow {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .gallery-arrow.left {
+    margin-right: 10px;
+  }
+  .gallery-arrow.right {
+    margin-left: 10px;
+  }
   .gallery-invisible {
     position: absolute;
     top: 0; 
