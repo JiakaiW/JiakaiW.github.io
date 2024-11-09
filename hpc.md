@@ -4,6 +4,9 @@ title: HPC
 permalink: /hpc/
 ---
 
-# HPC
+# High-Performance Computing
+<div style="text-align: right;">
+    aspiring 
+</div>
 
-Content about High-Performance Computing (HPC).
+
