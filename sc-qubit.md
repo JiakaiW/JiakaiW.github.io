@@ -4,8 +4,10 @@ title: SC-qubit
 permalink: /sc-qubit/
 ---
 
-# For the entertainment of my superconducting qubit experimentalist friends
-
+# Analytical and numerical studies on superconducting qubits
+<div style="text-align: right;">
+    -- for the entertainment of my experimentalist friends
+</div>
 
 
 ---
