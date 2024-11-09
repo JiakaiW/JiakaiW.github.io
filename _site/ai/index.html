@@ -32,6 +32,13 @@
                 localStorage.setItem('theme', 'light');
             }
         }
+
+        function scrollGallery(direction) {
+            const container = document.querySelector('.gallery-container');
+            const itemWidth = container.querySelector('.gallery-item').offsetWidth + 20; // 20 is the margin
+            const scrollAmount = direction * itemWidth;
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
     </script>
     <style>
         footer {
@@ -124,36 +131,6 @@
                 footer.style.display = 'none';
             }
         });
-
-        function scrollGallery(direction) {
-            const container = document.querySelector('.gallery-container');
-            const items = Array.from(container.querySelectorAll('.gallery-item'));
-            const containerWidth = container.offsetWidth;
-            const scrollLeft = container.scrollLeft;
-
-            // Find the index of the first fully visible item
-            let index = items.findIndex(item => {
-                const itemLeft = item.offsetLeft - container.offsetLeft;
-                const itemRight = itemLeft + item.offsetWidth;
-                return itemLeft >= scrollLeft && itemRight <= scrollLeft + containerWidth;
-            });
-
-            // If no fully visible item is found, find the closest one
-            if (index === -1) {
-                index = items.findIndex(item => item.offsetLeft - container.offsetLeft >= scrollLeft);
-                if (index === -1) index = 0;
-            }
-
-            // Calculate the new index
-            index += direction;
-
-            // Ensure the index is within bounds
-            if (index < 0) index = 0;
-            if (index >= items.length) index = items.length - 1;
-
-            // Scroll to the target item
-            items[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-        }
     </script>
 </body>
 </html>
