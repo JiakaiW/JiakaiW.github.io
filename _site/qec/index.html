@@ -117,42 +117,6 @@
 
 <hr />
 
-<h1 id="flexibleqecsim">FlexibleQECSim</h1>
-<p><a href="https://github.com/JiakaiW/FlexibleQECSim">FlexibleQECSim</a> is a python package built on top of stim, that facilitate generating circuit for sampling (both direct Monte Carlo and importance sampling) and decoding (via generating decoding graph from circuit with posterior probabilities based on erasure detection results).</p>
-
-<pre class="code-block">
-  <code>pip3 install git+https://github.com/JiakaiW/FlexibleQECSim</code>
-  <button class="copy-button" onclick="copyToClipboard('pip3 install git+https://github.com/JiakaiW/FlexibleQECSim')">Copy to clipboard</button>
-</pre>
-
-<script>
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(function() {
-    alert('Copied to clipboard');
-  }, function(err) {
-    console.error('Could not copy text: ', err);
-  });
-}
-
-function toggleTheme() {
-  const body = document.body;
-  body.classList.toggle('dark-mode');
-  const themeToggle = document.getElementById('theme-toggle');
-  if (body.classList.contains('dark-mode')) {
-    themeToggle.textContent = 'Switch to Light Mode';
-  } else {
-    themeToggle.textContent = 'Switch to Dark Mode';
-  }
-}
-</script>
-
-<div style="text-align: center;">
-  <img src="/files/2024/FlexibleQECSim.png" style="width: 500px;" alt="Organization of the package FlexibleQECSim" />
-  <p>Organization of the package. Text in green are features not implemented yet.</p>
-</div>
-
-<hr />
-
 <h1 id="measurement-free-steane-code-with-neutral-atom-multi-qubit-gates">Measurement-free steane code with neutral atom multi-qubit gates</h1>
 
 <p>I’m super grateful for Michael, Mark and Bob who let me participate in this project! This is my first paper and tought me quantum error correction theroy, hamiltonian simulation, and gave me motivation to learn some of the recent developments like resource estimation, Flag scheme, biased noise and erasure conversion although I didn’t use them in this project.</p>

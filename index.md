@@ -37,19 +37,83 @@ My skills and interests include:
   }
 </style>
 
+# Featured Projects
+
+<div class="card-container">
+    <a href="/sc-qubit/" class="card">
+        <div class="card-image">
+            <img src="/files/2024/JJ_Chain.png" alt="Superconducting Qubits">
+        </div>
+        <div class="card-text">
+            Single-mode fluxonium artificial atom as erasure qubit
+        </div>
+    </a>
+    <a href="/qec/" class="card">
+        <div class="card-image">
+            <img src="/files/2023/circ_simple.png" alt="QEC">
+        </div>
+        <div class="card-text">
+            Measurement-free Steane code for neutral atoms
+        </div>
+    </a>
+    <a href="/qec/" class="card">
+        <div class="card-image">
+            <img src="/files/HTCHPC.jpg" alt="QEC">
+        </div>
+        <div class="card-text">
+            High-performance packages to facilitate research
+        </div>
+    </a>
+</div>
+
+<style>
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 2em;
+  }
+  .card {
+    background-color: #d3d3d3; /* Match header/footer background color */
+    color: black; /* Change text color to black in light mode */
+    border-radius: 30px;
+    overflow: hidden;
+    text-decoration: none;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0; /* Override round edges for images */
+  }
+  .card-text {
+    padding: 0.5em; /* Reduce padding */
+    text-align: center;
+    color: black; /* Ensure text color is black in light mode */
+  }
+  .dark-mode .card {
+    background-color: #333;
+  }
+  .dark-mode .card-text {
+    color: white; /* Ensure text color is white in dark mode */
+  }
+</style>
 
 I'm currently in a physics master program student speicialied in quantum computing at University of Wisconsin-Madison. Previously, I obtained a Data Science Bachelor's degree at UW-Madison. 
 
 I'm interested in modern AI application, fault-tolerant quantum computing logical operations, specifically for qubit-efficient qLDPC codes. 
 
 Since qLDPC code are still not implemented yet, I'm also interested in the physical implementations. I previously specialize in superconducting qubits, but I'm also curious about integrated photonics, QCCD ion traps platforms.
-
-
-
-
-
-
-
 
 # Random pics
 
