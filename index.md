@@ -10,17 +10,17 @@ I'm currently in a physics master program student speicialied in quantum computi
 <div class="gallery-wrapper">
   <div class="gallery-container">
     <div class="gallery-item">
-      <img src="/files/photo.jpg" style="height: 700px;" alt="My Photo">
+      <img src="/files/photo.jpg" alt="My Photo">
       <p>me presenting a poster at IMSI workshop on Quantum Hardware</p>
     </div>
     
     <div class="gallery-item">
-      <img src="/files/tracker.jpg" style="height: 700px;" alt="My Photo with a bunch of sheep">
+      <img src="/files/tracker.jpg" alt="My Photo with a bunch of sheep">
       <p>Damn! Years of midwestern life really can turn a city boy into a rural Wisconsinite!</p>
     </div>
     
     <div class="gallery-item">
-      <img src="/files/sheep.jpg" style="height: 700px;" alt="My Photo with a bunch of sheep">
+      <img src="/files/sheep.jpg" alt="My Photo with a bunch of sheep">
       <p>Sheeps are cute though.</p>
     </div>
   </div>
