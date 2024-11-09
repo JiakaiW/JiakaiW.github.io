@@ -9,11 +9,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             const theme = localStorage.getItem('theme');
             const themeToggle = document.getElementById('theme-toggle');
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-                themeToggle.textContent = 'Light Mode'; // Ensure consistency
+            if (theme === 'light') {
+                document.body.classList.remove('dark-mode');
+                themeToggle.textContent = 'Dark Mode';
             } else {
-                themeToggle.textContent = 'Dark Mode'; // Ensure consistency
+                // Default to dark mode
+                document.body.classList.add('dark-mode');
+                themeToggle.textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
             }
         });
 
