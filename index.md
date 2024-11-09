@@ -15,7 +15,7 @@ My skills and interests include:
     <span class="tag">📊 Statistics</span>
     <span class="tag">🤖 Machine Learning</span>
     <span class="tag">💻 CPU/GPU HPC</span>
-    <span class="tag">🧠 (deployement of) LLM</span>
+    <span class="tag">🧠 LLM prompt engineering</span>
 </div>
 
 <style>
