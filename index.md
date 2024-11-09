@@ -48,6 +48,10 @@ Since qLDPC code are still not implemented yet, I'm also interested in the physi
 
 
 
+Damn! Years of midwestern life really can turn a city boy into a rural Wisconsinite!
+
+
+
 # Random pics
 
 <div class="gallery-wrapper">
@@ -55,17 +59,17 @@ Since qLDPC code are still not implemented yet, I'm also interested in the physi
   <div class="gallery-container">
     <div class="gallery-item">
       <img src="/files/photo.jpg" alt="My Photo">
-      <p>me presenting a poster at IMSI workshop on Quantum Hardware</p>
+      <p class="caption">me presenting a poster at IMSI workshop on Quantum Hardware</p>
     </div>
     
     <div class="gallery-item">
       <img src="/files/tracker.jpg" alt="My Photo with a bunch of sheep">
-      <p>Damn! Years of midwestern life really can turn a city boy into a rural Wisconsinite!</p>
+      <p class="caption">text text text text text text text text text text text text text text text text </p>
     </div>
     
     <div class="gallery-item">
       <img src="/files/sheep.jpg" alt="My Photo with a bunch of sheep">
-      <p>Sheeps are cute though.</p>
+      <p class="caption">Sheeps are cute though.</p>
     </div>
   </div>
   <button class="gallery-arrow right" onclick="scrollGallery(1)">&#10095;</button>
@@ -102,6 +106,10 @@ Since qLDPC code are still not implemented yet, I'm also interested in the physi
   }
   .gallery-invisible.right {
     right: 0;
+  }
+  .caption {
+    word-wrap: break-word; /* Ensure captions wrap within the width of the image */
+    max-width: 100%; /* Ensure captions do not exceed the width of the image */
   }
 </style>
 
