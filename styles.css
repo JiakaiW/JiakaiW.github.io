@@ -206,7 +206,7 @@ div img {
     overflow: hidden;
     position: relative;
     width: 100%;
-    margin: 20px 0; /* Optional spacing around the gallery */
+    margin: 10px 0; /* Optional spacing around the gallery */
 }
 
 .gallery-container {
