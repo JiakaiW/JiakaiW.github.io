@@ -5,7 +5,7 @@ title: Home
 
 # 👋 Welcome to Jiakai Wang's Portfolio
 
-My skills and interests include:
+I'm currently a master student on quantum computing, at University of Wisconsin-Madison. My skills and interests include:
 
 <div class="tags">
     <span class="tag">🔬 Quantum Computing</span>
@@ -16,6 +16,7 @@ My skills and interests include:
     <span class="tag">🤖 Machine Learning</span>
     <span class="tag">💻 CPU/GPU HPC</span>
     <span class="tag">🧠 LLM prompt engineering</span>
+    <span class="tag">🎨 Blender</span> <!-- Changed emoji to a paint palette -->
 </div>
 
 <style>
@@ -109,7 +110,7 @@ My skills and interests include:
   }
 </style>
 
-I'm currently in a physics master program student speicialied in quantum computing at University of Wisconsin-Madison. Previously, I obtained a Data Science Bachelor's degree at UW-Madison. 
+# Research interests:
 
 I'm interested in modern AI application, fault-tolerant quantum computing logical operations, specifically for qubit-efficient qLDPC codes. 
 
