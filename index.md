@@ -3,9 +3,9 @@ layout: default
 title: Home
 ---
 
-# 👋 Welcome to Jiakai Wang's Portfolio
+# 👋 Welcome to Jiakai Wang's portfolio
 
-I'm currently a master student on quantum computing, at University of Wisconsin-Madison. My skills and interests include:
+I'm currently a master student in physics with concentration on quantum computing, at University of Wisconsin-Madison. My skills and interests include:
 
 <div class="tags">
     <span class="tag">🔬 Quantum Computing</span>
