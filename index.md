@@ -115,7 +115,7 @@ I'm currently a master student on quantum computing, at University of Wisconsin-
 <div class="card-container">
     <a href="/agents/" class="card">
         <div class="card-image">
-            <img src="/files/agents.jpg" alt="agents">
+            <img src="/files/agents.png" alt="agents">
         </div>
         <div class="card-text">
             Multi-agent LLM for complex tasks in deep tech
