@@ -112,6 +112,41 @@ I'm currently a master student on quantum computing, at University of Wisconsin-
 
 # Research interests:
 
+<div class="card-container">
+    <a href="/agents/" class="card">
+        <div class="card-image">
+            <img src="/files/cpugpu.jpg" alt="agents">
+        </div>
+        <div class="card-text">
+            full stack + LLM applications + CUDA
+        </div>
+    </a>
+    <a href="/qldpc/" class="card">
+        <div class="card-image">
+            <img src="/files/arch.png" alt="FTQC">
+        </div>
+        <div class="card-text">
+            FTQC architecture upon qLDPC codes for photonic / ion trap / scqubits
+        </div>
+    </a>
+    <a href="/novel_SCqubits/" class="card">
+        <div class="card-image">
+            <img src="/files/2024/JJ_Chain.png" alt="QC">
+        </div>
+        <div class="card-text">
+            Novel physical qubit + QEC co-design
+        </div>
+    </a>
+    <a href="/hpc_app/" class="card">
+        <div class="card-image">
+            <img src="/files/HPC.png" alt="QC">
+        </div>
+        <div class="card-text">
+            HPC applications
+        </div>
+    </a>
+</div>
+
 I'm interested in modern AI application, fault-tolerant quantum computing logical operations, specifically for qubit-efficient qLDPC codes. 
 
 Since qLDPC code are still not implemented yet, I'm also interested in the physical implementations. I previously specialize in superconducting qubits, but I'm also curious about integrated photonics, QCCD ion traps platforms.

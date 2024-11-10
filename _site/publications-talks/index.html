@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.7">
+    <title>Publications/Talks</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const theme = localStorage.getItem('theme');
+            const themeToggle = document.getElementById('theme-toggle');
+            if (theme === 'light') {
+                document.body.classList.remove('dark-mode');
+                themeToggle.textContent = 'Dark Mode';
+            } else {
+                // Default to dark mode
+                document.body.classList.add('dark-mode');
+                themeToggle.textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
+            }
+
+            // Add prefix to figure captions
+            let figIdx = 1;
+            document.querySelectorAll('img').forEach(img => {
+                const caption = img.nextElementSibling;
+                if (caption && caption.tagName.toLowerCase() === 'p') {
+                    caption.classList.add('figure-caption');
+                    caption.textContent = `Fig. ${figIdx++}: ${caption.textContent}`;
+                }
+            });
+        });
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('theme-toggle');
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeToggle.textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        function scrollGallery(direction) {
+            const container = document.querySelector('.gallery-container');
+            const itemWidth = container.querySelector('.gallery-item').offsetWidth + 20; // 20 is the margin
+            const scrollAmount = direction * itemWidth;
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    </script>
+    <style>
+        footer {
+            display: block;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px;
+        }
+        .gallery-wrapper {
+            position: relative;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-container {
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        .gallery-item {
+            display: inline-block;
+            margin: 0 10px;
+            transition: transform 0.5s ease;
+        }
+        .gallery-arrow {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        .gallery-arrow.left {
+            margin-right: 10px;
+        }
+        .gallery-arrow.right {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><button onclick="location.href='/'">Home</button></li>
+                <li><button onclick="location.href='/sc-qubit/'">SC-qubit</button></li>
+                <li><button onclick="location.href='/qec/'">QEC</button></li>
+                <li><button onclick="location.href='/hpc/'">HPC</button></li>
+                <li><button onclick="location.href='/ai/'">AI</button></li>
+                <li><button onclick="location.href='/publications-talks/'">Publications/Talks</button></li>
+            </ul>
+        </nav>
+        <button id="theme-toggle" onclick="toggleTheme()">Dark Mode</button>
+    </header>
+    <main>
+        <h1 id="publications">Publications</h1>
+<p>Michael A. Perlin, Vickram N. Premakumar, Jiakai Wang, Mark Saffman, and Robert Joynt, “<a href="https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426">Fault-tolerant measurement-free quantum error correction with multiqubit gates</a>”, Phys. Rev. A 108, 062426 – Published 26 December 2023</p>
+
+<h1 id="talks">Talks</h1>
+
+<p><a href="/files/2024/APSMM24_fluxonium.pdf">APS March Meeting 2024 Fluxonium leakage detection</a>, https://meetings.aps.org/Meeting/MAR24/Session/A49.8</p>
+
+<p><a href="/files/2023/APSMM24_MFQEC.pdf">APS March Meeting 2024 Measurement-Free quantum error correction</a>, https://meetings.aps.org/Meeting/MAR24/Session/G47.8</p>
+
+<h1 id="posters">Posters</h1>
+
+<p><a href="/files/2024/leakage_detection_poster.pdf">IMSI quantum hardware workshop poster 2024</a></p>
+
+    </main>
+    <footer id="footer">
+        &copy; 2024 Jiakai Wang, built using GitHub Copilot
+    </footer>
+    <script>
+        document.addEventListener('scroll', function() {
+            const footer = document.getElementById('footer');
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
+                footer.style.display = 'block';
+            } else {
+                footer.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
