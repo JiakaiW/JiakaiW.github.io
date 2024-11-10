@@ -115,10 +115,10 @@ I'm currently a master student on quantum computing, at University of Wisconsin-
 <div class="card-container">
     <a href="/agents/" class="card">
         <div class="card-image">
-            <img src="/files/cpugpu.jpg" alt="agents">
+            <img src="/files/agents.jpg" alt="agents">
         </div>
         <div class="card-text">
-            full stack + LLM applications + CUDA
+            Multi-agent LLM for complex tasks in deep tech
         </div>
     </a>
     <a href="/qldpc/" class="card">
