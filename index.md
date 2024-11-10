@@ -57,7 +57,7 @@ I'm currently a master student in physics with concentration on quantum computin
             Measurement-free Steane code for neutral atoms
         </div>
     </a>
-    <a href="/qec/" class="card">
+    <a href="/hpc/" class="card">
         <div class="card-image">
             <img src="/files/HTCHPC.jpg" alt="QEC">
         </div>
@@ -147,9 +147,6 @@ I'm currently a master student in physics with concentration on quantum computin
     </a>
 </div>
 
-I'm interested in modern AI application, fault-tolerant quantum computing logical operations, specifically for qubit-efficient qLDPC codes. 
-
-Since qLDPC code are still not implemented yet, I'm also interested in the physical implementations. I previously specialize in superconducting qubits, but I'm also curious about integrated photonics, QCCD ion traps platforms.
 
 # Random pics
 
