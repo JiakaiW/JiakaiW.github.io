@@ -5,7 +5,7 @@ title: Home
 
 # 👋 I'm Jiakai Wang
 
-Master of Physics @ UW-Madison, previously Data Science @ UW-Madison, Software Engineering @ South China Univ of Tech
+Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison (2021-2024), Software Engineering @ South China Univ of Tech (2019-2021)
 
 <div class="tags">
     <span class="tag">🔬 Quantum Computing</span>
@@ -118,7 +118,7 @@ Master of Physics @ UW-Madison, previously Data Science @ UW-Madison, Software E
             <img src="/files/agents.png" alt="agents">
         </div>
         <div class="card-text">
-            Multi-agent LLM for complex tasks in deep tech
+            LLM prompt engineering
         </div>
     </a>
     <a href="/potential_directions/ftqc/" class="card">
