@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
-    <title>novel_SCqubits</title>
+    <title>Fluxonium Erasure Qubit</title>
     <link rel="stylesheet" href="/styles.css">
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -99,18 +99,55 @@
         <nav>
             <ul>
                 <li><button onclick="location.href='/'">Home</button></li>
-                <li><button onclick="location.href='/ai/'">AI</button></li>
+                <!-- <li><button onclick="location.href='/ai/'">AI</button></li> -->
                 <li><button onclick="location.href='/publications-talks/'">Publications/Talks</button></li>
             </ul>
         </nav>
         <button id="theme-toggle" onclick="toggleTheme()">Dark Mode</button>
     </header>
     <main>
-        <h1 id="for-superconducting-qubits-in-some-sense-0-pi-is-necessary-or-physical-qubit-count-explodes">For superconducting qubits, in some sense 0-pi is necessary or physical qubit count explodes.</h1>
+        <h1 id="fluxonium-erasure-qubit">Fluxonium erasure qubit</h1>
+
+<p><strong>Why erasure qubit:</strong> At the same total error rate, erasure errors that are mostly heralded (of known location) are easier to correct, and gives rise to higher threshold and larger logical error suppression exponent. While erasure qubits have been demonstrated on natural atoms or composite superconducting qubits, it will be cool if erasure qubit can be implemented on single-mode superconducting qubits.</p>
+
+<p><strong>We demonstrate that a single fluxonium artificial atom can be used as an erasure qubit, along with proposals for physical gates</strong></p>
+<h3 id="paper-coming-soon">Paper coming soon</h3>
+
+<p><a href="/files/2024/APSMM24_fluxonium.pdf">APS March Meeting 2024 Fluxonium leakage detection, https://meetings.aps.org/Meeting/MAR24/Session/A49.8</a></p>
+
+<p><a href="/files/2024/leakage_detection_poster.pdf">IMSI quantum hardware workshop poster 2024</a></p>
+
+<div style="text-align: center;">
+
+<img src="/files/2024/fluxonium.png" style="width: 500px;" alt="qubit level structure" />
+<p>Fluxonium has a more complex potential and selection rules than transmon. We utilize the selection rule in <a href="https://journals.aps.org/prxquantum/abstract/10.1103/PRXQuantum.5.040318">integer fluxonium</a> to enhance the computational subspace coherence time and do trade-off with leakage process.</p>
+
+</div>
+
+<h2 id="a-two-outcome-leakage-detection-measurement-via-tunable-resonator">a) Two-outcome leakage detection measurement via tunable resonator</h2>
+
+<div style="text-align: center;">
+  <img src="/files/2024/readout.png" style="width: 800px;" alt="leakage detection diagram" />
+  <p>Dispersive readout can be used to detect leakage without harming qubit coherence in fluxonium. See analytical and numerical analysis on dephasing in the coming paper. </p>
+</div>
+
+<h2 id="b-two-outcome-leakage-detection-measurement-via-transmon">b) Two-outcome leakage detection measurement via transmon</h2>
+
+<div style="text-align: center;">
+  <img src="/files/2024/tmon.png" style="width: 500px;" alt="leakage detection diagram" />
+  <p>By adjusting non-linear resonator frequency and drive amplitude, we get another "degree of freedom" in the control compared to resonator based readout, making leakage detection less demanding on parameter selection. </p>
+</div>
+
+<h2 id="c-erasure-bias-preserving-gates">c) “Erasure-bias” preserving gates</h2>
+
+<div style="text-align: center;">
+<img src="/files/2024/raman.png" style="width: 800px;" alt="raman gate that preserve erasure-dominant error structure" />
+<p>Coherence time estimation shows that g-f <u>I</u>nteger<u> F</u>luxonium<u> Q</u>ubit (g-f IFQ) is an erasure-dominant qubit with super-long computational subspace coherence time, this feature needs to be preserve in gate operations. We show that by using large enough detuning, intermediate state decay is minimized, and additional leakage can be converted to erasure by the aforementioned leakage detection measurement via transmon. This established g-f IFQ as an erasure qubit.</p>
+</div>
 
     </main>
     <footer id="footer">
-        &copy; 2024 Jiakai Wang, built using GitHub Copilot
+        &copy; 2024 Jiakai Wang
     </footer>
     <script>
         document.addEventListener('scroll', function() {

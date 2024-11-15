@@ -3,9 +3,9 @@ layout: default
 title: Home
 ---
 
-# 👋 Welcome to Jiakai Wang's portfolio
+# 👋 I'm Jiakai Wang
 
-I'm currently a master student in physics with concentration on quantum computing, at University of Wisconsin-Madison. My skills and interests include:
+Master of Physics @ UW-Madison, previously Data Science @ UW-Madison, Software Engineering @ South China Univ of Tech
 
 <div class="tags">
     <span class="tag">🔬 Quantum Computing</span>
@@ -41,7 +41,7 @@ I'm currently a master student in physics with concentration on quantum computin
 # Featured Projects
 
 <div class="card-container">
-    <a href="/sc-qubit/" class="card">
+    <a href="/past_projects/fluxonium_erasure/" class="card">
         <div class="card-image">
             <img src="/files/2024/JJ_Chain.png" alt="Superconducting Qubits">
         </div>
@@ -49,7 +49,7 @@ I'm currently a master student in physics with concentration on quantum computin
             Single-mode fluxonium artificial atom as erasure qubit
         </div>
     </a>
-    <a href="/qec/" class="card">
+    <a href="/past_projects/mfqec/" class="card">
         <div class="card-image">
             <img src="/files/2023/circ_simple.png" alt="QEC">
         </div>
@@ -57,7 +57,7 @@ I'm currently a master student in physics with concentration on quantum computin
             Measurement-free Steane code for neutral atoms
         </div>
     </a>
-    <a href="/hpc/" class="card">
+    <a href="/past_projects/hpc/" class="card">
         <div class="card-image">
             <img src="/files/HTCHPC.jpg" alt="QEC">
         </div>
@@ -113,7 +113,7 @@ I'm currently a master student in physics with concentration on quantum computin
 # Research interests:
 
 <div class="card-container">
-    <a href="/agents/" class="card">
+    <a href="/potential_directions/agents/" class="card">
         <div class="card-image">
             <img src="/files/agents.png" alt="agents">
         </div>
@@ -121,7 +121,7 @@ I'm currently a master student in physics with concentration on quantum computin
             Multi-agent LLM for complex tasks in deep tech
         </div>
     </a>
-    <a href="/qldpc/" class="card">
+    <a href="/potential_directions/ftqc/" class="card">
         <div class="card-image">
             <img src="/files/arch.png" alt="FTQC">
         </div>
@@ -129,20 +129,20 @@ I'm currently a master student in physics with concentration on quantum computin
             FTQC architecture upon qLDPC codes for photonic / ion trap / scqubits
         </div>
     </a>
-    <a href="/novel_SCqubits/" class="card">
+    <a href="/potential_directions/novel_SCqubits/" class="card">
         <div class="card-image">
             <img src="/files/2024/JJ_Chain.png" alt="QC">
         </div>
         <div class="card-text">
-            Novel physical qubit + QEC co-design
+            Algorithmic novel superconducting qubit design
         </div>
     </a>
-    <a href="/hpc_app/" class="card">
+    <a href="/potential_directions/hpc_app/" class="card">
         <div class="card-image">
             <img src="/files/HPC.png" alt="QC">
         </div>
         <div class="card-text">
-            HPC applications
+            HPC for QEC
         </div>
     </a>
 </div>

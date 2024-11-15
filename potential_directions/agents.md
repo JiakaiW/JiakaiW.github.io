@@ -1,7 +1,7 @@
 ---
 layout: default
 title: LLM_agents
-permalink: /agents/
+permalink: /potential_directions/agents/
 ---
 
 # AI Agents in Deep Tech Research
@@ -35,4 +35,3 @@ AI agents possess capabilities that could transform deep tech research through:
 ## Conclusion
 
 With their multi-step reasoning, adaptability, and autonomous tool usage, AI agents offer an unprecedented opportunity to accelerate innovation in deep tech fields, from quantum error correction to automated EDA. Their ability to self-correct and iteratively improve makes them invaluable partners in pushing the boundaries of what's possible in quantum computing and other cutting-edge technologies.
-

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: HPC
-permalink: /hpc/
+permalink: /past_projects/hpc/
 ---
 
 # High-Performance Computing

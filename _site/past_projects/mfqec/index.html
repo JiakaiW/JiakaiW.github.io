@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
-    <title>QEC</title>
+    <title>MFQEC</title>
     <link rel="stylesheet" href="/styles.css">
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -99,35 +99,35 @@
         <nav>
             <ul>
                 <li><button onclick="location.href='/'">Home</button></li>
-                <li><button onclick="location.href='/ai/'">AI</button></li>
+                <!-- <li><button onclick="location.href='/ai/'">AI</button></li> -->
                 <li><button onclick="location.href='/publications-talks/'">Publications/Talks</button></li>
             </ul>
         </nav>
         <button id="theme-toggle" onclick="toggleTheme()">Dark Mode</button>
     </header>
     <main>
-        <h1 id="nisq-is-dead">“NISQ is dead”</h1>
-
-<div style="text-align: right;">
-    -- says a famous guy
-</div>
-
-<hr />
-
-<h1 id="measurement-free-steane-code-with-neutral-atom-multi-qubit-gates">Measurement-free steane code with neutral atom multi-qubit gates</h1>
-
-<p>I’m super grateful for Michael, Mark and Bob who let me participate in this project! This is my first paper and tought me quantum error correction theroy, hamiltonian simulation, and gave me motivation to learn some of the recent developments like resource estimation, Flag scheme, biased noise and erasure conversion although I didn’t use them in this project.</p>
+        <h1 id="measurement-free-steane-code-with-neutral-atom-multi-qubit-gates">Measurement-free steane code with neutral atom multi-qubit gates</h1>
 
 <p>Michael A. Perlin, Vickram N. Premakumar, Jiakai Wang, Mark Saffman, and Robert Joynt, “<a href="https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426">Fault-tolerant measurement-free quantum error correction with multiqubit gates</a>”, Phys. Rev. A 108, 062426 – Published 26 December 2023</p>
+
+<p><a href="/files/2023/APSMM24_MFQEC.pdf">slides at APS march meeting 2024</a></p>
+
+<p><strong>Why measurement-free quantum error correction (MFQEC):</strong> Quantum error correction (QEC) can be understood as pumping out entropy, and there’s no rule that predicts measurement is necessary. Because the photon-scattering effect during neutral atom qubit measurement is detrimental to nearby qubit coherence, it would be advantageous if near-term small-scale QEC protocols don’t rely on measurements. (Another approach to mitigate the adverse effect of measurement is to use atom movement and dedicated readout zones.)</p>
+
+<p><strong>Challenges in MFQEC:</strong> Even for measurement-based protocols, unreliable syndrome measurement requires special gadgets, including surface code, where lattice surgery requires multiple rounds of measurements to ensure fault-tolerance. (Although recent proposals of algorithmic fault-tolerance change this.) How to perform this classical processing with unreliable syndrome measurement using purely quantum operations is the crucial problem in MFQEC.</p>
+
+<p>We find the Steane code augmentated with a) syndrome redundancy b) native multi-qubit gates c) logical ancilla to be fault-tolerance with realistic error from gate simulation.</p>
 
 <div style="text-align: center;">
   <img src="/files/2023/circ.png" style="width: 800px;" alt="the quantum circuit diagram for implementing measurement-free quantum error correction" />
   <p>The quantum circuit diagram for implementing measurement-free quantum error correction.</p>
 </div>
 
+<p><strong>Acknowledgements:</strong> I’m super grateful for Michael, Mark and Bob who let me participate in this project! This is my first paper and tought me quantum error correction theroy, hamiltonian simulation, and gave me motivation to learn some of the recent developments like resource estimation, Flag scheme, biased noise and erasure conversion although I didn’t use them in this project.</p>
+
     </main>
     <footer id="footer">
-        &copy; 2024 Jiakai Wang, built using GitHub Copilot
+        &copy; 2024 Jiakai Wang
     </footer>
     <script>
         document.addEventListener('scroll', function() {

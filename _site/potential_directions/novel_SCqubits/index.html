@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
-    <title>qLDPCw</title>
+    <title>novel_SCqubits</title>
     <link rel="stylesheet" href="/styles.css">
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -99,22 +99,32 @@
         <nav>
             <ul>
                 <li><button onclick="location.href='/'">Home</button></li>
-                <li><button onclick="location.href='/ai/'">AI</button></li>
+                <!-- <li><button onclick="location.href='/ai/'">AI</button></li> -->
                 <li><button onclick="location.href='/publications-talks/'">Publications/Talks</button></li>
             </ul>
         </nav>
         <button id="theme-toggle" onclick="toggleTheme()">Dark Mode</button>
     </header>
     <main>
-        <h1 id="qldpc-is-neccessary">qLDPC is neccessary</h1>
+        <p>This is immature idea, but:</p>
 
-<p>One is either PsiQuantum-pilled or hardware-qLDPC code co-design is needed. Specifically, 3D integration of superconducting qubits gives oppotunities of more complex connectivity. Another interesting direction of development is long-range connectivity or reconfigurable bus.</p>
+<h1 id="intuition-novel-superconducting-qubit-design-could-add-another-9-to-gate-fidelity">Intuition: novel superconducting qubit design could add another 9 to gate fidelity.</h1>
 
-<p>I’m also interested in the physical implementation of other qubit modalities. Although I previously specialize in superconducting qubits, I’m also curious about integrated photonics, QCCD ion traps platforms.</p>
+<h2 id="specifically-it-would-be-nice-to-engineering-a-superconducting-qubit-version-of-omg-optical-metastable-ground-architecture-reference-for-these-reasons">Specifically, it would be nice to engineering a superconducting qubit-version of omg (optical, metastable, ground) architecture <a href="https://arxiv.org/pdf/2109.01272">(reference)</a> for these reasons:</h2>
+
+<p>a) Multiple long-lived subspaces would allow ways to engineer high-erasure ratio <a href="https://www.nature.com/articles/s41586-023-06438-1">(reference)</a> and approximately bias-preserving gates <a href="https://journals.aps.org/prx/abstract/10.1103/PhysRevX.12.021049">(referece)</a>.</p>
+
+<p>b) The selection rule (pattern in matrix elements) is not idea in fluxonium, or in novel qubit proposals. Controllability and coherence are often at conflict.</p>
+
+<h1 id="potential-ways-to-accomplish-this">Potential ways to accomplish this?</h1>
+
+<p>a) Exploration with search / learning based algorithm on the circuit-level <a href="https://scqubits.readthedocs.io/en/v4.2/guide/circuit/ipynb/custom_circuit_root.html">(reference)</a></p>
+
+<p>b) Optimization on the EDA level <a href="https://qiskit-community.github.io/qiskit-metal/">(reference)</a></p>
 
     </main>
     <footer id="footer">
-        &copy; 2024 Jiakai Wang, built using GitHub Copilot
+        &copy; 2024 Jiakai Wang
     </footer>
     <script>
         document.addEventListener('scroll', function() {
