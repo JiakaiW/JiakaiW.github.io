@@ -44,6 +44,13 @@ function toggleTheme() {
   <p>Organization of the package. Text in green are features not implemented yet.</p>
 </div>
 
+<div style="text-align: center;">
+  <img src="/files/2024/importance.png" style="width: 800px;" alt="Example of importance sampling usage">
+  <p>FlexibleQECSim enables efficient simulation and decoding of the circuit when injected a fixed number of errors (at random locations). This allows various algorithms be utilized to estimate logical error rates at very low physical error rates. For example, once a fraction of the f(x) distribution is calculated, the whole landscape can be reconstructed by, say, compressed sensing.
+</p>
+</div>
+
+
 ---
 
 # A Tableau simulator based on CUDA
