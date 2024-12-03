@@ -80,6 +80,7 @@ title: Photos
     <div class="carousel">
         <div class="carousel-images">
             <img src="/files/photo.jpg" alt="My Photo" />
+            <img src="/files/lab_tour.png" alt="tour @Roman Kuzmin's lab" />
             <img src="/files/tracker.jpg" alt="My Photo with a bunch of sheep" />
             <img src="/files/sheep.jpg" alt="My Photo with a bunch of sheep" />
         </div>
