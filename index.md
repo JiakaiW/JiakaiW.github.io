@@ -5,22 +5,68 @@ title: Home
 
 # 👋 I'm Jiakai Wang
 
-Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison (2021-2024), Software Engineering @ South China Univ of Tech (2019-2021)
-
-<div class="tags">
-    <a href="https://chat.openai.com/?q=How+is+Quantum+Computing+advancing+and+what+are+its+key+challenges?" target="_blank" class="tag" style="animation-delay: 0s">🔬 Quantum Computing</a>
-    <a href="https://chat.openai.com/?q=How+are+Quantum+Error+Correction+Codes+essential+to+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.2s">🛠️ Quantum Error Correction Codes</a>
-    <a href="https://chat.openai.com/?q=How+is+Fault+Tolerant+Quantum+Computing+different+from+regular+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.4s">🛡️ Fault-Tolerant Quantum Computing</a>
-    <a href="https://chat.openai.com/?q=How+is+Atomic+Molecular+and+Optical+physics+related+to+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.6s">🔭 Atomic Molecular & Optical physics</a>
-    <a href="https://chat.openai.com/?q=How+is+Statistics+used+in+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.8s">📊 Statistics</a>
-    <a href="https://chat.openai.com/?q=How+is+Machine+Learning+used+in+quantum+computing?" target="_blank" class="tag" style="animation-delay: 1.0s">🤖 Machine Learning</a>
-    <a href="https://chat.openai.com/?q=How+is+CPU+GPU+HPC+used+in+quantum+computing+simulations?" target="_blank" class="tag" style="animation-delay: 1.2s">💻 CPU/GPU HPC</a>
-    <a href="https://chat.openai.com/?q=How+can+LLM+prompt+engineering+help+in+quantum+computing+research?" target="_blank" class="tag" style="animation-delay: 1.4s">🧠 LLM prompt engineering</a>
-    <a href="https://chat.openai.com/?q=How+is+Blender+used+in+quantum+computing+visualization?" target="_blank" class="tag" style="animation-delay: 1.6s">🎨 Blender</a>
+<div class="intro-container">
+    <div class="intro-image">
+        <img src="/files/lab_tour_small.png" alt="Lab Tour" />
+    </div>
+    <div class="intro-content">
+        <p>Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison (2021-2024), Software Engineering @ South China Univ of Tech (2019-2021)</p>
+        
+        <div class="tags">
+            <a href="https://chat.openai.com/?q=How+is+Quantum+Computing+advancing+and+what+are+its+key+challenges?" target="_blank" class="tag" style="animation-delay: 0s">🔬 Quantum Computing</a>
+            <a href="https://chat.openai.com/?q=How+are+Quantum+Error+Correction+Codes+essential+to+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.2s">🛠️ Quantum Error Correction Codes</a>
+            <a href="https://chat.openai.com/?q=How+is+Fault+Tolerant+Quantum+Computing+different+from+regular+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.4s">🛡️ Fault-Tolerant Quantum Computing</a>
+            <a href="https://chat.openai.com/?q=How+is+Atomic+Molecular+and+Optical+physics+related+to+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.6s">🔭 Atomic Molecular & Optical physics</a>
+            <a href="https://chat.openai.com/?q=How+is+Statistics+used+in+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.8s">📊 Statistics</a>
+            <a href="https://chat.openai.com/?q=How+is+Machine+Learning+used+in+quantum+computing?" target="_blank" class="tag" style="animation-delay: 1.0s">🤖 Machine Learning</a>
+            <a href="https://chat.openai.com/?q=How+is+CPU+GPU+HPC+used+in+quantum+computing+simulations?" target="_blank" class="tag" style="animation-delay: 1.2s">💻 CPU/GPU HPC</a>
+            <a href="https://chat.openai.com/?q=How+can+LLM+prompt+engineering+help+in+quantum+computing+research?" target="_blank" class="tag" style="animation-delay: 1.4s">🧠 LLM prompt engineering</a>
+            <a href="https://chat.openai.com/?q=How+is+Blender+used+in+quantum+computing+visualization?" target="_blank" class="tag" style="animation-delay: 1.6s">🎨 Blender</a>
+        </div>
+    </div>
 </div>
 
 <style>
-  @keyframes fadeIn {
+.intro-container {
+    display: flex;
+    gap: 2em;
+    align-items: flex-start;
+    margin: 2em 0;
+}
+
+.intro-image {
+    flex: 2;
+    min-width: 250px;
+    max-width: 40%;
+}
+
+.intro-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.intro-content {
+    flex: 3;
+    min-width: 300px;
+}
+
+@media (max-width: 768px) {
+    .intro-container {
+        flex-direction: column;
+    }
+    
+    .intro-image {
+        max-width: 100%;
+    }
+    
+    .intro-image, .intro-content {
+        width: 100%;
+    }
+}
+
+@keyframes fadeIn {
     from {
       opacity: 0;
       transform: translateY(10px);
