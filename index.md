@@ -8,15 +8,15 @@ title: Home
 Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison (2021-2024), Software Engineering @ South China Univ of Tech (2019-2021)
 
 <div class="tags">
-    <span class="tag" style="animation-delay: 0s">🔬 Quantum Computing</span>
-    <span class="tag" style="animation-delay: 0.2s">🛠️ Quantum Error Correction Codes</span>
-    <span class="tag" style="animation-delay: 0.4s">🛡️ Fault-Tolerant Quantum Computing</span>
-    <span class="tag" style="animation-delay: 0.6s">🔭 Atomic Molecular & Optical physics</span>
-    <span class="tag" style="animation-delay: 0.8s">📊 Statistics</span>
-    <span class="tag" style="animation-delay: 1.0s">🤖 Machine Learning</span>
-    <span class="tag" style="animation-delay: 1.2s">💻 CPU/GPU HPC</span>
-    <span class="tag" style="animation-delay: 1.4s">🧠 LLM prompt engineering</span>
-    <span class="tag" style="animation-delay: 1.6s">🎨 Blender</span>
+    <a href="https://chat.openai.com/?q=How+is+Quantum+Computing+advancing+and+what+are+its+key+challenges?" target="_blank" class="tag" style="animation-delay: 0s">🔬 Quantum Computing</a>
+    <a href="https://chat.openai.com/?q=How+are+Quantum+Error+Correction+Codes+essential+to+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.2s">🛠️ Quantum Error Correction Codes</a>
+    <a href="https://chat.openai.com/?q=How+is+Fault+Tolerant+Quantum+Computing+different+from+regular+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.4s">🛡️ Fault-Tolerant Quantum Computing</a>
+    <a href="https://chat.openai.com/?q=How+is+Atomic+Molecular+and+Optical+physics+related+to+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.6s">🔭 Atomic Molecular & Optical physics</a>
+    <a href="https://chat.openai.com/?q=How+is+Statistics+used+in+quantum+computing?" target="_blank" class="tag" style="animation-delay: 0.8s">📊 Statistics</a>
+    <a href="https://chat.openai.com/?q=How+is+Machine+Learning+used+in+quantum+computing?" target="_blank" class="tag" style="animation-delay: 1.0s">🤖 Machine Learning</a>
+    <a href="https://chat.openai.com/?q=How+is+CPU+GPU+HPC+used+in+quantum+computing+simulations?" target="_blank" class="tag" style="animation-delay: 1.2s">💻 CPU/GPU HPC</a>
+    <a href="https://chat.openai.com/?q=How+can+LLM+prompt+engineering+help+in+quantum+computing+research?" target="_blank" class="tag" style="animation-delay: 1.4s">🧠 LLM prompt engineering</a>
+    <a href="https://chat.openai.com/?q=How+is+Blender+used+in+quantum+computing+visualization?" target="_blank" class="tag" style="animation-delay: 1.6s">🎨 Blender</a>
 </div>
 
 <style>
@@ -50,12 +50,14 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     will-change: transform;
     cursor: pointer;
+    text-decoration: none !important;
   }
 
   .tag:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: #6fa3c7;
+    color: white !important;
   }
 
   .dark-mode .tag {
@@ -70,7 +72,7 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
 # Featured Projects
 
 <div class="card-container">
-    <div class="card" onclick="expandCard('past_projects/mfqec')">
+    <div class="card" onclick="expandCard('past_projects/mfqec')" style="animation-delay: 0s">
         <div class="card-image">
             <img src="/files/2023/circ_simple.png" alt="MFQEC" />
         </div>
@@ -78,7 +80,7 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
             Measurement-free quantum error correction
         </div>
     </div>
-    <div class="card" onclick="expandCard('past_projects/fluxonium_erasure')">
+    <div class="card" onclick="expandCard('past_projects/fluxonium_erasure')" style="animation-delay: 0.2s">
         <div class="card-image">
             <img src="/files/2024/JJ_Chain.png" alt="Fluxonium" />
         </div>
@@ -86,7 +88,7 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
             Fluxonium erasure
         </div>
     </div>
-    <div class="card" onclick="expandCard('past_projects/hpc')">
+    <div class="card" onclick="expandCard('past_projects/hpc')" style="animation-delay: 0.4s">
         <div class="card-image">
             <img src="/files/HTCHPC.jpg" alt="HPC" />
         </div>
@@ -142,7 +144,7 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
 # Research interests:
 
 <div class="card-container">
-    <div class="card" onclick="expandCard('agents')">
+    <div class="card" onclick="expandCard('agents')" style="animation-delay: 0s">
         <div class="card-image">
             <img src="/files/agents.png" alt="agents" />
         </div>
@@ -150,7 +152,7 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
             LLM prompt engineering
         </div>
     </div>
-    <div class="card" onclick="expandCard('ftqc')">
+    <div class="card" onclick="expandCard('ftqc')" style="animation-delay: 0.2s">
         <div class="card-image">
             <img src="/files/arch.png" alt="FTQC" />
         </div>
@@ -158,7 +160,7 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
             FTQC architecture upon qLDPC codes for photonic / ion trap / scqubits
         </div>
     </div>
-    <div class="card" onclick="expandCard('novel_SCqubits')">
+    <div class="card" onclick="expandCard('novel_SCqubits')" style="animation-delay: 0.4s">
         <div class="card-image">
             <img src="/files/2024/JJ_Chain.png" alt="QC" />
         </div>
@@ -166,7 +168,7 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
             Algorithmic novel superconducting qubit design
         </div>
     </div>
-    <div class="card" onclick="expandCard('hpc_app')">
+    <div class="card" onclick="expandCard('hpc_app')" style="animation-delay: 0.6s">
         <div class="card-image">
             <img src="/files/HPC.png" alt="QC" />
         </div>
@@ -324,4 +326,73 @@ function closeExpandedCard() {
   .dark-mode .close-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
+</style>
+
+<style>
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    opacity: 0;
+    animation: cardFadeIn 0.8s ease-out forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+    margin: 2em 0;
+}
+
+.card {
+    background: var(--color-dark-grey);
+    border-radius: 15px;
+    overflow: hidden;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.card-text {
+    padding: 1em;
+    color: white;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+.dark-mode .card {
+    background: var(--color-dark-grey);
+}
 </style>
