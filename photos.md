@@ -79,9 +79,9 @@ title: Photos
     
     <div class="carousel">
         <div class="carousel-images">
-            <img src="/files/photo.jpg" alt="My Photo" />
             <img src="/files/lab_tour.png" alt="tour @Roman Kuzmin's lab" />
-            <img src="/files/tracker.jpg" alt="My Photo with a bunch of sheep" />
+            <img src="/files/photo.jpg" alt="My Photo" />
+            <img src="/files/tracker.jpg" alt="My Photo on a tracker" />
             <!-- <img src="/files/sheep.jpg" alt="My Photo with a bunch of sheep" /> -->
         </div>
         <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
