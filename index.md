@@ -41,30 +41,30 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
 # Featured Projects
 
 <div class="card-container">
-    <a href="/past_projects/fluxonium_erasure/" class="card">
+    <div class="card" onclick="expandCard('past_projects/mfqec')">
         <div class="card-image">
-            <img src="/files/2024/JJ_Chain.png" alt="Superconducting Qubits">
+            <img src="/files/2023/circ_simple.png" alt="MFQEC" />
         </div>
         <div class="card-text">
-            Single-mode fluxonium artificial atom as erasure qubit
+            Measurement-free quantum error correction
         </div>
-    </a>
-    <a href="/past_projects/mfqec/" class="card">
+    </div>
+    <div class="card" onclick="expandCard('past_projects/fluxonium_erasure')">
         <div class="card-image">
-            <img src="/files/2023/circ_simple.png" alt="QEC">
+            <img src="/files/2024/JJ_Chain.png" alt="Fluxonium" />
         </div>
         <div class="card-text">
-            Measurement-free Steane code for neutral atoms
+            Fluxonium erasure
         </div>
-    </a>
-    <a href="/past_projects/hpc/" class="card">
+    </div>
+    <div class="card" onclick="expandCard('past_projects/hpc')">
         <div class="card-image">
-            <img src="/files/HTCHPC.jpg" alt="QEC">
+            <img src="/files/HTCHPC.jpg" alt="HPC" />
         </div>
         <div class="card-text">
-            High-performance packages to facilitate research
+            High-Performance Computing
         </div>
-    </a>
+    </div>
 </div>
 
 <style>
@@ -76,8 +76,8 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
     margin-top: 2em;
   }
   .card {
-    background-color: #d3d3d3; /* Match header/footer background color */
-    color: black; /* Change text color to black in light mode */
+    background-color: #d3d3d3;
+    color: black;
     border-radius: 30px;
     overflow: hidden;
     text-decoration: none;
@@ -95,118 +95,204 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 0; /* Override round edges for images */
+    border-radius: 0;
   }
   .card-text {
-    padding: 0.5em; /* Reduce padding */
+    padding: 0.5em;
     text-align: center;
-    color: black; /* Ensure text color is black in light mode */
+    color: black;
   }
   .dark-mode .card {
     background-color: #333;
   }
   .dark-mode .card-text {
-    color: white; /* Ensure text color is white in dark mode */
+    color: white;
   }
 </style>
 
 # Research interests:
 
 <div class="card-container">
-    <a href="/potential_directions/agents/" class="card">
+    <div class="card" onclick="expandCard('agents')">
         <div class="card-image">
-            <img src="/files/agents.png" alt="agents">
+            <img src="/files/agents.png" alt="agents" />
         </div>
         <div class="card-text">
             LLM prompt engineering
         </div>
-    </a>
-    <a href="/potential_directions/ftqc/" class="card">
+    </div>
+    <div class="card" onclick="expandCard('ftqc')">
         <div class="card-image">
-            <img src="/files/arch.png" alt="FTQC">
+            <img src="/files/arch.png" alt="FTQC" />
         </div>
         <div class="card-text">
             FTQC architecture upon qLDPC codes for photonic / ion trap / scqubits
         </div>
-    </a>
-    <a href="/potential_directions/novel_SCqubits/" class="card">
+    </div>
+    <div class="card" onclick="expandCard('novel_SCqubits')">
         <div class="card-image">
-            <img src="/files/2024/JJ_Chain.png" alt="QC">
+            <img src="/files/2024/JJ_Chain.png" alt="QC" />
         </div>
         <div class="card-text">
             Algorithmic novel superconducting qubit design
         </div>
-    </a>
-    <a href="/potential_directions/hpc_app/" class="card">
+    </div>
+    <div class="card" onclick="expandCard('hpc_app')">
         <div class="card-image">
-            <img src="/files/HPC.png" alt="QC">
+            <img src="/files/HPC.png" alt="QC" />
         </div>
         <div class="card-text">
             HPC for QEC
         </div>
-    </a>
-</div>
-
-
-# Random pics
-
-<div class="carousel">
-    <div class="carousel-images">
-        <img src="/files/photo.jpg" alt="My Photo">
-        <img src="/files/tracker.jpg" alt="My Photo with a bunch of sheep">
-        <img src="/files/sheep.jpg" alt="My Photo with a bunch of sheep">
     </div>
-    <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
-    <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
 </div>
 
-<style>
-  .carousel {
-    position: relative;
-    max-width: 100%;
-    margin: auto;
-    overflow: hidden;
-  }
-
-  .carousel-images {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-  }
-
-  .carousel-images img {
-    width: 100%;
-    flex-shrink: 0;
-  }
-
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  .carousel-button.prev {
-    left: 10px;
-  }
-
-  .carousel-button.next {
-    right: 10px;
-  }
-</style>
+<!-- Card Expansion Overlay -->
+<div class="card-overlay" id="cardOverlay" onclick="closeExpandedCard()">
+    <div class="expanded-card" onclick="event.stopPropagation()">
+        <button class="close-button" onclick="closeExpandedCard()">×</button>
+        <div class="expanded-content" id="expandedContent">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+</div>
 
 <script>
-  let currentSlide = 0;
+async function expandCard(cardId) {
+    const overlay = document.getElementById('cardOverlay');
+    const content = document.getElementById('expandedContent');
+    
+    try {
+        // Determine the correct path based on the cardId
+        let fetchPath;
+        if (cardId.includes('past_projects')) {
+            fetchPath = `/${cardId}/`;
+        } else {
+            fetchPath = `/potential_directions/${cardId}/`;
+        }
+        
+        // Fetch the content
+        const response = await fetch(fetchPath);
+        const html = await response.text();
+        
+        // Extract the main content
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const mainContent = doc.querySelector('main').innerHTML;
+        
+        // Insert the content
+        content.innerHTML = mainContent;
+        
+        // Position the overlay relative to current viewport
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        overlay.style.top = `${scrollTop}px`;
+        
+        // Show the overlay
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    } catch (error) {
+        console.error('Error loading content:', error);
+    }
+}
 
-  function moveSlide(direction) {
-    const slides = document.querySelectorAll('.carousel-images img');
-    const totalSlides = slides.length;
-    currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-    const offset = -currentSlide * 100;
-    document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
-  }
+function closeExpandedCard() {
+    const overlay = document.getElementById('cardOverlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+    overlay.style.top = '0'; // Reset position
+}
 </script>
+
+<style>
+  .card {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-overlay {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .card-overlay.active {
+    display: flex;
+  }
+
+  .expanded-card {
+    background: var(--color-dark-grey);
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    border-radius: 30px;
+    padding: 2em;
+    position: relative;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .expanded-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 1em;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .expanded-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .expanded-content::-webkit-scrollbar-track {
+    background: var(--color-dark-grey);
+  }
+
+  .expanded-content::-webkit-scrollbar-thumb {
+    background: var(--color-hover);
+    border-radius: 4px;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: var(--color-white);
+    padding: 0.2em 0.5em;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+    z-index: 2;
+  }
+
+  .close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .dark-mode .expanded-card {
+    background: var(--color-dark-grey);
+    color: var(--color-white);
+  }
+
+  .dark-mode .close-button {
+    color: var(--color-white);
+  }
+
+  .dark-mode .close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+</style>

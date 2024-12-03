@@ -6,19 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
     <title>Home</title>
     <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const theme = localStorage.getItem('theme');
-            const themeToggle = document.getElementById('theme-toggle');
-            if (theme === 'light') {
-                document.body.classList.remove('dark-mode');
-                themeToggle.textContent = 'Dark Mode';
-            } else {
-                // Default to dark mode
-                document.body.classList.add('dark-mode');
-                themeToggle.textContent = 'Light Mode';
-                localStorage.setItem('theme', 'dark');
+        // Initialize search index
+        let searchIndex;
+        let searchData;
+
+        // Fetch and build search index
+        async function initSearch() {
+            try {
+                const response = await fetch('/assets/search-index.json');
+                searchData = await response.json();
+                
+                // Build Lunr index
+                searchIndex = lunr(function() {
+                    this.ref('url');
+                    this.field('title');
+                    this.field('content');
+                    
+                    searchData.forEach(doc => {
+                        this.add(doc);
+                    });
+                });
+            } catch (error) {
+                console.error('Error initializing search:', error);
             }
+        }
+
+        // Initialize search when the page loads
+        document.addEventListener('DOMContentLoaded', initSearch);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Always use dark mode
+            document.body.classList.add('dark-mode');
 
             // Add prefix to figure captions
             let figIdx = 1;
@@ -31,24 +55,56 @@
             });
         });
 
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.getElementById('theme-toggle');
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                themeToggle.textContent = 'Light Mode';
-                localStorage.setItem('theme', 'dark');
-            } else {
-                themeToggle.textContent = 'Dark Mode';
-                localStorage.setItem('theme', 'light');
-            }
-        }
-
         function scrollGallery(direction) {
             const container = document.querySelector('.gallery-container');
             const itemWidth = container.querySelector('.gallery-item').offsetWidth + 20; // 20 is the margin
             const scrollAmount = direction * itemWidth;
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+
+        async function expandCard(cardId) {
+            const overlay = document.getElementById('cardOverlay');
+            const content = document.getElementById('expandedContent');
+            
+            try {
+                // Determine the correct path based on the cardId
+                let fetchPath;
+                if (cardId.includes('past_projects')) {
+                    fetchPath = `/${cardId}/`;
+                } else {
+                    fetchPath = `/potential_directions/${cardId}/`;
+                }
+                
+                // Fetch the content
+                const response = await fetch(fetchPath);
+                const html = await response.text();
+                
+                // Extract the main content
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const mainContent = doc.querySelector('main').innerHTML;
+                
+                // Insert the content
+                content.innerHTML = mainContent;
+                
+                // Show the overlay
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+                
+                // Reset scroll position
+                const expandedCard = overlay.querySelector('.expanded-card');
+                if (expandedCard) {
+                    expandedCard.scrollTop = 0;
+                }
+            } catch (error) {
+                console.error('Error loading content:', error);
+            }
+        }
+
+        function closeExpandedCard() {
+            const overlay = document.getElementById('cardOverlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
         }
     </script>
     <style>
@@ -98,13 +154,47 @@
     <header>
         <nav>
             <ul>
-                <li><button onclick="location.href='/'">Home</button></li>
-                <!-- <li><button onclick="location.href='/ai/'">AI</button></li> -->
-                <li><button onclick="location.href='/publications-talks/'">Publications/Talks</button></li>
+                <li class="menu-link">
+                    <a href="/">Home</a>
+                    <div class="dropdown-content">
+                        <a href="/#about">About Me</a>
+                        <a href="/#featured-projects">Featured Projects</a>
+                        <a href="/#research-interests">Research Interests</a>
+                    </div>
+                </li>
+                <li class="menu-link">
+                    <a href="/photos.html">Photos</a>
+                    <div class="dropdown-content">
+                        <a href="/photos.html">Photo Gallery</a>
+                    </div>
+                </li>
+                <li class="menu-link">
+                    <a href="/publications-talks/">Publications/Talks</a>
+                    <div class="dropdown-content">
+                        <a href="/publications-talks/#publications">Publications</a>
+                        <a href="/publications-talks/#talks">Conference Talks</a>
+                        <a href="/publications-talks/#posters">Research Posters</a>
+                    </div>
+                </li>
             </ul>
         </nav>
-        <button id="theme-toggle" onclick="toggleTheme()">Dark Mode</button>
+        <div class="search-button">
+            <a href="#" onclick="toggleSearch(); return false;">🔍︎</a>
+        </div>
     </header>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay" onclick="closeSearch()">
+        <div class="search-container" onclick="event.stopPropagation()">
+            <input type="text" 
+                   class="search-input" 
+                   id="searchInput" 
+                   placeholder="Start typing to search..."
+                   oninput="handleSearch(event)">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
     <main>
         <h1 id="-im-jiakai-wang">👋 I’m Jiakai Wang</h1>
 
@@ -144,30 +234,30 @@
 <h1 id="featured-projects">Featured Projects</h1>
 
 <div class="card-container">
-    <a href="/past_projects/fluxonium_erasure/" class="card">
+    <div class="card" onclick="expandCard('past_projects/mfqec')">
         <div class="card-image">
-            <img src="/files/2024/JJ_Chain.png" alt="Superconducting Qubits" />
+            <img src="/files/2023/circ_simple.png" alt="MFQEC" />
         </div>
         <div class="card-text">
-            Single-mode fluxonium artificial atom as erasure qubit
+            Measurement-free quantum error correction
         </div>
-    </a>
-    <a href="/past_projects/mfqec/" class="card">
+    </div>
+    <div class="card" onclick="expandCard('past_projects/fluxonium_erasure')">
         <div class="card-image">
-            <img src="/files/2023/circ_simple.png" alt="QEC" />
+            <img src="/files/2024/JJ_Chain.png" alt="Fluxonium" />
         </div>
         <div class="card-text">
-            Measurement-free Steane code for neutral atoms
+            Fluxonium erasure
         </div>
-    </a>
-    <a href="/past_projects/hpc/" class="card">
+    </div>
+    <div class="card" onclick="expandCard('past_projects/hpc')">
         <div class="card-image">
-            <img src="/files/HTCHPC.jpg" alt="QEC" />
+            <img src="/files/HTCHPC.jpg" alt="HPC" />
         </div>
         <div class="card-text">
-            High-performance packages to facilitate research
+            High-Performance Computing
         </div>
-    </a>
+    </div>
 </div>
 
 <style>
@@ -179,8 +269,8 @@
     margin-top: 2em;
   }
   .card {
-    background-color: #d3d3d3; /* Match header/footer background color */
-    color: black; /* Change text color to black in light mode */
+    background-color: #d3d3d3;
+    color: black;
     border-radius: 30px;
     overflow: hidden;
     text-decoration: none;
@@ -198,120 +288,207 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 0; /* Override round edges for images */
+    border-radius: 0;
   }
   .card-text {
-    padding: 0.5em; /* Reduce padding */
+    padding: 0.5em;
     text-align: center;
-    color: black; /* Ensure text color is black in light mode */
+    color: black;
   }
   .dark-mode .card {
     background-color: #333;
   }
   .dark-mode .card-text {
-    color: white; /* Ensure text color is white in dark mode */
+    color: white;
   }
 </style>
 
 <h1 id="research-interests">Research interests:</h1>
 
 <div class="card-container">
-    <a href="/potential_directions/agents/" class="card">
+    <div class="card" onclick="expandCard('agents')">
         <div class="card-image">
             <img src="/files/agents.png" alt="agents" />
         </div>
         <div class="card-text">
             LLM prompt engineering
         </div>
-    </a>
-    <a href="/potential_directions/ftqc/" class="card">
+    </div>
+    <div class="card" onclick="expandCard('ftqc')">
         <div class="card-image">
             <img src="/files/arch.png" alt="FTQC" />
         </div>
         <div class="card-text">
             FTQC architecture upon qLDPC codes for photonic / ion trap / scqubits
         </div>
-    </a>
-    <a href="/potential_directions/novel_SCqubits/" class="card">
+    </div>
+    <div class="card" onclick="expandCard('novel_SCqubits')">
         <div class="card-image">
             <img src="/files/2024/JJ_Chain.png" alt="QC" />
         </div>
         <div class="card-text">
             Algorithmic novel superconducting qubit design
         </div>
-    </a>
-    <a href="/potential_directions/hpc_app/" class="card">
+    </div>
+    <div class="card" onclick="expandCard('hpc_app')">
         <div class="card-image">
             <img src="/files/HPC.png" alt="QC" />
         </div>
         <div class="card-text">
             HPC for QEC
         </div>
-    </a>
-</div>
-
-<h1 id="random-pics">Random pics</h1>
-
-<div class="carousel">
-    <div class="carousel-images">
-        <img src="/files/photo.jpg" alt="My Photo" />
-        <img src="/files/tracker.jpg" alt="My Photo with a bunch of sheep" />
-        <img src="/files/sheep.jpg" alt="My Photo with a bunch of sheep" />
     </div>
-    <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
-    <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
 </div>
 
-<style>
-  .carousel {
-    position: relative;
-    max-width: 100%;
-    margin: auto;
-    overflow: hidden;
-  }
-
-  .carousel-images {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-  }
-
-  .carousel-images img {
-    width: 100%;
-    flex-shrink: 0;
-  }
-
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-  }
-
-  .carousel-button.prev {
-    left: 10px;
-  }
-
-  .carousel-button.next {
-    right: 10px;
-  }
-</style>
+<!-- Card Expansion Overlay -->
+<div class="card-overlay" id="cardOverlay" onclick="closeExpandedCard()">
+    <div class="expanded-card" onclick="event.stopPropagation()">
+        <button class="close-button" onclick="closeExpandedCard()">×</button>
+        <div class="expanded-content" id="expandedContent">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+</div>
 
 <script>
-  let currentSlide = 0;
+async function expandCard(cardId) {
+    const overlay = document.getElementById('cardOverlay');
+    const content = document.getElementById('expandedContent');
+    
+    try {
+        // Determine the correct path based on the cardId
+        let fetchPath;
+        if (cardId.includes('past_projects')) {
+            fetchPath = `/${cardId}/`;
+        } else {
+            fetchPath = `/potential_directions/${cardId}/`;
+        }
+        
+        // Fetch the content
+        const response = await fetch(fetchPath);
+        const html = await response.text();
+        
+        // Extract the main content
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const mainContent = doc.querySelector('main').innerHTML;
+        
+        // Insert the content
+        content.innerHTML = mainContent;
+        
+        // Position the overlay relative to current viewport
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        overlay.style.top = `${scrollTop}px`;
+        
+        // Show the overlay
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    } catch (error) {
+        console.error('Error loading content:', error);
+    }
+}
 
-  function moveSlide(direction) {
-    const slides = document.querySelectorAll('.carousel-images img');
-    const totalSlides = slides.length;
-    currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-    const offset = -currentSlide * 100;
-    document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
-  }
+function closeExpandedCard() {
+    const overlay = document.getElementById('cardOverlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+    overlay.style.top = '0'; // Reset position
+}
 </script>
+
+<style>
+  .card {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-overlay {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .card-overlay.active {
+    display: flex;
+  }
+
+  .expanded-card {
+    background: var(--color-dark-grey);
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    border-radius: 30px;
+    padding: 2em;
+    position: relative;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .expanded-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 1em;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  .expanded-content::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .expanded-content::-webkit-scrollbar-track {
+    background: var(--color-dark-grey);
+  }
+
+  .expanded-content::-webkit-scrollbar-thumb {
+    background: var(--color-hover);
+    border-radius: 4px;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: var(--color-white);
+    padding: 0.2em 0.5em;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+    z-index: 2;
+  }
+
+  .close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .dark-mode .expanded-card {
+    background: var(--color-dark-grey);
+    color: var(--color-white);
+  }
+
+  .dark-mode .close-button {
+    color: var(--color-white);
+  }
+
+  .dark-mode .close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+</style>
 
 
     </main>
@@ -319,6 +496,99 @@
         &copy; 2024 Jiakai Wang
     </footer>
     <script>
+        // Search functionality
+        let searchDebounceTimeout;
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Open search on CMD/CTRL + K
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                toggleSearch();
+            }
+            // Close search or expanded card on Escape
+            if (e.key === 'Escape') {
+                // Check if search is active
+                const searchOverlay = document.getElementById('searchOverlay');
+                if (searchOverlay.classList.contains('search-active')) {
+                    closeSearch();
+                }
+                // Check if card is expanded
+                const cardOverlay = document.getElementById('cardOverlay');
+                if (cardOverlay.classList.contains('active')) {
+                    closeExpandedCard();
+                }
+            }
+        });
+
+        function handleSearch(event) {
+            const query = event.target.value;
+            
+            // Clear previous timeout
+            clearTimeout(searchDebounceTimeout);
+            
+            // Set new timeout (300ms debounce)
+            searchDebounceTimeout = setTimeout(() => {
+                if (!query.trim()) {
+                    document.getElementById('searchResults').innerHTML = '';
+                    return;
+                }
+
+                try {
+                    // Perform search
+                    const results = searchIndex.search(query);
+                    const resultsContainer = document.getElementById('searchResults');
+                    
+                    if (results.length === 0) {
+                        resultsContainer.innerHTML = '<div class="search-no-results">No results found</div>';
+                        return;
+                    }
+
+                    // Format and display results
+                    const formattedResults = results
+                        .slice(0, 10) // Limit to top 10 results
+                        .map(result => {
+                            const doc = searchData.find(d => d.url === result.ref);
+                            const preview = doc.content.substring(0, 150) + '...';
+                            return `
+                                <div class="search-result-item">
+                                    <a href="${doc.url}">
+                                        <h3>${doc.title}</h3>
+                                        <p>${preview}</p>
+                                    </a>
+                                </div>
+                            `;
+                        })
+                        .join('');
+
+                    resultsContainer.innerHTML = formattedResults;
+                } catch (error) {
+                    console.error('Search error:', error);
+                    document.getElementById('searchResults').innerHTML = 
+                        '<div class="search-error">An error occurred while searching</div>';
+                }
+            }, 300); // 300ms debounce delay
+        }
+
+        function toggleSearch() {
+            const overlay = document.getElementById('searchOverlay');
+            const searchInput = document.getElementById('searchInput');
+            const isActive = overlay.classList.contains('search-active');
+            
+            overlay.classList.toggle('search-active');
+            document.querySelector('.search-container').classList.toggle('search-active');
+            
+            if (!isActive) {
+                searchInput.focus();
+            }
+        }
+
+        function closeSearch() {
+            document.getElementById('searchOverlay').classList.remove('search-active');
+            document.querySelector('.search-container').classList.remove('search-active');
+            document.getElementById('searchResults').innerHTML = '';
+        }
+
         document.addEventListener('scroll', function() {
             const footer = document.getElementById('footer');
             if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 10) {
@@ -328,5 +598,16 @@
             }
         });
     </script>
+    <!-- Card Expansion Overlay -->
+    <div class="card-overlay" id="cardOverlay" onclick="closeExpandedCard()">
+        <div class="expanded-card-container">
+            <div class="expanded-card" onclick="event.stopPropagation()">
+                <button class="close-button" onclick="closeExpandedCard()">×</button>
+                <div class="expanded-content" id="expandedContent">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
