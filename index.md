@@ -8,33 +8,62 @@ title: Home
 Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison (2021-2024), Software Engineering @ South China Univ of Tech (2019-2021)
 
 <div class="tags">
-    <span class="tag">🔬 Quantum Computing</span>
-    <span class="tag">🛠️ Quantum Error Correction Codes</span>
-    <span class="tag">🛡️ Fault-Tolerant Quantum Computing</span>
-    <span class="tag">🔭 Atomic Molecular & Optical physics</span>
-    <span class="tag">📊 Statistics</span>
-    <span class="tag">🤖 Machine Learning</span>
-    <span class="tag">💻 CPU/GPU HPC</span>
-    <span class="tag">🧠 LLM prompt engineering</span>
-    <span class="tag">🎨 Blender</span> <!-- Changed emoji to a paint palette -->
+    <span class="tag" style="animation-delay: 0s">🔬 Quantum Computing</span>
+    <span class="tag" style="animation-delay: 0.2s">🛠️ Quantum Error Correction Codes</span>
+    <span class="tag" style="animation-delay: 0.4s">🛡️ Fault-Tolerant Quantum Computing</span>
+    <span class="tag" style="animation-delay: 0.6s">🔭 Atomic Molecular & Optical physics</span>
+    <span class="tag" style="animation-delay: 0.8s">📊 Statistics</span>
+    <span class="tag" style="animation-delay: 1.0s">🤖 Machine Learning</span>
+    <span class="tag" style="animation-delay: 1.2s">💻 CPU/GPU HPC</span>
+    <span class="tag" style="animation-delay: 1.4s">🧠 LLM prompt engineering</span>
+    <span class="tag" style="animation-delay: 1.6s">🎨 Blender</span>
 </div>
 
 <style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .tags {
     margin-top: 1em;
     display: flex;
-    flex-wrap: wrap; /* Allow tags to wrap to the next line */
+    flex-wrap: wrap;
   }
+
   .tag {
-    background-color: #5d8fb3; /* Change background color to #5d8fb3 */
+    background-color: #5d8fb3;
     color: white;
     padding: 0.5em;
     border-radius: 7.5px;
-    margin: 0.5em; /* Add margin to prevent overlap */
+    margin: 0.5em;
     display: inline-block;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    will-change: transform;
+    cursor: pointer;
   }
+
+  .tag:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #6fa3c7;
+  }
+
   .dark-mode .tag {
-    background-color: #333; /* Change background color to dark grey in dark mode */
+    background-color: #333;
+  }
+
+  .dark-mode .tag:hover {
+    background-color: #444;
   }
 </style>
 

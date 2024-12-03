@@ -88,14 +88,8 @@
                 content.innerHTML = mainContent;
                 
                 // Show the overlay
-                overlay.classList.add('active');
+                overlay.style.display = 'flex';
                 document.body.style.overflow = 'hidden'; // Prevent scrolling
-                
-                // Reset scroll position
-                const expandedCard = overlay.querySelector('.expanded-card');
-                if (expandedCard) {
-                    expandedCard.scrollTop = 0;
-                }
             } catch (error) {
                 console.error('Error loading content:', error);
             }
@@ -103,7 +97,7 @@
 
         function closeExpandedCard() {
             const overlay = document.getElementById('cardOverlay');
-            overlay.classList.remove('active');
+            overlay.style.display = 'none';
             document.body.style.overflow = ''; // Restore scrolling
         }
     </script>
@@ -176,6 +170,9 @@
                         <a href="/publications-talks/#posters">Research Posters</a>
                     </div>
                 </li>
+                <li class="menu-link">
+                    <a href="/files/Jiakai_resume.pdf" target="_blank">Resume</a>
+                </li>
             </ul>
         </nav>
         <div class="search-button">
@@ -192,6 +189,16 @@
                    placeholder="Start typing to search..."
                    oninput="handleSearch(event)">
             <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- Card Expansion Overlay -->
+    <div class="card-overlay" id="cardOverlay" onclick="closeExpandedCard()">
+        <div class="expanded-card" onclick="event.stopPropagation()">
+            <button class="close-button" onclick="closeExpandedCard()">×</button>
+            <div class="expanded-content" id="expandedContent">
+                <!-- Content will be loaded here -->
+            </div>
         </div>
     </div>
 
@@ -342,16 +349,5 @@
             }
         });
     </script>
-    <!-- Card Expansion Overlay -->
-    <div class="card-overlay" id="cardOverlay" onclick="closeExpandedCard()">
-        <div class="expanded-card-container">
-            <div class="expanded-card" onclick="event.stopPropagation()">
-                <button class="close-button" onclick="closeExpandedCard()">×</button>
-                <div class="expanded-content" id="expandedContent">
-                    <!-- Content will be loaded here -->
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>

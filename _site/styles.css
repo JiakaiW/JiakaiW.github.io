@@ -19,6 +19,8 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 1;
 }
 
 a {
@@ -46,6 +48,7 @@ header {
     justify-content: center;
     position: relative;
     width: 100%;
+    z-index: 100;
 }
 
 nav {
@@ -537,51 +540,44 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0);
+    background: transparent;
     backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
+    z-index: 1000;
     pointer-events: none;
     transition: all 0.5s ease;
     opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-overlay.active {
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
     pointer-events: auto;
     opacity: 1;
-}
-
-.expanded-card-container {
-    width: 90%;
-    max-width: 1200px;
-    height: 80vh;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-}
-
-.card-overlay.active .expanded-card-container {
-    opacity: 1;
-    pointer-events: auto;
 }
 
 .expanded-card {
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
     background: var(--color-dark-grey);
-    width: 100%;
-    height: 100%;
     border-radius: 30px;
     padding: 2em;
-    position: relative;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1001;
+    position: relative;
+}
+
+.card-overlay.active .expanded-card {
+    opacity: 1;
 }
 
 /* Close button styling */
@@ -602,9 +598,21 @@ main {
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
-    z-index: 2001;
+    z-index: 1002;
 }
 
 .close-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure proper stacking context */
+body {
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    position: relative;
+    z-index: 100;
 }
