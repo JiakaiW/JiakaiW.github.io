@@ -150,67 +150,63 @@ Master of Physics @ UW-Madison (2024-2025), previously Data Science @ UW-Madison
 
 # Random pics
 
-<div class="gallery-wrapper">
-  <button class="gallery-arrow left" onclick="scrollGallery(-1)">&#10094;</button>
-  <div class="gallery-container">
-    <div class="gallery-item">
-      <img src="/files/photo.jpg" alt="My Photo">
-      <p class="caption">me presenting a poster at IMSI workshop on Quantum Hardware</p>
+<div class="carousel">
+    <div class="carousel-images">
+        <img src="/files/photo.jpg" alt="My Photo">
+        <img src="/files/tracker.jpg" alt="My Photo with a bunch of sheep">
+        <img src="/files/sheep.jpg" alt="My Photo with a bunch of sheep">
     </div>
-    <div class="gallery-item">
-      <img src="/files/tracker.jpg" alt="My Photo with a bunch of sheep">
-      <p class="caption">Damn! Years of midwestern life really can<br>turn a city boy into a rural Wisconsinite!</p>
-    </div>
-    <div class="gallery-item">
-      <img src="/files/sheep.jpg" alt="My Photo with a bunch of sheep">
-      <p class="caption">Sheeps are cute though.</p>
-    </div>
-  </div>
-  <button class="gallery-arrow right" onclick="scrollGallery(1)">&#10095;</button>
+    <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
 </div>
 
 <style>
-  .gallery-wrapper {
-    display: flex;
-    align-items: center; /* Center items vertically */
+  .carousel {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    overflow: hidden;
   }
-  .gallery-arrow {
+
+  .carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .carousel-images img {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
     padding: 10px;
     cursor: pointer;
-    z-index: 1;
+    z-index: 10;
   }
-  .gallery-arrow.left {
-    margin-right: 10px;
+
+  .carousel-button.prev {
+    left: 10px;
   }
-  .gallery-arrow.right {
-    margin-left: 10px;
-  }
-  .gallery-invisible {
-    position: absolute;
-    top: 0; 
-    bottom: 0;
-    width: 30%;
-    cursor: pointer;
-  }
-  .gallery-invisible.left {
-    left: 0;
-  }
-  .gallery-invisible.right {
-    right: 0;
-  }
-  .caption {
-    word-wrap: break-word; /* Ensure captions wrap within the width of the image */
-    max-width: 100%; /* Ensure captions do not exceed the width of the image */
+
+  .carousel-button.next {
+    right: 10px;
   }
 </style>
 
 <script>
-  function scrollGallery(direction) {
-    const container = document.querySelector('.gallery-container');
-    const itemWidth = container.querySelector('.gallery-item').offsetWidth + 20; // 20 is the margin
-    container.scrollBy({ left: direction * itemWidth, behavior: 'smooth' });
+  let currentSlide = 0;
+
+  function moveSlide(direction) {
+    const slides = document.querySelectorAll('.carousel-images img');
+    const totalSlides = slides.length;
+    currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+    const offset = -currentSlide * 100;
+    document.querySelector('.carousel-images').style.transform = `translateX(${offset}%)`;
   }
 </script>
