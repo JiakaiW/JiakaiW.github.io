@@ -4,7 +4,7 @@ title: Fluxonium Erasure Qubit
 permalink: /past_projects/fluxonium_erasure/
 ---
 
-# Fluxonium erasure qubit
+# Fluxonium erasure qubit (paper in preparation)
 
 <div style="text-align: center;">
   <img src="/files/erasure_paper.png" style="width: 800px;" alt="paper">
@@ -15,7 +15,7 @@ permalink: /past_projects/fluxonium_erasure/
 **Why erasure qubit:** At the same total error rate, erasure errors that are mostly heralded (of known location) are easier to correct, and gives rise to higher threshold and larger logical error suppression exponent. While erasure qubits have been demonstrated on natural atoms or composite superconducting qubits, it will be cool if erasure qubit can be implemented on single-mode superconducting qubits. 
 
 **We demonstrate that a single fluxonium artificial atom can be used as an erasure qubit, along with proposals for physical gates**
-### Paper coming soon 
+
 
 [APS March Meeting 2024 Fluxonium leakage detection, https://meetings.aps.org/Meeting/MAR24/Session/A49.8](/files/2024/APSMM24_fluxonium.pdf)
 

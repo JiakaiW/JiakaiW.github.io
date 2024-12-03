@@ -11,8 +11,7 @@ permalink: /past_projects/mfqec/
   <!-- <p>.</p> -->
 </div>
 
-
-Michael A. Perlin, Vickram N. Premakumar, Jiakai Wang, Mark Saffman, and Robert Joynt, "[Fault-tolerant measurement-free quantum error correction with multiqubit gates](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426)", Phys. Rev. A 108, 062426 – Published 26 December 2023
+[Fault-tolerant measurement-free quantum error correction with multiqubit gates](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426)
 
 [slides at APS march meeting 2024](/files/2023/APSMM24_MFQEC.pdf)
 
