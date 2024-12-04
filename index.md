@@ -483,6 +483,17 @@ function closeExpandedCard() {
     }
 }
 
+@keyframes photoFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .photo-card {
     cursor: pointer;
     border-radius: 15px;
@@ -491,7 +502,14 @@ function closeExpandedCard() {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     background: var(--color-dark-grey);
     height: 250px;
+    opacity: 0;
+    animation: photoFadeIn 0.8s ease-out forwards;
 }
+
+.photo-card:nth-child(1) { animation-delay: 0s; }
+.photo-card:nth-child(2) { animation-delay: 0.2s; }
+.photo-card:nth-child(3) { animation-delay: 0.4s; }
+.photo-card:nth-child(4) { animation-delay: 0.6s; }
 
 .photo-card:hover {
     transform: translateY(-5px);
