@@ -128,7 +128,7 @@ title: Home
     </div>
     <div class="card" onclick="expandCard('past_projects/fluxonium_erasure')" style="animation-delay: 0.2s">
         <div class="card-image">
-            <img src="/files/2024/JJ_Chain.png" alt="Fluxonium" />
+            <img src="/files/2024/lvl_diagram.png" alt="Fluxonium" />
         </div>
         <div class="card-text">
             Fluxonium erasure
@@ -136,10 +136,10 @@ title: Home
     </div>
     <div class="card" onclick="expandCard('past_projects/hpc')" style="animation-delay: 0.4s">
         <div class="card-image">
-            <img src="/files/HTCHPC.jpg" alt="HPC" />
+            <img src="/files/2024/GPU_pauli_frame.png" alt="HPC" />
         </div>
         <div class="card-text">
-            High-Performance Computing
+            High-Performance Software for Quantum Computing Research
         </div>
     </div>
 </div>
