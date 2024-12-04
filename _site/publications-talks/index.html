@@ -207,14 +207,49 @@
 
     <main>
         <style>
-/* Override all header backgrounds */
+/* Make sure body and html span full height and have no background */
+html, body {
+    min-height: 100vh;
+    background: transparent !important;
+}
+
+/* Create a background wrapper that covers everything */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/files/2024/JJ_Chain.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2;
+}
+
+/* Dark overlay for the entire page */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+/* Override all header backgrounds and ensure proper z-index */
 header,
 .dark-mode header,
 body.dark-mode header {
     background-color: transparent !important;
+    position: relative;
+    z-index: 1;
 }
 
-/* Override all footer backgrounds */
+/* Override all footer backgrounds and ensure proper z-index */
 footer,
 #footer,
 .dark-mode footer,
@@ -222,30 +257,19 @@ footer,
 body.dark-mode #footer {
     background-color: transparent !important;
     margin-top: 2em;
+    position: relative;
+    z-index: 1;
 }
 
 main {
-    background-image: url('/files/2024/JJ_Chain.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
     position: relative;
+    z-index: 1;
     padding: 2em;
     max-width: none !important;
     width: 100%;
     margin: 0;
-    min-height: 100vh;
-}
-
-main::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 0;
+    min-height: calc(100vh - 200px);
+    background: transparent !important;
 }
 
 /* Ensure text in header/footer remains visible */
@@ -261,6 +285,8 @@ main::before {
 .dark-mode .footer-section p {
     color: white !important;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
 }
 
 /* Style dropdown menu to be semi-transparent */
@@ -269,6 +295,7 @@ main::before {
     background: rgba(26, 26, 26, 0.8) !important;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    z-index: 3;
 }
 
 .dropdown-content a,
