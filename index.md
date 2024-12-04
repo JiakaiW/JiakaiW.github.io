@@ -461,6 +461,12 @@ function closeExpandedCard() {
     <div class="photo-card" onclick="expandPhoto('/files/holding_cat.jpg', 'idk')">
         <img src="/files/holding_cat.jpg" alt="My Photo on a tracker">
     </div>
+    <div class="photo-card" onclick="expandPhoto('/files/APSMM.jpg', 'Minneapolis')">
+        <img src="/files/APSMM.jpg" alt="APSMM2024">
+    </div>
+    <div class="photo-card" onclick="expandPhoto('/files/cinematic_goose.jpg', 'winter lake mendota @ Madison WI')">
+        <img src="/files/cinematic_goose.jpg" alt="APSMM2024">
+    </div>
 </div>
 
 <style>
