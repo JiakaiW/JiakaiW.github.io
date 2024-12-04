@@ -657,6 +657,9 @@ function closeExpandedCard() {
     <div class="photo-card" onclick="expandPhoto('/files/tracker.jpg', 'My Photo on a tracker')">
         <img src="/files/tracker.jpg" alt="My Photo on a tracker" />
     </div>
+    <div class="photo-card" onclick="expandPhoto('/files/holding_cat.jpg', 'idk')">
+        <img src="/files/holding_cat.jpg" alt="My Photo on a tracker" />
+    </div>
 </div>
 
 <style>
@@ -689,6 +692,7 @@ function closeExpandedCard() {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     background: var(--color-dark-grey);
+    height: 250px;
 }
 
 .photo-card:hover {
@@ -698,7 +702,7 @@ function closeExpandedCard() {
 
 .photo-card img {
     width: 100%;
-    height: 300px;
+    height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
