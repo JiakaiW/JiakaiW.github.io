@@ -736,3 +736,60 @@ nav a:hover {
 .social-link:hover {
     color: var(--color-hover);
 }
+
+/* Base link styles - remove the visited state color change */
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:visited {
+    color: var(--color-primary); /* Keep same color as unvisited */
+}
+
+a:hover {
+    color: var(--color-hover);
+}
+
+/* Override for specific link types */
+.tag, .tag:visited {
+    color: white !important; /* Force white color for tags */
+}
+
+.tag:hover {
+    color: white !important;
+    background-color: #6fa3c7;
+}
+
+/* Menu links */
+nav a, nav a:visited {
+    color: var(--color-white);
+}
+
+nav a:hover {
+    color: var(--color-hover);
+}
+
+/* Footer social links */
+.social-link, .social-link:visited {
+    color: var(--color-white);
+}
+
+.social-link:hover {
+    color: var(--color-hover);
+}
+
+/* Card text links */
+.card-text, .card-text:visited {
+    color: inherit;
+}
+
+/* Dark mode overrides */
+.dark-mode a, .dark-mode a:visited {
+    color: var(--color-primary);
+}
+
+.dark-mode nav a, .dark-mode nav a:visited {
+    color: var(--color-white);
+}

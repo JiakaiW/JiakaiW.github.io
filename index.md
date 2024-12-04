@@ -97,6 +97,8 @@ title: Home
     will-change: transform;
     cursor: pointer;
     text-decoration: none !important;
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: calc(var(--tag-index, 0) * 0.2s);
   }
 
   .tag:hover {
@@ -391,6 +393,8 @@ function closeExpandedCard() {
     animation: cardFadeIn 0.8s ease-out forwards;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    animation: cardFadeIn 0.8s ease-out forwards;
+    animation-delay: calc(var(--card-index, 0) * 0.2s);
 }
 
 .card:hover {
@@ -513,12 +517,8 @@ function closeExpandedCard() {
     height: 250px;
     opacity: 0;
     animation: photoFadeIn 0.8s ease-out forwards;
+    animation-delay: calc(var(--photo-index, 0) * 0.2s);
 }
-
-.photo-card:nth-child(1) { animation-delay: 0s; }
-.photo-card:nth-child(2) { animation-delay: 0.2s; }
-.photo-card:nth-child(3) { animation-delay: 0.4s; }
-.photo-card:nth-child(4) { animation-delay: 0.6s; }
 
 .photo-card:hover {
     transform: translateY(-5px);
@@ -563,5 +563,36 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeExpandedPhoto();
     }
+});
+</script>
+
+<script>
+// Add this after the photo grid HTML
+document.addEventListener('DOMContentLoaded', function() {
+    const photoCards = document.querySelectorAll('.photo-card');
+    photoCards.forEach((card, index) => {
+        card.style.setProperty('--photo-index', index);
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tags = document.querySelectorAll('.tag');
+    tags.forEach((tag, index) => {
+        tag.style.setProperty('--tag-index', index);
+    });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle featured project cards
+    document.querySelectorAll('.card-container').forEach(container => {
+        const cards = container.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            card.style.setProperty('--card-index', index);
+        });
+    });
 });
 </script>
