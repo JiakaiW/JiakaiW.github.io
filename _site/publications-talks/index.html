@@ -157,12 +157,6 @@
                     </div>
                 </li>
                 <li class="menu-link">
-                    <a href="/photos.html">Photos</a>
-                    <div class="dropdown-content">
-                        <a href="/photos.html">Photo Gallery</a>
-                    </div>
-                </li>
-                <li class="menu-link">
                     <a href="/publications-talks/">Publications/Talks</a>
                     <div class="dropdown-content">
                         <a href="/publications-talks/#publications">Publications</a>
@@ -199,6 +193,14 @@
             <div class="expanded-content" id="expandedContent">
                 <!-- Content will be loaded here -->
             </div>
+        </div>
+    </div>
+
+    <!-- Photo Expansion Overlay -->
+    <div class="photo-overlay" id="photoOverlay" onclick="closeExpandedPhoto()">
+        <div class="expanded-photo-container" onclick="event.stopPropagation()">
+            <button class="close-button" onclick="closeExpandedPhoto()">×</button>
+            <div id="expandedPhotoContent"></div>
         </div>
     </div>
 

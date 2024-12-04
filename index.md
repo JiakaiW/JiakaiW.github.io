@@ -442,3 +442,95 @@ function closeExpandedCard() {
     background: var(--color-dark-grey);
 }
 </style>
+
+# Photo Gallery
+
+<div class="photo-grid">
+    <div class="photo-card" onclick="expandPhoto('/files/lab_tour.png', 'Tour @ Roman Kuzmin\'s lab')">
+        <img src="/files/lab_tour.png" alt="Tour @ Roman Kuzmin's lab">
+    </div>
+    <div class="photo-card" onclick="expandPhoto('/files/photo.jpg', 'My Photo')">
+        <img src="/files/photo.jpg" alt="My Photo">
+    </div>
+    <div class="photo-card" onclick="expandPhoto('/files/tracker.jpg', 'My Photo on a tracker')">
+        <img src="/files/tracker.jpg" alt="My Photo on a tracker">
+    </div>
+</div>
+
+<style>
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(250px, 300px));
+    gap: 2em;
+    padding: 2em;
+    justify-content: center;
+}
+
+@media (max-width: 1000px) {
+    .photo-grid {
+        grid-template-columns: repeat(2, minmax(250px, 300px));
+    }
+}
+
+@media (max-width: 600px) {
+    .photo-grid {
+        grid-template-columns: repeat(1, minmax(250px, 300px));
+        gap: 1em;
+        padding: 1em;
+    }
+}
+
+.photo-card {
+    cursor: pointer;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--color-dark-grey);
+}
+
+.photo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.photo-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.photo-card:hover img {
+    transform: scale(1.05);
+}
+</style>
+
+<script>
+function expandPhoto(photoUrl, caption) {
+    const overlay = document.getElementById('photoOverlay');
+    const content = document.getElementById('expandedPhotoContent');
+    
+    content.innerHTML = `
+        <img src="${photoUrl}" alt="${caption}">
+        <div class="expanded-photo-caption">${caption}</div>
+    `;
+    
+    // Show the overlay
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+}
+
+function closeExpandedPhoto() {
+    const overlay = document.getElementById('photoOverlay');
+    overlay.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
+}
+
+// Close on ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeExpandedPhoto();
+    }
+});
+</script>
