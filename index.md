@@ -453,9 +453,9 @@ function closeExpandedCard() {
     <div class="photo-card" onclick="expandPhoto('/files/lab_tour.png', 'Tour @ Roman Kuzmin\'s lab')">
         <img src="/files/lab_tour.png" alt="Tour @ Roman Kuzmin's lab">
     </div>
-    <div class="photo-card" onclick="expandPhoto('/files/photo.jpg', 'My Photo')">
+<!--     <div class="photo-card" onclick="expandPhoto('/files/photo.jpg', 'My Photo')">
         <img src="/files/photo.jpg" alt="My Photo">
-    </div>
+    </div> -->
     <div class="photo-card" onclick="expandPhoto('/files/poster_2024.jpg', 'Photo of me giving a talk @ IMSI quantum hardware workshop 2024 to Prof. Jens Koch')">
         <img src="/files/poster_2024.jpg" alt="Photo of me giving a talk @ IMSI quantum hardware workshop 2024">
     </div>
