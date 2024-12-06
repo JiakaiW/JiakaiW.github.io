@@ -218,7 +218,7 @@ title: Home
     </div>
     <div class="card" onclick="expandCard('hpc_app')" style="animation-delay: 0.6s">
         <div class="card-image">
-            <img src="/files/HPC.png" alt="QC" />
+            <img src="/files/DGX_quantum.png" alt="QC" />
         </div>
         <div class="card-text">
             HPC for QEC
