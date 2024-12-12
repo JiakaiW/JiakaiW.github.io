@@ -447,12 +447,12 @@ function closeExpandedCard() {
 }
 </style>
 
-<!--# Photo Gallery-->
+# Photo Gallery
 
 <div class="photo-grid">
-<!--     <div class="photo-card" onclick="expandPhoto('/files/lab_tour.png', 'Tour @ Roman Kuzmin\'s lab')">
-        <img src="/files/lab_tour.png" alt="Tour @ Roman Kuzmin's lab">
-    </div> -->
+    <div class="photo-card" onclick="expandPhoto('/files/ShuiJiang.jpg', 'Eating Dim Sum w/ Shui Jiang from CUHK ECE')">
+        <img src="/files/ShuiJiang.jpg" alt="Dim Sum w/ Shui Jiang from CUHK ECE">
+    </div>
 <!--     <div class="photo-card" onclick="expandPhoto('/files/photo.jpg', 'My Photo')">
         <img src="/files/photo.jpg" alt="My Photo">
     </div> -->
