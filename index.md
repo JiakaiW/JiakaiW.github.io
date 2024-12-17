@@ -213,7 +213,7 @@ title: Home
             <img src="/files/2024/JJ_Chain.png" alt="QC" />
         </div>
         <div class="card-text">
-            Algorithmic novel superconducting qubit design
+            AI-assisted novel superconducting qubit design
         </div>
     </div>
     <div class="card" onclick="expandCard('hpc_app')" style="animation-delay: 0.6s">

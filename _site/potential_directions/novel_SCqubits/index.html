@@ -215,21 +215,7 @@
 
 <h3 id="because-experimentalist-phds-are-just-busy-figuring-out-cryostats-lasers-and-wiring-stuff-why-cant-computer-scientists-who-have-more-freedom-help-explore-ideas-on-the-hardware-side">Because experimentalist phds are just busy figuring out cryostats, lasers and wiring stuff, why can’t computer scientists who have more freedom help explore ideas on the hardware side?</h3>
 
-<p>For example, one of my immature guess is:</p>
-
-<h1 id="intuition-novel-superconducting-qubit-design-could-add-another-9-to-gate-fidelity">Intuition: novel superconducting qubit design could add another 9 to gate fidelity.</h1>
-
-<h2 id="specifically-it-would-be-nice-to-engineering-a-superconducting-qubit-version-of-omg-optical-metastable-ground-architecture-reference-for-these-reasons">Specifically, it would be nice to engineering a superconducting qubit-version of omg (optical, metastable, ground) architecture <a href="https://arxiv.org/pdf/2109.01272">(reference)</a> for these reasons:</h2>
-
-<p>a) Multiple long-lived subspaces would allow ways to engineer high-erasure ratio <a href="https://www.nature.com/articles/s41586-023-06438-1">(reference)</a> and approximately bias-preserving gates <a href="https://journals.aps.org/prx/abstract/10.1103/PhysRevX.12.021049">(referece)</a>.</p>
-
-<p>b) The selection rule (pattern in matrix elements) is not idea in fluxonium, or in novel qubit proposals. Controllability and coherence are often at conflict.</p>
-
-<h2 id="potential-ways-to-accomplish-this">Potential ways to accomplish this?</h2>
-
-<p>a) Exploration with search / learning based algorithm on the circuit-level <a href="https://scqubits.readthedocs.io/en/v4.2/guide/circuit/ipynb/custom_circuit_root.html">(reference)</a></p>
-
-<p>b) Optimization on the EDA level <a href="https://qiskit-community.github.io/qiskit-metal/">(reference)</a></p>
+<p>Modern physical qubit designs increasingly leverage techniques such as <a href="https://www.nature.com/articles/s41586-023-06438-1">erasure conversion</a> and <a href="https://journals.aps.org/prx/abstract/10.1103/PhysRevX.12.021049">bias-preserving gates</a>. However, most studies on automated novel (non-bosonic) superconducting qubit discovery have focused on the ground and first excited states. Developing complex gate protocols that utilize multiple long-lived subspaces has the potential to reduce effective physical error rates to unprecedented levels. Achieving this goal may require the creation of an artificial analog of the optical-metastable-ground <a href="https://arxiv.org/pdf/2109.01272">omg</a> structure in Ytterbium. To support the design of such complex artificial atoms, I am particularly interested in training and employing ML models capable of understanding lumped-element circuit descriptions, physical layouts, energy participation ratio  <a href="https://qiskit-community.github.io/qiskit-metal/">(EPR)</a> simulation results, and level structures. I believe an ML model could greatly accelerate novel artificial atom and gate protocol design.</p>
 
     </main>
     <footer id="footer">
