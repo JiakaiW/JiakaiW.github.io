@@ -40,17 +40,17 @@ pip3 install git+https://github.com/JiakaiW/FlexibleQECSim
 </div>
 
 <div style="text-align: center;">
-  <img src="/files/2024/GPU_ILP.png" style="width: 500px;" alt="GPU Pauli frame simulation instruction level parallelism">
+  <img src="/files/GPU_ILP.png" style="width: 500px;" alt="GPU Pauli frame simulation instruction level parallelism">
   <p>preview.</p>
 </div>
 
 <div style="text-align: center;">
-  <img src="/files/2024/GPU_demo_testing.png" style="width: 500px;" alt="preliminary results on speed up">
+  <img src="/files/GPU_demo_testing.png" style="width: 500px;" alt="preliminary results on speed up">
   <p>preview.</p>
 </div>
 
 <div style="text-align: center;">
-  <img src="/files/2024/GPU_compile.png" style="width: 500px;" alt="compiling from stim and GPU simulator source code">
+  <img src="/files/GPU_compile.png" style="width: 500px;" alt="compiling from stim and GPU simulator source code">
   <p>preview.</p>
 </div>
 ---
