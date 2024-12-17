@@ -31,14 +31,28 @@ pip3 install git+https://github.com/JiakaiW/FlexibleQECSim
 
 ---
 
-# A Tableau simulator based on CUDA
+# A Pauli Frame simulator based on CUDA
 
-DEMO soon available. This will first appear in the form of a course project for ECE 759 taught by [Tsung-Wei Huang](https://tsung-wei-huang.github.io/).
+[DEMO](https://github.com/JiakaiW/Stim_fork/tree/main). This will first appear in the form of a course project for ECE 759 taught by [Tsung-Wei Huang](https://tsung-wei-huang.github.io/).
 <div style="text-align: center;">
   <img src="/files/2024/GPU_pauli_frame.png" style="width: 500px;" alt="GPU Pauli frame simulation">
   <p>preview.</p>
 </div>
 
+<div style="text-align: center;">
+  <img src="/files/2024/GPU_ILP.png" style="width: 500px;" alt="GPU Pauli frame simulation instruction level parallelism">
+  <p>preview.</p>
+</div>
+
+<div style="text-align: center;">
+  <img src="/files/2024/GPU_demo_testing.png" style="width: 500px;" alt="preliminary results on speed up">
+  <p>preview.</p>
+</div>
+
+<div style="text-align: center;">
+  <img src="/files/2024/GPU_compile.png" style="width: 500px;" alt="compiling from stim and GPU simulator source code">
+  <p>preview.</p>
+</div>
 ---
 
 # CoupledQuantumSystems
