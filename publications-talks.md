@@ -44,7 +44,7 @@ header,
 body.dark-mode header {
     background-color: transparent !important;
     position: relative;
-    z-index: 1;
+    z-index: 100;
 }
 
 /* Override all footer backgrounds and ensure proper z-index */
@@ -84,7 +84,7 @@ main {
     color: white !important;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     position: relative;
-    z-index: 2;
+    z-index: 101;
 }
 
 /* Style dropdown menu to be semi-transparent */
@@ -93,7 +93,7 @@ main {
     background: rgba(26, 26, 26, 0.8) !important;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    z-index: 3;
+    z-index: 102;
 }
 
 .dropdown-content a,
@@ -128,6 +128,49 @@ main a {
 
 main a:hover {
     text-decoration: underline;
+}
+
+/* Add hover area for dropdown */
+.menu-link {
+    padding-bottom: 20px;
+}
+
+/* Create hover bridge for dropdown */
+.dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: transparent;
+}
+
+/* Ensure dropdown items are clickable */
+.dropdown-content a {
+    position: relative;
+    z-index: 103;
+    display: block;
+    padding: 0.8em 1.2em;
+    color: white !important;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Background overlays */
+body::before {
+    z-index: -2;
+}
+
+body::after {
+    z-index: -1;
+}
+
+main {
+    z-index: 1;
 }
 </style>
 
