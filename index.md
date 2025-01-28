@@ -145,14 +145,16 @@ title: Home
             High-Performance Software for Quantum Computing Research
         </div>
     </div>
-    <div class="card" onclick="expandCard('past_projects/quantumRAP')" style="animation-delay: 0.4s">
+<div class="card" style="animation-delay: 0.4s">
+    <a href="/past_projects/quantumRAP/" style="text-decoration: none; color: inherit;">
         <div class="card-image">
             <img src="/files/2025/quantumRAP.png" alt="HPC" />
         </div>
         <div class="card-text">
             QUANTUM RAP MUSIC
         </div>
-    </div>
+    </a>
+</div>
 </div>
 
 <style>
