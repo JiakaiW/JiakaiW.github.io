@@ -99,6 +99,7 @@ title: Home
     text-decoration: none !important;
     animation: fadeIn 0.5s ease-out forwards;
     animation-delay: calc(var(--tag-index, 0) * 0.2s);
+    font-size: 1.2em;
   }
 
   .tag:hover {
@@ -144,6 +145,14 @@ title: Home
             High-Performance Software for Quantum Computing Research
         </div>
     </div>
+    <div class="card" onclick="expandCard('past_projects/quantumRAP')" style="animation-delay: 0.4s">
+        <div class="card-image">
+            <img src="/files/2025/quantumRAP.png" alt="HPC" />
+        </div>
+        <div class="card-text">
+            QUANTUM RAP MUSIC
+        </div>
+    </div>
 </div>
 
 <style>
@@ -180,6 +189,7 @@ title: Home
     padding: 0.5em;
     text-align: center;
     color: black;
+    font-size: 1.2em;
   }
   .dark-mode .card {
     background-color: #333;
@@ -438,7 +448,7 @@ function closeExpandedCard() {
 .card-text {
     padding: 1em;
     color: white;
-    font-size: 1.1em;
+    font-size: 1.2em;
     text-align: center;
 }
 
