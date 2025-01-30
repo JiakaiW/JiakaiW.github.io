@@ -10,7 +10,7 @@ title: Home
     <div class="intro-content">
         <h1>👋 I'm Jiakai Wang</h1>
         <p>PhD in Physics @ UW-Madison if no other offers received. </p>
-        <h2> Building agentic AI systems to accelerate quantum computing research. 🤖</h2>
+        <h1> Building agentic AI systems to accelerate quantum computing research. 🤖</h1>
         <div class="tags">
             <span class="tag" style="animation-delay: 0s">Preparing research for the coming AGI era 🤖</span>
             <span class="tag" style="animation-delay: 0.2s">Scaling Next-Gen Qubits with Experimentalists 🔬</span>
