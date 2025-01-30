@@ -12,10 +12,11 @@ title: Home
         <p>PhD in Physics @ UW-Madison if no other offers received. </p>
         
         <div class="tags">
-            <span class="tag" style="animation-delay: 0s">Agentic AI for Achieving Quantum Computing 🤖</span>
-            <span class="tag" style="animation-delay: 0.2s">Scaling Next-Gen Qubits with experimentalists 🔬</span>
+            <span class="tag" style="animation-delay: 0s">Agentic AI for Advancing Quantum Computing 🤖</span>
+            <span class="tag" style="animation-delay: 0.2s">Scaling Next-Gen Qubits with Experimentalists 🔬</span>
             <span class="tag" style="animation-delay: 0.4s">HPC-Enhanced Next-Gen FTQC systems 💻</span>
             <span class="tag" style="animation-delay: 0.6s">Content Creation: Video 🎥, music 🎶, and 3D modeling 🖌️</span>
+            <span class="tag" style="animation-delay: 0.6s">Fabrication (Cleanroom & Beyond)</span>
         </div>
     </div>
 </div>
