@@ -121,11 +121,12 @@ nav ul {
 .search-button img {
     border-radius: 0;
     margin: 0;
+    filter: none;
 }
 
 /* Dark mode override */
 .dark-mode .search-button img {
-    filter: invert(1); /* This will make the icon white in dark mode */
+    filter: none;
 }
 
 /* Dropdown Menu */
