@@ -175,12 +175,18 @@ main {
 }
 </style>
 
+# Notes on building agentic system for research
 
-# Big picture:
+## Big picture:
 
-In the near future, academic researchers will be augmented with agentic AI systems. By breaking down complex task into smaller pieces, multiple LLM agents can together handle them.
+LLM will help academic research labs in two ways:
 
-For quantum computing, we want a team of agentic AI that has these roles: 
+1) Pulling knowledge from indexed proprietary knowledge base and help humans make decision
+    - This requires the lab members to document their knowledge well. This is a natural extension of lab members organizing their code into code packages / manual books.
+
+2) Using proprietary knowledge and multi-agent systems to build and implement experiments, then write paper drafts.
+
+## Agent teams:
 
 1) Administrator team: 
     - Represents the human user, posing questions and approving plans.
@@ -197,20 +203,15 @@ For quantum computing, we want a team of agentic AI that has these roles:
     - SDE: implement requirements
     - Data analyst: 
 
-3) 
+3) Writing team:
+    - Paper write: write paper in tone that matches phd students.
 
 
 ## An agent is defined by 
 
-1) Memory: this augments the knowledge an agent pocesses beyond what's trained into it.
-
-2) Action space
+1) Long-term memory/Knowledge base for RAG: this augments an agent beyond what's trained into it. This can be implemented by using LlamaParse for breaking down scientific papers, or indexing existing proprietary / commonly used codebase
+    
+2) Action space: The action space of different agents can be defined using existing multi-agent frameworks like AutoGen
 
 3) Decision making
 
-# Training the multi-agent team:
-
-1) After assemblying the team, there's no way it can work out of the box. 
-    How can we "teach" the agent team to do experiments? 
-
-2) 

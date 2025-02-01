@@ -116,6 +116,16 @@ title: Home
 # Featured Projects
 
 <div class="card-container">
+   <div class="card" style="animation-delay: 0.0s">
+   <a href="/agents/" style="text-decoration: none; color: inherit;">
+        <div class="card-image">
+            <img src="/files/agents.png" alt="multi-LLM-agents" />
+        </div>
+        <div class="card-text">
+            Ungoing: multi-agent system to enhance academic lab productivity
+        </div>
+        </a>
+    </div>
     <div class="card" onclick="expandCard('past_projects/mfqec')" style="animation-delay: 0s">
         <div class="card-image">
             <img src="/files/2023/circ_simple.png" alt="MFQEC" />

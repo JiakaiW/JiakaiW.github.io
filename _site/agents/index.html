@@ -379,11 +379,18 @@ main {
 }
 </style>
 
-<h1 id="big-picture">Big picture:</h1>
+<h1 id="notes-on-building-agentic-system-for-research">Notes on building agentic system for research</h1>
 
-<p>In the near future, academic researchers will be augmented with agentic AI systems. By breaking down complex task into smaller pieces, multiple LLM agents can together handle them.</p>
+<h2 id="big-picture">Big picture:</h2>
 
-<p>For quantum computing, we want a team of agentic AI that has these roles:</p>
+<p>LLM will help academic research labs in two ways:</p>
+
+<p>1) Pulling knowledge from indexed proprietary knowledge base and help humans make decision
+    - This requires the lab members to document their knowledge well. This is a natural extension of lab members organizing their code into code packages / manual books.</p>
+
+<p>2) Using proprietary knowledge and multi-agent systems to build and implement experiments, then write paper drafts.</p>
+
+<h2 id="agent-teams">Agent teams:</h2>
 
 <p>1) Administrator team: 
     - Represents the human user, posing questions and approving plans.
@@ -400,22 +407,17 @@ main {
     - SDE: implement requirements
     - Data analyst:</p>
 
-<p>3)</p>
+<p>3) Writing team:
+    - Paper write: write paper in tone that matches phd students.</p>
 
 <h2 id="an-agent-is-defined-by">An agent is defined by</h2>
 
-<p>1) Memory: this augments the knowledge an agent pocesses beyond what’s trained into it.</p>
+<p>1) Long-term memory/Knowledge base for RAG: this augments an agent beyond what’s trained into it. This can be implemented by using LlamaParse for breaking down scientific papers, or indexing existing proprietary / commonly used codebase</p>
 
-<p>2) Action space</p>
+<p>2) Action space: The action space of different agents can be defined using existing multi-agent frameworks like AutoGen</p>
 
 <p>3) Decision making</p>
 
-<h1 id="training-the-multi-agent-team">Training the multi-agent team:</h1>
-
-<p>1) After assemblying the team, there’s no way it can work out of the box. 
-    How can we “teach” the agent team to do experiments?</p>
-
-<p>2)</p>
 
     </main>
     <footer id="footer">
