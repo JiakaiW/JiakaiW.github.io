@@ -215,3 +215,11 @@ LLM will help academic research labs in two ways:
 
 3) Decision making
 
+
+# Notes on features
+
+Lots of tasks in an academic lab can be broken down into smaller pieces digestable for local LLMs like 70b Llama.
+
+1) Grammer checking: Local agents can be asked to check the grammar sentence by sentence. 
+
+<!-- 2) Paper local checking: Agents can be used to check the structure of papers -->
