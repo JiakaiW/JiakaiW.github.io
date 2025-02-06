@@ -5,7 +5,7 @@ title: Home
 
 <div class="intro-container">
     <div class="intro-image">
-        <img src="/files/lab_tour_small.png" alt="Lab Tour" />
+        <img src="/files/2025/clean_room.png" alt=" " />
     </div>
     <div class="intro-content">
         <h1>👋 I'm Jiakai Wang</h1>
