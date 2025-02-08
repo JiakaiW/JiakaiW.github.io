@@ -116,8 +116,8 @@ title: Home
 # Featured Projects
 
 <div class="card-container">
-   <div class="card" style="animation-delay: 0.0s">
-   <a href="/agents/" style="text-decoration: none; color: inherit;">
+   <!-- <div class="card" style="animation-delay: 0.0s"> -->
+   <div class="card" onclick="expandCard('agents')" style="animation-delay: 0s">
         <div class="card-image">
             <img src="/files/agents.png" alt="multi-LLM-agents" />
         </div>
@@ -126,7 +126,7 @@ title: Home
         </div>
         </a>
     </div>
-    <div class="card" onclick="expandCard('past_projects/mfqec')" style="animation-delay: 0s">
+    <div class="card" onclick="expandCard('past_projects/mfqec')" style="animation-delay: 0.2s">
         <div class="card-image">
             <img src="/files/2023/circ_simple.png" alt="MFQEC" />
         </div>
@@ -134,7 +134,7 @@ title: Home
             Measurement-free quantum error correction
         </div>
     </div>
-    <div class="card" onclick="expandCard('past_projects/fluxonium_erasure')" style="animation-delay: 0.2s">
+    <div class="card" onclick="expandCard('past_projects/fluxonium_erasure')" style="animation-delay: 0.4s">
         <div class="card-image">
             <img src="/files/2024/lvl_diagram.png" alt="Fluxonium" />
         </div>
@@ -142,7 +142,7 @@ title: Home
             Fluxonium erasure
         </div>
     </div>
-    <div class="card" onclick="expandCard('past_projects/hpc')" style="animation-delay: 0.4s">
+    <div class="card" onclick="expandCard('past_projects/hpc')" style="animation-delay: 0.6s">
         <div class="card-image">
             <img src="/files/2024/GPU_pauli_frame.png" alt="HPC" />
         </div>
@@ -150,8 +150,9 @@ title: Home
             High-Performance Software for Quantum Computing Research
         </div>
     </div>
-<div class="card" style="animation-delay: 0.4s">
-    <a href="/past_projects/quantumRAP/" style="text-decoration: none; color: inherit;">
+    <div class="card" onclick="expandCard('past_projects/quantumRAP/')" style="animation-delay: 0.8s">
+<!-- <div class="card" style="animation-delay: 0.8s"> -->
+    <!-- <a href="/past_projects/quantumRAP/" style="text-decoration: none; color: inherit;"> -->
         <div class="card-image">
             <img src="/files/2025/quantumRAP.png" alt="HPC" />
         </div>
@@ -310,16 +311,17 @@ function closeExpandedCard() {
   }
 
   .card-overlay {
-    position: absolute;
+    position: absolute; # Keep it absolute so the cards are centered in the viewport
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.3);
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
 
   .card-overlay.active {
@@ -327,7 +329,9 @@ function closeExpandedCard() {
   }
 
   .expanded-card {
-    background: var(--color-dark-grey);
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(16px) saturate(100%);
+    -webkit-backdrop-filter: blur(16px) saturate(100%);
     width: 90%;
     max-width: 1200px;
     height: 80vh;
@@ -337,6 +341,9 @@ function closeExpandedCard() {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    isolation: isolate;
   }
 
   .expanded-content {
@@ -380,8 +387,10 @@ function closeExpandedCard() {
   }
 
   .dark-mode .expanded-card {
-    background: var(--color-dark-grey);
+    background: rgba(30, 30, 30, 0.6);
     color: var(--color-white);
+    backdrop-filter: blur(16px) saturate(100%);
+    -webkit-backdrop-filter: blur(16px) saturate(100%);
   }
 
   .dark-mode .close-button {
