@@ -175,10 +175,9 @@ main {
 }
 </style> -->
 
-# Notes on building agentic system for research
+Notes on building agentic system for research
 
-
-# How to build domain-specific knwoledge base:
+# How to build domain-specific knowledge base:
 
 We don't need LlamaParse! ArXiv has the raw tex files of all papers! That can be used to fine-tune a model!
 
