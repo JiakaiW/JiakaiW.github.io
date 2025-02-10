@@ -177,50 +177,16 @@ main {
 
 # Notes on building agentic system for research
 
-## Big picture:
 
-LLM will help academic research labs in two ways:
+# How to build domain-specific knwoledge base:
 
-1) Pulling knowledge from indexed proprietary knowledge base and help humans make decision
-    - This requires the lab members to document their knowledge well. This is a natural extension of lab members organizing their code into code packages / manual books.
+We don't need LlamaParse! ArXiv has the raw tex files of all papers! That can be used to fine-tune a model!
 
-2) Using proprietary knowledge and multi-agent systems to build and implement experiments, then write paper drafts.
-
-## Agent teams:
-
-1) Administrator team: 
-    - Represents the human user, posing questions and approving plans.
-    - Greets human user
-
-2) Science team:
-    - Superconducting qubit specialist
-    - Quantum error correction specialist
-
-2) Programming team:
-    - program user: uses the code for research
-    - Architect: codebase organization
-    - API writer: write requirements
-    - SDE: implement requirements
-    - Data analyst: 
-
-3) Writing team:
-    - Paper write: write paper in tone that matches phd students.
-
-
-## An agent is defined by 
-
-1) Long-term memory/Knowledge base for RAG: this augments an agent beyond what's trained into it. This can be implemented by using LlamaParse for breaking down scientific papers, or indexing existing proprietary / commonly used codebase
-    
-2) Action space: The action space of different agents can be defined using existing multi-agent frameworks like AutoGen
-
-3) Decision making
-
-
-# Notes on features
+# Notes on Grammar checking
 
 Lots of tasks in an academic lab can be broken down into smaller pieces digestable for local LLMs like 70b Llama.
 
-1) Grammer checking: Local agents can be asked to check the grammar sentence by sentence. 
+1) Grammer checking example: Local agents can be asked to check the grammar sentence by sentence. 
 
 ```python
 # First, install ollama and run it to let it download the models
@@ -271,4 +237,46 @@ latex_file = "main.tex"
 process_latex_file(latex_file)
 ```
 
-<!-- 2) Paper local checking: Agents can be used to check the structure of papers -->
+# Notes on paper polishing: logic checking, proof-reading:
+
+TODO:
+
+## Big picture:
+
+LLM will help academic research labs in two ways:
+
+1) Pulling knowledge from indexed proprietary knowledge base and help humans make decision
+    - This requires the lab members to document their knowledge well. This is a natural extension of lab members organizing their code into code packages / manual books.
+
+2) Using proprietary knowledge and multi-agent systems to build and implement experiments, then write paper drafts.
+
+## Agent teams:
+
+1) Administrator team: 
+    - Represents the human user, posing questions and approving plans.
+    - Greets human user
+
+2) Science team:
+    - Superconducting qubit specialist
+    - Quantum error correction specialist
+
+2) Programming team:
+    - program user: uses the code for research
+    - Architect: codebase organization
+    - API writer: write requirements
+    - SDE: implement requirements
+    - Data analyst: 
+
+3) Writing team:
+    - Paper write: write paper in tone that matches phd students.
+
+
+## An agent is defined by 
+
+1) Long-term memory/Knowledge base for RAG: this augments an agent beyond what's trained into it. This can be implemented by using LlamaParse for breaking down scientific papers, or indexing existing proprietary / commonly used codebase
+    
+2) Action space: The action space of different agents can be defined using existing multi-agent frameworks like AutoGen
+
+3) Decision making
+
+

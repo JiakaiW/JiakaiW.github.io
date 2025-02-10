@@ -381,48 +381,15 @@ main {
 
 <h1 id="notes-on-building-agentic-system-for-research">Notes on building agentic system for research</h1>
 
-<h2 id="big-picture">Big picture:</h2>
+<h1 id="how-to-build-domain-specific-knwoledge-base">How to build domain-specific knwoledge base:</h1>
 
-<p>LLM will help academic research labs in two ways:</p>
+<p>We don’t need LlamaParse! ArXiv has the raw tex files of all papers! That can be used to fine-tune a model!</p>
 
-<p>1) Pulling knowledge from indexed proprietary knowledge base and help humans make decision
-    - This requires the lab members to document their knowledge well. This is a natural extension of lab members organizing their code into code packages / manual books.</p>
-
-<p>2) Using proprietary knowledge and multi-agent systems to build and implement experiments, then write paper drafts.</p>
-
-<h2 id="agent-teams">Agent teams:</h2>
-
-<p>1) Administrator team: 
-    - Represents the human user, posing questions and approving plans.
-    - Greets human user</p>
-
-<p>2) Science team:
-    - Superconducting qubit specialist
-    - Quantum error correction specialist</p>
-
-<p>2) Programming team:
-    - program user: uses the code for research
-    - Architect: codebase organization
-    - API writer: write requirements
-    - SDE: implement requirements
-    - Data analyst:</p>
-
-<p>3) Writing team:
-    - Paper write: write paper in tone that matches phd students.</p>
-
-<h2 id="an-agent-is-defined-by">An agent is defined by</h2>
-
-<p>1) Long-term memory/Knowledge base for RAG: this augments an agent beyond what’s trained into it. This can be implemented by using LlamaParse for breaking down scientific papers, or indexing existing proprietary / commonly used codebase</p>
-
-<p>2) Action space: The action space of different agents can be defined using existing multi-agent frameworks like AutoGen</p>
-
-<p>3) Decision making</p>
-
-<h1 id="notes-on-features">Notes on features</h1>
+<h1 id="notes-on-grammar-checking">Notes on Grammar checking</h1>
 
 <p>Lots of tasks in an academic lab can be broken down into smaller pieces digestable for local LLMs like 70b Llama.</p>
 
-<p>1) Grammer checking: Local agents can be asked to check the grammar sentence by sentence.</p>
+<p>1) Grammer checking example: Local agents can be asked to check the grammar sentence by sentence.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># First, install ollama and run it to let it download the models
 </span>
@@ -472,7 +439,47 @@ main {
 <span class="nf">process_latex_file</span><span class="p">(</span><span class="n">latex_file</span><span class="p">)</span>
 </code></pre></div></div>
 
-<!-- 2) Paper local checking: Agents can be used to check the structure of papers -->
+<h1 id="notes-on-paper-polishing-logic-checking-proof-reading">Notes on paper polishing: logic checking, proof-reading:</h1>
+
+<p>TODO:</p>
+
+<h2 id="big-picture">Big picture:</h2>
+
+<p>LLM will help academic research labs in two ways:</p>
+
+<p>1) Pulling knowledge from indexed proprietary knowledge base and help humans make decision
+    - This requires the lab members to document their knowledge well. This is a natural extension of lab members organizing their code into code packages / manual books.</p>
+
+<p>2) Using proprietary knowledge and multi-agent systems to build and implement experiments, then write paper drafts.</p>
+
+<h2 id="agent-teams">Agent teams:</h2>
+
+<p>1) Administrator team: 
+    - Represents the human user, posing questions and approving plans.
+    - Greets human user</p>
+
+<p>2) Science team:
+    - Superconducting qubit specialist
+    - Quantum error correction specialist</p>
+
+<p>2) Programming team:
+    - program user: uses the code for research
+    - Architect: codebase organization
+    - API writer: write requirements
+    - SDE: implement requirements
+    - Data analyst:</p>
+
+<p>3) Writing team:
+    - Paper write: write paper in tone that matches phd students.</p>
+
+<h2 id="an-agent-is-defined-by">An agent is defined by</h2>
+
+<p>1) Long-term memory/Knowledge base for RAG: this augments an agent beyond what’s trained into it. This can be implemented by using LlamaParse for breaking down scientific papers, or indexing existing proprietary / commonly used codebase</p>
+
+<p>2) Action space: The action space of different agents can be defined using existing multi-agent frameworks like AutoGen</p>
+
+<p>3) Decision making</p>
+
 
     </main>
     <footer id="footer">
