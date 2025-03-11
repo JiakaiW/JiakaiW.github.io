@@ -15,11 +15,11 @@ title: Home
         <div class="tags">
             <span class="tag" style="animation-delay: 0s">Superconducting circuits finite element simulation 🤖</span>
             <!-- <span class="tag" style="animation-delay: 0.2s">Scaling Next-Gen Qubits with Experimentalists 🔬</span> -->
-            <span class="tag" style="animation-delay: 0.3s">HPC for quantum ⚛️</span>
+            <span class="tag" style="animation-delay: 0.2s">HPC for quantum ⚛️</span>
             <!-- <span class="tag" style="animation-delay: 0.6s">Content Creation: Video 🎥, music 🎹, and 3D modeling 🖌️</span> -->
-            <span class="tag" style="animation-delay: 0.6s">Cleanroom Fabrication 🥼</span>
-
-            <span class="tag" style="animation-delay: 0.9s">Connecting people from different fields! 😃</span>
+            <span class="tag" style="animation-delay: 0.4s">Cleanroom Fabrication 🥼</span>
+            <span class="tag" style="animation-delay: 0.6s">Hardware-aware QEC⚙️</span>
+            <span class="tag" style="animation-delay: 0.8s">Connecting people from different fields! 😃</span>
         </div>
     </div>
 </div>
