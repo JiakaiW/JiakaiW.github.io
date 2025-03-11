@@ -117,7 +117,7 @@ title: Home
 
 <div class="card-container">
    <!-- <div class="card" style="animation-delay: 0.0s"> -->
-   <div class="card" onclick="expandCard('agents')" style="animation-delay: 0s">
+   <!-- <div class="card" onclick="expandCard('agents')" style="animation-delay: 0s">
         <div class="card-image">
             <img src="/files/agents.png" alt="multi-LLM-agents" />
         </div>
@@ -125,7 +125,7 @@ title: Home
             Ungoing: multi-agent system to enhance academic lab productivity
         </div>
         </a>
-    </div>
+    </div> -->
     <div class="card" onclick="expandCard('past_projects/mfqec')" style="animation-delay: 0.2s">
         <div class="card-image">
             <img src="/files/2023/circ_simple.png" alt="MFQEC" />
@@ -149,17 +149,7 @@ title: Home
         <div class="card-text">
             High-Performance Software for Quantum Computing Research
         </div>
-    </div>
-    <div class="card" onclick="expandCard('past_projects/quantumRAP/')" style="animation-delay: 0.8s">
-<!-- <div class="card" style="animation-delay: 0.8s"> -->
-    <!-- <a href="/past_projects/quantumRAP/" style="text-decoration: none; color: inherit;"> -->
-        <div class="card-image">
-            <img src="/files/2025/quantumRAP.png" alt="HPC" />
-        </div>
-        <div class="card-text">
-            QUANTUM RAP MUSIC
-        </div>
-    </a>
+
 </div>
 </div>
 
