@@ -18,6 +18,8 @@ title: Home
             <span class="tag" style="animation-delay: 0.3s">HPC for quantum ⚛️</span>
             <!-- <span class="tag" style="animation-delay: 0.6s">Content Creation: Video 🎥, music 🎹, and 3D modeling 🖌️</span> -->
             <span class="tag" style="animation-delay: 0.6s">Cleanroom Fabrication 🥼</span>
+
+            <span class="tag" style="animation-delay: 0.9s">Connecting people from different fields! 😃</span>
         </div>
     </div>
 </div>
