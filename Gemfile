@@ -13,4 +13,4 @@ group :jekyll_plugins do
   gem "jekyll-timeago", "~> 0.13.1"
 end
 
-gem "sass-embedded", ">= 1.69.5"
+gem "sass-embedded", "~> 1.69.5"
