@@ -1,0 +1,98 @@
+.docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2em;
+    padding: 2em 0;
+}
+
+.doc-card {
+    background: var(--color-dark-grey);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.doc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.doc-card a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* When there's an image */
+.doc-card.has-image {
+    grid-row: span 2;
+}
+
+.doc-card.has-image .doc-content {
+    flex: 0 0 auto;
+}
+
+/* When there's no image */
+.doc-card:not(.has-image) {
+    grid-row: span 1;
+    min-height: 150px;
+}
+
+.doc-card:not(.has-image) .doc-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.doc-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: -10px; /* Pull content up slightly to overlap */
+    position: relative;
+    z-index: 1;
+}
+
+.doc-content {
+    padding: 1.5em;
+    background: linear-gradient(
+        to bottom,
+        rgba(30, 30, 30, 0.98) 0%,
+        rgba(30, 30, 30, 1) 100%
+    );
+    position: relative;
+    z-index: 2;
+    margin-top: -15px; /* Create overlap with image */
+}
+
+.doc-content h2 {
+    margin: 0 0 0.5em 0;
+    color: var(--color-white);
+    font-size: 1.4em;
+}
+
+.doc-content p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .docs-grid {
+        grid-template-columns: 1fr;
+        padding: 1em;
+    }
+    
+    .doc-card.has-image,
+    .doc-card:not(.has-image) {
+        grid-row: auto;
+    }
+} 

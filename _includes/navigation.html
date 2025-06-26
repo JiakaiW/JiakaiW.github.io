@@ -1,0 +1,32 @@
+<nav>
+    <ul>
+        <li class="menu-link">
+            <a href="/">Home</a>
+        </li>
+        <li class="menu-link">
+            <a href="/publications-talks/">Publications/Talks</a>
+            <div class="dropdown-content">
+                <a href="/publications-talks/#publications">Publications</a>
+                <a href="/publications-talks/#talks">Conference Talks</a>
+                <a href="/publications-talks/#posters">Research Posters</a>
+            </div>
+        </li>
+        <li class="menu-link">
+            <a href="/tech-docs/">Technical Docs</a>
+            <div class="dropdown-content">
+                {% assign docs = site.pages | where_exp: "page", "page.path contains 'tech-docs'" | where_exp: "page", "page.name == 'index.md'" | where_exp: "page", "page.url != '/tech-docs/'" %}
+                {% for doc in docs %}
+                <a href="{{ doc.url }}">{{ doc.title }}</a>
+                {% endfor %}
+            </div>
+        </li>
+        <li class="menu-link">
+            <a href="/assets/Jiakai_resume.pdf" target="_blank">Resume</a>
+        </li>
+    </ul>
+</nav>
+<div class="search-button">
+    <a href="#" onclick="toggleSearch(); return false;">
+        <img src="/assets/search_icon.png" alt="Search" style="width: 36px; height: 36px; vertical-align: middle;">
+    </a>
+</div>

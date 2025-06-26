@@ -1,0 +1,342 @@
+/* Intro section styles */
+.intro-container {
+    display: flex;
+    gap: 2em;
+    align-items: flex-start;
+    margin: 2em 0;
+}
+
+.intro-image {
+    flex: 2;
+    min-width: 250px;
+    max-width: 40%;
+}
+
+.intro-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.intro-content {
+    flex: 3;
+    min-width: 300px;
+}
+
+@media (max-width: 768px) {
+    .intro-container {
+        flex-direction: column;
+    }
+    
+    .intro-image {
+        max-width: 100%;
+    }
+    
+    .intro-image, .intro-content {
+        width: 100%;
+    }
+}
+
+/* Tags styles */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tags {
+    margin-top: 1em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background-color: #5d8fb3;
+    color: white;
+    padding: 0.5em;
+    border-radius: 7.5px;
+    margin: 0.5em;
+    display: inline-block;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    will-change: transform;
+    cursor: pointer;
+    text-decoration: none !important;
+    animation: fadeIn 0.5s ease-out forwards;
+    animation-delay: calc(var(--tag-index, 0) * 0.2s);
+    font-size: 1.2em;
+}
+
+.tag:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #6fa3c7;
+    color: white !important;
+}
+
+.dark-mode .tag {
+    background-color: #333;
+}
+
+.dark-mode .tag:hover {
+    background-color: #444;
+}
+
+/* Card styles */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 2em;
+}
+
+.card {
+    background: transparent;
+    color: black;
+    border-radius: 30px;
+    overflow: hidden;
+    text-decoration: none;
+    width: 300px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    animation: cardFadeIn 0.8s ease-out forwards;
+    animation-delay: calc(var(--card-index, 0) * 0.2s);
+    aspect-ratio: 5/4;  /* Maintain consistent card proportions */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+/* The ::after pseudo-element is no longer needed */
+/*.card::after { ... }*/
+
+.card-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px; /* Fixed height for the text area */
+    padding: 0.5em; /* Padding for the content inside */
+    
+    /* Background and blur effect */
+    background-color: rgba(51, 51, 51, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    /* Center text using flexbox */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    color: white;
+    /* The initial font size is set here, but JS will adjust it */
+    font-size: 1.2em; 
+    z-index: 1;
+    overflow: hidden; /* Hide overflow before JS runs */
+}
+
+.dark-mode .card {
+    background-color: transparent;
+}
+
+.dark-mode .card-text {
+    color: white;
+}
+
+/* Card overlay styles */
+.card-overlay {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.card-overlay.active {
+    display: flex;
+}
+
+.expanded-card {
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(16px) saturate(100%);
+    -webkit-backdrop-filter: blur(16px) saturate(100%);
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    border-radius: 30px;
+    padding: 2em;
+    position: relative;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    isolation: isolate;
+}
+
+.expanded-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 1em;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.expanded-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.expanded-content::-webkit-scrollbar-track {
+    background: var(--color-dark-grey);
+}
+
+.expanded-content::-webkit-scrollbar-thumb {
+    background: var(--color-hover);
+    border-radius: 4px;
+}
+
+.close-button {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: var(--color-white);
+    padding: 0.2em 0.5em;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+    z-index: 2;
+}
+
+.close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .expanded-card {
+    background: rgba(30, 30, 30, 0.6);
+    color: var(--color-white);
+    backdrop-filter: blur(16px) saturate(100%);
+    -webkit-backdrop-filter: blur(16px) saturate(100%);
+}
+
+.dark-mode .close-button {
+    color: var(--color-white);
+}
+
+.dark-mode .close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Photo grid styles */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(250px, 300px));
+    gap: 2em;
+    padding: 2em;
+    justify-content: center;
+}
+
+@media (max-width: 1000px) {
+    .photo-grid {
+        grid-template-columns: repeat(2, minmax(250px, 300px));
+    }
+}
+
+@media (max-width: 600px) {
+    .photo-grid {
+        grid-template-columns: repeat(1, minmax(250px, 300px));
+        gap: 1em;
+        padding: 1em;
+    }
+}
+
+.photo-card {
+    cursor: pointer;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: photoFadeIn 0.8s ease-out forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--color-dark-grey);
+    height: 250px;
+}
+
+.photo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.photo-card:hover img {
+    transform: scale(1.05);
+}
+
+@keyframes photoFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 

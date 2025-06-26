@@ -19,7 +19,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/files/2024/JJ_Chain.png');
+    background-image: url('/assets/JJ_Chain.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

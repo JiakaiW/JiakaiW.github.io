@@ -1,0 +1,65 @@
+/* Tech docs specific styles */
+.tech-docs-page {
+    position: relative;
+    z-index: 1;
+    padding: 2em;
+    max-width: none !important;
+    width: 100%;
+    margin: 0;
+    min-height: calc(100vh - 200px);
+    background: transparent !important;
+}
+
+.dropdown-content a,
+.dark-mode .dropdown-content a {
+    color: white !important;
+}
+
+.tech-docs-page > * {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.tech-docs-page h1 {
+    font-size: 2em;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.tech-docs-page p {
+    margin-bottom: 1em;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.tech-docs-page a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.tech-docs-page a:hover {
+    text-decoration: underline;
+}
+
+/* Add hover area for dropdown */
+.menu-link {
+    padding-bottom: 20px;
+}
+
+pre, code {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-x: auto;
+}
+
+/* Image width control */
+.half-width {
+    width: 50%;
+    display: block;
+    margin: 2em auto;
+} 

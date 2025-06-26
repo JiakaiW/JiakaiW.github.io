@@ -1,0 +1,29 @@
+<!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay" onclick="closeSearch()">
+    <div class="search-container" onclick="event.stopPropagation()">
+        <input type="text" 
+               class="search-input" 
+               id="searchInput" 
+               placeholder="Start typing to search..."
+               oninput="handleSearch(event)">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+</div>
+
+<!-- Card Expansion Overlay -->
+<div class="card-overlay" id="cardOverlay" onclick="closeExpandedCard()">
+    <div class="expanded-card" onclick="event.stopPropagation()">
+        <button class="close-button" onclick="closeExpandedCard()">×</button>
+        <div class="expanded-content" id="expandedContent">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Photo Expansion Overlay -->
+<div class="photo-overlay" id="photoOverlay" onclick="closeExpandedPhoto()">
+    <div class="expanded-photo-container" onclick="event.stopPropagation()">
+        <button class="close-button" onclick="closeExpandedPhoto()">×</button>
+        <div id="expandedPhotoContent"></div>
+    </div>
+</div>
