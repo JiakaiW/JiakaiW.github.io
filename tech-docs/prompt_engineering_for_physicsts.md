@@ -59,6 +59,12 @@ main a:hover {
 .menu-link {
     padding-bottom: 20px;
 }
+
+pre, code {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-x: auto;
+}
 </style>
 
 # Prompt example for generating [1600+ line design document](https://github.com/JiakaiW/quant_ph_citation_graph_for_LLM/blob/main/src/frontend/refactoring_action_plan.md):  

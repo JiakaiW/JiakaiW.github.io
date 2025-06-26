@@ -59,6 +59,12 @@ main a:hover {
 .menu-link {
     padding-bottom: 20px;
 }
+
+pre, code {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-x: auto;
+}
 </style>
 
 # Using docker in HTCondor
