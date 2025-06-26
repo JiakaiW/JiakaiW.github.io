@@ -53,10 +53,11 @@
 
 .doc-card img {
     width: 100%;
-    height: 100px;
+    height: 100%;
     object-fit: cover;
-    margin-bottom: -10px; /* Pull content up slightly to overlap */
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     z-index: 1;
 }
 
@@ -64,12 +65,12 @@
     padding: 1.5em;
     background: linear-gradient(
         to bottom,
-        rgba(30, 30, 30, 0.98) 0%,
-        rgba(30, 30, 30, 1) 100%
+        rgba(30, 30, 30, 0.7) 0%,
+        rgba(30, 30, 30, 0.8) 100%
     );
     position: relative;
     z-index: 2;
-    margin-top: -15px; /* Create overlap with image */
+    height: 100%;
 }
 
 .doc-content h2 {

@@ -104,21 +104,24 @@ main {
 main > * {
     position: relative;
     z-index: 1;
-    max-width: 1000px;
+    max-width: 80%;
     margin-left: auto;
     margin-right: auto;
     color: white;
+    text-align: left;
 }
 
 main h1 {
     font-size: 2em;
     margin-top: 1.5em;
     margin-bottom: 1em;
+    text-align: left;
 }
 
 main p {
     margin-bottom: 1em;
     line-height: 1.6;
+    text-align: left;
 }
 
 main a {
