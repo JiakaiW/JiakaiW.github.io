@@ -1,10 +1,12 @@
 ---
-layout: default
-title: Publications/Talks
-permalink: /publications-talks/
+layout: tech-docs
+title: Publications and Talks
 ---
 
-<div class="publications-page">
+# Publications and Talks
+
+Here you'll find a list of my publications and selected talks.
+
 # Publications
 Michael A. Perlin, Vickram N. Premakumar, Jiakai Wang, Mark Saffman, and Robert Joynt, "[Fault-tolerant measurement-free quantum error correction with multiqubit gates](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.108.062426)", Phys. Rev. A 108, 062426 – Published 26 December 2023
 
@@ -17,4 +19,3 @@ Michael A. Perlin, Vickram N. Premakumar, Jiakai Wang, Mark Saffman, and Robert 
 # Posters
 
 [IMSI quantum hardware workshop poster 2024, poster file](/files/2024/leakage_detection_poster.pdf), https://www.imsi.institute/quantum-hardware-poster-session/
-</div>

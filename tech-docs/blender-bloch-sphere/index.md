@@ -1,9 +1,9 @@
 ---
 layout: tech-docs
-title: Blender for Scientific Visualization
-description: Learn how to use Blender to create stunning scientific visualizations and animations.
-thumbnail: /tech-docs/blender/bloch_sphere.gif
-permalink: /tech-docs/blender/
+title: Dephasing in bloch sphere in Blender
+description: Photon-shot noise visualized.
+thumbnail: /tech-docs/blender-bloch-sphere/bloch_sphere.gif
+permalink: /tech-docs/blender-bloch-sphere/
 ---
 
 # Using Blender for Scientific Visualization
@@ -11,7 +11,7 @@ permalink: /tech-docs/blender/
 Result:
 ![result](/tech-docs/blender/bloch_sphere.gif){: .half-width}
 
-Script: 
+Script (Blender 3.6 LTS): 
 ```python
 import bpy
 import math

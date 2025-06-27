@@ -1,4 +1,4 @@
-# Featured Projects
+# Academic projects
 
 <div class="card-container">
     <div class="card" onclick="expandCard('/projects/mfqec')">
