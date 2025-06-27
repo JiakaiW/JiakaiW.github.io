@@ -1,0 +1,174 @@
+/* Publications page specific styles */
+body:has(.publications-page) {
+    min-height: 100vh;
+    background: transparent !important;
+}
+
+/* Create a background wrapper that covers everything */
+body:has(.publications-page)::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/JJ_Chain.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2;
+}
+
+/* Dark overlay for the entire page */
+body:has(.publications-page)::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: -1;
+}
+
+/* Override all header backgrounds and ensure proper z-index */
+.publications-page header,
+.dark-mode .publications-page header {
+    background-color: transparent !important;
+    position: relative;
+    z-index: 100;
+}
+
+/* Override all footer backgrounds and ensure proper z-index */
+.publications-page footer,
+.publications-page #footer,
+.dark-mode .publications-page footer,
+.dark-mode .publications-page #footer {
+    background-color: transparent !important;
+    margin-top: 2em;
+    position: relative;
+    z-index: 1;
+}
+
+.publications-page main {
+    position: relative;
+    z-index: 1;
+    padding: 2em;
+    max-width: none !important;
+    width: 100%;
+    margin: 0;
+    min-height: calc(100vh - 200px);
+    background: transparent !important;
+}
+
+/* Ensure text in header/footer remains visible */
+.publications-page .menu-link > a,
+.publications-page .search-button a,
+.publications-page .footer-section h3,
+.publications-page .social-link,
+.publications-page .footer-section p,
+.dark-mode .publications-page .menu-link > a,
+.dark-mode .publications-page .search-button a,
+.dark-mode .publications-page .footer-section h3,
+.dark-mode .publications-page .social-link,
+.dark-mode .publications-page .footer-section p {
+    color: white !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 101;
+}
+
+/* Style dropdown menu to be semi-transparent */
+.publications-page .dropdown-content,
+.dark-mode .publications-page .dropdown-content {
+    background: rgba(26, 26, 26, 0.8) !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 102;
+}
+
+.publications-page .dropdown-content a,
+.dark-mode .publications-page .dropdown-content a {
+    color: white !important;
+}
+
+.publications-page main > * {
+    position: relative;
+    z-index: 1;
+    max-width: 80%;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    text-align: left;
+}
+
+.publications-page main h1 {
+    font-size: 2em;
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.publications-page main p {
+    margin-bottom: 1em;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.publications-page main a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.publications-page main a:hover {
+    text-decoration: underline;
+}
+
+/* Add hover area for dropdown */
+.publications-page .menu-link {
+    padding-bottom: 20px;
+}
+
+/* Create hover bridge for dropdown */
+.publications-page .dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: transparent;
+}
+
+/* Ensure dropdown items are clickable */
+.publications-page .dropdown-content a {
+    position: relative;
+    z-index: 103;
+    display: block;
+    padding: 0.8em 1.2em;
+    color: white !important;
+    transition: background-color 0.2s ease;
+}
+
+.publications-page .dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+    .publications-page main > * {
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .publications-page main {
+        padding: 1em;
+    }
+
+    .publications-page main h1 {
+        font-size: 1.8em;
+        margin-top: 1em;
+    }
+} 
