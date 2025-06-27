@@ -9,10 +9,10 @@ permalink: /tech-docs/blender-bloch-sphere/
 # Using Blender for Scientific Visualization
 
 Result:
-![result](/tech-docs/blender/bloch_sphere.gif){: .half-width}
+![result](/tech-docs/blender-bloch-sphere/bloch_sphere.gif){: .half-width}
 
 Result:
-![blender](/tech-docs/blender/blender.png){: .half-width}
+![blender](/tech-docs/blender-bloch-sphere/blender.png){: .half-width}
 
 Script (Blender 3.6 LTS): 
 ```python
