@@ -8,7 +8,7 @@ title: Home
 
 <div class="intro-container">
     <div class="intro-image">
-        <img src="/photo-grid/images/clean_room.png" alt=" " />
+        <img src="/photo-grid/images/me.jpg" alt=" " />
     </div>
     <div class="intro-content">
         <h1>👋 I'm Jiakai Wang</h1>

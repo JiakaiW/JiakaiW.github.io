@@ -1,6 +1,6 @@
 ---
 layout: tech-docs
-title: Dephasing in bloch sphere in Blender
+title: Visualizing a chain of JJ
 description: JJ Chain visualized.
 thumbnail: /tech-docs/blender-JJ-Chain/JJ_Chain.png
 permalink: /tech-docs/blender-JJ-Chain/
