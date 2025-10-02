@@ -18,12 +18,6 @@ title: Home
             I'm looking for motivated students (PhD, Master's, and undergraduates) to collaborate on cutting-edge quantum computing research. 
             Explore the research themes below to learn more about ongoing and potential projects.
         </p>
-        <div class="tags">
-            <span class="tag">Superconducting Circuits</span>
-            <span class="tag">Quantum Error Correction</span>
-            <span class="tag">High-Performance Computing</span>
-            <span class="tag">Machine Learning for QC</span>
-        </div>
     </div>
 </div>
 
@@ -88,15 +82,30 @@ title: Home
             <div class="theme-info">
                 <div class="theme-icon">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="25" cy="25" r="8" fill="currentColor"/>
-                        <circle cx="75" cy="25" r="8" fill="currentColor"/>
-                        <circle cx="25" cy="75" r="8" fill="currentColor"/>
-                        <circle cx="75" cy="75" r="8" fill="currentColor"/>
-                        <circle cx="50" cy="50" r="8" fill="currentColor"/>
-                        <line x1="25" y1="25" x2="50" y2="50" stroke="currentColor" stroke-width="2"/>
-                        <line x1="75" y1="25" x2="50" y2="50" stroke="currentColor" stroke-width="2"/>
-                        <line x1="25" y1="75" x2="50" y2="50" stroke="currentColor" stroke-width="2"/>
-                        <line x1="75" y1="75" x2="50" y2="50" stroke="currentColor" stroke-width="2"/>
+                        <!-- 3x3 grid of nodes -->
+                        <circle cx="20" cy="20" r="6" fill="currentColor"/>
+                        <circle cx="50" cy="20" r="6" fill="currentColor"/>
+                        <circle cx="80" cy="20" r="6" fill="currentColor"/>
+                        <circle cx="20" cy="50" r="6" fill="currentColor"/>
+                        <circle cx="50" cy="50" r="6" fill="currentColor"/>
+                        <circle cx="80" cy="50" r="6" fill="currentColor"/>
+                        <circle cx="20" cy="80" r="6" fill="currentColor"/>
+                        <circle cx="50" cy="80" r="6" fill="currentColor"/>
+                        <circle cx="80" cy="80" r="6" fill="currentColor"/>
+                        <!-- Horizontal connections -->
+                        <line x1="26" y1="20" x2="44" y2="20" stroke="currentColor" stroke-width="2"/>
+                        <line x1="56" y1="20" x2="74" y2="20" stroke="currentColor" stroke-width="2"/>
+                        <line x1="26" y1="50" x2="44" y2="50" stroke="currentColor" stroke-width="2"/>
+                        <line x1="56" y1="50" x2="74" y2="50" stroke="currentColor" stroke-width="2"/>
+                        <line x1="26" y1="80" x2="44" y2="80" stroke="currentColor" stroke-width="2"/>
+                        <line x1="56" y1="80" x2="74" y2="80" stroke="currentColor" stroke-width="2"/>
+                        <!-- Vertical connections -->
+                        <line x1="20" y1="26" x2="20" y2="44" stroke="currentColor" stroke-width="2"/>
+                        <line x1="20" y1="56" x2="20" y2="74" stroke="currentColor" stroke-width="2"/>
+                        <line x1="50" y1="26" x2="50" y2="44" stroke="currentColor" stroke-width="2"/>
+                        <line x1="50" y1="56" x2="50" y2="74" stroke="currentColor" stroke-width="2"/>
+                        <line x1="80" y1="26" x2="80" y2="44" stroke="currentColor" stroke-width="2"/>
+                        <line x1="80" y1="56" x2="80" y2="74" stroke="currentColor" stroke-width="2"/>
                     </svg>
                 </div>
                 <h3 class="theme-title">Tensor Networks</h3>
@@ -116,21 +125,67 @@ title: Home
             <div class="theme-info">
                 <div class="theme-icon">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="30" r="6" fill="currentColor"/>
-                        <circle cx="20" cy="70" r="6" fill="currentColor"/>
-                        <circle cx="50" cy="20" r="6" fill="currentColor"/>
-                        <circle cx="50" cy="50" r="6" fill="currentColor"/>
-                        <circle cx="50" cy="80" r="6" fill="currentColor"/>
-                        <circle cx="80" cy="30" r="6" fill="currentColor"/>
-                        <circle cx="80" cy="70" r="6" fill="currentColor"/>
-                        <line x1="26" y1="30" x2="44" y2="20" stroke="currentColor" stroke-width="1.5"/>
-                        <line x1="26" y1="30" x2="44" y2="50" stroke="currentColor" stroke-width="1.5"/>
-                        <line x1="26" y1="70" x2="44" y2="50" stroke="currentColor" stroke-width="1.5"/>
-                        <line x1="26" y1="70" x2="44" y2="80" stroke="currentColor" stroke-width="1.5"/>
-                        <line x1="56" y1="20" x2="74" y2="30" stroke="currentColor" stroke-width="1.5"/>
-                        <line x1="56" y1="50" x2="74" y2="30" stroke="currentColor" stroke-width="1.5"/>
-                        <line x1="56" y1="50" x2="74" y2="70" stroke="currentColor" stroke-width="1.5"/>
-                        <line x1="56" y1="80" x2="74" y2="70" stroke="currentColor" stroke-width="1.5"/>
+                        <!-- Layer 1 (input): 3 neurons -->
+                        <circle cx="10" cy="30" r="4" fill="currentColor"/>
+                        <circle cx="10" cy="50" r="4" fill="currentColor"/>
+                        <circle cx="10" cy="70" r="4" fill="currentColor"/>
+                        <!-- Layer 2 (hidden 1): 4 neurons -->
+                        <circle cx="35" cy="22" r="4" fill="currentColor"/>
+                        <circle cx="35" cy="40" r="4" fill="currentColor"/>
+                        <circle cx="35" cy="60" r="4" fill="currentColor"/>
+                        <circle cx="35" cy="78" r="4" fill="currentColor"/>
+                        <!-- Layer 3 (hidden 2): 4 neurons -->
+                        <circle cx="65" cy="22" r="4" fill="currentColor"/>
+                        <circle cx="65" cy="40" r="4" fill="currentColor"/>
+                        <circle cx="65" cy="60" r="4" fill="currentColor"/>
+                        <circle cx="65" cy="78" r="4" fill="currentColor"/>
+                        <!-- Layer 4 (output): 3 neurons -->
+                        <circle cx="90" cy="30" r="4" fill="currentColor"/>
+                        <circle cx="90" cy="50" r="4" fill="currentColor"/>
+                        <circle cx="90" cy="70" r="4" fill="currentColor"/>
+                        <!-- Connections Layer 1 to Layer 2 (3x4 = 12 connections) -->
+                        <line x1="14" y1="30" x2="31" y2="22" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="30" x2="31" y2="40" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="30" x2="31" y2="60" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="30" x2="31" y2="78" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="50" x2="31" y2="22" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="50" x2="31" y2="40" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="50" x2="31" y2="60" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="50" x2="31" y2="78" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="70" x2="31" y2="22" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="70" x2="31" y2="40" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="70" x2="31" y2="60" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="14" y1="70" x2="31" y2="78" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <!-- Connections Layer 2 to Layer 3 (4x4 = 16 connections) -->
+                        <line x1="39" y1="22" x2="61" y2="22" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="22" x2="61" y2="40" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="22" x2="61" y2="60" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="22" x2="61" y2="78" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="40" x2="61" y2="22" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="40" x2="61" y2="40" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="40" x2="61" y2="60" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="40" x2="61" y2="78" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="60" x2="61" y2="22" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="60" x2="61" y2="40" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="60" x2="61" y2="60" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="60" x2="61" y2="78" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="78" x2="61" y2="22" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="78" x2="61" y2="40" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="78" x2="61" y2="60" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="39" y1="78" x2="61" y2="78" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <!-- Connections Layer 3 to Layer 4 (4x3 = 12 connections) -->
+                        <line x1="69" y1="22" x2="86" y2="30" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="22" x2="86" y2="50" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="22" x2="86" y2="70" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="40" x2="86" y2="30" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="40" x2="86" y2="50" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="40" x2="86" y2="70" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="60" x2="86" y2="30" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="60" x2="86" y2="50" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="60" x2="86" y2="70" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="78" x2="86" y2="30" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="78" x2="86" y2="50" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                        <line x1="69" y1="78" x2="86" y2="70" stroke="currentColor" stroke-width="1" opacity="0.4"/>
                     </svg>
                 </div>
                 <h3 class="theme-title">Neural Networks</h3>

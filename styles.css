@@ -51,6 +51,104 @@ body::before {
         repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,.05) 2px, rgba(255,255,255,.05) 4px);
 }
 
+/* ========================================
+   PREMIUM BACKGROUND - Shared across pages
+   ======================================== */
+/* Applied to gallery, tech-docs, and publications pages */
+body:has(.photo-grid),
+body:has(.tech-docs-page) {
+    background: 
+        /* Multiple light sources for depth - responsive sizing with softer blur effect */
+        radial-gradient(ellipse 90vw 120vh at 20% 10%, rgba(88, 76, 8, 0.44) 0%, transparent 60%),
+        radial-gradient(ellipse 90vw 60vh at 80% 20%, rgba(117, 12, 12, 0.194) 0%, transparent 50%),
+        radial-gradient(ellipse 140vw 110vh at 50% 80%, rgba(40, 40, 67, 0.2) 0%, transparent 70%),
+        /* Complex base gradient with multiple color stops */
+        linear-gradient(135deg, 
+            #000000 0%, 
+            #0a0a0a 15%, 
+            #1a1a1a 30%, 
+            #2d2d2d 45%, 
+            #1a1a1a 60%, 
+            #0f0f0f 75%, 
+            #000000 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Fix overscroll behavior for premium background pages */
+html:has(.photo-grid),
+html:has(.tech-docs-page) {
+    background: #000000;
+    min-height: 100vh;
+    overscroll-behavior: contain;
+}
+
+body:has(.photo-grid),
+body:has(.tech-docs-page) {
+    background-color: #000000;
+    overscroll-behavior: contain;
+}
+
+/* Make header transparent to show gradient */
+body:has(.photo-grid) header,
+body:has(.photo-grid) .header,
+body:has(.photo-grid) nav,
+body:has(.tech-docs-page) header,
+body:has(.tech-docs-page) .header,
+body:has(.tech-docs-page) nav {
+    background: transparent !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Make footer transparent to show gradient */
+body:has(.photo-grid) footer,
+body:has(.photo-grid) #footer,
+body:has(.tech-docs-page) footer,
+body:has(.tech-docs-page) #footer {
+    background: transparent !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Make main content transparent */
+body:has(.photo-grid) main,
+body:has(.tech-docs-page) main {
+    background: transparent !important;
+}
+
+/* Ensure text remains visible with proper contrast */
+body:has(.photo-grid) header a,
+body:has(.photo-grid) footer a,
+body:has(.photo-grid) nav a,
+body:has(.photo-grid) .menu-link a,
+body:has(.photo-grid) .social-link,
+body:has(.tech-docs-page) header a,
+body:has(.tech-docs-page) footer a,
+body:has(.tech-docs-page) nav a,
+body:has(.tech-docs-page) .menu-link a,
+body:has(.tech-docs-page) .social-link {
+    color: white !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Style dropdown menus to be semi-transparent */
+body:has(.photo-grid) .dropdown-content,
+body:has(.tech-docs-page) .dropdown-content {
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+body:has(.photo-grid) .dropdown-content a,
+body:has(.tech-docs-page) .dropdown-content a {
+    color: white !important;
+}
+/* ======================================== */
+
 a {
     color: var(--color-primary);
     text-decoration: none;

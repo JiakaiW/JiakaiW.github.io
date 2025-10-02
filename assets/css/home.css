@@ -2,7 +2,7 @@
 .intro-container {
     display: flex;
     gap: 2em;
-    align-items: flex-start;
+    align-items: center;
     margin: 2em auto;
     padding: 2em;
     background: linear-gradient(135deg, rgba(93, 143, 179, 0.1) 0%, rgba(93, 143, 179, 0.05) 100%);
@@ -14,7 +14,7 @@
 .intro-image {
     flex: 2;
     min-width: 250px;
-    max-width: 40%;
+    max-width: 50%;
 }
 
 .intro-image img {
@@ -23,10 +23,11 @@
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform: scale(0.75);
 }
 
 .intro-image img:hover {
-    transform: scale(1.02);
+    transform: scale(0.765);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
@@ -495,6 +496,7 @@
     margin: 0 auto 1em;
     color: #5d8fb3;
     transition: all 0.4s ease;
+    flex-shrink: 0;
 }
 
 .theme-block:hover .theme-icon {
@@ -521,10 +523,11 @@
 /* Theme Title */
 .theme-title {
     font-size: 1.5em;
-    margin-bottom: 0.8em;
+    margin: 0 0 0.8em 0;
     text-align: center;
     color: white;
     font-weight: 600;
+    flex-shrink: 0;
 }
 
 /* Theme Description */
@@ -532,7 +535,7 @@
     font-size: 1em;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 1.5em;
+    margin: 0 0 1.5em 0;
     text-align: center;
     flex-grow: 1;
 }
@@ -541,21 +544,30 @@
 .theme-projects-preview {
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
     gap: 1em;
     align-content: start;
+    max-width: 100%;
 }
 
 /* Responsive projects grid */
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
     .theme-projects-preview {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 100%;
     }
 }
 
-@media (min-width: 1800px) {
+@media (min-width: 1600px) {
     .theme-projects-preview {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 1199px) and (min-width: 1025px) {
+    .theme-projects-preview {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -572,8 +584,10 @@
     margin-bottom: 0.8em;
     transition: all 0.3s ease;
     position: relative;
-    overflow: hidden;
-    min-height: 120px;
+    overflow: visible;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .preview-project:hover {
@@ -592,15 +606,12 @@
     object-fit: cover;
     z-index: 1;
     border-radius: 10px;
+    pointer-events: none;
 }
 
 /* Content wrapper with overlay - dark background when there's an image */
 .preview-project:has(.preview-project-bg) .preview-project-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: relative;
     z-index: 2;
     padding: 0.8em;
     background: linear-gradient(
@@ -611,6 +622,9 @@
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+    box-sizing: border-box;
+    min-height: 120px;
+    flex: 1;
 }
 
 /* Content wrapper - transparent blue background when there's no image */
@@ -623,6 +637,8 @@
     display: flex;
     flex-direction: column;
     border-radius: 10px;
+    box-sizing: border-box;
+    flex: 1;
 }
 
 .preview-project:not(:has(.preview-project-bg)):hover .preview-project-content {
@@ -632,8 +648,14 @@
 .preview-project h5 {
     font-size: 0.9em;
     color: white;
-    margin: 0 0 0.3em 0;
+    margin: 0;
     font-weight: 600;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    flex: 1;
+    min-width: 0;
+    line-height: 1.3;
 }
 
 .preview-project p {
@@ -641,6 +663,8 @@
     color: rgba(255, 255, 255, 0.8);
     margin: 0;
     line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .preview-project .project-badge {
@@ -654,9 +678,10 @@
     box-shadow: none !important;
     font-size: 0.7em;
     font-weight: 600;
-    margin-right: 0.8em;
+    margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.3px;
+    flex-shrink: 0;
 }
 
 .preview-project .project-badge.completed {
@@ -679,8 +704,11 @@
 
 .preview-project-header {
     display: flex;
-    align-items: center;
-    margin-bottom: 0.3em;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 0.5em;
+    gap: 0.5em;
+    flex-wrap: wrap;
 }
 
 .preview-project .learn-more-link {
