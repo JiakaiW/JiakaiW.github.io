@@ -29,6 +29,16 @@
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
+.intro-image .image-caption {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.8em;
+    line-height: 1.4;
+    padding: 0 1em;
+}
+
 .intro-content {
     flex: 3;
     min-width: 300px;

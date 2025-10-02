@@ -9,6 +9,7 @@ title: Home
 <div class="intro-container">
     <div class="intro-image">
         <img src="/photo-grid/images/me.jpg" alt=" " />
+        <p class="image-caption">During the superconductivity summer school at UMN we went to Minnehaha Falls and I got mud all over myself.</p>
     </div>
     <div class="intro-content">
         <h1>👋 I'm Jiakai Wang</h1>
