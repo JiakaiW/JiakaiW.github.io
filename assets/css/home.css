@@ -31,6 +31,34 @@
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
+.intro-image {
+    position: relative;
+}
+
+/* Thumbs up emoji animation */
+.thumbs-up-emoji {
+    position: absolute;
+    font-size: 3em;
+    pointer-events: none;
+    animation: thumbsUpAnimation 1s ease-out forwards;
+    z-index: 100;
+}
+
+@keyframes thumbsUpAnimation {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-30px) scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(0.8);
+    }
+}
+
 .intro-image .image-caption {
     font-size: 0.9em;
     color: rgba(255, 255, 255, 0.7);

@@ -329,7 +329,36 @@ document.addEventListener('DOMContentLoaded', () => {
     themeManager.populatePreviews();
     setAnimationDelays();
     autoSizeText();
+    initializeIntroImageClick();
 });
+
+// Add thumbs up emoji animation when intro image is clicked
+function initializeIntroImageClick() {
+    const introImage = document.querySelector('.intro-image img');
+    if (!introImage) return;
+    
+    introImage.style.cursor = 'pointer';
+    
+    introImage.addEventListener('click', (event) => {
+        const rect = introImage.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        
+        const emoji = document.createElement('div');
+        emoji.textContent = '👍';
+        emoji.className = 'thumbs-up-emoji';
+        emoji.style.left = `${x}px`;
+        emoji.style.top = `${y}px`;
+        
+        const container = document.querySelector('.intro-image');
+        container.appendChild(emoji);
+        
+        // Remove the emoji after animation completes
+        setTimeout(() => {
+            emoji.remove();
+        }, 1000);
+    });
+}
 
 // Global function for onclick handlers
 function expandTheme(themeId) {
