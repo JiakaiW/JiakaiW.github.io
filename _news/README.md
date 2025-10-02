@@ -1,6 +1,6 @@
 # News Board
 
-This folder contains news items that are displayed on the home page.
+This folder contains news items that are displayed on the home page and the dedicated news page.
 
 ## Adding a New News Item
 
@@ -18,7 +18,11 @@ link: "/path/to/related/page" or null
 Your news content goes here. This will be displayed as the description.
 ```
 
-3. That's it! The news item will automatically appear on your home page. News items are automatically sorted by date (newest first).
+3. That's it! The news item will automatically appear on:
+   - **Home page**: Shows the 6 most recent news items
+   - **News page** (`/news/`): Shows all news items
+
+News items are automatically sorted by date (newest first).
 
 ## Categories
 

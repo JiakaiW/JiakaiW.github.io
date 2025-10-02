@@ -1,0 +1,96 @@
+# Research Projects Data
+# This file defines all research projects and their associations with themes
+# Each project can belong to one or more themes
+
+# Superconducting Qubit Projects
+- id: fluxonium-erasure
+  title: Fluxonium Erasure
+  description: Erasure error detection and conversion in fluxonium qubits for improved quantum error correction.
+  url: /projects/fluxonium_erasure
+  image: /projects/fluxonium_erasure/images/lvl_diagram.png
+  status: completed
+  themes:
+    - superconducting
+
+- id: hpc-quantum
+  title: GPU Pauli frame QEC simulation
+  description: GPU-accelerated simulation tools for superconducting quantum circuits and coupled systems.
+  url: /projects/hpc
+  image: /projects/hpc/images/GPU_pauli_frame.png
+  status: completed
+  themes:
+    - qec
+
+- id: qutrit-qubit gates
+  title: Novel Superconducting Qutrit-qubit CNOT gates
+  description: We are wrapping up a paper on implementing CNOT gates between qutrit-qubit systems.
+  url: null
+  image: null
+  status: ongoing
+  themes:
+    - superconducting
+
+- id: readout-simulation
+  title: Neural Network for detecting leakage in readout
+  description: Depending on experimentalist's need, we have a potential small project on implementing a neural network for detecting leakage in readout.
+  url: null
+  image: null
+  status: potential
+  themes:
+    - superconducting
+
+- id: pulse-optimization
+  title: Methodological paper on optimizing pulse sequences
+  description: We are writing a methodological paper on optimizing pulse sequences for superconducting qubits.
+  url: null
+  image: null
+  status: potential
+  themes:
+    - superconducting
+
+# Quantum Error Correction Projects
+- id: mfqec
+  title: Measurement-Free Quantum Error Correction
+  description: Novel QEC protocols that eliminate measurement overhead for improved qubit coherence.
+  url: /projects/mfqec
+  image: /projects/mfqec/images/circ_simple.png
+  status: completed
+  themes:
+    - qec
+
+- id: erasure-qec
+  title: Simulating and decoding QEC with erasure errors
+  description: We are continuing our work on simulating and decoding QEC with erasure errors.
+  url: null
+  image: null
+  status: ongoing
+  themes:
+    - qec
+
+- id: tensor-manybody
+  title: Many-Body Quantum System Simulation
+  description: Using tensor networks to simulate strongly correlated quantum systems.
+  url: null
+  image: null
+  status: potential
+  themes:
+    - tensor
+
+- id: neural-qec
+  title: Neural QEC Decoders
+  description: Training neural networks to decode quantum error correction codes efficiently.
+  url: null
+  image: null
+  status: potential
+  themes:
+    - neural
+
+- id: ml-circuit-opt
+  title: Quantum Circuit Optimization with ML
+  description: Using machine learning to optimize quantum circuit compilation and execution.
+  url: null
+  image: null
+  status: potential
+  themes:
+    - neural
+

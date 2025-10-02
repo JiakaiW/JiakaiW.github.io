@@ -2,38 +2,75 @@
 
 This folder contains YAML data files that are used throughout the site.
 
-## research_themes.yml
+📖 **See [DATA_DRIVEN_ARCHITECTURE.md](../DATA_DRIVEN_ARCHITECTURE.md) for complete documentation**
 
-Defines the research themes displayed on the home page.
+## Overview
 
-### Structure:
+All website content is managed through data files:
+- **`research_themes.yml`** - Theme metadata (title, description, icon)
+- **`projects.yml`** - All project data with theme associations
 
+Stats are **automatically calculated** from project data - no manual updates needed!
+
+## Quick Start
+
+### Add a New Project
+
+Edit `projects.yml`:
 ```yaml
-- id: theme-id              # Unique identifier (used in CSS and JS)
-  title: Theme Title        # Display title
-  description: Description  # Theme description
-  icon: /path/to/icon.svg  # Path to SVG icon file
-  stats:
-    completed: 0            # Number of completed projects
-    ongoing: 0              # Number of ongoing projects
-    potential: 0            # Number of potential projects
+- id: my-project
+  title: My Project Title
+  description: Brief description
+  url: /projects/my-project
+  image: /path/to/image.png
+  status: completed  # completed, ongoing, or potential
+  themes:
+    - theme-id-1
+    - theme-id-2
 ```
 
-### Adding a New Theme:
+Stats automatically update on next build!
 
-1. Create an SVG icon in `/assets/icons/themes/your-theme.svg`
-2. Add a new entry to `research_themes.yml` with the above structure
-3. Add project data in `/assets/js/home.js` in the `initializeThemes()` method
-4. (Optional) Add theme-specific hover colors in `/assets/css/home.css`
+### Add a New Theme
 
-### Editing Existing Themes:
+1. Create SVG icon in `/assets/icons/themes/new-theme.svg`
+2. Add to `research_themes.yml`:
+```yaml
+- id: new-theme
+  title: Theme Title
+  description: Theme description
+  icon: /assets/icons/themes/new-theme.svg
+```
+3. Tag projects with `new-theme` in their `themes` array
 
-Simply edit the YAML file - changes will be reflected automatically on the next build.
+## Files
 
-## Benefits of This Structure:
+### research_themes.yml
+Defines research themes (title, description, icon path).
 
-- **Separation of Concerns**: Data, styling, and logic are separated
-- **Easy to Maintain**: Edit theme info without touching HTML
-- **Reusable Icons**: SVG files can be used elsewhere
-- **Version Control Friendly**: Clean diffs when making changes
+**Stats are NOT stored here** - they're auto-calculated by `_plugins/theme_stats_generator.rb`
+
+### projects.yml
+Single source of truth for all project data.
+
+Projects can belong to multiple themes and stats are automatically calculated.
+
+## Generated Files
+
+- `projects-data.json` - Auto-generated API endpoint for JavaScript
+- Theme stats - Auto-injected into `site.data.research_themes` during build
+
+## Benefits
+
+- ✅ **Zero code changes** to add/update projects
+- ✅ **Automatic stats** calculation
+- ✅ **Clean separation** of content and code
+- ✅ **Version control** friendly
+- ✅ **Easy maintenance** by non-developers
+
+## See Also
+
+- [DATA_DRIVEN_ARCHITECTURE.md](../DATA_DRIVEN_ARCHITECTURE.md) - Complete guide
+- [MODULAR_THEMES.md](../MODULAR_THEMES.md) - Theme structure overview
+- [THEME_MANAGEMENT.md](../THEME_MANAGEMENT.md) - Legacy documentation
 

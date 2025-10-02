@@ -1293,4 +1293,107 @@
 
 .error-message {
     color: rgba(231, 76, 60, 0.8);
+}
+
+/* View All News Button */
+.view-all-news-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+    padding: 0 0 2em 0;
+    border-bottom: 1px solid rgba(93, 143, 179, 0.2);
+}
+
+.view-all-news-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.8em 2em;
+    background: linear-gradient(135deg, rgba(93, 143, 179, 0.2) 0%, rgba(137, 207, 240, 0.15) 100%);
+    border: 2px solid rgba(93, 143, 179, 0.4);
+    border-radius: 12px;
+    color: #5d8fb3;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.view-all-news-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(93, 143, 179, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.view-all-news-button:hover::before {
+    left: 100%;
+}
+
+.view-all-news-button:hover {
+    transform: translateY(-3px);
+    border-color: rgba(93, 143, 179, 0.8);
+    box-shadow: 0 8px 20px rgba(93, 143, 179, 0.3);
+    background: linear-gradient(135deg, rgba(93, 143, 179, 0.3) 0%, rgba(137, 207, 240, 0.2) 100%);
+    color: #89CFF0;
+}
+
+.view-all-news-button .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.view-all-news-button:hover .arrow {
+    transform: translateX(5px);
+}
+
+/* News Page Styles */
+.news-page-header {
+    text-align: center;
+    margin: 2em auto 3em;
+    max-width: 800px;
+}
+
+.news-page-header h1 {
+    font-size: 3em;
+    margin-bottom: 0.5em;
+    background: linear-gradient(135deg, #5d8fb3 0%, #89CFF0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.news-page-subtitle {
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+}
+
+/* Adjust news grid for full page */
+body:has(#allNewsContainer) .news-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2em;
+}
+
+@media (max-width: 768px) {
+    .news-page-header h1 {
+        font-size: 2em;
+    }
+    
+    .news-page-subtitle {
+        font-size: 1em;
+    }
+    
+    .view-all-news-button {
+        font-size: 1em;
+        padding: 0.7em 1.5em;
+    }
 } 

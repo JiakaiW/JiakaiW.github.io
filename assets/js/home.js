@@ -75,18 +75,18 @@ class ResearchTheme {
             return '';
         }
 
-        // Show up to 3 projects (prioritize completed, then ongoing, then potential)
+        // Show up to 4 projects (prioritize completed, then ongoing, then potential)
         const completed = this.projects.filter(p => p.status === 'completed');
         const ongoing = this.projects.filter(p => p.status === 'ongoing');
         const potential = this.projects.filter(p => p.status === 'potential');
         
         let previewProjects = [];
         previewProjects = previewProjects.concat(completed.slice(0, 2));
-        if (previewProjects.length < 3) {
-            previewProjects = previewProjects.concat(ongoing.slice(0, 3 - previewProjects.length));
+        if (previewProjects.length < 4) {
+            previewProjects = previewProjects.concat(ongoing.slice(0, 4 - previewProjects.length));
         }
-        if (previewProjects.length < 3) {
-            previewProjects = previewProjects.concat(potential.slice(0, 3 - previewProjects.length));
+        if (previewProjects.length < 4) {
+            previewProjects = previewProjects.concat(potential.slice(0, 4 - previewProjects.length));
         }
 
         if (previewProjects.length === 0) {
@@ -160,7 +160,27 @@ class ResearchTheme {
 class ThemeManager {
     constructor() {
         this.themes = new Map();
-        this.initializeThemes();
+        this.projectsData = null;
+        this.ready = false;
+    }
+
+    async loadProjectsData() {
+        try {
+            const response = await fetch('/projects-data.json');
+            if (!response.ok) {
+                throw new Error('Failed to load projects data');
+            }
+            this.projectsData = await response.json();
+            this.initializeThemes();
+            this.ready = true;
+            return true;
+        } catch (error) {
+            console.error('Error loading projects data:', error);
+            // Fallback: initialize empty themes
+            this.initializeEmptyThemes();
+            this.ready = true;
+            return false;
+        }
     }
 
     populatePreviews() {
@@ -177,123 +197,75 @@ class ThemeManager {
         });
     }
 
+    initializeEmptyThemes() {
+        // Fallback: create empty themes if data loading fails
+        const themeDefinitions = [
+            { id: 'superconducting', title: 'Superconducting Qubit Simulation', desc: 'Advanced simulation techniques for superconducting quantum circuits' },
+            { id: 'qec', title: 'Quantum Error Correction', desc: 'Hardware-aware quantum error correction schemes' },
+            { id: 'tensor', title: 'Tensor Networks', desc: 'Tensor network methods for quantum simulation and optimization' },
+            { id: 'neural', title: 'Neural Networks for Quantum Computing', desc: 'Machine learning applications in quantum computing research' }
+        ];
+
+        themeDefinitions.forEach(def => {
+            const theme = new ResearchTheme(def.id, def.title, def.desc);
+            this.themes.set(def.id, theme);
+        });
+    }
+
     initializeThemes() {
-        // Theme 1: Superconducting Qubit Simulation
-        const scTheme = new ResearchTheme(
-            'superconducting',
-            'Superconducting Qubit Simulation',
-            'Advanced simulation techniques for superconducting quantum circuits'
-        );
-        scTheme.addProject(new Project(
-            'Fluxonium Erasure',
-            'Erasure error detection and conversion in fluxonium qubits for improved quantum error correction.',
-            '/projects/fluxonium_erasure',
-            '/projects/fluxonium_erasure/images/lvl_diagram.png',
-            'completed'
-        ));
-        scTheme.addProject(new Project(
-            'High-Performance Quantum Computing Software',
-            'GPU-accelerated simulation tools for superconducting quantum circuits and coupled systems.',
-            '/projects/hpc',
-            '/projects/hpc/images/GPU_pauli_frame.png',
-            'completed'
-        ));
-        scTheme.addProject(new Project(
-            'Novel Superconducting Qubit Designs',
-            'Exploring new qubit architectures with enhanced coherence and reduced error rates.',
-            '/potential_directions/novel_SCqubits/',
-            null,
-            'ongoing'
-        ));
-        scTheme.addProject(new Project(
-            'Finite Element Analysis of Josephson Junctions',
-            'Advanced FEA methods for optimizing superconducting circuit design and fabrication.',
-            null,
-            null,
-            'potential'
-        ));
+        if (!this.projectsData || !this.projectsData.projects) {
+            console.error('No projects data available');
+            this.initializeEmptyThemes();
+            return;
+        }
 
-        // Theme 2: Quantum Error Correction
-        const qecTheme = new ResearchTheme(
-            'qec',
-            'Quantum Error Correction',
-            'Hardware-aware quantum error correction schemes'
-        );
-        qecTheme.addProject(new Project(
-            'Measurement-Free Quantum Error Correction',
-            'Novel QEC protocols that eliminate measurement overhead for improved qubit coherence.',
-            '/projects/mfqec',
-            '/projects/mfqec/images/circ_simple.png',
-            'completed'
-        ));
-        qecTheme.addProject(new Project(
-            'Erasure-Based QEC Optimization',
-            'Leveraging erasure errors for more efficient quantum error correction codes.',
-            null,
-            null,
-            'ongoing'
-        ));
-        qecTheme.addProject(new Project(
-            'Fault-Tolerant Quantum Computing',
-            'Research directions in achieving practical fault-tolerant quantum computation.',
-            '/potential_directions/ftqc/',
-            null,
-            'potential'
-        ));
+        // Theme definitions with full descriptions
+        const themeDefinitions = {
+            'superconducting': {
+                title: 'Superconducting Qubit Simulation',
+                description: 'Advanced simulation techniques for superconducting quantum circuits'
+            },
+            'qec': {
+                title: 'Quantum Error Correction',
+                description: 'Hardware-aware quantum error correction schemes'
+            },
+            'tensor': {
+                title: 'Tensor Networks',
+                description: 'Tensor network methods for quantum simulation and optimization'
+            },
+            'neural': {
+                title: 'Neural Networks for Quantum Computing',
+                description: 'Machine learning applications in quantum computing research'
+            }
+        };
 
-        // Theme 3: Tensor Networks
-        const tensorTheme = new ResearchTheme(
-            'tensor',
-            'Tensor Networks',
-            'Tensor network methods for quantum simulation and optimization'
-        );
-        tensorTheme.addProject(new Project(
-            'Tensor Network QEC Decoders',
-            'Developing efficient tensor network-based decoders for quantum error correction.',
-            null,
-            null,
-            'potential'
-        ));
-        tensorTheme.addProject(new Project(
-            'Many-Body Quantum System Simulation',
-            'Using tensor networks to simulate strongly correlated quantum systems.',
-            null,
-            null,
-            'potential'
-        ));
+        // Create theme instances
+        Object.keys(themeDefinitions).forEach(themeId => {
+            const def = themeDefinitions[themeId];
+            const theme = new ResearchTheme(themeId, def.title, def.description);
+            this.themes.set(themeId, theme);
+        });
 
-        // Theme 4: Neural Networks
-        const neuralTheme = new ResearchTheme(
-            'neural',
-            'Neural Networks for Quantum Computing',
-            'Machine learning applications in quantum computing research'
-        );
-        neuralTheme.addProject(new Project(
-            'LLM Agents for Research',
-            'Building multi-agent systems to accelerate quantum computing research workflows.',
-            '/potential_directions/agents/',
-            null,
-            'ongoing'
-        ));
-        neuralTheme.addProject(new Project(
-            'Neural QEC Decoders',
-            'Training neural networks to decode quantum error correction codes efficiently.',
-            null,
-            null,
-            'potential'
-        ));
-        neuralTheme.addProject(new Project(
-            'Quantum Circuit Optimization with ML',
-            'Using machine learning to optimize quantum circuit compilation and execution.',
-            null,
-            null,
-            'potential'
-        ));
+        // Populate themes with projects from data
+        this.projectsData.projects.forEach(projectData => {
+            const project = new Project(
+                projectData.title,
+                projectData.description,
+                projectData.url,
+                projectData.image,
+                projectData.status
+            );
 
-        this.themes.set('superconducting', scTheme);
-        this.themes.set('qec', qecTheme);
-        this.themes.set('tensor', tensorTheme);
-        this.themes.set('neural', neuralTheme);
+            // Add project to all its associated themes
+            if (projectData.themes && Array.isArray(projectData.themes)) {
+                projectData.themes.forEach(themeId => {
+                    const theme = this.themes.get(themeId);
+                    if (theme) {
+                        theme.addProject(project);
+                    }
+                });
+            }
+        });
     }
 
     getTheme(themeId) {
@@ -324,9 +296,16 @@ class ThemeManager {
 let themeManager;
 
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     themeManager = new ThemeManager();
+    
+    // Load projects data asynchronously
+    await themeManager.loadProjectsData();
+    
+    // Populate previews after data is loaded
     themeManager.populatePreviews();
+    
+    // Initialize other components
     setAnimationDelays();
     autoSizeText();
     initializeIntroImageClick();
@@ -513,10 +492,28 @@ async function loadNews() {
             return;
         }
 
+        // Show only first 6 news items on home page
+        const displayItems = newsItems.slice(0, 6);
+        const hasMore = newsItems.length > 6;
+
         // Render news items (already sorted by date in JSON)
-        container.innerHTML = newsItems.map((item, index) => 
+        let html = displayItems.map((item, index) => 
             renderNewsItem(item, index)
         ).join('');
+
+        // Add "View All News" button if there are more than 6 items
+        if (hasMore) {
+            html += `
+                <div class="view-all-news-container">
+                    <a href="/news/" class="view-all-news-button">
+                        View All News (${newsItems.length} total)
+                        <span class="arrow">→</span>
+                    </a>
+                </div>
+            `;
+        }
+
+        container.innerHTML = html;
 
     } catch (error) {
         console.error('Error loading news:', error);
