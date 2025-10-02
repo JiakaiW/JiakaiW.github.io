@@ -330,6 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setAnimationDelays();
     autoSizeText();
     initializeIntroImageClick();
+    loadNews();
 });
 
 // Add random emoji/text animation when intro image is clicked
@@ -344,18 +345,13 @@ function initializeIntroImageClick() {
         "Bro you so smart",
         "Bro you looks so cool",
         "Bro let's collaborate on a new paper",
-        "Bro you're a quantum genius",
         "Bro your research is fire",
-        "Bro let's solve P vs NP together",
-        "Bro you're the GOAT",
         "Bro your qubits are coherent AF",
-        "Bro let's get that Nature paper",
         "Bro you're going places",
         "Bro your code is cleaner than my room",
         "Bro teach me your ways",
-        "Bro you cracked the code",
-        "Bro let's revolutionize quantum computing",
-        "Bro your algorithms hit different"
+        "+1s",
+        "+1s"
     ];
     
     introImage.addEventListener('click', (event) => {
@@ -492,4 +488,75 @@ function autoSizeText() {
     });
 }
 
-window.addEventListener('resize', autoSizeText); 
+window.addEventListener('resize', autoSizeText);
+
+/**
+ * News loading and display functionality
+ */
+
+async function loadNews() {
+    const container = document.getElementById('newsContainer');
+    if (!container) return;
+
+    try {
+        // Fetch the news feed JSON
+        const feedResponse = await fetch('/news-feed.json');
+        if (!feedResponse.ok) {
+            throw new Error('Failed to fetch news feed');
+        }
+        
+        const feedData = await feedResponse.json();
+        const newsItems = feedData.news;
+
+        if (newsItems.length === 0) {
+            container.innerHTML = '<p class="no-news">No news items available.</p>';
+            return;
+        }
+
+        // Render news items (already sorted by date in JSON)
+        container.innerHTML = newsItems.map((item, index) => 
+            renderNewsItem(item, index)
+        ).join('');
+
+    } catch (error) {
+        console.error('Error loading news:', error);
+        container.innerHTML = '<p class="error-message">Failed to load news. Please try again later.</p>';
+    }
+}
+
+function renderNewsItem(item, index) {
+    const categoryColors = {
+        publication: { bg: 'rgba(46, 204, 113, 0.15)', text: '#2ecc71', border: 'rgba(46, 204, 113, 0.3)' },
+        talk: { bg: 'rgba(241, 196, 15, 0.15)', text: '#f1c40f', border: 'rgba(241, 196, 15, 0.3)' },
+        software: { bg: 'rgba(52, 152, 219, 0.15)', text: '#3498db', border: 'rgba(52, 152, 219, 0.3)' },
+        news: { bg: 'rgba(155, 89, 182, 0.15)', text: '#9b59b6', border: 'rgba(155, 89, 182, 0.3)' },
+        opportunity: { bg: 'rgba(231, 76, 60, 0.15)', text: '#e74c3c', border: 'rgba(231, 76, 60, 0.3)' }
+    };
+
+    const categoryStyle = categoryColors[item.category] || categoryColors.news;
+    const formattedDate = formatDate(item.date);
+    
+    const linkHtml = item.link 
+        ? `<a href="${item.link}" class="news-link">Read more →</a>` 
+        : '';
+
+    return `
+        <div class="news-item" style="--item-index: ${index}; --category-bg: ${categoryStyle.bg}; --category-border: ${categoryStyle.border};">
+            <div class="news-header">
+                <span class="news-category" style="background: ${categoryStyle.bg}; color: ${categoryStyle.text}; border: 1px solid ${categoryStyle.border};">
+                    ${item.category}
+                </span>
+                <span class="news-date">${formattedDate}</span>
+            </div>
+            <h3 class="news-title">${item.title}</h3>
+            <p class="news-content">${item.content}</p>
+            ${linkHtml}
+        </div>
+    `;
+}
+
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+} 

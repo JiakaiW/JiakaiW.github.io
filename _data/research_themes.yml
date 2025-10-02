@@ -1,0 +1,36 @@
+- id: superconducting
+  title: Superconducting Qubit Simulation
+  description: Finite element simulation of superconducting circuits, fluxonium design, and device characterization
+  icon: /assets/icons/themes/superconducting.svg
+  stats:
+    completed: 2
+    ongoing: 3
+    potential: 0
+
+- id: qec
+  title: Quantum Error Correction
+  description: Hardware-aware QEC schemes, measurement-free protocols, and erasure-based error correction
+  icon: /assets/icons/themes/qec.svg
+  stats:
+    completed: 2
+    ongoing: 2
+    potential: 0
+
+- id: tensor
+  title: Tensor Networks
+  description: Tensor network methods for quantum simulation and optimization
+  icon: /assets/icons/themes/tensor.svg
+  stats:
+    completed: 0
+    ongoing: 0
+    potential: 2
+
+- id: neural
+  title: Neural Networks
+  description: Machine learning applications for quantum computing, from decoder optimization to circuit design
+  icon: /assets/icons/themes/neural.svg
+  stats:
+    completed: 0
+    ongoing: 0
+    potential: 2
+

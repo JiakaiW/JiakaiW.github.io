@@ -24,3 +24,5 @@ collections:
   tech-docs:
     output: true
     permalink: /:name/
+  news:
+    output: false
