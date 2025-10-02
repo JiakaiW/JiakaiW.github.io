@@ -25,16 +25,17 @@ title: Home
 </svg>
 
 <div class="intro-container">
-    <div class="intro-image">
+    <div class="intro-image intro-image-left">
         <img src="/photo-grid/images/me.jpg" alt=" " />
         <p class="image-caption">During the superconductivity summer school at UMN we went to Minnehaha Falls and I got mud all over myself.</p>
     </div>
     <div class="intro-content">
         <h1>👋 I'm Jiakai Wang</h1>
         <h2>Quantum hardware theory<br>Quantum error correction<br>Tensor/neural networks</h2>
-        <p class="intro-description">
-            I'm looking for motivated students to collaborate on cutting-edge quantum computing research. 
-        </p>
+    </div>
+    <div class="intro-image intro-image-right">
+        <img src="/photo-grid/images/vavilov.jpg" alt=" " />
+        <p class="image-caption">Prof. Maxim Vavilov who I work with on superconducting-qubits, QEC and stuff. <br><strong style="color: #e74c3c; font-size: 20px;">Actively hiring students!</strong></p>
     </div>
 </div>
 

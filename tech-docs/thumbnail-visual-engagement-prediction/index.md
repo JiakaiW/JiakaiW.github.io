@@ -348,7 +348,7 @@ class LossHistoryManager(ConfigReader):
         if not checkpoint_path or checkpoint_path == "":
             # Try to construct the expected checkpoint path based on our naming convention
             current_stage = self.stages[self.current_stage_idx]
-            expected_filename = f"stage-{current_stage['name']}_epoch-{epoch:03d}_val_loss-{val_loss:.4f}.ckpt"
+            expected_filename = f"stage-{current_stage['name']}_epoch-" + "{epoch:03d}" + "_val_loss-" + "{val_loss:.4f}" + ".ckpt"
             checkpoint_path = expected_filename
             if self.verbose:
                 print(f"   ⚠️  No checkpoint path provided, using expected: {checkpoint_path}")
@@ -608,7 +608,7 @@ class ModelCheckpointManager(ConfigReader):
     
     def setup_checkpoint_callback(self, trainer: pl.Trainer, stage_name: str):
         """Setup internal ModelCheckpoint callback for actual checkpoint saving"""
-        filename_template = f"stage-{stage_name}_epoch-{{epoch:03d}}_val_loss-{{val_loss:.4f}}"
+        filename_template = f"stage-{stage_name}_epoch-" + "{epoch:03d}" + "_val_loss-" + "{val_loss:.4f}"
         
         # Remove old callback if exists
         if self.internal_checkpoint_callback in trainer.callbacks:
@@ -822,7 +822,7 @@ class CallBackManager(Callback):
         # If no checkpoint path yet, construct expected one
         if not checkpoint_path:
             current_stage = self.loss_history_manager.get_current_stage()
-            expected_filename = f"stage-{current_stage['name']}_epoch-{trainer.current_epoch:03d}_val_loss-{val_loss:.4f}.ckpt"
+            expected_filename = f"stage-{current_stage['name']}_epoch-" + "{trainer.current_epoch:03d}" + "_val_loss-" + "{val_loss:.4f}" + ".ckpt"
             checkpoint_path = str(self.checkpoint_dir / expected_filename)
         
         # Update loss history manager (includes early stopping check)

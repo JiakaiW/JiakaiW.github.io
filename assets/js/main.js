@@ -30,13 +30,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Always use dark mode
     document.body.classList.add('dark-mode');
 
-    // Add prefix to figure captions
-    let figIdx = 1;
+    // Add figure-caption class to captions (without numbering)
     document.querySelectorAll('img').forEach(img => {
         const caption = img.nextElementSibling;
         if (caption && caption.tagName.toLowerCase() === 'p') {
             caption.classList.add('figure-caption');
-            caption.textContent = `Fig. ${figIdx++}: ${caption.textContent}`;
+            // No longer adding "Fig. X:" prefix
         }
     });
 });
