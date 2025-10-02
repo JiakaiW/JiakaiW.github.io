@@ -1,1 +1,26 @@
 title: "Jiakai Wang"
+
+# Asset versioning configuration
+asset_versioning: true
+asset_cache_bust: true
+
+# Site settings
+url: "https://jiakaiw.github.io"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+sass:
+  sass_dir: assets/css
+  style: compressed
+
+# Plugins
+plugins:
+  - jekyll-timeago
+
+# Collections
+collections:
+  tech-docs:
+    output: true
+    permalink: /:name/

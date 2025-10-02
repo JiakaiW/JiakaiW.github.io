@@ -3,8 +3,8 @@ layout: default
 title: Home
 ---
 
-<link rel="stylesheet" href="/assets/css/home.css">
-<script src="/assets/js/home.js" defer></script>
+<link rel="stylesheet" href="{{ '/assets/css/home.css' | asset_hash_versioned }}">
+<script src="{{ '/assets/js/home.js' | asset_hash_versioned }}" defer></script>
 
 <div class="intro-container">
     <div class="intro-image">

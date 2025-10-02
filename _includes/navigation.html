@@ -21,12 +21,12 @@
             </div>
         </li>
         <li class="menu-link">
-            <a href="/assets/Jiakai_resume.pdf" target="_blank">Resume</a>
+            <a href="{{ '/assets/Jiakai_resume.pdf' | asset_hash_versioned }}" target="_blank">Resume</a>
         </li>
     </ul>
 </nav>
 <div class="search-button">
     <a href="#" onclick="toggleSearch(); return false;">
-        <img src="/assets/search_icon.png" alt="Search" style="width: 36px; height: 36px; vertical-align: middle;">
+        <img src="{{ '/assets/search_icon.png' | asset_hash_versioned }}" alt="Search" style="width: 36px; height: 36px; vertical-align: middle;">
     </a>
 </div>
