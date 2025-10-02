@@ -97,14 +97,19 @@ class ResearchTheme {
         
         previewProjects.forEach(project => {
             const learnMoreLink = project.url ? `<a href="${project.url}" class="learn-more-link">Learn more →</a>` : '';
+            const backgroundImage = project.image ? `<img src="${project.image}" alt="${project.title}" class="preview-project-bg">` : '';
+            
             html += `
                 <div class="preview-project">
-                    <div class="preview-project-header">
-                        <span class="project-badge ${project.status}">${project.getStatusText()}</span>
-                        <h5>${project.title}</h5>
+                    ${backgroundImage}
+                    <div class="preview-project-content">
+                        <div class="preview-project-header">
+                            <span class="project-badge ${project.status}">${project.getStatusText()}</span>
+                            <h5>${project.title}</h5>
+                        </div>
+                        <p>${project.description}</p>
+                        ${learnMoreLink}
                     </div>
-                    <p>${project.description}</p>
-                    ${learnMoreLink}
                 </div>
             `;
         });
