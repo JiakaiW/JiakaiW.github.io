@@ -1,12 +1,10 @@
 /* Tech docs page background - Premium desktop wallpaper style */
 body:has(.tech-docs-page) {
     background: 
-        /* Multiple light sources for depth */
-        radial-gradient(ellipse 800px 600px at 20% 10%, rgba(255, 215, 0, 0.4) 0%, transparent 60%),
-        radial-gradient(ellipse 600px 400px at 80% 20%, rgba(255, 165, 0, 0.3) 0%, transparent 50%),
-        radial-gradient(ellipse 1000px 800px at 50% 80%, rgba(255, 140, 0, 0.2) 0%, transparent 70%),
-        radial-gradient(ellipse 400px 300px at 10% 90%, rgba(255, 215, 0, 0.25) 0%, transparent 60%),
-        radial-gradient(ellipse 500px 400px at 90% 70%, rgba(255, 165, 0, 0.2) 0%, transparent 50%),
+        /* Multiple light sources for depth - responsive sizing */
+        radial-gradient(ellipse 60vw 45vh at 20% 10%, rgba(255, 215, 0, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse 45vw 30vh at 80% 20%, rgba(139, 0, 0, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse 70vw 55vh at 50% 80%, rgba(0, 0, 139, 0.2) 0%, transparent 70%),
         /* Complex base gradient with multiple color stops */
         linear-gradient(135deg, 
             #000000 0%, 

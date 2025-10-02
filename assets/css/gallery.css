@@ -1,12 +1,10 @@
 /* Gallery page background - Premium desktop wallpaper style */
 body:has(.photo-grid) {
     background: 
-        /* Multiple light sources for depth */
-        radial-gradient(ellipse 800px 600px at 20% 10%, rgba(255, 215, 0, 0.4) 0%, transparent 60%),
-        radial-gradient(ellipse 600px 400px at 80% 20%, rgba(255, 165, 0, 0.3) 0%, transparent 50%),
-        radial-gradient(ellipse 1000px 800px at 50% 80%, rgba(255, 140, 0, 0.2) 0%, transparent 70%),
-        radial-gradient(ellipse 400px 300px at 10% 90%, rgba(255, 215, 0, 0.25) 0%, transparent 60%),
-        radial-gradient(ellipse 500px 400px at 90% 70%, rgba(255, 165, 0, 0.2) 0%, transparent 50%),
+        /* Multiple light sources for depth - responsive sizing */
+        radial-gradient(ellipse 90vw 120vh at 20% 10%, rgba(88, 76, 8, 0.44) 0%, transparent 60%),
+        radial-gradient(ellipse 90vw 60vh at 80% 20%, rgba(117, 12, 12, 0.194) 0%, transparent 50%),
+        radial-gradient(ellipse 140vw 110vh at 50% 80%, rgba(40, 40, 67, 0.2) 0%, transparent 70%),
         /* Complex base gradient with multiple color stops */
         linear-gradient(135deg, 
             #000000 0%, 
