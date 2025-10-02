@@ -332,30 +332,63 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeIntroImageClick();
 });
 
-// Add thumbs up emoji animation when intro image is clicked
+// Add random emoji/text animation when intro image is clicked
 function initializeIntroImageClick() {
     const introImage = document.querySelector('.intro-image img');
     if (!introImage) return;
     
     introImage.style.cursor = 'pointer';
     
+    // Random messages for the 25% text case
+    const randomMessages = [
+        "Bro you so smart",
+        "Bro you looks so cool",
+        "Bro let's collaborate on a new paper",
+        "Bro you're a quantum genius",
+        "Bro your research is fire",
+        "Bro let's solve P vs NP together",
+        "Bro you're the GOAT",
+        "Bro your qubits are coherent AF",
+        "Bro let's get that Nature paper",
+        "Bro you're going places",
+        "Bro your code is cleaner than my room",
+        "Bro teach me your ways",
+        "Bro you cracked the code",
+        "Bro let's revolutionize quantum computing",
+        "Bro your algorithms hit different"
+    ];
+    
     introImage.addEventListener('click', (event) => {
         const rect = introImage.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
         
-        const emoji = document.createElement('div');
-        emoji.textContent = '👍';
-        emoji.className = 'thumbs-up-emoji';
-        emoji.style.left = `${x}px`;
-        emoji.style.top = `${y}px`;
+        const random = Math.random();
+        let content;
+        let isEmoji = true;
+        
+        // 50% thumbs up, 25% heart, 25% random text
+        if (random < 0.5) {
+            content = '👍';
+        } else if (random < 0.75) {
+            content = '❤️';
+        } else {
+            content = randomMessages[Math.floor(Math.random() * randomMessages.length)];
+            isEmoji = false;
+        }
+        
+        const element = document.createElement('div');
+        element.textContent = content;
+        element.className = isEmoji ? 'thumbs-up-emoji emoji-only' : 'thumbs-up-emoji text-bubble';
+        element.style.left = `${x}px`;
+        element.style.top = `${y}px`;
         
         const container = document.querySelector('.intro-image');
-        container.appendChild(emoji);
+        container.appendChild(element);
         
-        // Remove the emoji after animation completes
+        // Remove the element after animation completes
         setTimeout(() => {
-            emoji.remove();
+            element.remove();
         }, 1000);
     });
 }
