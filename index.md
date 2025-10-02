@@ -30,7 +30,7 @@ title: Home
         <p class="image-caption">During the superconductivity summer school at UMN we went to Minnehaha Falls and I got mud all over myself.</p>
     </div>
     <div class="intro-content">
-        <h1>👋 I'm Jiakai Wang</h1>
+        <h1>👋 I'm Jiakai Wang, Physics Ph.D @ UW-Madison</h1>
         <h2>Quantum hardware theory<br>Quantum error correction<br>Tensor/neural networks</h2>
     </div>
     <div class="intro-image intro-image-right">
