@@ -165,3 +165,36 @@ document.addEventListener('keydown', function(e) {
         }
     }
 });
+
+// Toggle mobile menu
+function toggleMobileMenu() {
+    console.log('Toggle mobile menu called');
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    console.log('Hamburger:', hamburger);
+    console.log('NavMenu:', navMenu);
+    
+    if (hamburger && navMenu) {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        console.log('Menu toggled, active:', navMenu.classList.contains('active'));
+    } else {
+        console.error('Could not find hamburger or nav-menu elements');
+    }
+}
+
+// Close mobile menu when clicking on a link
+document.addEventListener('DOMContentLoaded', function() {
+    const menuLinks = document.querySelectorAll('.nav-menu .menu-link > a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            if (hamburger && navMenu && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    });
+});

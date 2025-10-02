@@ -94,7 +94,6 @@ class ResearchTheme {
         }
 
         let html = '<div class="theme-projects-preview">';
-        html += '<h4>Featured Projects</h4>';
         
         previewProjects.forEach(project => {
             const learnMoreLink = project.url ? `<a href="${project.url}" class="learn-more-link">Learn more →</a>` : '';

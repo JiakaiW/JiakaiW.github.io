@@ -90,9 +90,54 @@ nav {
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    width: 100%;
 }
 
-nav ul {
+/* Hamburger menu button - hidden by default */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5em;
+    z-index: 1001;
+    transition: all 0.3s ease;
+}
+
+.hamburger:hover {
+    opacity: 0.7;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-white);
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .hamburger span {
+    background-color: var(--color-white);
+}
+
+/* Hamburger animation when active */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.nav-menu {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -219,6 +264,25 @@ main {
     margin: 0 auto;
 }
 
+/* Responsive width for wider screens */
+@media (min-width: 1400px) {
+    main {
+        max-width: 1400px;
+    }
+}
+
+@media (min-width: 1800px) {
+    main {
+        max-width: 1800px;
+    }
+}
+
+@media (min-width: 2200px) {
+    main {
+        max-width: 2200px;
+    }
+}
+
 /* Dark Mode */
 .dark-mode {
     background-color: black;
@@ -247,9 +311,14 @@ main {
     color: var(--color-white);
 }
 
-.dark-mode header button {
+.dark-mode header button:not(.hamburger) {
     background-color: var(--color-black);
     color: var(--color-white);
+}
+
+/* Ensure hamburger has no background in any mode */
+.hamburger {
+    background-color: transparent !important;
 }
 
 .dark-mode pre, .dark-mode code {
@@ -267,24 +336,94 @@ main {
 }
 
 /* Responsive Styles */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    /* Make header transparent on mobile to avoid black background */
     header {
-        flex-direction: column;
-        padding: 0.5em 0;
+        background-color: transparent;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 1em 0;
+        min-height: 60px;
+    }
+    
+    /* Show hamburger menu on mobile */
+    .hamburger {
+        display: flex !important;
+        position: absolute;
+        left: 1em;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+    /* Adjust search button position on mobile */
+    .search-button {
+        top: 50%;
+        transform: translateY(-50%);
     }
 
-    nav ul {
-        flex-direction: column;
-        align-items: center;
+    /* Hide menu by default on mobile */
+    .nav-menu {
+        position: fixed !important;
+        left: -100% !important;
+        top: 60px;
+        flex-direction: column !important;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        width: 100%;
+        text-align: center;
+        transition: left 0.3s ease-in-out;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        padding: 1em 0;
+        z-index: 1000;
+        gap: 0;
     }
 
-    nav ul li {
+    .dark-mode .nav-menu {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(40px) saturate(180%);
+        -webkit-backdrop-filter: blur(40px) saturate(180%);
+    }
+
+    /* Show menu when active */
+    .nav-menu.active {
+        left: 0 !important;
+    }
+
+    .nav-menu li {
         margin: 0.5em 0;
+    }
+
+    .nav-menu .menu-link {
+        width: 100%;
+    }
+
+    /* Adjust dropdown for mobile */
+    .nav-menu .dropdown-content {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        display: none;
+        background-color: rgba(0, 0, 0, 0.1);
+        margin-top: 0.5em;
+    }
+
+    .nav-menu .menu-link.show-dropdown .dropdown-content {
+        display: block;
     }
 
     #theme-toggle {
         position: static;
         margin-top: 1em;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        padding: 0.5em 0;
     }
 }
 
