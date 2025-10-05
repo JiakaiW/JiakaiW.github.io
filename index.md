@@ -35,8 +35,8 @@ title: Home
         <h3>Quantum hardware theory<br>Quantum error correction<br>Tensor/neural networks</h3>
     </div>
     <div class="intro-image intro-image-right">
-        <img src="/photo-grid/images/vavilov.jpg" alt=" " />
-        <p class="image-caption">Prof. Maxim Vavilov who I work with on superconducting-qubits, QEC and stuff. <br><strong style="color: #e74c3c; font-size: 20px;">Actively hiring students!</strong></p>
+        <a href="https://mvavilov.github.io/" target="_blank"><img src="/photo-grid/images/vavilov.jpg" alt=" " /></a>
+        <p class="image-caption"><a href="https://mvavilov.github.io/" target="_blank" style="color:rgb(206, 231, 255); text-decoration: none; font-weight: bold;">Prof. Maxim Vavilov</a> who I work with on superconducting-qubits, QEC and stuff. <br><strong style="color: #e74c3c; font-size: 20px;">Actively hiring students!</strong></p>
     </div>
 </div>
 
