@@ -1,0 +1,506 @@
+/* Segmented Timeline Widget - Liquid Glass Theme */
+
+.timeline-section {
+    max-width: 1200px;
+    margin: 3em auto;
+    padding: 0 1em;
+}
+
+/* Header with liquid glass effect */
+.timeline-header {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.timeline-title {
+    font-size: 2.5em;
+    font-weight: 700;
+    margin: 0 0 0.3em 0;
+    background: linear-gradient(135deg, 
+        rgba(137, 207, 240, 1) 0%, 
+        rgba(93, 143, 179, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.timeline-subtitle {
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+/* Main timeline container with liquid glass effect */
+.timeline-container {
+    position: relative;
+    isolation: isolate;
+    
+    /* Liquid Glass - Base Layer */
+    background: linear-gradient(135deg, 
+        rgba(93, 143, 179, 0.15) 0%, 
+        rgba(137, 207, 240, 0.08) 50%,
+        rgba(93, 143, 179, 0.12) 100%);
+    
+    /* Frosted glass blur */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    
+    /* Subtle shadow for depth */
+    box-shadow: 
+        0 8px 32px rgba(93, 143, 179, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    padding: 2em;
+    overflow: visible;
+}
+
+/* Liquid Glass - Highlight Layer */
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1px;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0) 100%);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Liquid Glass - Illumination Layer */
+.timeline-container::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 24px;
+    background: radial-gradient(circle at 50% 0%, 
+        rgba(137, 207, 240, 0.2) 0%,
+        transparent 60%);
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Ensure content is above glass layers */
+.timeline-container > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Timeline content area */
+.timeline-content {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    overflow: visible;
+}
+
+/* Segment backgrounds */
+.timeline-segments {
+    position: absolute;
+    inset: 0;
+    display: flex;
+}
+
+.timeline-segment {
+    border-right: 2px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.timeline-segment.segment-now {
+    border-right-color: rgba(231, 76, 60, 0.3);
+}
+
+.timeline-segment.segment-even {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.timeline-segment.segment-odd {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Time markers */
+.timeline-marker {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.marker-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.marker-boundary .marker-line {
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.marker-intermediate .marker-line {
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.marker-now .marker-line {
+    width: 3px;
+    background: linear-gradient(180deg, 
+        rgba(231, 76, 60, 0.8) 0%, 
+        rgba(231, 76, 60, 0.4) 100%);
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.marker-label {
+    position: absolute;
+    top: 0.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75em;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.label-now {
+    background: rgba(231, 76, 60, 0.9);
+    color: white;
+    padding: 0.3em 0.6em;
+    border-radius: 4px;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+    top: 0.3em;
+}
+
+/* Projects container */
+.timeline-projects {
+    position: relative;
+    padding-top: 4em;
+    z-index: 2;
+}
+
+.timeline-project-wrapper {
+    position: relative;
+    height: 40px;
+    margin-bottom: 12px;
+}
+
+/* Individual project bar */
+.timeline-project {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-radius: 12px;
+    padding: 0 1em;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    overflow: visible;
+    white-space: nowrap;
+    position: relative;
+    isolation: isolate;
+    
+    /* Liquid Glass effect - match theme blocks with low alpha */
+    background: transparent;
+    
+    /* Frosted glass blur - key to liquid glass */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    /* Allow expansion on hover */
+    min-width: var(--original-width, auto);
+    width: var(--original-width, auto);
+}
+
+/* Base color layer with gradient - very transparent like theme blocks */
+.timeline-project::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, 
+        currentColor 0%, 
+        color-mix(in srgb, currentColor 60%, transparent) 50%,
+        color-mix(in srgb, currentColor 80%, black) 100%);
+    opacity: 0.20;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Gradient highlight overlay - light refraction */
+.timeline-project::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0) 100%);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.7;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.timeline-project:hover,
+.timeline-project.project-hovered {
+    transform: translateY(-4px);
+    width: fit-content !important;
+    min-width: var(--original-width, auto);
+    max-width: min(60%, max-content);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 12px 32px rgba(0, 0, 0, 0.25),
+        0 4px 12px currentColor,
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    z-index: 10;
+}
+
+/* Increase opacity and highlight on hover */
+.timeline-project:hover::before,
+.timeline-project.project-hovered::before {
+    opacity: 0.35;
+}
+
+.timeline-project:hover::after,
+.timeline-project.project-hovered::after {
+    opacity: 1;
+}
+
+.project-title {
+    color: white;
+    font-weight: 700;
+    font-size: 0.9em;
+    white-space: nowrap;
+    text-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.8),
+        0 1px 3px rgba(0, 0, 0, 0.6);
+    position: relative;
+    z-index: 2;
+    transition: all 0.4s ease;
+    letter-spacing: 0.01em;
+    
+    /* Show ellipsis when not hovered */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.timeline-project:hover .project-title,
+.timeline-project.project-hovered .project-title {
+    overflow: visible;
+    text-overflow: unset;
+    max-width: none;
+    text-shadow: 
+        0 2px 12px rgba(0, 0, 0, 0.9),
+        0 1px 4px rgba(0, 0, 0, 0.7),
+        0 0 20px currentColor;
+}
+
+/* Tooltip */
+.project-tooltip {
+    position: fixed;
+    bottom: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%);
+    
+    /* Liquid glass effect for tooltip */
+    background: linear-gradient(135deg, 
+        rgba(26, 26, 26, 0.95) 0%, 
+        rgba(46, 46, 46, 0.95) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 1em 1.2em;
+    min-width: 280px;
+    max-width: 350px;
+    
+    box-shadow: 
+        0 12px 32px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.timeline-project:hover .project-tooltip,
+.timeline-project.project-hovered .project-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
+    z-index: 9999;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgba(26, 26, 26, 0.95);
+}
+
+.tooltip-title {
+    font-weight: 700;
+    font-size: 1em;
+    color: rgba(137, 207, 240, 1);
+    margin-bottom: 0.5em;
+}
+
+.tooltip-dates {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0.7em;
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}
+
+.tooltip-description {
+    font-size: 0.85em;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.4;
+    margin-bottom: 0.7em;
+}
+
+.tooltip-status {
+    display: inline-block;
+    padding: 0.3em 0.8em;
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tooltip-status.status-completed {
+    background: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.4);
+}
+
+.tooltip-status.status-ongoing {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.4);
+}
+
+.tooltip-status.status-scheduled {
+    background: rgba(241, 196, 15, 0.2);
+    color: #f1c40f;
+    border: 1px solid rgba(241, 196, 15, 0.4);
+}
+
+/* Legend */
+.timeline-legend {
+    margin-top: 2em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    gap: 2em;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .timeline-title {
+        font-size: 2em;
+    }
+    
+    .timeline-container {
+        padding: 1.5em 1em;
+    }
+    
+    .timeline-project-wrapper {
+        height: 35px;
+        margin-bottom: 10px;
+    }
+    
+    .project-title {
+        font-size: 0.8em;
+    }
+    
+    .project-tooltip {
+        min-width: 240px;
+        max-width: 280px;
+        font-size: 0.9em;
+    }
+    
+    .marker-label {
+        font-size: 0.65em;
+    }
+    
+    .timeline-legend {
+        flex-direction: column;
+        gap: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-title {
+        font-size: 1.5em;
+    }
+    
+    .timeline-subtitle {
+        font-size: 0.95em;
+    }
+    
+    .timeline-container {
+        padding: 1em 0.8em;
+    }
+    
+    .timeline-project-wrapper {
+        height: 30px;
+        margin-bottom: 8px;
+    }
+    
+    .project-title {
+        font-size: 0.75em;
+        padding: 0 0.5em;
+    }
+}
+

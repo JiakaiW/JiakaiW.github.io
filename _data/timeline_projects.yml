@@ -1,0 +1,46 @@
+# Timeline Projects
+# Data for the segmented timeline widget on homepage
+
+projects:
+  - title: "Fluxonium w/ dispersive erasure detection"
+    start: "2024-10-01"
+    end: "2025-9-23"
+    status: "completed"
+    color: "rgb(93, 143, 179)"
+    description: "Bring erasure conversion to single-mode superconducting qubit"
+  
+  - title: "Fluxonium-transmon qutrit-qubit CNOT"
+    start: "2025-04-01"
+    end: "2025-10-06"
+    status: "completed"
+    color: "rgb(241, 196, 15)"
+    description: "Novel gate for novel qubit"
+  
+  - title: "A gate optimization method"
+    start: "2025-10-01"
+    end: "2025-12-30"
+    status: "scheduled"
+    color: "rgb(137, 50, 240)"
+    description: "We have a novel method on gate optimization"
+  
+  - title: "Potential QEC project"
+    start: "2025-11-01"
+    end: "2026-03-31"
+    status: "scheduled"
+    color: "rgb(40, 40, 40)"
+    description: "We might do a QEC project related to a specific hardware realization"
+  
+  - title: "Potential superconducting qubit readout project"
+    start: "2025-11-01"
+    end: "2026-03-31"
+    status: "scheduled"
+    color: "rgb(40, 40, 40)"
+    description: "We might do a superconducting qubit readout project"
+
+  - title: "Potential QEC project"
+    start: "2026-01-01"
+    end: "2026-05-31"
+    status: "scheduled"
+    color: "rgb(40, 40, 40)"
+    description: "We might try to do a project on efficient QEC simulation"
+  

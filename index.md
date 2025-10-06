@@ -4,7 +4,9 @@ title: Home
 ---
 
 <link rel="stylesheet" href="{{ '/assets/css/home.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/timeline.css' | asset_hash_versioned }}">
 <script src="{{ '/assets/js/home.js' | asset_hash_versioned }}" defer></script>
+<script src="{{ '/assets/js/timeline.js' | asset_hash_versioned }}" defer></script>
 
 <!-- SVG Filters for Liquid Glass Effect -->
 <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
@@ -42,11 +44,15 @@ title: Home
 
 
 <section class="news-section">
-    <h2 class="section-title">Latest News & Updates</h2>
+    <h2 class="section-title">News & Updates</h2>
     <div class="news-container" id="newsContainer">
         <!-- News items will be loaded here by JavaScript -->
         <p class="loading-message">Loading news...</p>
     </div>
+</section>
+
+<section class="timeline-section">
+    <div id="timeline-widget"></div>
 </section>
 
 <section class="research-themes">
