@@ -45,7 +45,7 @@ projects:
     description: "We might try to do a project on efficient QEC simulation"
   
   - title: "Potential tensor network project"
-    start: "2026-11-01"
+    start: "2025-11-01"
     end: "2026-05-31"
     status: "scheduled"
     color: "rgb(40, 40, 100)"
