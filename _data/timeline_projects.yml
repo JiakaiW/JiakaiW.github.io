@@ -23,12 +23,12 @@ projects:
   #   color: "rgb(137, 50, 240)"
   #   description: "We have a novel method on gate optimization"
   
-  - title: "Potential QEC simulation project"
-    start: "2025-11-01"
+  - title: "QEC simulation project"
+    start: "2025-10-13"
     end: "2026-03-31"
-    status: "scheduled"
-    color: "rgb(40, 40, 40)"
-    description: "We might do a QEC project related to a specific hardware realization"
+    status: "Ongoing"
+    color: "rgb(100, 40, 40)"
+    description: "A QEC project related to a specific hardware realization is ongoing"
   
   - title: "Potential superconducting qubit readout project"
     start: "2025-11-01"
