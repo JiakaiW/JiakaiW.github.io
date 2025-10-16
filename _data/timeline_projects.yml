@@ -16,12 +16,12 @@ projects:
     color: "rgb(241, 196, 15)"
     description: "Novel gate for novel qubit"
   
-  # - title: "A gate optimization method"
-  #   start: "2025-10-01"
-  #   end: "2025-12-30"
-  #   status: "scheduled"
-  #   color: "rgb(137, 50, 240)"
-  #   description: "We have a novel method on gate optimization"
+  - title: "Gate optimization method"
+    start: "2025-10-01"
+    end: "2025-12-30"
+    status: "ongoing"
+    color: "rgb(137, 50, 240)"
+    description: "We have a novel method on gate optimization"
   
   - title: "QEC simulation project"
     start: "2025-10-13"
