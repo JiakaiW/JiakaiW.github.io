@@ -23,14 +23,14 @@ projects:
     color: "rgb(137, 50, 240)"
     description: "We have a novel method on gate optimization"
   
-  - title: "QEC simulation project"
+  - title: "QEC simulation project (Maxim's project, with Rrian doing heavy lifting)"
     start: "2025-10-13"
     end: "2026-03-31"
     status: "Ongoing"
     color: "rgb(100, 40, 40)"
     description: "A QEC project related to a specific hardware realization is ongoing"
   
-  - title: "Potential superconducting qubit readout project"
+  - title: "Potential superconducting qubit readout project (Maxim's, w/ Ben doing heavy lifting)"
     start: "2025-11-01"
     end: "2026-03-31"
     status: "scheduled"
@@ -45,7 +45,7 @@ projects:
     description: "We might try to do a project on efficient QEC simulation"
   
   - title: "tensor network project"
-    start: "2025-10-21"
+    start: "2025-10-17"
     end: "2026-05-31"
     status: "ongoing"
     color: "rgb(40, 40, 100)"
