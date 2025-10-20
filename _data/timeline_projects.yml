@@ -2,9 +2,9 @@
 # Data for the segmented timeline widget on homepage
 
 projects:
-  - title: "tensor network project"
+  - title: "tensor network project w/ possible NN integration"
     start: "2025-09-10"
-    end: "2026-05-31"
+    end: "2026-12-31"
     status: "ongoing"
     color: "rgb(40, 40, 100)"
     description: "We are using tensor network methods for large scale quantum hardware simulation"
@@ -46,8 +46,8 @@ projects:
     description: "Novel gate for novel qubit"
   
 
-  - title: "Potential methodological QEC projects"
-    start: "2026-01-01"
+  - title: "Potential methodological QEC projects (GPGPU)"
+    start: "2025-12-01"
     end: "2026-05-31"
     status: "scheduled"
     color: "rgb(40, 40, 40)"
