@@ -24,7 +24,7 @@ projects:
     description: "A QEC project related to a specific hardware realization is ongoing"
   
   - title: "Superconducting qubit leakage detection/removal project (Maxim's project, Ben doing heavy lifting)"
-    start: "2025-11-01"
+    start: "2025-10-01"
     end: "2026-03-31"
     status: "scheduled"
     color: "rgb(40, 40, 40)"
