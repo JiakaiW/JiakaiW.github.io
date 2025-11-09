@@ -2,31 +2,30 @@
  * Glass Edge Distortion Effect using SVG Displacement Maps
  * Tracks scroll position and updates SVG displacement maps for physics-based refraction
  * Uses Convex Squircle surface profile for realistic glass edge distortion
+ * 
+ * @module glass-edge-distortion
  */
 
-(function() {
-    'use strict';
+import GlassDisplacementGenerator from './glass-displacement-generator.js';
+import GlassSVGFilter from './glass-svg-filter.js';
 
     // Check dependencies
-    if (typeof GlassDisplacementGenerator === 'undefined') {
+if (!GlassDisplacementGenerator) {
         console.warn('GlassDisplacementGenerator not found. Make sure glass-displacement-generator.js is loaded first.');
-        return;
     }
 
-    if (typeof GlassSVGFilter === 'undefined' || GlassSVGFilter === null) {
+if (!GlassSVGFilter) {
         console.log('SVG filters not supported, will use CSS fallback');
         // Fall back to CSS-only approach (existing implementation)
-        return;
     }
 
     // Only run if backdrop-filter is supported
     const supportsBackdropFilter = CSS.supports('backdrop-filter', 'blur(1px)') ||
                                    CSS.supports('-webkit-backdrop-filter', 'blur(1px)');
     
-    if (!supportsBackdropFilter) {
-        return;
-    }
+let glassEdgeDistortion = null;
 
+if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
     class GlassEdgeDistortion {
         constructor() {
             this.elements = new Map(); // element -> {filterId, lastSize, mapData}
@@ -36,17 +35,96 @@
             this.intersectionObserver = null;
             this.maxFilters = 30; // Increased limit - filters are reused for same-size elements
             this.filterReuseMap = new Map(); // size key -> filterId for reuse
+            // Debug flag: set to true to enable verbose logging
+            // Can be enabled via: glassEdgeDistortion.debugMode = true (when imported)
+            this.debugMode = false;
+            
+            // Performance optimization: Cache viewport dimensions and background scaling
+            // These only change on window resize, so we cache them to avoid repeated calculations
+            this.viewportCache = {
+                width: 0,
+                height: 0,
+                bgImage: null,
+                scaledWidth: 0,
+                scaledHeight: 0,
+                offsetX: 0,
+                offsetY: 0,
+                coverScale: 0,
+                dirty: true // Flag to indicate cache needs update
+            };
             
             this.init();
+        }
+        
+        /**
+         * Update viewport cache with current dimensions and background scaling
+         * Called on init and window resize
+         */
+        updateViewportCache() {
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+            
+            // Check if viewport size changed
+            if (this.viewportCache.width === viewportWidth && 
+                this.viewportCache.height === viewportHeight && 
+                !this.viewportCache.dirty) {
+                return; // No change needed
+            }
+            
+            // Get background image (use cache if available)
+            let bgImage = this.viewportCache.bgImage;
+            if (!bgImage && typeof backgroundImageCache !== 'undefined' && backgroundImageCache.image) {
+                bgImage = backgroundImageCache.image;
+                this.viewportCache.bgImage = bgImage;
+            }
+            
+            if (bgImage && bgImage.width && bgImage.height) {
+                // Calculate how the background image covers the viewport
+                // Background is: background-size: cover, background-position: center, background-attachment: fixed
+                const coverScale = Math.max(viewportWidth / bgImage.width, viewportHeight / bgImage.height);
+                const scaledWidth = bgImage.width * coverScale;
+                const scaledHeight = bgImage.height * coverScale;
+                
+                // Calculate offset for "center" positioning
+                const offsetX = (scaledWidth - viewportWidth) / 2;
+                const offsetY = (scaledHeight - viewportHeight) / 2;
+                
+                // Update cache
+                this.viewportCache.width = viewportWidth;
+                this.viewportCache.height = viewportHeight;
+                this.viewportCache.scaledWidth = scaledWidth;
+                this.viewportCache.scaledHeight = scaledHeight;
+                this.viewportCache.offsetX = offsetX;
+                this.viewportCache.offsetY = offsetY;
+                this.viewportCache.coverScale = coverScale;
+                this.viewportCache.dirty = false;
+            } else {
+                // Background image not loaded yet, mark as dirty
+                this.viewportCache.dirty = true;
+            }
         }
 
         init() {
             // Wait for DOM to be ready
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => this.startTracking());
+                document.addEventListener('DOMContentLoaded', () => {
+                    this.updateViewportCache();
+                    this.startTracking();
+                });
             } else {
+                this.updateViewportCache();
                 this.startTracking();
             }
+            
+            // Update viewport cache on window resize (throttled)
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    this.viewportCache.dirty = true;
+                    this.updateViewportCache();
+                }, 100); // Throttle resize updates
+            }, { passive: true });
 
             // Handle dynamic content
             this.observeNewElements();
@@ -63,6 +141,7 @@
                 '.news-item',
                 '.expanded-card',
                 '.card-text',
+                '.doc-content',
                 '.timeline-container'
             ];
 
@@ -75,11 +154,13 @@
                 });
             });
 
-            // Set up scroll tracking with throttling
+            // Set up scroll tracking with single RAF loop (performance optimization)
+            // All updates (filter scale + background position) happen in one RAF frame
             let ticking = false;
             const handleScroll = () => {
                 if (!ticking) {
                     window.requestAnimationFrame(() => {
+                        // Batch all updates in single frame for better performance
                         this.updateAllElements();
                         ticking = false;
                     });
@@ -112,18 +193,18 @@
             const rect = element.getBoundingClientRect();
             console.log(`Element ${element.className} rect:`, { width: rect.width, height: rect.height });
             if (rect.width === 0 || rect.height === 0) {
-                // Element not sized yet, try again later
-                console.log(`Element ${element.className} not sized yet, retrying...`);
-                setTimeout(() => this.addElement(element), 100);
+                // Element not sized yet or hidden, skip it
+                console.log(`Element ${element.className} has zero size, skipping (may be hidden or not rendered yet)`);
                 return;
             }
 
-            // Create placeholder element data first
+                // Create placeholder element data first
             this.elements.set(element, {
                 filterId: null,
                 lastWidth: rect.width,
                 lastHeight: rect.height,
-                mapData: null
+                mapData: null,
+                _effectiveScale: 50.0 // Initialize with default scale
             });
 
             // Initialize filter (will update elementData)
@@ -168,21 +249,23 @@
                     128   // map resolution
                 );
 
-                // Create SVG filter with much higher scale for visible distortion
+                // Create SVG filter with moderate scale for subtle but visible distortion
                 // Scale needs to be high because displacement map values are normalized
                 // feDisplacementMap scale multiplies the displacement: scale * (mapValue - 128) / 128
-                // For highly visible effect, we need scale of 100-150+ pixels
-                // With maxDisplacement of 127, scale of 96 gives ~96px displacement at edges (20% reduction)
-                const initialScale = 96.0; // Reduced from 120.0 to 96.0 (20% reduction for less dramatic effect)
+                // Reduced from 120.0 to 50.0 for less dramatic effect
+                const initialScale = 50.0; // Reduced from 120.0 to 50.0 for less dramatic effect
+                // Tiny blur for doc-content elements, normal blur for others
+                const blurAmount = element.classList.contains('doc-content') ? 1 : 5;
                 filterId = GlassSVGFilter.createFilter(element, mapData, {
                     scale: initialScale,
                     specularOpacity: 0.4,
                     specularSaturation: 6,
-                    specularBlur: 2
+                    specularBlur: 4,
+                    blurAmount: blurAmount
                 });
                 
-                // Debug: Log filter creation with scale and displacement stats
-                if (mapData.stats) {
+                // Debug: Log filter creation with scale and displacement stats (only in debug mode)
+                if (this.debugMode && mapData.stats) {
                     // feDisplacementMap formula: displacement = scale * (mapValue - 128) / 128
                     // With maxDisplacement of 127 (mapValue ranges from 1 to 255, neutral=128)
                     // Max displacement = scale * (255 - 128) / 128 = scale * 127 / 128 ≈ scale
@@ -211,15 +294,19 @@
             // SVG filters in backdrop-filter don't seem to work reliably in Chrome
             // Using pseudo-element with regular filter property works better
             this.applyFilterViaPseudoElement(element, filterId, rect).then(() => {
-                console.log(`Applied SVG filter ${filterId} via pseudo-element to element`, element.className);
+                if (this.debugMode) {
+                    console.log(`Applied SVG filter ${filterId} via pseudo-element to element`, element.className);
+                }
             }).catch(err => {
                 console.warn('Failed to apply filter via pseudo-element:', err);
             });
             
             // Keep backdrop-filter for basic blur/saturation (fallback)
             // The SVG filter on pseudo-element will handle the distortion
-            element.style.backdropFilter = 'blur(5px) saturate(180%)';
-            element.style.webkitBackdropFilter = 'blur(5px) saturate(180%)';
+            // Minimal blur for doc-content elements to avoid heavy blur
+            const blurAmount = element.classList.contains('doc-content') ? '0px' : '0px';
+            element.style.backdropFilter = `blur(${blurAmount}) saturate(180%)`;
+            element.style.webkitBackdropFilter = `blur(${blurAmount}) saturate(180%)`;
             
             // Also set as CSS custom property for debugging
             element.style.setProperty('--svg-filter-id', filterId);
@@ -274,23 +361,108 @@
             wrapper.className = 'glass-svg-filter-background';
             wrapper.setAttribute('data-filter-id', filterId);
             
+            // Get computed border-radius from parent element to ensure rounded corners match
+            // Reuse the computedStyle we already got above
+            let borderRadius = null;
+            try {
+                borderRadius = computedStyle.borderRadius || computedStyle.borderTopLeftRadius;
+                // If no border-radius found, try to get individual corner values
+                if (!borderRadius || borderRadius === '0px' || borderRadius === 'none') {
+                    const brTopLeft = computedStyle.borderTopLeftRadius || '0px';
+                    const brTopRight = computedStyle.borderTopRightRadius || '0px';
+                    const brBottomRight = computedStyle.borderBottomRightRadius || '0px';
+                    const brBottomLeft = computedStyle.borderBottomLeftRadius || '0px';
+                    // If all corners are the same and not 0px, use that value
+                    if (brTopLeft === brTopRight && brTopRight === brBottomRight && brBottomRight === brBottomLeft && brTopLeft !== '0px') {
+                        borderRadius = brTopLeft;
+                    } else if (brTopLeft !== '0px' || brTopRight !== '0px' || brBottomRight !== '0px' || brBottomLeft !== '0px') {
+                        // At least one corner has radius, use shorthand
+                        borderRadius = `${brTopLeft} ${brTopRight} ${brBottomRight} ${brBottomLeft}`;
+                    }
+                }
+                // Only use if we have a valid non-zero value
+                if (!borderRadius || borderRadius === '0px' || borderRadius === 'none' || borderRadius.includes('0px 0px 0px 0px')) {
+                    borderRadius = null;
+                }
+                
+                // Debug: Log border-radius detection for elements that should have rounded corners (only in debug mode)
+                if (this.debugMode && (element.classList.contains('timeline-container') || element.classList.contains('intro-container'))) {
+                    console.log(`🔵 Border-radius for ${element.className}:`, {
+                        detected: borderRadius || 'none (will inherit)',
+                        computed: computedStyle.borderRadius,
+                        individual: {
+                            topLeft: computedStyle.borderTopLeftRadius,
+                            topRight: computedStyle.borderTopRightRadius,
+                            bottomRight: computedStyle.borderBottomRightRadius,
+                            bottomLeft: computedStyle.borderBottomLeftRadius
+                        }
+                    });
+                }
+            } catch (e) {
+                console.warn('Error getting border-radius:', e);
+                borderRadius = null;
+            }
+            
+            // Check if this is a .doc-content element
+            // If it has a card image, use that; otherwise use website background
+            let backgroundImage = '/assets/background.jpg';
+            let useCardImage = false;
+            let docCard = null;
+            let cardImage = null;
+            
+            if (element.classList.contains('doc-content')) {
+                docCard = element.closest('.doc-card');
+                if (docCard) {
+                    // Check if card has an image
+                    if (docCard.classList.contains('has-image')) {
+                        cardImage = docCard.querySelector('img');
+                        if (cardImage && cardImage.src) {
+                            backgroundImage = cardImage.src;
+                            useCardImage = true;
+                            console.log('[Glass Edge Distortion] Using card image for .doc-content:', cardImage.src);
+                        }
+                    } else {
+                        // No card image - use website background
+                        useCardImage = false;
+                        console.log('[Glass Edge Distortion] No card image, using website background for .doc-content');
+                    }
+                }
+            }
+            
             // Set up wrapper with filter - background position will be calculated and updated
+            // IMPORTANT: Use !important to override any CSS rules that might affect this wrapper
+            // Some elements (like .timeline-container) have CSS rules that apply to all children
+            // CRITICAL: Explicitly set border-radius to match parent for proper rounded corners
+            const borderRadiusCss = borderRadius ? `border-radius: ${borderRadius} !important;` : '';
+            const backgroundAttachment = useCardImage ? 'scroll' : 'fixed'; // Card images scroll with card, website background is fixed
+            // For website background, background-size will be set in updateWrapperBackgroundPosition
+            // For card images, use cover to match object-fit: cover
+            const backgroundSize = useCardImage ? 'cover' : 'auto'; // Will be updated in updateWrapperBackgroundPosition
             wrapper.style.cssText = `
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-image: url('/assets/background.jpg');
-                background-attachment: fixed;
-                background-repeat: no-repeat;
-                filter: url(#${filterId});
-                -webkit-filter: url(#${filterId});
-                border-radius: inherit;
-                z-index: -1;
-                pointer-events: none;
-                overflow: hidden;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                background-image: url('${backgroundImage}') !important;
+                background-attachment: ${backgroundAttachment} !important;
+                background-repeat: no-repeat !important;
+                background-size: ${backgroundSize} !important;
+                filter: url(#${filterId}) !important;
+                -webkit-filter: url(#${filterId}) !important;
+                ${borderRadiusCss}
+                z-index: -1 !important;
+                pointer-events: none !important;
+                overflow: hidden !important;
             `;
+            
+            // Store whether we're using card image for background position calculations
+            if (elementData) {
+                elementData.useCardImage = useCardImage;
+                if (useCardImage && cardImage) {
+                    elementData.cardImage = cardImage;
+                }
+            }
             
             // Insert wrapper first
             element.insertBefore(wrapper, element.firstChild);
@@ -306,102 +478,377 @@
         
         /**
          * Update wrapper background position to show only the portion behind the element
-         * Uses the same calculation as WebGL renderer for consistency
+         * Uses viewport-based background positioning
          * IMPORTANT: Since background-attachment: fixed, the background is fixed to viewport
          * We need to calculate position based on element's current viewport position
          */
-        async updateWrapperBackgroundPosition(element, wrapper) {
-            // Use shared background image cache if available, otherwise load it
-            let bgImage;
-            if (typeof backgroundImageCache !== 'undefined' && backgroundImageCache.image) {
-                bgImage = backgroundImageCache.image;
-            } else {
-                // Load background image
-                bgImage = new Image();
-                bgImage.crossOrigin = 'anonymous';
-                await new Promise((resolve, reject) => {
-                    bgImage.onload = resolve;
-                    bgImage.onerror = reject;
-                    bgImage.src = '/assets/background.jpg';
-                });
+        async updateWrapperBackgroundPosition(element, wrapper, elementRect = null) {
+            const elementData = this.elements.get(element);
+            const useCardImage = elementData?.useCardImage;
+            const isDocContent = element.classList.contains('doc-content');
+            
+            // Use passed rect or get it (performance: prefer passed rect to avoid duplicate getBoundingClientRect)
+            if (!elementRect) {
+                elementRect = element.getBoundingClientRect();
             }
             
-            const elementRect = element.getBoundingClientRect();
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
+            // Handle card images differently from website background
+            if (useCardImage && elementData?.cardImage) {
+                const cardImage = elementData.cardImage;
+                const docCard = element.closest('.doc-card');
+                const cardRect = docCard.getBoundingClientRect();
+                
+                // Wait for image to load if needed
+                if (!cardImage.complete || cardImage.naturalWidth === 0) {
+                    await new Promise((resolve, reject) => {
+                        if (cardImage.complete) {
+                            resolve();
+                            return;
+                        }
+                        cardImage.onload = resolve;
+                        cardImage.onerror = reject;
+                    });
+                }
+                
+                // Calculate where doc-content is positioned relative to card
+                const relativeX = elementRect.left - cardRect.left;
+                const relativeY = elementRect.top - cardRect.top;
+                
+                // Card image covers entire card with object-fit: cover
+                // This means the image is scaled to cover the card while maintaining aspect ratio
+                const imageAspect = cardImage.naturalWidth / cardImage.naturalHeight;
+                const cardAspect = cardRect.width / cardRect.height;
+                
+                // Calculate how the image covers the card (object-fit: cover behavior)
+                let coverScale, scaledWidth, scaledHeight, offsetX, offsetY;
+                
+                if (imageAspect > cardAspect) {
+                    // Image is wider - scale to fit height, crop sides
+                    coverScale = cardRect.height / cardImage.naturalHeight;
+                    scaledHeight = cardRect.height;
+                    scaledWidth = cardImage.naturalWidth * coverScale;
+                    offsetX = (scaledWidth - cardRect.width) / 2; // How much is cropped on each side
+                    offsetY = 0;
+                } else {
+                    // Image is taller - scale to fit width, crop top/bottom
+                    coverScale = cardRect.width / cardImage.naturalWidth;
+                    scaledWidth = cardRect.width;
+                    scaledHeight = cardImage.naturalHeight * coverScale;
+                    offsetX = 0;
+                    offsetY = (scaledHeight - cardRect.height) / 2; // How much is cropped on top/bottom
+                }
+                
+                // The wrapper background should show the image at the same scale as the card image
+                // The card image is scaled by coverScale, so we apply the same scale to the wrapper
+                // Calculate background size: scale the image by the same coverScale factor
+                const bgScaledWidth = cardImage.naturalWidth * coverScale;
+                const bgScaledHeight = cardImage.naturalHeight * coverScale;
+                wrapper.style.backgroundSize = `${bgScaledWidth}px ${bgScaledHeight}px`;
+                
+                // Calculate background position to show the portion behind doc-content
+                // The card image covers the card, with the card positioned at (offsetX, offsetY) in scaled image space
+                // The doc-content is at (relativeX, relativeY) in card space
+                // In scaled image space, doc-content starts at:
+                const imageX = offsetX + relativeX;
+                const imageY = offsetY + relativeY;
+                
+                // Position the background so that the portion at (imageX, imageY) in scaled image space
+                // appears at (0, 0) in the wrapper (which is the top-left of doc-content)
+                wrapper.style.backgroundPosition = `${-imageX}px ${-imageY}px`;
+                
+                return;
+            }
             
-            // Calculate how the background image covers the viewport (same as WebGL renderer)
-            // Background is: background-size: cover, background-position: center, background-attachment: fixed
-            const coverScale = Math.max(viewportWidth / bgImage.width, viewportHeight / bgImage.height);
-            const scaledWidth = bgImage.width * coverScale;
-            const scaledHeight = bgImage.height * coverScale;
+            // Original logic for website background (fixed attachment)
+            // Update viewport cache if dirty (background image might have loaded)
+            if (this.viewportCache.dirty) {
+                this.updateViewportCache();
+            }
             
-            // Calculate offset for "center" positioning
-            // The scaled image is centered, so we need to find where the viewport starts in the scaled image
-            const offsetX = (scaledWidth - viewportWidth) / 2;
-            const offsetY = (scaledHeight - viewportHeight) / 2;
+            // Use cached viewport dimensions and background scaling (performance optimization)
+            const viewportWidth = this.viewportCache.width || window.innerWidth;
+            const viewportHeight = this.viewportCache.height || window.innerHeight;
+            let scaledWidth = this.viewportCache.scaledWidth;
+            let scaledHeight = this.viewportCache.scaledHeight;
+            const offsetX = this.viewportCache.offsetX;
+            const offsetY = this.viewportCache.offsetY;
             
-            // Calculate the source rectangle in the scaled image that corresponds to the element's viewport position
-            // Element position relative to viewport: (rect.left, rect.top)
-            // Map this to the scaled image space
-            // For fixed background, element position is always relative to viewport (not document)
-            let sourceX = elementRect.left + offsetX;
-            let sourceY = elementRect.top + offsetY;
+            // If scaled dimensions are 0 or invalid, recalculate from background image
+            if (!scaledWidth || !scaledHeight || scaledWidth === 0 || scaledHeight === 0) {
+                // Recalculate cache to ensure we have valid dimensions
+                this.viewportCache.dirty = true;
+                this.updateViewportCache();
+                scaledWidth = this.viewportCache.scaledWidth || viewportWidth;
+                scaledHeight = this.viewportCache.scaledHeight || viewportHeight;
+            }
             
-            // IMPORTANT: With background-attachment: fixed, the background is fixed to the viewport.
-            // The background-position we set positions the background relative to the viewport,
-            // not relative to the wrapper div. So we need to ensure the background position
-            // corresponds to where the element actually is in the viewport.
+            // Get background image from cache
+            let bgImage = this.viewportCache.bgImage;
+            if (!bgImage) {
+                // Fallback: use shared background image cache if available
+                if (typeof backgroundImageCache !== 'undefined' && backgroundImageCache.image) {
+                    bgImage = backgroundImageCache.image;
+                    this.viewportCache.bgImage = bgImage;
+                    // Recalculate cache with new image
+                    this.viewportCache.dirty = true;
+                    this.updateViewportCache();
+                    // Re-read scaled dimensions after cache update
+                    scaledWidth = this.viewportCache.scaledWidth || viewportWidth;
+                    scaledHeight = this.viewportCache.scaledHeight || viewportHeight;
+                } else {
+                    // Load background image (shouldn't happen often)
+                    bgImage = new Image();
+                    bgImage.crossOrigin = 'anonymous';
+                    await new Promise((resolve, reject) => {
+                        bgImage.onload = () => {
+                            this.viewportCache.bgImage = bgImage;
+                            this.viewportCache.dirty = true;
+                            this.updateViewportCache();
+                            // Re-read scaled dimensions after cache update
+                            scaledWidth = this.viewportCache.scaledWidth || viewportWidth;
+                            scaledHeight = this.viewportCache.scaledHeight || viewportHeight;
+                            resolve();
+                        };
+                        bgImage.onerror = reject;
+                        bgImage.src = '/assets/background.jpg';
+                    });
+                }
+            }
+            
+            // Final check: if dimensions are still 0, use viewport dimensions as fallback
+            if (!scaledWidth || !scaledHeight || scaledWidth === 0 || scaledHeight === 0) {
+                console.warn('[Glass Edge Distortion] Scaled dimensions still 0, using viewport dimensions as fallback');
+                scaledWidth = viewportWidth;
+                scaledHeight = viewportHeight;
+            }
+            
+            // MATHEMATICAL APPROACH: Use element CENTER for positioning
+            // 
+            // Object in viewport:
+            //   - Center: (x_obj, y_obj) in viewport coordinates
+            //   - Dimensions: w_obj × h_obj
+            //   - Borders: x_obj ± w_obj/2, y_obj ± h_obj/2
             //
-            // However, we still need to clamp to prevent showing portions beyond the scaled image.
-            // But we should clamp based on what's actually visible, not based on the element's full height.
-            // For tall elements, we want to show the portion that's behind the element's top edge,
-            // even if the bottom extends beyond the image (it will just show empty/transparent).
+            // Background region (with magnification factor α, where α < 1):
+            //   - Should sample from: x_bg ± α·w_obj/2, y_bg ± α·h_obj/2
+            //   - Where x_bg, y_bg is the background coordinate corresponding to viewport x_obj, y_obj
+            //   - For magnifying glass: α < 1 means we sample a smaller region and expand it
+            //
+            // With background-attachment: fixed, background coordinate = viewport coordinate + offset
+            //   - x_bg = x_obj + offsetX
+            //   - y_bg = y_obj + offsetY
+            //
+            // To center the background region on the element:
+            //   - Background region center should be at (x_bg, y_bg)
+            //   - Background region extends ±(α·w_obj/2, α·h_obj/2) from center
+            //   - Total region size: α·w_obj × α·h_obj (smaller than element for magnification)
+            //
+            // background-position specifies where the top-left of the background image is positioned
+            // To center the background region at (x_bg, y_bg), the background top-left should be at:
+            //   - x_pos = x_bg - (α·w_obj/2)
+            //   - y_pos = y_bg - (α·h_obj/2)
+            //
+            // This ensures the center of the sampled region aligns with the element center
             
-            // Clamp to ensure we don't go negative (showing before the image starts)
-            sourceX = Math.max(0, sourceX);
-            sourceY = Math.max(0, sourceY);
+            // Calculate element center in viewport coordinates
+            const x_obj = elementRect.left + elementRect.width / 2;
+            const y_obj = elementRect.top + elementRect.height / 2;
+            const w_obj = elementRect.width;
+            const h_obj = elementRect.height;
             
-            // For the maximum bounds, we only need to ensure the top-left corner is within bounds.
-            // The element might extend beyond the image, but that's okay - CSS will handle it.
-            // We clamp to prevent the background from being positioned beyond the image bounds,
-            // which would cause it to not show at all.
-            const maxSourceX = scaledWidth;
-            const maxSourceY = scaledHeight;
+            // Background coordinate corresponding to element center
+            const x_bg = x_obj + offsetX;
+            const y_bg = y_obj + offsetY;
             
-            // Clamp to maximum bounds (but allow element to extend beyond if needed)
-            sourceX = Math.min(sourceX, maxSourceX);
-            sourceY = Math.min(sourceY, maxSourceY);
+            // Get requested magnification factor (alpha) from elementData
+            // Use per-axis alpha if available, otherwise calculate from effective scale
+            // Note: elementData was already declared at the start of this function
+            // For doc-content without images, use alpha=1.0 (no magnification) for simpler, more accurate positioning
+            let requestedAlphaX = 1.0;
+            let requestedAlphaY = 1.0;
+            
+            if (elementData && !isDocContent) {
+                // Prefer per-axis alpha values if they were calculated in updateElement
+                if (elementData._targetAlphaX !== undefined && elementData._targetAlphaY !== undefined) {
+                    requestedAlphaX = elementData._targetAlphaX;
+                    requestedAlphaY = elementData._targetAlphaY;
+                } else if (elementData._effectiveScale !== undefined) {
+                    // Fallback: calculate from effective scale (uniform alpha, magnifying)
+                    const displacementScale = elementData._effectiveScale || 50.0;
+                    const avgDimension = (w_obj + h_obj) / 2;
+                    const uniformAlpha = 1.0 - (displacementScale / (avgDimension * 3.0));
+                    requestedAlphaX = Math.max(0.7, Math.min(uniformAlpha, 0.95));
+                    requestedAlphaY = requestedAlphaX;
+                }
+            }
+            // For doc-content, keep alpha at 1.0 (no magnification) for direct 1:1 mapping
+            
+            // For doc-content elements, use simple direct mapping (no magnification)
+            // This ensures the background shows exactly what's behind the element
+            let finalSourceX, finalSourceY, sampledWidth, sampledHeight;
+            
+            if (isDocContent) {
+                // Simple 1:1 mapping - show the portion of background directly behind the element
+                // Element top-left in viewport: (elementRect.left, elementRect.top)
+                // Map to background coordinates: (elementRect.left + offsetX, elementRect.top + offsetY)
+                const bgLeft = elementRect.left + offsetX;
+                const bgTop = elementRect.top + offsetY;
+                
+                // Use element dimensions directly (no magnification)
+                sampledWidth = w_obj;
+                sampledHeight = h_obj;
+                
+                // Position background to show the region starting at (bgLeft, bgTop)
+                finalSourceX = bgLeft;
+                finalSourceY = bgTop;
+                
+                // Clamp to background bounds
+                finalSourceX = Math.max(0, Math.min(finalSourceX, scaledWidth - sampledWidth));
+                finalSourceY = Math.max(0, Math.min(finalSourceY, scaledHeight - sampledHeight));
+            } else {
+                // Original complex calculation for other elements (with magnification)
+                // Calculate headroom from element center to background edges
+                // Headroom determines how much we can shrink the sampled region (for magnification)
+                const headroomLeft = x_bg; // Distance to left edge
+                const headroomRight = scaledWidth - x_bg; // Distance to right edge
+                const headroomTop = y_bg; // Distance to top edge
+                const headroomBottom = scaledHeight - y_bg; // Distance to bottom edge
+                
+                // Calculate maximum safe alpha for each axis (for magnifying glass, alpha < 1)
+                // For magnifying: sample smaller region (alpha * dimension), need headroom >= (alpha * dimension) / 2
+                // Safe alpha = min(2 * headroom / dimension) for each side, but ensure minimum of 0.7
+                // For X: need headroom >= (alphaX * w_obj) / 2 on both sides
+                const safeAlphaXLeft = headroomLeft >= (w_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomLeft / w_obj) : 0.7;
+                const safeAlphaXRight = headroomRight >= (w_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomRight / w_obj) : 0.7;
+                const safeAlphaX = Math.min(safeAlphaXLeft, safeAlphaXRight);
+                
+                // For Y: need headroom >= (alphaY * h_obj) / 2 on both sides
+                const safeAlphaYTop = headroomTop >= (h_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomTop / h_obj) : 0.7;
+                const safeAlphaYBottom = headroomBottom >= (h_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomBottom / h_obj) : 0.7;
+                const safeAlphaY = Math.min(safeAlphaYTop, safeAlphaYBottom);
+                
+                // Use minimum of requested and safe alpha for each axis
+                // This ensures sampled region always fits within background bounds
+                // For magnifying, we want the smaller alpha (more magnification) that's still safe
+                const alphaX = Math.min(requestedAlphaX, safeAlphaX);
+                const alphaY = Math.min(requestedAlphaY, safeAlphaY);
+                
+                // Sampled region dimensions (with per-axis magnification factors)
+                // For magnifying glass: sample smaller region, expand to element size
+                sampledWidth = alphaX * w_obj;
+                sampledHeight = alphaY * h_obj;
+                
+                // Calculate source position from element center
+                // Since we've already constrained alpha to safe values, we can directly calculate
+                // without needing to clamp the center position
+                const sourceX = x_bg - sampledWidth / 2;
+                const sourceY = y_bg - sampledHeight / 2;
+                
+                // Final safety check (shouldn't be needed with proper alpha calculation, but keep for robustness)
+                finalSourceX = Math.max(0, Math.min(sourceX, scaledWidth - sampledWidth));
+                finalSourceY = Math.max(0, Math.min(sourceY, scaledHeight - sampledHeight));
+            }
+            
+            // Track if alpha was reduced from requested value (for debugging)
+            // Only relevant for non-doc-content elements (doc-content uses alpha=1.0)
+            const alphaReducedX = !isDocContent && (sampledWidth / w_obj) < requestedAlphaX;
+            const alphaReducedY = !isDocContent && (sampledHeight / h_obj) < requestedAlphaY;
             
             // Set background-size to match the scaled size
             // Set background-position to show the correct portion
             // Use negative values to shift the background image
+            // 
+            // CRITICAL: With background-attachment: fixed, background-position is relative to VIEWPORT
+            // The wrapper div is position: absolute inside the element
+            // For the background to show correctly, we need to account for where the wrapper is in viewport
             wrapper.style.backgroundSize = `${scaledWidth}px ${scaledHeight}px`;
-            wrapper.style.backgroundPosition = `${-sourceX}px ${-sourceY}px`;
+            wrapper.style.backgroundPosition = `${-finalSourceX}px ${-finalSourceY}px`;
+            
+            // Debug logging (only in debug mode or for specific elements)
+            if (this.debugMode && (element.classList.contains('timeline-container') || 
+                                   element.classList.contains('intro-container') || 
+                                   element.classList.contains('theme-block'))) {
+                const sampledRegionCenterX = finalSourceX + sampledWidth / 2;
+                const sampledRegionCenterY = finalSourceY + sampledHeight / 2;
+                // Check if sampled center matches ideal center (should always match with new headroom-based approach)
+                const centersMatchX = Math.abs(sampledRegionCenterX - x_bg) < 1;
+                const centersMatchY = Math.abs(sampledRegionCenterY - y_bg) < 1;
+                const centersMatch = centersMatchX && centersMatchY;
+                
+                // Concise log
+                console.log(`🔍 ${element.className} Background:`, {
+                    'Size': `${w_obj.toFixed(0)}×${h_obj.toFixed(0)}px`,
+                    'Alpha': `${alphaX.toFixed(2)}/${alphaY.toFixed(2)}`,
+                    'Reduced': alphaReducedX || alphaReducedY ? `X:${alphaReducedX} Y:${alphaReducedY}` : 'none',
+                    '✅ Aligned': centersMatch ? 'YES' : 'NO'
+                });
+                
+                // Detailed log only for timeline-container in debug mode
+                if (element.classList.contains('timeline-container') && this.debugMode) {
+                    console.log('Timeline container background positioning (detailed):', {
+                        headroom: {
+                            left: headroomLeft.toFixed(1),
+                            right: headroomRight.toFixed(1),
+                            top: headroomTop.toFixed(1),
+                            bottom: headroomBottom.toFixed(1)
+                        },
+                        alpha: {
+                            requested: `${requestedAlphaX.toFixed(3)}/${requestedAlphaY.toFixed(3)}`,
+                            safe: `${safeAlphaX.toFixed(3)}/${safeAlphaY.toFixed(3)}`,
+                            final: `${alphaX.toFixed(3)}/${alphaY.toFixed(3)}`
+                        },
+                        sampledRegion: {
+                            width: sampledWidth.toFixed(1),
+                            height: sampledHeight.toFixed(1),
+                            center: { x: sampledRegionCenterX.toFixed(1), y: sampledRegionCenterY.toFixed(1) }
+                        },
+                        centersMatch
+                    });
+                }
+            }
             
             // Store the calculation for debugging
-            const elementData = this.elements.get(element);
             if (elementData && elementData.filterWrapper === wrapper) {
-                const unclampedSourceX = elementRect.left + offsetX;
-                const unclampedSourceY = elementRect.top + offsetY;
                 elementData._lastBgPos = { 
                     sourceX, 
                     sourceY,
-                    unclampedSourceX,
-                    unclampedSourceY,
-                    elementRect: { left: elementRect.left, top: elementRect.top, width: elementRect.width, height: elementRect.height },
+                    finalSourceX,
+                    finalSourceY,
+                    center: { x: x_obj, y: y_obj },
+                    dimensions: { w: w_obj, h: h_obj },
+                    alphaX,
+                    alphaY,
+                    requestedAlphaX,
+                    requestedAlphaY,
+                    safeAlphaX,
+                    safeAlphaY,
+                    sampledRegion: { 
+                        x: finalSourceX, 
+                        y: finalSourceY, 
+                        width: sampledWidth, 
+                        height: sampledHeight,
+                        centerX: x_bg,
+                        centerY: y_bg
+                    },
+                    elementRect: { left: elementRect.left, top: elementRect.top, width: w_obj, height: h_obj },
                     scaledSize: { width: scaledWidth, height: scaledHeight },
                     offset: { x: offsetX, y: offsetY },
-                    maxBounds: { x: maxSourceX, y: maxSourceY },
-                    clamped: {
-                        x: sourceX !== unclampedSourceX,
-                        y: sourceY !== unclampedSourceY
+                    headroom: {
+                        left: headroomLeft,
+                        right: headroomRight,
+                        top: headroomTop,
+                        bottom: headroomBottom
                     },
-                    // Check if element extends beyond background
+                    alphaReduced: {
+                        x: alphaReducedX,
+                        y: alphaReducedY
+                    },
+                    // Check if element/sampling extends beyond bounds (should always be false with headroom-based approach)
                     extendsBeyondBackground: {
-                        x: elementRect.left + elementRect.width > viewportWidth,
-                        y: elementRect.top + elementRect.height > viewportHeight,
-                        bottom: (sourceY + elementRect.height) > scaledHeight
+                        right: (finalSourceX + sampledWidth) > scaledWidth,
+                        bottom: (finalSourceY + sampledHeight) > scaledHeight,
+                        left: finalSourceX < 0,
+                        top: finalSourceY < 0
                     }
                 };
             }
@@ -439,34 +886,70 @@
         updateAllElements() {
             const scrollY = window.scrollY || window.pageYOffset;
             const viewportHeight = window.innerHeight;
+            const viewportWidth = window.innerWidth;
+            
+            // Batch background position updates to reduce DOM reflows
+            const bgPositionUpdates = [];
             
             // Iterate over Map keys (elements), not values
             this.elements.forEach((elementData, element) => {
-                // Only update if element is in viewport (or close to it)
+                // Performance: Skip elements that are far outside viewport
+                // Only update if element is in viewport (or close to it) - reduces unnecessary work
                 if (!element || typeof element.getBoundingClientRect !== 'function') {
                     return;
                 }
+                
+                // Get bounding rect once (will be cached and reused in updateElement)
                 const rect = element.getBoundingClientRect();
-                const isNearViewport = rect.bottom >= -100 && rect.top <= viewportHeight + 100;
+                
+                // Visibility check: Only update elements near viewport (performance optimization)
+                // Check if element is within reasonable distance of viewport
+                const margin = 200; // Update elements within 200px of viewport
+                const isNearViewport = rect.bottom >= -margin && 
+                                     rect.top <= viewportHeight + margin &&
+                                     rect.right >= -margin &&
+                                     rect.left <= viewportWidth + margin;
                 
                 if (isNearViewport) {
-                    this.updateElement(element, scrollY);
+                    // Update element and collect background position updates for batching
+                    const bgUpdate = this.updateElement(element, scrollY, rect);
+                    if (bgUpdate) {
+                        bgPositionUpdates.push(bgUpdate);
+                    }
                 }
             });
+            
+            // Batch apply all background position updates together (reduces reflows)
+            // Use RAF to batch updates in next frame for smooth performance
+            if (bgPositionUpdates.length > 0) {
+                // Batch all updates in single frame for better performance
+                // This happens after the current frame's calculations, reducing layout thrashing
+                requestAnimationFrame(() => {
+                    bgPositionUpdates.forEach(update => {
+                        update();
+                    });
+                });
+            }
         }
 
-        updateElement(element, scrollY = null) {
+        updateElement(element, scrollY = null, rect = null) {
             if (!element || !element.isConnected) {
-                return;
+                return null;
             }
 
             const elementData = this.elements.get(element);
             if (!elementData) {
-                return;
+                return null;
             }
 
             scrollY = scrollY !== null ? scrollY : (window.scrollY || window.pageYOffset);
-            const rect = element.getBoundingClientRect();
+            
+            // Performance: Cache getBoundingClientRect result (expensive operation)
+            // Pass rect from updateAllElements to avoid duplicate calls
+            if (!rect) {
+                rect = element.getBoundingClientRect();
+            }
+            
             const viewportHeight = window.innerHeight;
             const viewportWidth = window.innerWidth;
 
@@ -497,14 +980,54 @@
             const maxDistance = Math.max(distanceFromCenterX, distanceFromCenterY);
             
             // Base scale with variation based on scroll and background position
-            // Reduced by 20% for less dramatic effect
+            // Reduced base scale for less dramatic effect
             // feDisplacementMap scale directly multiplies pixel displacement
-            // With maxDisplacement of 127, scale of 96 gives ~96px displacement at edges
-            const baseScale = 96.0; // Reduced from 120.0 to 96.0 (20% reduction)
-            const edgeScale = maxDistance * 24.0; // Reduced from 30.0 to 24.0 (20% reduction)
-            const scrollVariation = Math.sin(scrollY * 0.001) * 12.0; // Reduced from 15.0 to 12.0 (20% reduction)
-            const backgroundVariation = Math.sin(backgroundX * Math.PI * 2) * 8.0; // Reduced from 10.0 to 8.0 (20% reduction)
-            const scale = baseScale + edgeScale + scrollVariation + backgroundVariation;
+            // With maxDisplacement of 127, scale of 50 gives ~50px displacement at edges
+            const baseScale = 50.0; // Reduced from 120.0 to 50.0 for less dramatic effect
+            const edgeScale = maxDistance * 12.0; // Reduced from 30.0 to 12.0
+            const scrollVariation = Math.sin(scrollY * 0.001) * 6.0; // Reduced from 15.0 to 6.0
+            const backgroundVariation = Math.sin(backgroundX * Math.PI * 2) * 4.0; // Reduced from 10.0 to 4.0
+            
+            // Calculate dynamic scale adjustment near page edges
+            // When element is near bottom, reduce magnification effect to prevent sampling beyond bounds
+            const pageHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+            const elementBottom = scrollY + rect.bottom;
+            const distanceToBottom = pageHeight - elementBottom;
+            const threshold = rect.height * 2; // Start adjusting 2x element height from bottom
+            
+            let edgeScaleAdjustment = 0;
+            if (distanceToBottom < threshold && distanceToBottom > 0) {
+                // Gradually reduce magnification effect near bottom
+                // Interpolate from normal scale to reduced scale (closer to 0 = less magnification)
+                const progress = distanceToBottom / threshold;
+                // Reduce scale by up to 50% when very close to bottom
+                edgeScaleAdjustment = baseScale * 0.5 * (1 - progress);
+            }
+            
+            const scale = baseScale - edgeScaleAdjustment + edgeScale + scrollVariation + backgroundVariation;
+            
+            // Store effective scale for background position calculation
+            elementData._effectiveScale = scale;
+            
+            // Calculate per-axis target alpha (magnification factor) based on displacement scale
+            // Higher displacement scale = more magnification = smaller alpha (< 1)
+            // Displacement scale ~50 on 300px element ≈ alpha ~0.8-0.9
+            // We calculate per-axis to allow independent headroom constraints
+            const w_obj = rect.width;
+            const h_obj = rect.height;
+            const avgDimension = (w_obj + h_obj) / 2;
+            
+            // Base target alpha from displacement scale (magnifying glass effect)
+            // Estimate: alpha ≈ 1 - (displacement / element_dimension)
+            // For magnifying glass: sample smaller region, expand to element size
+            // Typical magnification: 0.7-0.95 (10-30% magnification)
+            const baseTargetAlpha = 1.0 - (scale / (avgDimension * 3.0));
+            const clampedBaseAlpha = Math.max(0.7, Math.min(baseTargetAlpha, 0.95)); // Clamp to reasonable range [0.7, 0.95]
+            
+            // Store per-axis target alpha values
+            // These will be constrained by headroom in updateWrapperBackgroundPosition
+            elementData._targetAlphaX = clampedBaseAlpha;
+            elementData._targetAlphaY = clampedBaseAlpha;
 
             // Update filter scale (this is the main scroll-based update)
             if (elementData.filterId) {
@@ -512,45 +1035,44 @@
                 
                 // Update wrapper background position on scroll (for fixed background)
                 // Since background-attachment: fixed, the background is fixed to viewport
-                // We only need to update when element's viewport position changes significantly
-                // Throttle updates to avoid jittery movement
+                // Performance: Use cached rect, batch updates, optimize threshold
                 if (elementData.filterWrapper) {
-                    const currentRect = element.getBoundingClientRect();
                     const lastRect = elementData._lastElementRect;
-                    const lastUpdateTime = elementData._lastBgUpdateTime || 0;
-                    const now = Date.now();
                     
-                    // Only update if:
-                    // 1. Element's viewport position changed significantly (more than 2px), OR
-                    // 2. It's been more than 100ms since last update (throttle)
+                    // Check if position changed (optimized threshold: 1px for better performance)
+                    // Still smooth but reduces update frequency
                     const positionChanged = !lastRect || 
-                        Math.abs(currentRect.left - lastRect.left) > 2 || 
-                        Math.abs(currentRect.top - lastRect.top) > 2;
-                    const timeElapsed = now - lastUpdateTime > 100;
+                        Math.abs(rect.left - lastRect.left) > 1.0 || 
+                        Math.abs(rect.top - lastRect.top) > 1.0;
                     
-                    if (positionChanged && timeElapsed) {
-                        // Update background position asynchronously (don't await to avoid blocking)
-                        this.updateWrapperBackgroundPosition(element, elementData.filterWrapper).catch(err => {
-                            console.warn('Failed to update wrapper background position:', err);
-                        });
-                        elementData._lastElementRect = { left: currentRect.left, top: currentRect.top };
-                        elementData._lastBgUpdateTime = now;
+                    if (positionChanged) {
+                        // Return update function for batching (single RAF loop optimization)
+                        // This avoids nested RAF calls and batches DOM updates
+                        return () => {
+                            // Update background position using cached rect (performance optimization)
+                            this.updateWrapperBackgroundPosition(element, elementData.filterWrapper, rect).catch(err => {
+                                console.warn('Failed to update wrapper background position:', err);
+                            });
+                            elementData._lastElementRect = { left: rect.left, top: rect.top };
+                        };
                     }
                 }
-                
-                // Debug: Log scale updates occasionally (throttled)
-                if (!elementData._lastScaleLog || Date.now() - elementData._lastScaleLog > 2000) {
-                    console.log(`Updated filter scale for ${element.className}:`, {
-                        filterId: elementData.filterId,
-                        scale: scale.toFixed(2),
-                        baseScale: baseScale.toFixed(2),
-                        edgeScale: edgeScale.toFixed(2),
-                        scrollVariation: scrollVariation.toFixed(2),
-                        backgroundVariation: backgroundVariation.toFixed(2)
-                    });
-                    elementData._lastScaleLog = Date.now();
-                }
             }
+            
+            // Debug: Log scale updates occasionally (throttled, only in debug mode)
+            if (this.debugMode && elementData.filterId && (!elementData._lastScaleLog || Date.now() - elementData._lastScaleLog > 2000)) {
+                console.log(`Updated filter scale for ${element.className}:`, {
+                    filterId: elementData.filterId,
+                    scale: scale.toFixed(2),
+                    baseScale: baseScale.toFixed(2),
+                    edgeScale: edgeScale.toFixed(2),
+                    scrollVariation: scrollVariation.toFixed(2),
+                    backgroundVariation: backgroundVariation.toFixed(2)
+                });
+                elementData._lastScaleLog = Date.now();
+            }
+            
+            return null; // No background update needed
         }
 
         observeNewElements() {
@@ -569,6 +1091,7 @@
                                 node.matches('.news-item') ||
                                 node.matches('.expanded-card') ||
                                 node.matches('.card-text') ||
+                                node.matches('.doc-content') ||
                                 node.matches('.timeline-container')
                             )) {
                                 console.log('MutationObserver: Found new glass element', node.className, node);
@@ -577,7 +1100,7 @@
 
                             // Check for glass elements within the node
                             const glassElements = node.querySelectorAll ?
-                                node.querySelectorAll('.glass-base, .btn-glass, .intro-container, .theme-block, .photo-card, .news-item, .expanded-card, .card-text, .timeline-container') :
+                                node.querySelectorAll('.glass-base, .btn-glass, .intro-container, .theme-block, .photo-card, .news-item, .expanded-card, .card-text, .doc-content, .timeline-container') :
                                 [];
                             glassElements.forEach(el => {
                                 console.log('MutationObserver: Found glass element in children', el.className, el);
@@ -618,10 +1141,8 @@
     }
 
     // Initialize
-    const glassEdgeDistortion = new GlassEdgeDistortion();
+    glassEdgeDistortion = new GlassEdgeDistortion();
+}
 
-    // Export for potential manual control
-    window.GlassEdgeDistortion = glassEdgeDistortion;
-
-})();
-
+// Export as ES6 module (or null if dependencies not available)
+export default glassEdgeDistortion;

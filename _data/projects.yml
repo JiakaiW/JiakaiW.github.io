@@ -6,7 +6,7 @@
 - id: fluxonium-erasure
   title: Fluxonium Erasure
   description: Erasure error detection and conversion in fluxonium qubits for improved quantum error correction.
-  url: /projects/fluxonium_erasure
+  url: /projects/fluxonium_erasure.html
   image: /projects/fluxonium_erasure/images/lvl_diagram.png
   status: completed
   themes:
@@ -15,7 +15,7 @@
 - id: hpc-quantum
   title: GPU Pauli frame QEC simulation
   description: GPU-accelerated simulation tools for superconducting quantum circuits and coupled systems.
-  url: /projects/hpc
+  url: /projects/hpc.html
   image: /projects/hpc/images/GPU_pauli_frame.png
   status: completed
   themes:
@@ -52,7 +52,7 @@
 - id: mfqec
   title: Measurement-Free Quantum Error Correction
   description: Novel QEC protocols that eliminate measurement overhead for improved qubit coherence.
-  url: /projects/mfqec
+  url: /projects/mfqec.html
   image: /projects/mfqec/images/circ_simple.png
   status: completed
   themes:

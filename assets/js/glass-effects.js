@@ -1,11 +1,12 @@
 /**
  * Glass Effects Enhancement
  * Implements dynamic lighting and performance optimizations
- * Now supports WebGL-based liquid glass rendering
+ * Uses SVG-based liquid glass rendering with displacement filters
+ * 
+ * @module glass-effects
  */
 
-(function() {
-    'use strict';
+import GlassRenderer from './glass-renderer.js';
 
     // Check for backdrop-filter support
     const supportsBackdropFilter = CSS.supports('backdrop-filter', 'blur(1px)') ||
@@ -14,17 +15,6 @@
     if (!supportsBackdropFilter) {
         // Add fallback class
         document.documentElement.classList.add('no-backdrop-filter');
-    }
-
-    // Check if WebGL approach is active
-    const isWebGLApproach = typeof GlassRenderer !== 'undefined' && 
-                           GlassRenderer.getApproach() === GlassRenderer.APPROACHES.WEBGL;
-
-    // If WebGL is active, the WebGL renderer will handle effects
-    // Otherwise, use CSS-based effects
-    if (isWebGLApproach) {
-        // WebGL renderer handles everything, but we still track mouse for CSS fallback
-        // and for any elements not using WebGL
     }
 
     // Dynamic lighting based on mouse position
@@ -122,51 +112,3 @@
     } else {
         enhanceInteractiveElements();
     }
-
-    // Initialize WebGL liquid glass if approach is WebGL
-    if (isWebGLApproach && typeof WebGLLiquidGlassManager !== 'undefined') {
-        // WebGL manager auto-initializes, but we can trigger it explicitly
-        // if needed for dynamic content
-        const initWebGLGlass = async () => {
-            if (WebGLLiquidGlassManager && !WebGLLiquidGlassManager.isInitialized) {
-                console.log('Initializing WebGL Liquid Glass Manager...');
-                await WebGLLiquidGlassManager.init();
-            }
-        };
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(initWebGLGlass, 200); // Give time for other scripts to load
-            });
-        } else {
-            setTimeout(initWebGLGlass, 200);
-        }
-
-        // Watch for dynamically added glass elements
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                mutation.addedNodes.forEach((node) => {
-                    if (node.nodeType === 1) { // Element node
-                        // Check if node or its children are glass elements
-                        const glassElements = node.matches && node.matches('.glass-base, .intro-container, .theme-block, .photo-card, .news-item, .btn-glass, .expanded-card, .card-text, .dropdown-content, .search-container') 
-                            ? [node]
-                            : node.querySelectorAll ? node.querySelectorAll('.glass-base, .intro-container, .theme-block, .photo-card, .news-item, .btn-glass, .expanded-card, .card-text, .dropdown-content, .search-container')
-                            : [];
-
-                        glassElements.forEach(element => {
-                            if (WebGLLiquidGlassManager) {
-                                WebGLLiquidGlassManager.addElement(element);
-                            }
-                        });
-                    }
-                });
-            });
-        });
-
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    }
-
-})();

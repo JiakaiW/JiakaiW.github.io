@@ -36,10 +36,11 @@
 .photo-card {
     /* Remove background from card - image will fill the space */
     background: transparent;
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
-    border: 2px solid rgba(255, 255, 255, 0.18);
-    border-radius: 20px;
+    /* Extends glass-base - uses variables */
+    backdrop-filter: blur(var(--glass-blur-gallery)) saturate(var(--glass-saturation-gallery));
+    -webkit-backdrop-filter: blur(var(--glass-blur-gallery)) saturate(var(--glass-saturation-gallery));
+    border: 2px solid var(--glass-border);
+    border-radius: var(--radius-medium);
     padding: 0; /* No padding - image fills to border */
     cursor: pointer;
     transition: all 0.4s ease;

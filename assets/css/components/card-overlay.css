@@ -1,0 +1,296 @@
+/**
+ * Card and Overlay Component
+ * Styles for cards, overlays, and photo grid
+ */
+
+/* Card styles */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 2em;
+}
+
+.card {
+    background: transparent;
+    color: black;
+    border-radius: 30px;
+    overflow: hidden;
+    text-decoration: none;
+    width: 300px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    opacity: 0;
+    animation: cardFadeIn 0.8s ease-out forwards;
+    animation-delay: calc(var(--card-index, 0) * 0.2s);
+    aspect-ratio: 5/4;  /* Maintain consistent card proportions */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.card-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px; /* Fixed height for the text area */
+    padding: 0.5em; /* Padding for the content inside */
+    
+    /* Enhanced glass effect - uses variables */
+    background: linear-gradient(135deg, 
+        rgba(26, 26, 26, 0.85) 0%, 
+        rgba(46, 46, 46, 0.9) 100%);
+    backdrop-filter: blur(var(--glass-blur-search)) saturate(var(--glass-saturation-search));
+    -webkit-backdrop-filter: blur(var(--glass-blur-search)) saturate(var(--glass-saturation-search));
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+        0 -4px 16px rgba(0, 0, 0, 0.3),
+        var(--shadow-inset);
+
+    /* Center text using flexbox */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    color: white;
+    /* The initial font size is set here, but JS will adjust it */
+    font-size: 1.2em; 
+    z-index: 1;
+    overflow: hidden; /* Hide overflow before JS runs */
+}
+
+.dark-mode .card {
+    background-color: transparent;
+}
+
+.dark-mode .card-text {
+    color: white;
+}
+
+/* Card overlay styles */
+.card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Create stacking context for children z-index to work properly */
+    isolation: isolate;
+}
+
+/* Ensure overlay is hidden when hidden attribute is present - high specificity to override glass scripts */
+.card-overlay[hidden],
+body .card-overlay:not(.active) {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Show overlay when active and not hidden - !important needed to override glass effect inline styles */
+.card-overlay.active:not([hidden]) {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1;
+}
+
+.expanded-card {
+    /* Glass effect using CSS backdrop-filter - shows DOM content (home page elements) through glass */
+    /* Background is semi-transparent to show blurred content behind - reduced alpha for more transparency */
+    background: linear-gradient(135deg, 
+        rgba(26, 26, 26, 0.4) 0%, 
+        rgba(46, 46, 46, 0.35) 100%);
+    /* CSS backdrop-filter blurs the DOM content behind the card (home page elements) */
+    backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-heavy));
+    -webkit-backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-heavy));
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    border-radius: var(--radius-xl);
+    padding: 2em;
+    position: relative;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, var(--glass-border-opacity-hover));
+    box-shadow: 
+        0 12px 48px rgba(0, 0, 0, 0.5),
+        var(--shadow-inset);
+    z-index: 1;
+    isolation: isolate;
+}
+
+/* Ensure expanded-card is hidden when parent overlay is not active - high specificity */
+.card-overlay:not(.active) .expanded-card,
+.card-overlay[hidden] .expanded-card {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.expanded-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 1em;
+    margin-top: 0;
+    padding-top: 0;
+    position: relative;
+    /* Content inherits stacking context from .expanded-card, no need for explicit z-index */
+    /* But set it explicitly to ensure it's above any potential glass effects */
+    z-index: 1;
+}
+
+.expanded-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.expanded-content::-webkit-scrollbar-track {
+    background: var(--color-dark-grey);
+}
+
+.expanded-content::-webkit-scrollbar-thumb {
+    background: var(--color-hover);
+    border-radius: 4px;
+}
+
+.close-button {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: var(--color-white);
+    padding: 0.2em 0.5em;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+    /* Close button must appear above all content */
+    z-index: 10;
+}
+
+.close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .expanded-card {
+    /* Semi-transparent background in dark mode to show glass effect - reduced alpha for more transparency */
+    background: linear-gradient(135deg, 
+        rgba(30, 30, 30, 0.4) 0%, 
+        rgba(40, 40, 40, 0.35) 100%);
+    color: var(--color-white);
+}
+
+.dark-mode .close-button {
+    color: var(--color-white);
+}
+
+.dark-mode .close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Photo grid styles */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(250px, 300px));
+    gap: 2em;
+    padding: 2em;
+    justify-content: center;
+}
+
+@media (max-width: 1000px) {
+    .photo-grid {
+        grid-template-columns: repeat(2, minmax(250px, 300px));
+    }
+}
+
+@media (max-width: 600px) {
+    .photo-grid {
+        grid-template-columns: repeat(1, minmax(250px, 300px));
+        gap: 1em;
+        padding: 1em;
+    }
+}
+
+.photo-card {
+    cursor: pointer;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    animation: photoFadeIn 0.8s ease-out forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--color-dark-grey);
+    height: 250px;
+}
+
+.photo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.photo-card:hover img {
+    transform: scale(1.05);
+}
+
+@keyframes photoFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

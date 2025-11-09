@@ -2,10 +2,9 @@
  * Glass Displacement Map Generator
  * Pre-calculates displacement vector fields based on Convex Squircle surface function
  * Uses simplified Snell's Law for performance
+ * 
+ * @module glass-displacement-generator
  */
-
-(function() {
-    'use strict';
 
     class GlassDisplacementGenerator {
         constructor() {
@@ -278,8 +277,6 @@
         }
     }
 
-    // Export singleton instance
-    window.GlassDisplacementGenerator = new GlassDisplacementGenerator();
-
-})();
+// Export singleton instance as ES6 module
+export default new GlassDisplacementGenerator();
 

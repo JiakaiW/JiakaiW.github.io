@@ -1,17 +1,15 @@
 /**
  * Glass Renderer Approach Switch System
- * Manages switching between different rendering approaches (CSS, SVG, WebGL)
+ * Manages switching between different rendering approaches (CSS, SVG)
+ * 
+ * @module glass-renderer
  */
-
-(function() {
-    'use strict';
 
     const GlassRenderer = {
         // Available rendering approaches
         APPROACHES: {
             CSS: 'css',      // Hardware-accelerated CSS backdrop-filter (best for scrolling performance)
-            SVG: 'svg',      // SVG filters (requires backdrop-filter)
-            WEBGL: 'webgl'   // WebGL shaders (fallback only - not performant for scrolling)
+            SVG: 'svg'       // SVG filters (requires backdrop-filter)
         },
 
         // Current approach (default: CSS for best performance)
@@ -20,57 +18,21 @@
         // - Hardware acceleration
         // - No JavaScript overhead
         // - Lower battery usage
-        // WebGL is kept as fallback for browsers without backdrop-filter support
         currentApproach: 'css',
 
         // Feature detection results
         features: {
-            webgl: false,
-            webgl2: false,
             backdropFilter: false
         },
 
         // Initialize feature detection
         detectFeatures() {
-            // WebGL 2.0 support
-            const canvas = document.createElement('canvas');
-            let gl2 = null;
-            try {
-                gl2 = canvas.getContext('webgl2', {
-                    alpha: true,
-                    antialias: true,
-                    premultipliedAlpha: false
-                });
-            } catch (e) {
-                console.warn('WebGL 2.0 context creation failed:', e);
-            }
-            this.features.webgl2 = !!gl2;
-
-            // WebGL 1.0 support (fallback)
-            let gl = null;
-            try {
-                gl = canvas.getContext('webgl', {
-                    alpha: true,
-                    antialias: true,
-                    premultipliedAlpha: false
-                }) || canvas.getContext('experimental-webgl', {
-                    alpha: true,
-                    antialias: true,
-                    premultipliedAlpha: false
-                });
-            } catch (e) {
-                console.warn('WebGL 1.0 context creation failed:', e);
-            }
-            this.features.webgl = !!gl;
-
             // Backdrop filter support
             this.features.backdropFilter = CSS.supports('backdrop-filter', 'blur(1px)') ||
                                          CSS.supports('-webkit-backdrop-filter', 'blur(1px)');
 
             // Log detection results
-            console.log('WebGL feature detection:', {
-                webgl2: this.features.webgl2,
-                webgl: this.features.webgl,
+            console.log('Glass renderer feature detection:', {
                 backdropFilter: this.features.backdropFilter
             });
 
@@ -84,26 +46,15 @@
                 approach = this.APPROACHES.CSS;
             }
 
-            // Smart fallback logic: prefer CSS backdrop-filter for performance
-            // Only use WebGL if CSS backdrop-filter is not available
-            if (approach === this.APPROACHES.CSS && !this.features.backdropFilter) {
-                console.warn('CSS backdrop-filter not available. Falling back to WebGL.');
-                if (this.features.webgl || this.features.webgl2) {
-                    approach = this.APPROACHES.WEBGL;
-                } else {
-                    console.warn('WebGL also not available. Using basic CSS fallback.');
-                }
-            }
-
             // Validate approach availability
-            if (approach === this.APPROACHES.WEBGL && !this.features.webgl && !this.features.webgl2) {
-                console.warn('WebGL not available. Falling back to CSS.');
-                approach = this.APPROACHES.CSS;
-            }
-
             if (approach === this.APPROACHES.SVG && !this.features.backdropFilter) {
                 console.warn('SVG filters require backdrop-filter support. Falling back to CSS.');
                 approach = this.APPROACHES.CSS;
+            }
+            
+            // If backdrop-filter is not available, CSS approach will use basic styling
+            if (!this.features.backdropFilter && approach === this.APPROACHES.CSS) {
+                console.warn('CSS backdrop-filter not available. Using basic CSS fallback.');
             }
 
             const previousApproach = this.currentApproach;
@@ -133,8 +84,6 @@
         // Check if approach is available
         isApproachAvailable(approach) {
             switch (approach) {
-                case this.APPROACHES.WEBGL:
-                    return this.features.webgl || this.features.webgl2;
                 case this.APPROACHES.SVG:
                     return this.features.backdropFilter;
                 case this.APPROACHES.CSS:
@@ -177,8 +126,6 @@
         GlassRenderer.init();
     }
 
-    // Export to window for global access
-    window.GlassRenderer = GlassRenderer;
-
-})();
+// Export as ES6 module
+export default GlassRenderer;
 

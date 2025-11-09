@@ -4,8 +4,8 @@ title: News & Updates
 permalink: /news/
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/home.css' | asset_hash_versioned }}">
-<script src="{{ '/assets/js/news.js' | asset_hash_versioned }}" defer></script>
+<link rel="stylesheet" href="{{ '/assets/css/components/news-section.css' | asset_hash_versioned }}">
+<script src="{{ '/assets/js/news-modular.js' | asset_hash_versioned }}" type="module" defer></script>
 
 <div class="news-page-header">
     <h1>News & Updates</h1>

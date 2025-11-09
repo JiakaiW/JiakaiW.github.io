@@ -1,5 +1,5 @@
 <nav>
-    <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+    <button class="hamburger" data-action="toggle-mobile-menu" aria-label="Toggle menu">
         <span></span>
         <span></span>
         <span></span>
@@ -31,7 +31,7 @@
     </ul>
 </nav>
 <div class="search-button">
-    <a href="#" onclick="toggleSearch(); return false;">
+    <a href="#" data-action="toggle-search">
         <img src="{{ '/assets/search_icon.png' | asset_hash_versioned }}" alt="Search" style="width: 36px; height: 36px; vertical-align: middle;">
     </a>
 </div>

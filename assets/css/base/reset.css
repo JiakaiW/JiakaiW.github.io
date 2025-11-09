@@ -1,0 +1,40 @@
+/**
+ * CSS Reset and Base Element Styles
+ * Basic resets and element-level styling
+ */
+
+/* Note: Variables are loaded from base/variables.css */
+
+/* Base element styles */
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:visited {
+    color: var(--color-primary);
+}
+
+a:hover {
+    color: var(--color-hover);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+/* Figure caption styling */
+.figure-caption {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.5em;
+    line-height: 1.4;
+}
+

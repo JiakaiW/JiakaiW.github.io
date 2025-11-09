@@ -1,0 +1,30 @@
+{% comment %}
+  News Item Component
+  Reusable component for displaying news items
+  
+  Parameters:
+  - item: News item object with title, content, date, category, link
+  - index: Index of the news item (for animation delay)
+{% endcomment %}
+
+{% assign category_colors = site.data.news_categories | default: site.data.news_categories %}
+{% assign category_style = category_colors[include.item.category] | default: category_colors.news %}
+
+{% comment %}
+  Note: This component is primarily used by JavaScript modules for rendering.
+  For static rendering, you can use this include in Liquid templates.
+  Category colors are defined in JavaScript modules/components/news-manager.js
+{% endcomment %}
+
+<div class="news-item" style="--item-index: {{ include.index | default: 0 }};">
+    <div class="news-header">
+        <span class="news-category">{{ include.item.category }}</span>
+        <span class="news-date">{{ include.item.date | date: "%B %d, %Y" }}</span>
+    </div>
+    <h3 class="news-title">{{ include.item.title }}</h3>
+    <p class="news-content">{{ include.item.content }}</p>
+    {% if include.item.link %}
+    <a href="{{ include.item.link }}" class="news-link">Read more →</a>
+    {% endif %}
+</div>
+

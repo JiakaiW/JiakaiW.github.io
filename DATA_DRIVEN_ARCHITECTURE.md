@@ -26,8 +26,8 @@ Template Layer (Jekyll)
 └── index.md                    # Theme rendering template
 │
 Presentation Layer
-├── assets/css/home.css         # Styling
-├── assets/js/home.js           # Dynamic logic
+├── assets/css/components/      # Component styles (theme-grid, news-section, etc.)
+├── assets/js/modules/          # ES6 modules (theme-manager, news-manager, etc.)
 └── assets/icons/themes/        # SVG icons
 ```
 
