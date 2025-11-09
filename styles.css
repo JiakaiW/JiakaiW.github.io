@@ -46,10 +46,14 @@ body {
     font-family: var(--font-family);
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #000000 50%, #0a0a0a 75%, #000000 100%);
+    /* Background image for better liquid glass effect visibility */
+    background-image: url('/assets/background.jpg');
     background-attachment: fixed;
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Dark overlay to ensure text readability and enhance glass effect */
+    background-color: #000000;
     color: var(--color-white);
     min-height: 100vh;
     display: flex;
@@ -58,16 +62,7 @@ body {
     z-index: 1;
 }
 
-@keyframes gradientShift {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-/* Subtle texture overlay */
+/* Dark overlay to enhance glass effect visibility and text readability */
 body::before {
     content: '';
     position: fixed;
@@ -75,38 +70,33 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.03;
+    background: rgba(0, 0, 0, 0.4);
     z-index: -1;
     pointer-events: none;
-    background-image: 
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,.05) 2px, rgba(255,255,255,.05) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,.05) 2px, rgba(255,255,255,.05) 4px);
 }
 
 /* ========================================
    PREMIUM BACKGROUND - Shared across pages
    ======================================== */
 /* Applied to gallery, tech-docs, and publications pages */
+/* Use same background image with lighter overlay for better glass visibility */
 body:has(.photo-grid),
 body:has(.tech-docs-page) {
-    background: 
-        /* Multiple light sources for depth - responsive sizing with softer blur effect */
-        radial-gradient(ellipse 90vw 120vh at 20% 10%, rgba(88, 76, 8, 0.44) 0%, transparent 60%),
-        radial-gradient(ellipse 90vw 60vh at 80% 20%, rgba(117, 12, 12, 0.194) 0%, transparent 50%),
-        radial-gradient(ellipse 140vw 110vh at 50% 80%, rgba(40, 40, 67, 0.2) 0%, transparent 70%),
-        /* Complex base gradient with multiple color stops */
-        linear-gradient(135deg, 
-            #000000 0%, 
-            #0a0a0a 15%, 
-            #1a1a1a 30%, 
-            #2d2d2d 45%, 
-            #1a1a1a 60%, 
-            #0f0f0f 75%, 
-            #000000 100%);
+    background-image: url('/assets/background.jpg');
     background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000000;
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
+}
+
+/* Lighter overlay for premium pages to show more background detail */
+body:has(.photo-grid)::before,
+body:has(.tech-docs-page)::before {
+    background: rgba(0, 0, 0, 0.3);
 }
 
 /* Fix overscroll behavior for premium background pages */
