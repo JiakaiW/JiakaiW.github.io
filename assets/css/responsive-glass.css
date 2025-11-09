@@ -1,0 +1,352 @@
+/* ========================================
+   Responsive Liquid Glass Utilities
+   Apple-inspired responsive design for liquid glass effects
+   ======================================== */
+
+/* ========================================
+   Fluid Spacing System
+   ======================================== */
+:root {
+    /* Base spacing unit scales with viewport */
+    --space-unit: clamp(0.5rem, 1vw, 1rem);
+    
+    /* Spacing scale */
+    --space-xs: calc(var(--space-unit) * 0.5);
+    --space-sm: var(--space-unit);
+    --space-md: calc(var(--space-unit) * 2);
+    --space-lg: calc(var(--space-unit) * 3);
+    --space-xl: calc(var(--space-unit) * 4);
+    
+    /* Fluid border radius */
+    --radius-sm: clamp(8px, 1vw, 12px);
+    --radius-md: clamp(12px, 1.5vw, 20px);
+    --radius-lg: clamp(16px, 2vw, 24px);
+    --radius-xl: clamp(20px, 2.5vw, 32px);
+    
+    /* Adaptive blur amounts */
+    --blur-mobile: 12px;
+    --blur-tablet: 16px;
+    --blur-desktop: 20px;
+    --blur-large: 24px;
+    
+    /* Adaptive saturation */
+    --saturate-mobile: 130%;
+    --saturate-tablet: 150%;
+    --saturate-desktop: 180%;
+    --saturate-large: 200%;
+    
+    /* Rim light thickness */
+    --rim-thin: 1px;
+    --rim-normal: 1.5px;
+    --rim-thick: 2px;
+}
+
+/* ========================================
+   Responsive Liquid Glass Base
+   ======================================== */
+.liquid-glass-responsive {
+    /* Fluid sizing */
+    width: min(90%, 100%);
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    gap: var(--space-sm);
+    
+    /* Base glass effect */
+    background: linear-gradient(135deg, 
+        rgba(93, 143, 179, 0.18) 0%, 
+        rgba(137, 207, 240, 0.10) 50%,
+        rgba(46, 46, 46, 0.15) 100%);
+    
+    /* Adaptive blur - starts with mobile */
+    backdrop-filter: blur(var(--blur-mobile)) saturate(var(--saturate-mobile));
+    -webkit-backdrop-filter: blur(var(--blur-mobile)) saturate(var(--saturate-mobile));
+    
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    
+    /* Adaptive shadows */
+    box-shadow: 
+        0 4px 16px rgba(93, 143, 179, 0.12),
+        0 1px 4px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    
+    /* Smooth transitions */
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    isolation: isolate;
+    position: relative;
+    min-height: 44px; /* Touch-friendly */
+}
+
+/* Back-illumination (rim light) - responsive */
+.liquid-glass-responsive::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: var(--rim-thin); /* Thinner on mobile */
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.1) 40%,
+        rgba(255, 255, 255, 0) 100%);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.6; /* Slightly less on mobile */
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Illumination layer */
+.liquid-glass-responsive::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: radial-gradient(
+        circle at var(--glass-light-x, 50%) var(--glass-light-y, 0%), 
+        rgba(137, 207, 240, 0.15) 0%,
+        transparent 50%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Hover state */
+.liquid-glass-responsive:hover::before {
+    opacity: 1;
+}
+
+.liquid-glass-responsive:hover::after {
+    opacity: 0.8;
+}
+
+.liquid-glass-responsive:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 
+        0 12px 32px rgba(93, 143, 179, 0.2),
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ========================================
+   Tablet Adjustments (769px+)
+   ======================================== */
+@media (min-width: 769px) {
+    .liquid-glass-responsive {
+        /* Increased blur and saturation */
+        backdrop-filter: blur(var(--blur-tablet)) saturate(var(--saturate-tablet));
+        -webkit-backdrop-filter: blur(var(--blur-tablet)) saturate(var(--saturate-tablet));
+        
+        /* Enhanced shadows */
+        box-shadow: 
+            0 6px 24px rgba(93, 143, 179, 0.14),
+            0 2px 6px rgba(0, 0, 0, 0.07),
+            inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    }
+    
+    .liquid-glass-responsive::before {
+        padding: var(--rim-normal);
+        opacity: 0.7;
+    }
+    
+    .liquid-glass-responsive:hover {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 
+            0 16px 40px rgba(93, 143, 179, 0.22),
+            0 6px 16px rgba(0, 0, 0, 0.11),
+            inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    }
+}
+
+/* ========================================
+   Desktop Adjustments (1025px+)
+   ======================================== */
+@media (min-width: 1025px) {
+    .liquid-glass-responsive {
+        /* Full blur and saturation */
+        backdrop-filter: blur(var(--blur-desktop)) saturate(var(--saturate-desktop));
+        -webkit-backdrop-filter: blur(var(--blur-desktop)) saturate(var(--saturate-desktop));
+        
+        /* Full shadows */
+        box-shadow: 
+            0 8px 32px rgba(93, 143, 179, 0.15),
+            0 2px 8px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .liquid-glass-responsive::before {
+        padding: var(--rim-normal);
+        opacity: 0.7;
+    }
+    
+    .liquid-glass-responsive:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 
+            0 20px 48px rgba(93, 143, 179, 0.25),
+            0 8px 16px rgba(0, 0, 0, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+}
+
+/* ========================================
+   Large Desktop Adjustments (1441px+)
+   ======================================== */
+@media (min-width: 1441px) {
+    .liquid-glass-responsive {
+        /* Maximum blur and saturation */
+        backdrop-filter: blur(var(--blur-large)) saturate(var(--saturate-large));
+        -webkit-backdrop-filter: blur(var(--blur-large)) saturate(var(--saturate-large));
+    }
+    
+    .liquid-glass-responsive::before {
+        padding: var(--rim-thick);
+        opacity: 0.8;
+    }
+}
+
+/* ========================================
+   Touch Device Optimizations
+   ======================================== */
+@media (hover: none) {
+    /* Disable hover transforms on touch devices */
+    .liquid-glass-responsive:hover {
+        transform: none;
+    }
+    
+    /* Use active state instead */
+    .liquid-glass-responsive:active {
+        transform: scale(0.98);
+        opacity: 0.95;
+    }
+    
+    .liquid-glass-responsive:active::before {
+        opacity: 0.8;
+    }
+    
+    .liquid-glass-responsive:active::after {
+        opacity: 0.6;
+    }
+}
+
+/* ========================================
+   Reduced Motion Support
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+    .liquid-glass-responsive {
+        transition: none;
+    }
+    
+    .liquid-glass-responsive:hover,
+    .liquid-glass-responsive:active {
+        transform: none;
+    }
+    
+    .liquid-glass-responsive::before,
+    .liquid-glass-responsive::after {
+        transition: none;
+    }
+}
+
+/* ========================================
+   Performance Optimizations
+   ======================================== */
+.liquid-glass-responsive {
+    will-change: backdrop-filter, transform;
+    transform: translateZ(0); /* GPU acceleration */
+}
+
+/* ========================================
+   Fallback for Browsers Without Backdrop-Filter
+   ======================================== */
+@supports not (backdrop-filter: blur(1px)) {
+    .liquid-glass-responsive {
+        background: rgba(26, 26, 26, 0.95);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .liquid-glass-responsive::before,
+    .liquid-glass-responsive::after {
+        display: none;
+    }
+}
+
+/* ========================================
+   Dark Mode Variants
+   ======================================== */
+.dark-mode .liquid-glass-responsive {
+    background: linear-gradient(135deg, 
+        rgba(93, 143, 179, 0.2) 0%, 
+        rgba(137, 207, 240, 0.12) 50%,
+        rgba(26, 26, 26, 0.25) 100%);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(93, 143, 179, 0.2),
+        0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.dark-mode .liquid-glass-responsive::after {
+    background: radial-gradient(
+        circle at var(--glass-light-x, 50%) var(--glass-light-y, 0%), 
+        rgba(137, 207, 240, 0.25) 0%,
+        transparent 60%
+    );
+}
+
+.dark-mode .liquid-glass-responsive:hover {
+    box-shadow: 
+        0 20px 48px rgba(93, 143, 179, 0.3),
+        0 8px 16px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   Size Variants
+   ======================================== */
+
+/* Small variant */
+.liquid-glass-responsive--small {
+    padding: var(--space-sm);
+    border-radius: var(--radius-sm);
+    min-height: 36px;
+}
+
+/* Medium variant (default) */
+.liquid-glass-responsive--medium {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    min-height: 44px;
+}
+
+/* Large variant */
+.liquid-glass-responsive--large {
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    min-height: 56px;
+}
+
+/* Extra large variant */
+.liquid-glass-responsive--xl {
+    padding: var(--space-xl);
+    border-radius: var(--radius-xl);
+    min-height: 72px;
+}
+
+/* ========================================
+   Usage Example
+   ======================================== */
+/*
+<div class="liquid-glass-responsive liquid-glass-responsive--medium">
+    <h2>Liquid Glass Card</h2>
+    <p>This card adapts to screen size with fluid spacing, 
+       adaptive blur, and responsive back-illumination.</p>
+</div>
+*/
