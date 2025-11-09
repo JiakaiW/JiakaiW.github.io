@@ -1,10 +1,23 @@
-// Segmented Timeline Widget - Vanilla JS
-// Matches liquid glass theme aesthetic
+/**
+ * Timeline Component Module
+ * Segmented Timeline Widget - Vanilla JS
+ * Matches liquid glass theme aesthetic
+ * 
+ * @module components/timeline
+ */
 
-class SegmentedTimeline {
+import { handleFetchError } from '../utils/error-handler.js';
+import { getElement } from '../utils/dom-registry.js';
+import { API_ENDPOINTS } from '../utils/constants.js';
+
+/**
+ * Segmented Timeline class for displaying project schedules
+ * @class SegmentedTimeline
+ */
+export class SegmentedTimeline {
     constructor(containerId, dataUrl) {
-        this.container = document.getElementById(containerId);
-        this.dataUrl = dataUrl;
+        this.container = getElement(containerId);
+        this.dataUrl = dataUrl || API_ENDPOINTS.TIMELINE_DATA;
         this.projects = [];
         this.hoveredProject = null;
         this.now = new Date();
@@ -20,6 +33,11 @@ class SegmentedTimeline {
         ];
     }
     
+    /**
+     * Initialize the timeline by loading data and rendering
+     * @method init
+     * @async
+     */
     async init() {
         try {
             const response = await fetch(this.dataUrl);
@@ -31,11 +49,18 @@ class SegmentedTimeline {
             }));
             this.render();
         } catch (error) {
-            console.error('Failed to load timeline data:', error);
-            this.container.innerHTML = '<p style="color: rgba(255,255,255,0.7);">Failed to load timeline</p>';
+            if (this.container) {
+                handleFetchError(error, 'load timeline data', this.container);
+            }
         }
     }
     
+    /**
+     * Convert a date to a position percentage on the timeline
+     * @method dateToPosition
+     * @param {Date} date - The date to convert
+     * @returns {number} Position percentage (0-100)
+     */
     dateToPosition(date) {
         const daysDiff = (date - this.now) / (1000 * 60 * 60 * 24);
         let cumulativeWidth = 0;
@@ -53,6 +78,12 @@ class SegmentedTimeline {
         return 50;
     }
     
+    /**
+     * Format a date to a readable string
+     * @method formatDate
+     * @param {Date} date - The date to format
+     * @returns {string} Formatted date string
+     */
     formatDate(date) {
         return date.toLocaleDateString('en-US', { 
             year: 'numeric', 
@@ -61,6 +92,11 @@ class SegmentedTimeline {
         });
     }
     
+    /**
+     * Get time markers for the timeline
+     * @method getTimeMarkers
+     * @returns {Array} Array of marker objects
+     */
     getTimeMarkers() {
         const markers = [];
         let cumulativeWidth = 0;
@@ -122,7 +158,13 @@ class SegmentedTimeline {
         return markers;
     }
     
+    /**
+     * Render the timeline HTML and attach event listeners
+     * @method render
+     */
     render() {
+        if (!this.container) return;
+
         const timeMarkers = this.getTimeMarkers();
         const minHeight = this.projects.length * 52 + 100;
         
@@ -196,9 +238,14 @@ class SegmentedTimeline {
     }
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-    const timeline = new SegmentedTimeline('timeline-widget', '/timeline-data.json');
-    timeline.init();
-});
+/**
+ * Initialize timeline on page load
+ * @function initTimeline
+ */
+export function initTimeline() {
+    document.addEventListener('DOMContentLoaded', () => {
+        const timeline = new SegmentedTimeline('timeline-widget', API_ENDPOINTS.TIMELINE_DATA);
+        timeline.init();
+    });
+}
 

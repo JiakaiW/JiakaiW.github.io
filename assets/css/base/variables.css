@@ -1,0 +1,105 @@
+/**
+ * CSS Variables - Design System
+ * Single source of truth for all design tokens
+ * Extract magic numbers to variables for maintainability
+ */
+
+:root {
+    /* Color Palette */
+    --color-light-grey: #2e2e2e;
+    --color-dark-grey: #1a1a1a;
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-primary: #5d8fb3;
+    --color-hover: #555;
+    --font-family: Arial, sans-serif;
+    
+    /* Glass Effect Variables - Blur */
+    --glass-blur-light: 10px;
+    --glass-blur-base: 20px;
+    --glass-blur-heavy: 30px;
+    --glass-blur-intro: 25px; /* Used in intro-container */
+    --glass-blur-timeline: 25px; /* Used in timeline */
+    --glass-blur-gallery: 25px; /* Used in gallery */
+    --glass-blur-footer: 20px; /* Used in footer */
+    --glass-blur-docs: 8px; /* Used in docs - reduced for image visibility */
+    --glass-blur-docs-content: 0px; /* Used in doc-content overlay - minimal blur */
+    --glass-blur-search: 12px; /* Used in search overlay */
+    --glass-blur-overlay: 16px; /* Used in expanded overlay */
+    --glass-blur-card: 30px; /* Used in expanded card */
+    
+    /* Glass Effect Variables - Saturation */
+    --glass-saturation-light: 150%;
+    --glass-saturation-base: 180%;
+    --glass-saturation-heavy: 200%;
+    --glass-saturation-intro: 180%; /* Used in intro-container */
+    --glass-saturation-timeline: 180%; /* Used in timeline */
+    --glass-saturation-gallery: 180%; /* Used in gallery */
+    --glass-saturation-footer: 180%; /* Used in footer */
+    --glass-saturation-docs: 180%; /* Used in docs */
+    --glass-saturation-search: 160%; /* Used in search overlay */
+    --glass-saturation-overlay: 100%; /* Used in expanded overlay */
+    --glass-saturation-card: 180%; /* Used in expanded card */
+    
+    /* Glass Effect Variables - Opacity */
+    --glass-border-opacity: 0.18;
+    --glass-border-opacity-hover: 0.25;
+    --glass-bg-opacity-base: 0.15;
+    --glass-bg-opacity-light: 0.1;
+    --glass-bg-opacity-heavy: 0.25;
+    --glass-highlight-opacity: 0.7;
+    --glass-highlight-opacity-hover: 1;
+    --glass-illumination-opacity: 0.6;
+    --glass-illumination-opacity-hover: 0.9;
+    
+    /* Glass Colors - Primary (RGB: 93, 143, 179) */
+    --glass-primary-rgb: 93, 143, 179;
+    --glass-primary: rgba(93, 143, 179, var(--glass-bg-opacity-base));
+    
+    /* Glass Colors - Secondary (RGB: 137, 207, 240) */
+    --glass-secondary-rgb: 137, 207, 240;
+    --glass-secondary: rgba(137, 207, 240, 0.08);
+    
+    /* Glass Colors - Accent (RGB: 46, 46, 46) */
+    --glass-accent-rgb: 46, 46, 46;
+    --glass-accent: rgba(46, 46, 46, 0.15);
+    
+    /* Glass Colors - Highlight */
+    --glass-highlight: rgba(255, 255, 255, var(--glass-highlight-opacity));
+    --glass-border: rgba(255, 255, 255, var(--glass-border-opacity));
+    
+    /* Dynamic Lighting */
+    --glass-light-x: 50%;
+    --glass-light-y: 0%;
+    
+    /* Dark Mode Glass Variables */
+    --glass-dark-bg-opacity-base: 0.2;
+    --glass-dark-border-opacity: 0.2;
+    
+    /* Border Radius */
+    --radius-small: 12px;
+    --radius-base: 16px;
+    --radius-medium: 20px;
+    --radius-large: 24px;
+    --radius-xl: 30px;
+    
+    /* Spacing */
+    --spacing-xs: 0.25em;
+    --spacing-sm: 0.5em;
+    --spacing-md: 1em;
+    --spacing-lg: 1.5em;
+    --spacing-xl: 2em;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 16px rgba(93, 143, 179, 0.15);
+    --shadow-lg: 0 8px 32px rgba(93, 143, 179, 0.15);
+    --shadow-xl: 0 12px 40px rgba(93, 143, 179, 0.25);
+    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.4s ease;
+}
+

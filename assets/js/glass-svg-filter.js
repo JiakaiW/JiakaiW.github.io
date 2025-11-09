@@ -2,10 +2,9 @@
  * Glass SVG Filter Manager
  * Creates and manages SVG filters with displacement maps for glass edge distortion
  * Reuses filters across elements of the same size for performance
+ * 
+ * @module glass-svg-filter
  */
-
-(function() {
-    'use strict';
 
     // Check browser capabilities for SVG filters
     function detectSVGFilterSupport() {
@@ -42,13 +41,9 @@
 
     const svgFilterSupport = detectSVGFilterSupport();
     
-    if (!svgFilterSupport.supportsRegularFilter) {
-        // Skip if SVG filters not supported at all
-        console.log('SVG filters not supported, will use CSS fallback');
-        window.GlassSVGFilter = null;
-        return;
-    }
-    
+let manager = null;
+
+if (svgFilterSupport.supportsRegularFilter) {
     if (svgFilterSupport.supportsBackdropFilter) {
         console.log('Initializing SVG filter manager for backdrop-filter (Chrome/Edge)');
     } else {
@@ -104,7 +99,8 @@
                 scale = 1.0,
                 specularOpacity = 0.4,
                 specularSaturation = 6,
-                specularBlur = 2
+                specularBlur = 2,
+                blurAmount = 5 // Default blur amount for SVG filter
             } = options;
 
             // Check if element already has a filter
@@ -138,21 +134,26 @@
             // For regular filter property (applied to wrapper div with background-image)
             // SourceGraphic is the element's content (the background image in our case)
             // Apply blur FIRST (before displacement) so distortion is visible
-            // Minimized blur to maximize distortion visibility
-            const feGaussianBlur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
-            feGaussianBlur.setAttribute('in', 'SourceGraphic'); // The background image when applied to wrapper div
-            feGaussianBlur.setAttribute('stdDeviation', '5'); // Reduced to 5px to maximize distortion visibility
-            feGaussianBlur.setAttribute('result', 'blurred');
-            filter.appendChild(feGaussianBlur);
+            // Blur amount is configurable (can be 0 to remove blur)
+            let blurResult = 'SourceGraphic'; // Default to source if no blur
+            if (blurAmount > 0) {
+                const feGaussianBlur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+                feGaussianBlur.setAttribute('in', 'SourceGraphic'); // The background image when applied to wrapper div
+                feGaussianBlur.setAttribute('stdDeviation', blurAmount.toString()); // Configurable blur amount
+                feGaussianBlur.setAttribute('result', 'blurred');
+                filter.appendChild(feGaussianBlur);
+                blurResult = 'blurred';
+            }
 
             // Create displacement map effect
-            // Apply displacement to the blurred background image
+            // Apply displacement to the blurred (or original) background image
             const feDisplacementMap = document.createElementNS('http://www.w3.org/2000/svg', 'feDisplacementMap');
-            feDisplacementMap.setAttribute('in', 'blurred'); // Use blurred background as input
+            feDisplacementMap.setAttribute('in', blurResult); // Use blurred background as input (or SourceGraphic if blurAmount is 0)
             feDisplacementMap.setAttribute('in2', 'displacementMap');
             feDisplacementMap.setAttribute('scale', scale.toString());
             feDisplacementMap.setAttribute('xChannelSelector', 'R');
             feDisplacementMap.setAttribute('yChannelSelector', 'G');
+            feDisplacementMap.setAttribute('edgeMode', 'duplicate'); // Clamp sampling to prevent going beyond bounds
             feDisplacementMap.setAttribute('result', 'displaced');
             filter.appendChild(feDisplacementMap);
 
@@ -281,14 +282,12 @@
         }
     }
 
-    // Export singleton instance
-    const manager = new GlassSVGFilterManager();
-    window.GlassSVGFilter = manager;
-    // Expose browser capability flags
-    window.GlassSVGFilter.useBackdropFilter = manager.useBackdropFilter;
-    window.GlassSVGFilter.isFirefox = manager.isFirefox;
-    // Expose filters map for reuse checking
-    window.GlassSVGFilter.filters = manager.filters;
+    manager = new GlassSVGFilterManager();
+} else {
+    // Skip if SVG filters not supported at all
+    console.log('SVG filters not supported, will use CSS fallback');
+}
 
-})();
+// Export singleton instance as ES6 module (or null if not supported)
+export default manager;
 

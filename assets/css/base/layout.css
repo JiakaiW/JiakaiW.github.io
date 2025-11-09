@@ -1,0 +1,208 @@
+/**
+ * Layout Styles
+ * Page structure, html, body, main layout
+ */
+
+/* Base Styles */
+html {
+    min-height: 100vh;
+    /* Background image on html - this is the primary background */
+    background-image: url('/assets/background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Fallback color only if image fails to load */
+    background-color: #000000;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    /* Background image for better liquid glass effect visibility */
+    background-image: url('/assets/background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Transparent so html background shows through */
+    background-color: transparent !important;
+    color: var(--color-white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+}
+
+/* Dark overlay to enhance glass effect visibility and text readability */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.05);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Premium Background - Shared across pages */
+body:has(.photo-grid),
+body:has(.tech-docs-page) {
+    background-image: url('/assets/background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000000;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body:has(.photo-grid)::before,
+body:has(.tech-docs-page)::before {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+html:has(.photo-grid),
+html:has(.tech-docs-page) {
+    background-image: url('/assets/background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000000;
+    min-height: 100vh;
+    overscroll-behavior: contain;
+}
+
+body:has(.photo-grid),
+body:has(.tech-docs-page) {
+    background-color: transparent !important;
+    overscroll-behavior: contain;
+}
+
+/* Make header transparent to show gradient */
+body:has(.photo-grid) header,
+body:has(.photo-grid) .header,
+body:has(.photo-grid) nav,
+body:has(.tech-docs-page) header,
+body:has(.tech-docs-page) .header,
+body:has(.tech-docs-page) nav {
+    background: transparent !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Make footer transparent to show gradient */
+body:has(.photo-grid) footer,
+body:has(.photo-grid) #footer,
+body:has(.tech-docs-page) footer,
+body:has(.tech-docs-page) #footer {
+    background: transparent !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Make main content transparent */
+body:has(.photo-grid) main,
+body:has(.tech-docs-page) main {
+    background: transparent !important;
+}
+
+/* Ensure text remains visible with proper contrast */
+body:has(.photo-grid) header a,
+body:has(.photo-grid) footer a,
+body:has(.photo-grid) nav a,
+body:has(.photo-grid) .menu-link a,
+body:has(.photo-grid) .social-link,
+body:has(.tech-docs-page) header a,
+body:has(.tech-docs-page) footer a,
+body:has(.tech-docs-page) nav a,
+body:has(.tech-docs-page) .menu-link a,
+body:has(.tech-docs-page) .social-link {
+    color: white !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Style dropdown menus to be semi-transparent */
+body:has(.photo-grid) .dropdown-content,
+body:has(.tech-docs-page) .dropdown-content {
+    background: rgba(0, 0, 0, 0.8) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+body:has(.photo-grid) .dropdown-content a,
+body:has(.tech-docs-page) .dropdown-content a {
+    color: white !important;
+}
+
+/* Main content layout */
+main {
+    padding: 2em;
+    text-align: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    background: transparent;
+    transition: filter 0.5s ease;
+    will-change: filter;
+}
+
+/* Responsive width for wider screens */
+@media (min-width: 1400px) {
+    main {
+        max-width: 1400px;
+    }
+}
+
+@media (min-width: 1800px) {
+    main {
+        max-width: 1800px;
+    }
+}
+
+@media (min-width: 2200px) {
+    main {
+        max-width: 2200px;
+    }
+}
+
+/* Dark Mode */
+.dark-mode {
+    background-color: transparent;
+    color: var(--color-white);
+}
+
+.dark-mode header, .dark-mode footer {
+    background-color: transparent;
+    color: var(--color-white);
+}
+
+.dark-mode main {
+    background-color: transparent;
+    color: var(--color-white);
+}
+
+.dark-mode .card-container, .dark-mode .carousel {
+    background-color: black;
+}
+
+.dark-mode .card, .dark-mode .carousel-images img {
+    background-color: black;
+}
+
+.dark-mode header a, .dark-mode nav ul li a {
+    color: var(--color-white);
+}
+
+.dark-mode header button:not(.hamburger) {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+

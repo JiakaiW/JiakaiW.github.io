@@ -4,80 +4,66 @@ This guide explains how to manage research themes and projects on the website.
 
 ## Architecture
 
-The website uses an object-oriented JavaScript architecture to manage research themes:
+The website uses a data-driven architecture with object-oriented JavaScript modules to manage research themes:
 
-- **`Project` class**: Represents individual research projects
-- **`ResearchTheme` class**: Represents research themes containing multiple projects
-- **`ThemeManager` class**: Manages all themes and user interactions
+- **`Project` class**: Represents individual research projects (`assets/js/modules/components/project.js`)
+- **`ResearchTheme` class**: Represents research themes containing multiple projects (`assets/js/modules/components/research-theme.js`)
+- **`ThemeManager` class**: Manages all themes and user interactions (`assets/js/modules/components/theme-manager.js`)
 
 ## Adding a New Project
 
-To add a new project to an existing theme, edit `/assets/js/home.js`:
+Projects are managed through data files, not directly in JavaScript. To add a new project:
 
-### 1. Locate the `initializeThemes()` method in the `ThemeManager` class
+### 1. Edit `_data/projects.yml`
 
-### 2. Find the appropriate theme and add a new project
+Add your project to the projects list:
 
-```javascript
-// Example: Adding a project to the Superconducting theme
-scTheme.addProject(new Project(
-    'Project Title',                    // Title
-    'Brief project description',        // Description
-    '/projects/project-url',            // URL (or null if no page)
-    '/projects/images/thumbnail.png',   // Image (or null if no image)
-    'completed'                          // Status: 'completed', 'ongoing', or 'potential'
-));
+```yaml
+- id: your-project-id
+  title: Your Project Title
+  description: Brief project description
+  url: /projects/your-project-url  # or null if no page
+  image: /projects/images/thumbnail.png  # or null if no image
+  status: completed  # completed, ongoing, or potential
+  themes:
+    - theme-id-1  # Can belong to multiple themes
+    - theme-id-2
 ```
 
-### Project Status Types
+### 2. Project Status Types
 
 - **`completed`**: Finished projects with published results
 - **`ongoing`**: Current research in progress
 - **`potential`**: Future research directions or ideas
 
+The theme statistics are automatically calculated from the projects data.
+
 ## Adding a New Theme
 
 To add an entirely new research theme:
 
-### 1. Update `/index.md`
+### 1. Update `_data/research_themes.yml`
 
-Add a new theme block in the theme grid:
+Add a new theme entry:
 
-```html
-<div class="theme-block" data-theme="new-theme-id" onclick="expandTheme('new-theme-id')">
-    <div class="theme-icon">
-        <!-- Add SVG icon here -->
-    </div>
-    <h3 class="theme-title">Your Theme Title</h3>
-    <p class="theme-description">
-        Brief description of the theme
-    </p>
-    <div class="theme-stats">
-        <span class="stat"><strong>0</strong> Completed Projects</span>
-        <span class="stat"><strong>0</strong> Ongoing Directions</span>
-    </div>
-</div>
+```yaml
+- id: new-theme-id
+  title: Your Theme Title
+  description: Brief description of the theme
+  icon: /assets/icons/themes/new-theme.svg
 ```
 
-### 2. Update `/assets/js/home.js`
+### 2. Create Theme Icon
 
-Add the theme initialization in the `initializeThemes()` method:
+Create an SVG icon at `/assets/icons/themes/new-theme.svg` (100x100 viewBox recommended).
 
-```javascript
-const newTheme = new ResearchTheme(
-    'new-theme-id',
-    'Your Theme Title',
-    'Detailed description of the theme'
-);
+### 3. Add Projects
 
-// Add projects
-newTheme.addProject(new Project(...));
+Add projects to `_data/projects.yml` with the new theme ID in the `themes` array.
 
-// Register the theme
-this.themes.set('new-theme-id', newTheme);
-```
+### 4. (Optional) Add Custom Theme Colors
 
-### 3. (Optional) Add custom theme colors in `/assets/css/home.css`
+Add custom hover colors in `assets/css/components/theme-grid.css`:
 
 ```css
 .theme-block[data-theme="new-theme-id"]:hover {
@@ -89,6 +75,8 @@ this.themes.set('new-theme-id', newTheme);
     color: #YOUR-COLOR;
 }
 ```
+
+The theme will automatically appear on the homepage, and statistics will be calculated from the projects data.
 
 ## Current Themes
 
@@ -134,26 +122,34 @@ this.themes.set('new-theme-id', newTheme);
 
 ## Maintenance
 
-- Regularly update project statuses as work progresses
+- Regularly update project statuses as work progresses in `_data/projects.yml`
 - Archive completed projects by changing their status
 - Remove outdated potential projects
-- Update theme statistics in the HTML when adding/removing projects
+- Theme statistics are automatically calculated - no manual updates needed
 
 ## Troubleshooting
 
 ### Theme not expanding
-- Check that the theme ID matches in HTML, JavaScript, and CSS
-- Verify `themeManager` is initialized in the console
+- Check that the theme ID matches in `research_themes.yml`, `index.md`, and CSS
+- Verify `themeManager` is initialized in the browser console
 - Check browser console for JavaScript errors
+- Ensure `data-action="expand-theme"` and `data-action-param` are set correctly
 
 ### Styling issues
 - Clear browser cache
 - Rebuild Jekyll site: `bundle exec jekyll build`
 - Check CSS specificity if custom styles aren't applying
+- Verify CSS files are loading in correct order
 
 ### Projects not displaying
-- Verify project is added in `initializeThemes()`
-- Check that the theme ID is correct
-- Ensure project data is properly formatted
+- Verify project is added to `_data/projects.yml` with correct theme ID in `themes` array
+- Check that the theme ID matches between `research_themes.yml` and `projects.yml`
+- Ensure project data is properly formatted (YAML syntax)
+- Rebuild Jekyll site to regenerate `projects-data.json`
+
+### Statistics not updating
+- Statistics are auto-calculated from `projects.yml`
+- Rebuild Jekyll site: `bundle exec jekyll build`
+- Check `_plugins/theme_stats_generator.rb` is working correctly
 
 

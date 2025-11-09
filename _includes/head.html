@@ -2,14 +2,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=0.7">
 <title>{{ page.title }}</title>
-<link rel="stylesheet" href="{{ '/styles.css' | asset_hash_versioned }}">
-<link rel="stylesheet" href="{{ '/assets/css/glass-utilities.css' | asset_hash_versioned }}">
-<link rel="stylesheet" href="{{ '/assets/css/gallery.css' | asset_hash_versioned }}">
+<!-- Base Variables - Must load first -->
+<link rel="stylesheet" href="{{ '/assets/css/base/variables.css' | asset_hash_versioned }}">
+<!-- Base Styles -->
+<link rel="stylesheet" href="{{ '/assets/css/base/reset.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/base/typography.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/base/layout.css' | asset_hash_versioned }}">
+<!-- Glass Effects Component - Consolidated glass styles -->
+<link rel="stylesheet" href="{{ '/assets/css/components/glass-effects.css' | asset_hash_versioned }}">
+<!-- Component Styles -->
+<link rel="stylesheet" href="{{ '/assets/css/components/navigation.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/components/search-overlay.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/components/code-blocks.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/components/carousel.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/components/photo-overlay.css' | asset_hash_versioned }}">
+<!-- Page-specific Styles -->
+<link rel="stylesheet" href="{{ '/assets/css/pages/gallery.css' | asset_hash_versioned }}">
 <link rel="stylesheet" href="{{ '/assets/css/footer.css' | asset_hash_versioned }}">
-<link rel="stylesheet" href="{{ '/assets/css/docs.css' | asset_hash_versioned }}">
-<link rel="stylesheet" href="{{ '/assets/css/tech-docs.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/pages/docs.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/pages/tech-docs.css' | asset_hash_versioned }}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/favicon-32x32.png' | asset_hash_versioned }}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/favicon-16x16.png' | asset_hash_versioned }}">
 <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/apple-touch-icon.png' | asset_hash_versioned }}">
 <link rel="manifest" href="{{ '/assets/site.webmanifest' | asset_hash_versioned }}">
+<!-- Overlay Initialization - Load synchronously to prevent flash of visibility -->
+<script src="{{ '/assets/js/modules/utils/overlay-init.js' | asset_hash_versioned }}"></script>
 <script src="https://unpkg.com/lunr/lunr.js"></script>

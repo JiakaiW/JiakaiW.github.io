@@ -6,12 +6,14 @@
 }
 
 .doc-card {
+    /* Reduced opacity and blur to make background images visible */
     background: linear-gradient(135deg, 
-        rgba(30, 30, 30, 0.8) 0%, 
-        rgba(46, 46, 46, 0.9) 100%);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+        rgba(30, 30, 30, 0.3) 0%, 
+        rgba(46, 46, 46, 0.4) 100%);
+    /* Reduced blur for better image visibility */
+    backdrop-filter: blur(var(--glass-blur-docs)) saturate(var(--glass-saturation-docs));
+    -webkit-backdrop-filter: blur(var(--glass-blur-docs)) saturate(var(--glass-saturation-docs));
+    border: 1px solid var(--glass-border);
     border-radius: 15px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -76,30 +78,42 @@
 
 .doc-content {
     padding: 1.5em;
+    /* Increased opacity for better text contrast on light backgrounds */
     background: linear-gradient(
         to bottom,
-        rgba(26, 26, 26, 0.85) 0%,
-        rgba(30, 30, 30, 0.9) 100%
+        rgba(20, 20, 20, 0.75) 0%,
+        rgba(26, 26, 26, 0.8) 100%
     );
-    backdrop-filter: blur(10px) saturate(150%);
-    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    /* Reduced blur for better image visibility */
+    backdrop-filter: blur(var(--glass-blur-docs-content)) saturate(var(--glass-saturation-light));
+    -webkit-backdrop-filter: blur(var(--glass-blur-docs-content)) saturate(var(--glass-saturation-light));
     position: relative;
     z-index: 2;
     height: 100%;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Cards without images - remove background entirely to show liquid glass effect */
+.doc-card:not(.has-image) .doc-content {
+    /* No background - the backdrop-filter and SVG filter wrapper will provide the visual effect */
+    background: transparent;
+}
+
 .doc-content h2 {
     margin: 0 0 0.5em 0;
     color: var(--color-white);
     font-size: 1.4em;
+    /* Add text shadow for better visibility on light backgrounds */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
 .doc-content p {
     margin: 0;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 1em;
     line-height: 1.5;
+    /* Add text shadow for better visibility on light backgrounds */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7), 0 0 6px rgba(0, 0, 0, 0.4);
 }
 
 @media (max-width: 768px) {

@@ -2,8 +2,9 @@
     background: linear-gradient(135deg, 
         rgba(26, 26, 26, 0.8) 0%, 
         rgba(46, 46, 46, 0.6) 100%);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    /* Extends glass-base - uses variables */
+    backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
+    -webkit-backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.3);
     padding: 2em 0;
@@ -78,8 +79,8 @@
     background: linear-gradient(135deg, 
         rgba(0, 0, 0, 0.9) 0%, 
         rgba(26, 26, 26, 0.8) 100%);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
+    -webkit-backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
     border-top-color: rgba(255, 255, 255, 0.15);
 }
 

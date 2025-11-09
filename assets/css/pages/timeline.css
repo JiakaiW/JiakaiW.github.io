@@ -41,17 +41,16 @@
         rgba(137, 207, 240, 0.08) 50%,
         rgba(93, 143, 179, 0.12) 100%);
     
-    /* Frosted glass blur */
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    /* Extends glass-base - uses variables */
+    backdrop-filter: blur(var(--glass-blur-timeline)) saturate(var(--glass-saturation-timeline));
+    -webkit-backdrop-filter: blur(var(--glass-blur-timeline)) saturate(var(--glass-saturation-timeline));
     
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius-large);
+    border: 1px solid var(--glass-border);
     
-    /* Subtle shadow for depth */
     box-shadow: 
-        0 8px 32px rgba(93, 143, 179, 0.15),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        var(--shadow-lg),
+        var(--shadow-inset);
     
     padding: 2em;
     overflow: visible;
@@ -215,11 +214,12 @@
     /* Liquid Glass effect - match theme blocks with low alpha */
     background: transparent;
     
-    /* Frosted glass blur - key to liquid glass */
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
     
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    /* Extends glass-base - uses variables */
+    backdrop-filter: blur(var(--glass-blur-timeline)) saturate(var(--glass-saturation-timeline));
+    -webkit-backdrop-filter: blur(var(--glass-blur-timeline)) saturate(var(--glass-saturation-timeline));
+    
+    border: 1px solid var(--glass-border);
     
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     
@@ -332,15 +332,15 @@
     left: 50%;
     transform: translateX(-50%);
     
-    /* Liquid glass effect for tooltip */
+    /* Extends glass-dark variant - uses variables */
     background: linear-gradient(135deg, 
         rgba(26, 26, 26, 0.95) 0%, 
         rgba(46, 46, 46, 0.95) 100%);
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur-timeline)) saturate(var(--glass-saturation-timeline));
+    -webkit-backdrop-filter: blur(var(--glass-blur-timeline)) saturate(var(--glass-saturation-timeline));
     
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, var(--glass-border-opacity-hover));
+    border-radius: var(--radius-small);
     padding: 1em 1.2em;
     min-width: 280px;
     max-width: 350px;

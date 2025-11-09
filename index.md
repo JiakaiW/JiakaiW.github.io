@@ -3,28 +3,16 @@ layout: default
 title: Home
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/home.css' | asset_hash_versioned }}">
-<link rel="stylesheet" href="{{ '/assets/css/timeline.css' | asset_hash_versioned }}">
-<script src="{{ '/assets/js/home.js' | asset_hash_versioned }}" defer></script>
-<script src="{{ '/assets/js/timeline.js' | asset_hash_versioned }}" defer></script>
+<!-- Home page component styles -->
+<link rel="stylesheet" href="{{ '/assets/css/components/intro-section.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/components/card-overlay.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/components/theme-grid.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/components/news-section.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/pages/timeline.css' | asset_hash_versioned }}">
+<script src="{{ '/assets/js/home.js' | asset_hash_versioned }}" type="module" defer></script>
+<script src="{{ '/assets/js/timeline-modular.js' | asset_hash_versioned }}" type="module" defer></script>
 
-<!-- SVG Filters for Liquid Glass Effect -->
-<svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
-    <defs>
-        <filter id="liquid-glass-filter">
-            <!-- Blur for depth -->
-            <feGaussianBlur in="SourceGraphic" stdDeviation="0.5" result="blur"/>
-            <!-- Displacement for refraction -->
-            <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="2" result="turbulence"/>
-            <feDisplacementMap in="blur" in2="turbulence" scale="3" xChannelSelector="R" yChannelSelector="G" result="displacement"/>
-            <!-- Lighting for depth -->
-            <feDiffuseLighting in="displacement" surfaceScale="1" diffuseConstant="0.8" result="lighting">
-                <feDistantLight azimuth="45" elevation="60"/>
-            </feDiffuseLighting>
-            <feComposite in="SourceGraphic" in2="lighting" operator="arithmetic" k1="1" k2="0" k3="0" k4="0"/>
-        </filter>
-    </defs>
-</svg>
+{% include components/glass-filters.html %}
 
 <div class="intro-container">
     <div class="intro-image intro-image-left">
@@ -60,7 +48,7 @@ title: Home
     
     <div class="theme-grid">
         {% for theme in site.data.research_themes %}
-        <div class="theme-block" data-theme="{{ theme.id }}" onclick="expandTheme('{{ theme.id }}')">
+        <div class="theme-block" data-theme="{{ theme.id }}" data-action="expand-theme" data-action-param="{{ theme.id }}">
             <div class="theme-info">
                 <div class="theme-icon">
                     {% include_relative {{ theme.icon }} %}
