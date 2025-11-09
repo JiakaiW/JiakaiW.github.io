@@ -1,10 +1,33 @@
 #footer {
-    background-color: var(--color-dark-grey);
+    background: linear-gradient(135deg, 
+        rgba(26, 26, 26, 0.8) 0%, 
+        rgba(46, 46, 46, 0.6) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.3);
     padding: 2em 0;
     width: 100%;
     position: relative;
     margin-top: 4em;
     display: block !important;
+    isolation: isolate;
+}
+
+/* Glass highlight on footer bottom edge */
+#footer::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%);
+    pointer-events: none;
+    z-index: 1;
 }
 
 .footer-content {
@@ -52,7 +75,12 @@
 }
 
 .dark-mode #footer {
-    background-color: var(--color-black);
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(26, 26, 26, 0.8) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-top-color: rgba(255, 255, 255, 0.15);
 }
 
 @media (max-width: 600px) {

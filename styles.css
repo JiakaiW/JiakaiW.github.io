@@ -7,17 +7,65 @@
     --color-primary: #5d8fb3;
     --color-hover: #555;
     --font-family: Arial, sans-serif;
+    
+    /* Glass Effect Variables */
+    --glass-blur-light: 10px;
+    --glass-blur-base: 20px;
+    --glass-blur-heavy: 30px;
+    --glass-saturation-light: 150%;
+    --glass-saturation-base: 180%;
+    --glass-saturation-heavy: 200%;
+    --glass-border-opacity: 0.18;
+    --glass-border-opacity-hover: 0.25;
+    --glass-bg-opacity-base: 0.15;
+    --glass-bg-opacity-light: 0.1;
+    --glass-bg-opacity-heavy: 0.25;
+    --glass-highlight-opacity: 0.7;
+    --glass-highlight-opacity-hover: 1;
+    --glass-illumination-opacity: 0.6;
+    --glass-illumination-opacity-hover: 0.9;
+    
+    /* Glass Colors */
+    --glass-primary: rgba(93, 143, 179, var(--glass-bg-opacity-base));
+    --glass-secondary: rgba(137, 207, 240, 0.08);
+    --glass-accent: rgba(46, 46, 46, 0.15);
+    --glass-highlight: rgba(255, 255, 255, 0.3);
+    --glass-border: rgba(255, 255, 255, var(--glass-border-opacity));
+    
+    /* Dynamic Lighting */
+    --glass-light-x: 50%;
+    --glass-light-y: 0%;
+    
+    /* Dark Mode Glass Variables */
+    --glass-dark-bg-opacity-base: 0.2;
+    --glass-dark-border-opacity: 0.2;
 }
 
 /* Base Styles */
+html {
+    min-height: 100vh;
+    /* Background image on html - this is the primary background */
+    background-image: url('/assets/background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Fallback color only if image fails to load */
+    background-color: #000000;
+}
+
 body {
     font-family: var(--font-family);
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #000000 50%, #0a0a0a 75%, #000000 100%);
+    /* Background image for better liquid glass effect visibility */
+    background-image: url('/assets/background.jpg');
     background-attachment: fixed;
-    background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Transparent so html background shows through */
+    background-color: transparent !important;
     color: var(--color-white);
     min-height: 100vh;
     display: flex;
@@ -26,16 +74,8 @@ body {
     z-index: 1;
 }
 
-@keyframes gradientShift {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-/* Subtle texture overlay */
+/* Dark overlay to enhance glass effect visibility and text readability */
+/* Very light overlay - almost transparent to show background clearly */
 body::before {
     content: '';
     position: fixed;
@@ -43,51 +83,51 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.03;
+    background: rgba(0, 0, 0, 0.05);
     z-index: -1;
     pointer-events: none;
-    background-image: 
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,.05) 2px, rgba(255,255,255,.05) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,.05) 2px, rgba(255,255,255,.05) 4px);
 }
 
 /* ========================================
    PREMIUM BACKGROUND - Shared across pages
    ======================================== */
 /* Applied to gallery, tech-docs, and publications pages */
+/* Use same background image with lighter overlay for better glass visibility */
 body:has(.photo-grid),
 body:has(.tech-docs-page) {
-    background: 
-        /* Multiple light sources for depth - responsive sizing with softer blur effect */
-        radial-gradient(ellipse 90vw 120vh at 20% 10%, rgba(88, 76, 8, 0.44) 0%, transparent 60%),
-        radial-gradient(ellipse 90vw 60vh at 80% 20%, rgba(117, 12, 12, 0.194) 0%, transparent 50%),
-        radial-gradient(ellipse 140vw 110vh at 50% 80%, rgba(40, 40, 67, 0.2) 0%, transparent 70%),
-        /* Complex base gradient with multiple color stops */
-        linear-gradient(135deg, 
-            #000000 0%, 
-            #0a0a0a 15%, 
-            #1a1a1a 30%, 
-            #2d2d2d 45%, 
-            #1a1a1a 60%, 
-            #0f0f0f 75%, 
-            #000000 100%);
+    background-image: url('/assets/background.jpg');
     background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000000;
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
 }
 
+/* Lighter overlay for premium pages to show more background detail */
+body:has(.photo-grid)::before,
+body:has(.tech-docs-page)::before {
+    background: rgba(0, 0, 0, 0.3);
+}
+
 /* Fix overscroll behavior for premium background pages */
 html:has(.photo-grid),
 html:has(.tech-docs-page) {
-    background: #000000;
+    background-image: url('/assets/background.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #000000;
     min-height: 100vh;
     overscroll-behavior: contain;
 }
 
 body:has(.photo-grid),
 body:has(.tech-docs-page) {
-    background-color: #000000;
+    background-color: transparent !important;
     overscroll-behavior: contain;
 }
 
@@ -173,7 +213,13 @@ img {
 
 /* Layout */
 header {
-    background-color: var(--color-dark-grey);
+    background: linear-gradient(135deg, 
+        rgba(26, 26, 26, 0.8) 0%, 
+        rgba(46, 46, 46, 0.6) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
     padding: 0.5em 0;
     display: flex;
     align-items: center;
@@ -181,6 +227,23 @@ header {
     position: relative;
     width: 100%;
     z-index: 100;
+    isolation: isolate;
+}
+
+/* Glass highlight on header top edge */
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%);
+    pointer-events: none;
+    z-index: 1;
 }
 
 nav {
@@ -253,13 +316,18 @@ nav {
     color: var(--color-black);
     text-decoration: none;
     font-size: 1.2em;
-    padding: 0.5em;
-    transition: color 0.3s ease;
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    transition: all 0.3s ease;
     display: inline-block;
+    position: relative;
 }
 
 .menu-link:hover > a {
     color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 /* Blur effect for menu links */
@@ -306,15 +374,23 @@ nav {
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(10px);
-    background: var(--color-light-grey);
+    background: linear-gradient(135deg, 
+        rgba(26, 26, 26, 0.95) 0%, 
+        rgba(46, 46, 46, 0.9) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     min-width: 220px;
-    border-radius: 8px;
+    border-radius: 12px;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
     padding: 0.5em 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     z-index: 1000;
+    isolation: isolate;
 }
 
 .menu-link:hover .dropdown-content {
@@ -338,7 +414,12 @@ nav {
 
 /* Dark Mode Styles */
 .dark-mode header {
-    background-color: var(--color-black);
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.9) 0%, 
+        rgba(26, 26, 26, 0.8) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom-color: rgba(255, 255, 255, 0.15);
 }
 
 .dark-mode .menu-link > a,
@@ -360,6 +441,7 @@ main {
     text-align: center;
     max-width: 1000px;
     margin: 0 auto;
+    background: transparent;
 }
 
 /* Responsive width for wider screens */
@@ -383,17 +465,17 @@ main {
 
 /* Dark Mode */
 .dark-mode {
-    background-color: black;
+    background-color: transparent;
     color: var(--color-white);
 }
 
 .dark-mode header, .dark-mode footer {
-    background-color: black;
+    background-color: transparent;
     color: var(--color-white);
 }
 
 .dark-mode main {
-    background-color: black;
+    background-color: transparent;
     color: var(--color-white);
 }
 
@@ -611,6 +693,18 @@ main {
     opacity: 0;
     transition: opacity 0.5s ease;
     pointer-events: none;
+    background: linear-gradient(135deg, 
+        rgba(26, 26, 26, 0.95) 0%, 
+        rgba(46, 46, 46, 0.9) 100%);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 1em;
+    box-shadow: 
+        0 12px 48px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    isolation: isolate;
 }
 
 .search-input {
@@ -642,11 +736,17 @@ main {
     padding: 1rem;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.05);
-    transition: background-color 0.2s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
 }
 
 .search-result-item:hover {
     background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .search-result-item a {
@@ -682,9 +782,9 @@ main {
 }
 
 .search-active.search-overlay {
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(7px);
-    -webkit-backdrop-filter: blur(7px);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
     pointer-events: auto;
     opacity: 1;
 }
@@ -703,16 +803,24 @@ main {
     position: absolute;
     top: 100%;
     left: 0;
-    background: var(--color-light-grey);
+    background: linear-gradient(135deg, 
+        rgba(26, 26, 26, 0.95) 0%, 
+        rgba(46, 46, 46, 0.9) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     min-width: 200px;
-    border-radius: 8px;
+    border-radius: 12px;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease;
     padding: 0.5em 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
     z-index: 1000;
+    isolation: isolate;
 }
 
 .nav-item:hover .dropdown-content {
@@ -736,7 +844,12 @@ main {
 
 /* Dark mode styles for dropdown */
 .dark-mode .dropdown-content {
-    background: var(--color-dark-grey);
+    background: linear-gradient(135deg, 
+        rgba(0, 0, 0, 0.95) 0%, 
+        rgba(26, 26, 26, 0.9) 100%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
 .dark-mode .dropdown-content a {
@@ -889,11 +1002,7 @@ main {
 }
 
 /* Ensure proper stacking context */
-body {
-    min-height: 100vh;
-    position: relative;
-    z-index: 1;
-}
+/* Removed duplicate body rule - using the one defined earlier */
 
 header {
     position: relative;
@@ -1073,14 +1182,21 @@ nav a:hover {
 
 /* Code Block Styles */
 pre {
-    background-color: #1e1e1e;
+    background: linear-gradient(135deg, 
+        rgba(30, 30, 30, 0.9) 0%, 
+        rgba(26, 26, 26, 0.95) 100%);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
     border-radius: 8px;
     padding: 1.5em;
     margin: 1.5em 0;
     overflow-x: auto;
     position: relative;
-    border: 1px solid #333;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    isolation: isolate;
 }
 
 code {
@@ -1092,11 +1208,14 @@ code {
 
 /* Inline code styling */
 p code {
-    background-color: #2d2d2d;
+    background: rgba(45, 45, 45, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     padding: 0.2em 0.4em;
     border-radius: 4px;
     font-size: 0.9em;
     color: #e6e6e6;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Language indicator */
@@ -1115,8 +1234,12 @@ pre::before {
 
 /* Dark mode specific overrides */
 .dark-mode pre {
-    background-color: #1a1a1a;
-    border-color: #333;
+    background: linear-gradient(135deg, 
+        rgba(26, 26, 26, 0.95) 0%, 
+        rgba(0, 0, 0, 0.98) 100%);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .dark-mode code {
