@@ -186,6 +186,105 @@ transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);  /* Smooth easing */
 - [Apple's Introduction to Liquid Glass](https://developer.apple.com/design/human-interface-guidelines/liquid-glass)
 - [Liquid Glass and Accessibility Concerns](https://css-tricks.com/getting-clarity-on-apples-liquid-glass/#accessibility)
 
+## WebGL-Based Implementation
+
+### Overview
+
+The WebGL-based liquid glass effect provides a more authentic replication of Apple's liquid glass design by using GPU-accelerated shaders for real-time rendering. This approach offers superior visual fidelity compared to CSS-only implementations.
+
+### Architecture
+
+The WebGL implementation consists of several components:
+
+1. **Glass Renderer System** (`glass-renderer.js`): Manages switching between rendering approaches (CSS, SVG, WebGL)
+2. **WebGL Utilities** (`webgl-utils.js`): Helper functions for WebGL context creation, shader compilation, and texture management
+3. **WebGL Liquid Glass Renderer** (`webgl-liquid-glass.js`): Main renderer class that applies WebGL effects to DOM elements
+4. **Shader Programs**: GLSL shaders for fragment and vertex processing
+
+### Shader Features
+
+The fragment shader (`liquid-glass.frag`) implements:
+
+- **Gaussian Blur**: Multi-pass blur for frosted glass effect
+- **Chromatic Aberration**: Subtle color separation for refraction
+- **Edge Detection**: Rim lighting based on edge detection
+- **Surface Normal Calculation**: For realistic light refraction
+- **Dynamic Lighting**: Mouse position-based light source
+- **Color Saturation Enhancement**: Vibrant color amplification
+
+### Usage
+
+The WebGL renderer automatically initializes when:
+
+1. WebGL is available in the browser
+2. The glass renderer approach is set to `'webgl'` (default)
+3. DOM elements with glass classes are present
+
+**Glass Element Selectors:**
+- `.glass-base`
+- `.intro-container`
+- `.theme-block`
+- `.photo-card`
+- `.news-item`
+- `.btn-glass`
+- `.expanded-card`
+- `.card-text`
+- `.dropdown-content`
+- `.search-container`
+
+### Configuration
+
+The WebGL renderer accepts configuration options:
+
+```javascript
+const renderer = new WebGLLiquidGlassRenderer(element, {
+    blurAmount: 25.0,           // Blur intensity
+    refractionStrength: 0.5,   // Refraction distortion amount
+    saturation: 1.8,           // Color saturation multiplier
+    rimLightIntensity: 0.3,    // Edge highlight intensity
+    edgeThickness: 0.02,       // Edge detection threshold
+    updateInterval: 100,       // Background capture interval (ms)
+    enableMouseTracking: true  // Enable mouse-based lighting
+});
+```
+
+### Approach Switching
+
+Switch between rendering approaches:
+
+```javascript
+// Set to WebGL (default)
+GlassRenderer.setApproach(GlassRenderer.APPROACHES.WEBGL);
+
+// Set to CSS
+GlassRenderer.setApproach(GlassRenderer.APPROACHES.CSS);
+
+// Set to SVG (future implementation)
+GlassRenderer.setApproach(GlassRenderer.APPROACHES.SVG);
+```
+
+### Performance Considerations
+
+- **GPU Acceleration**: All rendering happens on the GPU for optimal performance
+- **Background Capture**: Throttled to prevent excessive DOM reads
+- **Render Loop**: Uses `requestAnimationFrame` for smooth 60fps rendering
+- **Memory Management**: Textures and buffers are properly cleaned up
+- **LOD Support**: Can be extended for level-of-detail optimization
+
+### Browser Support
+
+- **WebGL 2.0**: Preferred (Chrome 56+, Safari 15+, Firefox 51+, Edge 79+)
+- **WebGL 1.0**: Fallback support
+- **Graceful Degradation**: Automatically falls back to CSS if WebGL unavailable
+
+### Integration with CSS
+
+When WebGL approach is active:
+- CSS `backdrop-filter` is disabled (WebGL handles the effect)
+- Background is set to transparent (WebGL renders through)
+- CSS classes remain for styling (borders, shadows, etc.)
+- Content z-index is adjusted to appear above WebGL canvas
+
 ## Future Enhancements
 
 Potential improvements:
@@ -194,8 +293,11 @@ Potential improvements:
 3. **Color adaptation**: Automatically adjust tint based on underlying content
 4. **SVG filter integration**: Use displacement maps for true refraction
 5. **Dark mode variants**: Different glass parameters for light/dark themes
+6. **Background capture**: Integrate html2canvas for accurate background capture
+7. **Multi-pass rendering**: Enhanced blur quality with multiple passes
+8. **Noise textures**: Add procedural noise for more realistic glass surface
 
 ## Conclusion
 
-This implementation balances visual appeal with accessibility and performance. The liquid glass effect creates depth and sophistication while maintaining readability and usability across all user contexts.
+This implementation balances visual appeal with accessibility and performance. The liquid glass effect creates depth and sophistication while maintaining readability and usability across all user contexts. The WebGL-based approach provides superior visual fidelity for modern browsers while gracefully degrading to CSS for older browsers.
 

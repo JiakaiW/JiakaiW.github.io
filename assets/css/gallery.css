@@ -34,15 +34,13 @@
 
 /* Photo card styling with glass effect */
 .photo-card {
-    background: linear-gradient(135deg, 
-        rgba(93, 143, 179, 0.15) 0%, 
-        rgba(137, 207, 240, 0.08) 50%,
-        rgba(46, 46, 46, 0.3) 100%);
+    /* Remove background from card - image will fill the space */
+    background: transparent;
     backdrop-filter: blur(25px) saturate(180%);
     -webkit-backdrop-filter: blur(25px) saturate(180%);
     border: 2px solid rgba(255, 255, 255, 0.18);
     border-radius: 20px;
-    padding: 3px; /* Minimal padding to minimize gap between border and image */
+    padding: 0; /* No padding - image fills to border */
     cursor: pointer;
     transition: all 0.4s ease;
     position: relative;
@@ -59,13 +57,13 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Glass highlight layer */
+/* Glass highlight layer - border rim light effect */
 .photo-card::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 20px;
-    padding: 2px;
+    padding: 2px; /* Matches border width for rim effect */
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 0.3) 0%,
         rgba(255, 255, 255, 0.05) 50%,
@@ -111,20 +109,22 @@
         0 20px 48px rgba(93, 143, 179, 0.25),
         0 8px 16px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    background: linear-gradient(135deg, 
-        rgba(93, 143, 179, 0.25) 0%, 
-        rgba(137, 207, 240, 0.15) 50%,
-        rgba(46, 46, 46, 0.4) 100%);
+    /* Keep background transparent on hover - glass effect comes from backdrop-filter */
+    background: transparent;
 }
 
 .photo-card img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 15px;
+    /* Border radius = container radius (20px) - border width (2px) = 18px
+       This ensures concentric rounded corners where the radius difference 
+       equals the distance from border edge to image edge */
+    border-radius: 18px;
     transition: transform 0.3s ease;
     position: relative;
     z-index: 1;
+    display: block;
 }
 
 .photo-card:hover img {

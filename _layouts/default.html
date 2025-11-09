@@ -2,8 +2,22 @@
 <html lang="en">
 <head>
     {% include head.html %}
-    <script src="{{ '/assets/js/main.js' | asset_hash_versioned }}" defer></script>
+    <!-- Glass Renderer System - Load synchronously (no defer) as other scripts depend on it -->
+    <script src="{{ '/assets/js/glass-renderer.js' | asset_hash_versioned }}"></script>
+    <!-- WebGL Utilities - Load before WebGL renderer -->
+    <script src="{{ '/assets/js/utils/webgl-utils.js' | asset_hash_versioned }}" defer></script>
+    <!-- WebGL Liquid Glass Renderer - Load after utilities -->
+    <script src="{{ '/assets/js/webgl-liquid-glass.js' | asset_hash_versioned }}" defer></script>
+    <!-- Glass Effects - Load after WebGL renderer -->
     <script src="{{ '/assets/js/glass-effects.js' | asset_hash_versioned }}" defer></script>
+    <!-- Glass Displacement Generator - Load before SVG filter manager -->
+    <script src="{{ '/assets/js/glass-displacement-generator.js' | asset_hash_versioned }}" defer></script>
+    <!-- Glass SVG Filter Manager - Load before edge distortion -->
+    <script src="{{ '/assets/js/glass-svg-filter.js' | asset_hash_versioned }}" defer></script>
+    <!-- Glass Edge Distortion - Load after dependencies -->
+    <script src="{{ '/assets/js/glass-edge-distortion.js' | asset_hash_versioned }}" defer></script>
+    <!-- Main JS -->
+    <script src="{{ '/assets/js/main.js' | asset_hash_versioned }}" defer></script>
 </head>
 <body>
     <header>
