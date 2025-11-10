@@ -1,21 +1,11 @@
 {
-  "name": "background-positioning-tests",
+  "name": "jiakaiw-github-io",
   "version": "1.0.0",
-  "description": "Automated tests for glass effect background positioning",
-  "main": "test-background-positioning-automated.js",
+  "description": "Jiakai Wang personal website",
   "scripts": {
-    "test": "node test-background-positioning-automated.js",
-    "test:headless": "node test-background-positioning-automated.js --headless"
+    "generate-search-index": "node scripts/generate-search-index.js"
   },
-  "keywords": [
-    "testing",
-    "puppeteer",
-    "automation"
-  ],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "puppeteer": "^21.0.0"
-  }
+  "license": "ISC"
 }
 

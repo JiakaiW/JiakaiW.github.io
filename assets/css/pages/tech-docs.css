@@ -45,10 +45,22 @@
 .tech-docs-page a {
     color: var(--color-primary);
     text-decoration: none;
+    transition: color var(--transition-fast);
 }
 
 .tech-docs-page a:hover {
+    color: var(--color-primary-light);
     text-decoration: underline;
+}
+
+.tech-docs-page a:focus {
+    outline: 2px solid rgba(93, 143, 179, 0.5);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.tech-docs-page a:focus:not(:focus-visible) {
+    outline: none;
 }
 
 /* Add hover area for dropdown */

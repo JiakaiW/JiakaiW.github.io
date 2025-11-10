@@ -11,8 +11,81 @@
     --color-black: #000000;
     --color-white: #ffffff;
     --color-primary: #5d8fb3;
+    --color-primary-light: #89CFF0;
+    --color-primary-dark: #4a7a9a;
+    --color-secondary: #89CFF0;
     --color-hover: #555;
-    --font-family: Arial, sans-serif;
+    
+    /* Typography Colors - Hierarchy for Glass Morphism */
+    --color-text-title: #ffffff;              /* Pure white for section titles - maximum contrast */
+    --color-text-body: rgba(255, 255, 255, 0.88);  /* Slightly grey body text - reduces eye strain */
+    --color-text-secondary: rgba(255, 255, 255, 0.75);  /* Secondary text - subtitles, metadata */
+    --color-text-muted: rgba(255, 255, 255, 0.6);  /* Muted text - captions, hints */
+    
+    /* Sophisticated Color System - Functional & Meaningful */
+    /* Core Principle: Limited hues, semantic meaning, unified system/status tags */
+    
+    /* System/Status Tags - Unified Content Type Color */
+    /* All content types (publication, talk, paper) use the same professional identity */
+    --color-content-type: #30476E;             /* Dark, rich, muted blue - unified professional identity */
+    --color-content-type-light: #7A9FC2;       /* Lighter variant for text on dark backgrounds - improved contrast */
+    --color-content-type-bg: rgba(48, 71, 110, 0.25);  /* Background for tags - slightly increased opacity */
+    --color-content-type-border: rgba(48, 71, 110, 0.5);  /* Border for tags - increased for better definition */
+    
+    /* Primary Accent - CTA/Opportunity Tags */
+    --color-accent-primary: #5299B7;           /* Desaturated, mature light blue/cyan - for CTAs/opportunities */
+    --color-accent-primary-light: #8FC4E0;    /* Lighter variant for text on dark backgrounds - improved contrast */
+    --color-accent-primary-dark: #3A7B99;     /* Darker variant for depth */
+    --color-accent-primary-bg: rgba(82, 153, 183, 0.25);
+    --color-accent-primary-border: rgba(82, 153, 183, 0.5);
+    
+    /* Semantic Status Colors */
+    --color-status-ongoing: #4F8A8B;           /* Muted deep teal - active/ongoing status */
+    --color-status-ongoing-light: #6BA8A9;     /* Lighter for text */
+    --color-status-ongoing-bg: rgba(79, 138, 139, 0.2);
+    --color-status-ongoing-border: rgba(79, 138, 139, 0.4);
+    
+    --color-status-completed: #6B7B8B;        /* Medium-dark cool gray - archived/finished */
+    --color-status-completed-light: #8A9AAB;  /* Lighter for text */
+    --color-status-completed-bg: rgba(107, 123, 139, 0.2);
+    --color-status-completed-border: rgba(107, 123, 139, 0.4);
+    
+    /* Research Theme Colors - Small, Cohesive Palette */
+    --color-theme-1: #30476E;                  /* Primary Blue - anchor (same as content-type) */
+    --color-theme-1-light: #4A6B8E;
+    
+    --color-theme-2: #4F8A8B;                  /* Deep Teal/Green - complexity/data (same as ongoing) */
+    --color-theme-2-light: #6BA8A9;
+    
+    --color-theme-3: #6A5C8C;                  /* Muted Indigo/Violet - innovation/theory */
+    --color-theme-3-light: #8A7CAC;
+    
+    --color-theme-4: #A37B73;                  /* Rich Brown/Ochre - earthiness/stability */
+    --color-theme-4-light: #C29A92;
+    
+    /* Legacy aliases for backward compatibility */
+    --color-accent-blue: var(--color-accent-primary);
+    --color-accent-blue-light: var(--color-accent-primary-light);
+    --color-accent-blue-dark: var(--color-accent-primary-dark);
+    --color-accent-secondary: var(--color-content-type);
+    --color-accent-secondary-light: var(--color-content-type-light);
+    --color-success: var(--color-status-completed);
+    --color-success-text: var(--color-status-completed-light);
+    --color-success-light: var(--color-status-completed-bg);
+    --color-warning: var(--color-status-ongoing);
+    --color-warning-text: var(--color-status-ongoing-light);
+    --color-warning-light: var(--color-status-ongoing-bg);
+    --color-info: var(--color-accent-primary);
+    --color-info-text: var(--color-accent-primary-light);
+    --color-info-light: var(--color-accent-primary-bg);
+    --color-utility-1: var(--color-theme-3);
+    --color-utility-1-light: var(--color-theme-3-light);
+    --color-utility-2: var(--color-theme-4);
+    --color-utility-2-light: var(--color-theme-4-light);
+    /* Font Families - Different fonts for different purposes */
+    --font-family-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font-family-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+    --font-family: var(--font-family-body); /* Default to body font */
     
     /* Glass Effect Variables - Blur */
     --glass-blur-light: 10px;

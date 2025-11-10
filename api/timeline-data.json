@@ -1,0 +1,6 @@
+---
+layout: null
+permalink: /timeline-data.json
+---
+{{ site.data.timeline_projects | jsonify }}
+

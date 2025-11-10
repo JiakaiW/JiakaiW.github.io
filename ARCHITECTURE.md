@@ -62,7 +62,12 @@ JiakaiW.github.io/
 │       │       ├── mobile-menu.js       # Mobile navigation menu
 │       │       ├── gallery.js           # Gallery scrolling
 │       │       ├── event-delegation.js  # Event delegation system
-│       │       └── error-handler.js     # Error handling utility
+│       │       ├── error-handler.js     # Error handling utility
+│       │       ├── dom-registry.js      # Centralized DOM element registry
+│       │       ├── constants.js         # Application constants
+│       │       ├── service-registry.js  # Service registry for dependency injection
+│       │       ├── home-utilities.js    # Home page utility functions
+│       │       └── overlay-init.js      # Overlay initialization utilities
 │       ├── home.js          # Compatibility wrapper (imports home-modular.js)
 │       ├── main.js          # Compatibility wrapper (imports main-modular.js)
 │       ├── home-modular.js  # Home page initialization
@@ -98,11 +103,12 @@ Core modules provide essential functionality used across the site:
 
 - **`page-init.js`**: Page initialization and global function exports
   - Sets up global functions for backward compatibility
+  - Registers services in service registry
   - Initializes dark mode
   - Sets up event delegation system
   - Sets up search input handlers
   - Keyboard shortcuts (Cmd/Ctrl+K for search)
-  - Exports: None (side effects only)
+  - Exports: `initPage()` function
 
 #### Component Modules (`modules/components/`)
 
@@ -158,6 +164,7 @@ Utility modules provide helper functions:
   - Handles `data-action` attributes for declarative event handling
   - Replaces inline event handlers (onclick, oninput)
   - Supports actions: close-search, toggle-search, expand-card, expand-theme, etc.
+  - Uses service registry to access services
   - Exports: `setupEventDelegation()` function
 
 - **`error-handler.js`**: Error handling utility
@@ -165,6 +172,34 @@ Utility modules provide helper functions:
   - User-friendly error messages
   - Fetch error handling
   - Exports: `showError()`, `handleFetchError()`, `withErrorHandling()`, `ErrorSeverity` enum
+
+- **`dom-registry.js`**: Centralized DOM element registry
+  - Single source of truth for DOM element queries
+  - Caches element references for performance
+  - Provides `ELEMENT_IDS` constants for type-safe element access
+  - Exports: `getElement()`, `ELEMENT_IDS` constants
+
+- **`constants.js`**: Application-wide constants
+  - Theme IDs, data attributes, CSS classes
+  - API endpoints, configuration values
+  - Action names for event delegation
+  - Exports: `THEME_IDS`, `DATA_ATTRIBUTES`, `ACTIONS`, `CSS_CLASSES`, `API_ENDPOINTS`, `CONFIG`
+
+- **`service-registry.js`**: Service registry for dependency injection
+  - Eliminates global dependencies
+  - Provides centralized service access
+  - Used by event delegation and other modules
+  - Exports: `registerService()`, `getService()`, `SERVICE_NAMES` constants
+
+- **`home-utilities.js`**: Home page utility functions
+  - Animation delay setup
+  - Text auto-sizing
+  - Intro image click handlers
+  - Exports: `setAnimationDelays()`, `autoSizeText()`, `initializeIntroImageClick()`
+
+- **`overlay-init.js`**: Overlay initialization utilities
+  - Glass effect overlay initialization
+  - Specialized overlay setup functions
 
 ### Entry Points
 
@@ -208,7 +243,7 @@ The site uses a declarative event delegation system via `data-action` attributes
 
 ### Backward Compatibility
 
-Global functions are exported via `page-init.js` for backward compatibility:
+Global functions are exported via `page-init.js` for backward compatibility (legacy support):
 
 - `toggleSearch()`, `closeSearch()`
 - `expandCard()`, `closeExpandedCard()`
@@ -217,6 +252,8 @@ Global functions are exported via `page-init.js` for backward compatibility:
 - `scrollGallery()`
 - `handleSearch()` (for inline oninput handlers)
 - `expandTheme()` (for theme expansion)
+
+**Note**: Modern code should use the event delegation system with `data-action` attributes or access services via the service registry instead of global functions.
 
 ## CSS Architecture
 
@@ -414,10 +451,10 @@ The site uses several types of cards for different purposes:
 
 1. **Project Cards** (`.card`)
    - **Purpose**: Display project thumbnails with text overlay
-   - **Location**: `projects/featured.md`
    - **Styling**: `assets/css/components/card-overlay.css`
    - **Interaction**: Expand to show full project content via overlay
    - **Event**: Uses `data-action="expand-card"` with `data-action-param` for URL
+   - **Note**: Projects are now managed via data-driven architecture (`_data/projects.yml`)
 
 2. **Doc Cards** (`.doc-card`)
    - **Purpose**: Display technical documentation cards with thumbnails
@@ -479,4 +516,8 @@ The site uses several types of cards for different purposes:
 - Inline event handlers replaced with `data-action` attributes
 - News and timeline scripts modularized
 - Error handling standardized across modules
+- DOM queries centralized via `dom-registry.js`
+- Constants extracted to `constants.js` for type safety
+- Service registry pattern implemented to eliminate global dependencies
+- Refactoring completed (see `docs/archive/` for historical migration documentation)
 

@@ -1,0 +1,30 @@
+---
+layout: null
+permalink: /projects-data.json
+---
+{
+  "projects": [
+    {% for project in site.data.projects %}
+    {
+      "id": "{{ project.id }}",
+      "title": {{ project.title | jsonify }},
+      "description": {{ project.description | jsonify }},
+      "url": {{ project.url | jsonify }},
+      "image": {{ project.image | jsonify }},
+      "status": "{{ project.status }}",
+      "themes": {{ project.themes | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "themeStats": {
+    {% assign theme_ids = "superconducting,qec,tensor,neural" | split: "," %}
+    {% for theme_id in theme_ids %}
+    "{{ theme_id }}": {
+      "completed": {% assign count = 0 %}{% for project in site.data.projects %}{% if project.themes contains theme_id and project.status == "completed" %}{% assign count = count | plus: 1 %}{% endif %}{% endfor %}{{ count }},
+      "ongoing": {% assign count = 0 %}{% for project in site.data.projects %}{% if project.themes contains theme_id and project.status == "ongoing" %}{% assign count = count | plus: 1 %}{% endif %}{% endfor %}{{ count }},
+      "potential": {% assign count = 0 %}{% for project in site.data.projects %}{% if project.themes contains theme_id and project.status == "potential" %}{% assign count = count | plus: 1 %}{% endif %}{% endfor %}{{ count }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  }
+}
+

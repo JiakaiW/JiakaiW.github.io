@@ -309,6 +309,60 @@
     transform: translateY(0);
 }
 
+.btn-glass:focus {
+    outline: 2px solid rgba(var(--glass-primary-rgb), 0.5);
+    outline-offset: 2px;
+}
+
+.btn-glass:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Button Variants */
+.btn-glass-primary {
+    background: linear-gradient(135deg, 
+        rgba(var(--glass-primary-rgb), 0.3) 0%, 
+        rgba(var(--glass-primary-rgb), 0.25) 100%);
+    border-color: rgba(var(--glass-primary-rgb), 0.4);
+}
+
+.btn-glass-primary:hover {
+    background: linear-gradient(135deg, 
+        rgba(var(--glass-primary-rgb), 0.4) 0%, 
+        rgba(var(--glass-primary-rgb), 0.35) 100%);
+    border-color: rgba(var(--glass-primary-rgb), 0.6);
+}
+
+.btn-glass-secondary {
+    background: linear-gradient(135deg, 
+        rgba(var(--glass-secondary-rgb), 0.2) 0%, 
+        rgba(var(--glass-secondary-rgb), 0.15) 100%);
+    border-color: rgba(var(--glass-secondary-rgb), 0.3);
+}
+
+.btn-glass-secondary:hover {
+    background: linear-gradient(135deg, 
+        rgba(var(--glass-secondary-rgb), 0.3) 0%, 
+        rgba(var(--glass-secondary-rgb), 0.25) 100%);
+    border-color: rgba(var(--glass-secondary-rgb), 0.5);
+}
+
+.btn-glass-ghost {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+
+.btn-glass-ghost:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-glass-ghost:focus {
+    outline-color: rgba(255, 255, 255, 0.4);
+}
+
 .dark-mode .btn-glass {
     background: linear-gradient(135deg, 
         rgba(var(--glass-primary-rgb), 0.25) 0%, 

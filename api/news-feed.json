@@ -1,0 +1,19 @@
+---
+layout: null
+permalink: /news-feed.json
+---
+{
+  "news": [
+    {% assign news_items = site.news | sort: "date" | reverse %}
+    {% for item in news_items %}
+    {
+      "date": "{{ item.date }}",
+      "title": {{ item.title | jsonify }},
+      "category": "{{ item.category }}",
+      "link": {{ item.link | jsonify }},
+      "content": {{ item.content | strip_html | strip_newlines | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+

@@ -21,10 +21,11 @@ jekyll serve -l -H localhost
 ### Archived Documentation
 
 Historical and completed migration documentation is available in `docs/archive/`:
-- Modularity improvements summary
-- Glass effect migration plans
-- Redesign summaries
-- Migration implementation summaries
+- Refactoring summaries and code reviews
+- Migration plans (global removal, modular themes, data-driven architecture)
+- Diagnostic documents (background positioning, sync analysis)
+- Testing documentation
+- Plan compliance assessments
 
 ## Key Features
 

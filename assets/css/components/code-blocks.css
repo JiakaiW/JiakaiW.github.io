@@ -31,14 +31,15 @@ code {
 
 /* Inline code styling */
 p code {
-    background: rgba(45, 45, 45, 0.8);
+    background: rgba(93, 143, 179, 0.15);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     padding: 0.2em 0.4em;
     border-radius: 4px;
     font-size: 0.9em;
-    color: #e6e6e6;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-primary-light);
+    border: 1px solid rgba(93, 143, 179, 0.2);
+    font-weight: 500;
 }
 
 /* Language indicator */
@@ -47,12 +48,17 @@ pre::before {
     position: absolute;
     top: 0;
     right: 1em;
-    padding: 0.2em 0.5em;
-    background: #333;
-    color: #e6e6e6;
+    padding: 0.3em 0.6em;
+    background: rgba(93, 143, 179, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: var(--color-primary-light);
     border-radius: 0 0 4px 4px;
-    font-size: 0.8em;
+    font-size: 0.75em;
     font-family: var(--font-family);
+    font-weight: 600;
+    border: 1px solid rgba(93, 143, 179, 0.3);
+    border-top: none;
 }
 
 /* Dark mode specific overrides */

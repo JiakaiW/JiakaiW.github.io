@@ -71,6 +71,5 @@ Projects can belong to multiple themes and stats are automatically calculated.
 ## See Also
 
 - [DATA_DRIVEN_ARCHITECTURE.md](../DATA_DRIVEN_ARCHITECTURE.md) - Complete guide
-- [MODULAR_THEMES.md](../MODULAR_THEMES.md) - Theme structure overview
-- [THEME_MANAGEMENT.md](../THEME_MANAGEMENT.md) - Legacy documentation
+- [THEME_MANAGEMENT.md](../THEME_MANAGEMENT.md) - Theme management guide
 

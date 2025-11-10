@@ -6,28 +6,28 @@ projects:
     start: "2025-09-10"
     end: "2026-12-31"
     status: "ongoing"
-    color: "rgb(40, 40, 100)"
+    color: "rgb(79, 138, 139)"
     description: "We are using tensor network methods for large scale quantum hardware simulation"
 
   - title: "Gate optimization method"
     start: "2025-10-01"
     end: "2025-12-30"
     status: "ongoing"
-    color: "rgb(137, 50, 240)"
+    color: "rgb(79, 138, 139)"
     description: "We have a novel method on gate optimization"
 
   - title: "QEC simulation project (Maxim's project, with Rrian doing heavy lifting)"
     start: "2025-10-13"
     end: "2026-03-31"
     status: "Ongoing"
-    color: "rgb(100, 40, 40)"
+    color: "rgb(79, 138, 139)"
     description: "A QEC project related to a specific hardware realization is ongoing"
   
   - title: "Superconducting qubit leakage detection/removal project (Maxim's project, Ben doing heavy lifting)"
     start: "2025-10-01"
     end: "2026-03-31"
     status: "scheduled"
-    color: "rgb(40, 40, 40)"
+    color: "rgb(48, 71, 110)"
     description: "We might do a superconducting qubit readout project"
 
 
@@ -35,14 +35,14 @@ projects:
     start: "2024-10-01"
     end: "2025-9-23"
     status: "completed"
-    color: "rgb(93, 143, 179)"
+    color: "rgb(107, 123, 139)"
     description: "Bring erasure conversion to single-mode superconducting qubit"
   
   - title: "Fluxonium-transmon CNOT"
     start: "2025-04-01"
     end: "2025-10-06"
     status: "completed"
-    color: "rgb(241, 196, 15)"
+    color: "rgb(107, 123, 139)"
     description: "Novel gate for novel qubit"
   
 
@@ -50,7 +50,7 @@ projects:
     start: "2025-12-01"
     end: "2026-05-31"
     status: "scheduled"
-    color: "rgb(40, 40, 40)"
+    color: "rgb(48, 71, 110)"
     description: "We might try to do a project on efficient QEC simulation"
   
 
@@ -58,6 +58,6 @@ projects:
     start: "2025-11-01"
     end: "2026-05-31"
     status: "scheduled"
-    color: "rgb(40, 40, 100)"
+    color: "rgb(48, 71, 110)"
     description: "We need to validate 2-qubit gate on fluxonium"
   

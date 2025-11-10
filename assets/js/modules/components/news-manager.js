@@ -11,15 +11,21 @@ import { getElement, ELEMENT_IDS } from '../utils/dom-registry.js';
 import { API_ENDPOINTS, CONFIG } from '../utils/constants.js';
 
 /**
- * Category color definitions for news items
+ * Category color definitions for news items - Sophisticated functional system
+ * System/Status Tags: Unified content type color for professional consistency
  * @constant {Object}
  */
 const CATEGORY_COLORS = {
-    publication: { bg: 'rgba(46, 204, 113, 0.15)', text: '#2ecc71', border: 'rgba(46, 204, 113, 0.3)' },
-    talk: { bg: 'rgba(241, 196, 15, 0.15)', text: '#f1c40f', border: 'rgba(241, 196, 15, 0.3)' },
-    software: { bg: 'rgba(52, 152, 219, 0.15)', text: '#3498db', border: 'rgba(52, 152, 219, 0.3)' },
-    news: { bg: 'rgba(155, 89, 182, 0.15)', text: '#9b59b6', border: 'rgba(155, 89, 182, 0.3)' },
-    opportunity: { bg: 'rgba(231, 76, 60, 0.15)', text: '#e74c3c', border: 'rgba(231, 76, 60, 0.3)' }
+    // Content Types - Unified professional identity (dark blue)
+    // Improved contrast: lighter text color for readability on dark backgrounds
+    publication: { bg: 'rgba(48, 71, 110, 0.25)', text: '#7A9FC2', border: 'rgba(48, 71, 110, 0.5)' },
+    talk: { bg: 'rgba(48, 71, 110, 0.25)', text: '#7A9FC2', border: 'rgba(48, 71, 110, 0.5)' },
+    paper: { bg: 'rgba(48, 71, 110, 0.25)', text: '#7A9FC2', border: 'rgba(48, 71, 110, 0.5)' },
+    software: { bg: 'rgba(48, 71, 110, 0.25)', text: '#7A9FC2', border: 'rgba(48, 71, 110, 0.5)' },
+    news: { bg: 'rgba(48, 71, 110, 0.25)', text: '#7A9FC2', border: 'rgba(48, 71, 110, 0.5)' },
+    // CTA/Opportunity - Primary accent for action-driven tags
+    opportunity: { bg: 'rgba(82, 153, 183, 0.25)', text: '#8FC4E0', border: 'rgba(82, 153, 183, 0.5)' },
+    hiring: { bg: 'rgba(82, 153, 183, 0.25)', text: '#8FC4E0', border: 'rgba(82, 153, 183, 0.5)' }
 };
 
 /**
