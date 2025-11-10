@@ -51,8 +51,8 @@
     --color-status-completed-border: rgba(107, 123, 139, 0.4);
     
     /* Research Theme Colors - Small, Cohesive Palette */
-    --color-theme-1: #30476E;                  /* Primary Blue - anchor (same as content-type) */
-    --color-theme-1-light: #4A6B8E;
+    --color-theme-1: #7A8FA3;                  /* Desaturated Light Blue - muted and sophisticated */
+    --color-theme-1-light: #9AABC2;
     
     --color-theme-2: #4F8A8B;                  /* Deep Teal/Green - complexity/data (same as ongoing) */
     --color-theme-2-light: #6BA8A9;

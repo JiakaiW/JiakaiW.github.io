@@ -25,6 +25,18 @@ export function setupEventDelegation() {
             clickTarget = clickTarget.parentElement;
         }
         
+        // CRITICAL FIX: Allow regular links to navigate normally without triggering parent actions
+        // Check if clicked element is a link (<a> tag with href) or is inside a link
+        const linkElement = clickTarget?.closest('a[href]');
+        if (linkElement && linkElement.tagName === 'A' && linkElement.hasAttribute('href')) {
+            // Only prevent parent actions if the link doesn't have its own data-action
+            // Links with data-action (like expand-card) should still trigger their action
+            if (!linkElement.hasAttribute(DATA_ATTRIBUTES.ACTION)) {
+                // Regular navigation link - let it navigate, don't trigger parent actions
+                return;
+            }
+        }
+        
         // CRITICAL FIX: Check if the clicked element itself has data-action FIRST
         // This prevents parent actions (like theme-block's expand-theme) from being triggered
         // when clicking on child elements (like links with expand-card)
