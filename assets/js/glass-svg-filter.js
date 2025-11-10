@@ -137,11 +137,11 @@ if (svgFilterSupport.supportsRegularFilter) {
             // Blur amount is configurable (can be 0 to remove blur)
             let blurResult = 'SourceGraphic'; // Default to source if no blur
             if (blurAmount > 0) {
-                const feGaussianBlur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
-                feGaussianBlur.setAttribute('in', 'SourceGraphic'); // The background image when applied to wrapper div
+            const feGaussianBlur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+            feGaussianBlur.setAttribute('in', 'SourceGraphic'); // The background image when applied to wrapper div
                 feGaussianBlur.setAttribute('stdDeviation', blurAmount.toString()); // Configurable blur amount
-                feGaussianBlur.setAttribute('result', 'blurred');
-                filter.appendChild(feGaussianBlur);
+            feGaussianBlur.setAttribute('result', 'blurred');
+            filter.appendChild(feGaussianBlur);
                 blurResult = 'blurred';
             }
 
