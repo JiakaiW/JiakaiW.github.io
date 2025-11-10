@@ -1,0 +1,21 @@
+{
+  "name": "background-positioning-tests",
+  "version": "1.0.0",
+  "description": "Automated tests for glass effect background positioning",
+  "main": "test-background-positioning-automated.js",
+  "scripts": {
+    "test": "node test-background-positioning-automated.js",
+    "test:headless": "node test-background-positioning-automated.js --headless"
+  },
+  "keywords": [
+    "testing",
+    "puppeteer",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "puppeteer": "^21.0.0"
+  }
+}
+

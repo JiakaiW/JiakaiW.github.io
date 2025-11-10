@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Positioning Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            height: 5000px;
+            background: #000;
+            font-family: Arial, sans-serif;
+        }
+        
+        .test-element {
+            width: 800px;
+            height: 400px;
+            margin: 1000px auto;
+            background: rgba(26, 26, 26, 0.4);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 2em;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .test-element h1 {
+            font-size: 2em;
+            margin-bottom: 1em;
+        }
+        
+        .test-element p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        
+        #testResults {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #0f0;
+            padding: 1em;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 10000;
+            border: 1px solid #0f0;
+        }
+        
+        #testResults h2 {
+            color: #0f0;
+            margin-bottom: 0.5em;
+            font-size: 14px;
+        }
+        
+        #testResults .test-item {
+            margin: 0.5em 0;
+            padding: 0.5em;
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 3px solid #0f0;
+        }
+        
+        #testResults .test-item.pass {
+            border-left-color: #0f0;
+        }
+        
+        #testResults .test-item.fail {
+            border-left-color: #f00;
+            color: #f00;
+        }
+        
+        #testResults .value {
+            color: #0ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-element intro-container" id="testElement">
+        <h1>Background Positioning Test</h1>
+        <p>This element tests the glass effect background positioning with scroll attachment.</p>
+        <p>Check the console and the test results panel for detailed measurements.</p>
+    </div>
+    
+    <div id="testResults">
+        <h2>Test Results</h2>
+        <div id="testOutput">Initializing tests...</div>
+    </div>
+    
+    <!-- Load dependencies -->
+    <script type="module">
+        // Import the glass effect module
+        import glassEdgeDistortion from './assets/js/glass-edge-distortion.js';
+        
+        // Make it available globally for the test harness
+        window.glassEdgeDistortion = glassEdgeDistortion;
+        
+        // Enable debug mode
+        if (glassEdgeDistortion) {
+            glassEdgeDistortion.debugMode = true;
+        }
+        
+        // Wait for DOM and glass effect to initialize
+        function initTests() {
+            // Ensure viewport cache is initialized
+            if (glassEdgeDistortion) {
+                glassEdgeDistortion.updateViewportCache();
+            }
+            
+            // Load test harness
+            const script = document.createElement('script');
+            script.src = './test-background-positioning.js';
+            script.onload = () => {
+                if (window.runBackgroundPositioningTests) {
+                    // Wait a bit more for glass effect to fully initialize
+                    setTimeout(() => {
+                        window.runBackgroundPositioningTests();
+                    }, 500);
+                }
+            };
+            document.body.appendChild(script);
+        }
+        
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', () => {
+                setTimeout(initTests, 1000);
+            });
+        } else {
+            setTimeout(initTests, 1000);
+        }
+    </script>
+</body>
+</html>
+

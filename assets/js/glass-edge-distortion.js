@@ -80,7 +80,7 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             
             if (bgImage && bgImage.width && bgImage.height) {
                 // Calculate how the background image covers the viewport
-                // Background is: background-size: cover, background-position: center, background-attachment: fixed
+                // Background is: background-size: cover, background-position: center, background-attachment: scroll
                 const coverScale = Math.max(viewportWidth / bgImage.width, viewportHeight / bgImage.height);
                 const scaledWidth = bgImage.width * coverScale;
                 const scaledHeight = bgImage.height * coverScale;
@@ -434,7 +434,7 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             // Some elements (like .timeline-container) have CSS rules that apply to all children
             // CRITICAL: Explicitly set border-radius to match parent for proper rounded corners
             const borderRadiusCss = borderRadius ? `border-radius: ${borderRadius} !important;` : '';
-            const backgroundAttachment = useCardImage ? 'scroll' : 'fixed'; // Card images scroll with card, website background is fixed
+            const backgroundAttachment = 'scroll'; // Always use scroll for correct positioning
             // For website background, background-size will be set in updateWrapperBackgroundPosition
             // For card images, use cover to match object-fit: cover
             const backgroundSize = useCardImage ? 'cover' : 'auto'; // Will be updated in updateWrapperBackgroundPosition
@@ -479,13 +479,20 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
         /**
          * Update wrapper background position to show only the portion behind the element
          * Uses viewport-based background positioning
-         * IMPORTANT: Since background-attachment: fixed, the background is fixed to viewport
+         * IMPORTANT: Since background-attachment: scroll, the background is relative to element
          * We need to calculate position based on element's current viewport position
          */
-        async updateWrapperBackgroundPosition(element, wrapper, elementRect = null) {
-            const elementData = this.elements.get(element);
-            const useCardImage = elementData?.useCardImage;
-            const isDocContent = element.classList.contains('doc-content');
+    async updateWrapperBackgroundPosition(element, wrapper, elementRect = null) {
+        const isIntroContainer = element.classList.contains('intro-container');
+        if (isIntroContainer) {
+            console.log('[updateWrapperBackgroundPosition] intro-container: Called', {
+                'elementRect': elementRect ? { top: elementRect.top.toFixed(0), left: elementRect.left.toFixed(0) } : 'null'
+            });
+        }
+        
+        const elementData = this.elements.get(element);
+        const useCardImage = elementData?.useCardImage;
+        const isDocContent = element.classList.contains('doc-content');
             
             // Use passed rect or get it (performance: prefer passed rect to avoid duplicate getBoundingClientRect)
             if (!elementRect) {
@@ -634,10 +641,6 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             //   - Where x_bg, y_bg is the background coordinate corresponding to viewport x_obj, y_obj
             //   - For magnifying glass: α < 1 means we sample a smaller region and expand it
             //
-            // With background-attachment: fixed, background coordinate = viewport coordinate + offset
-            //   - x_bg = x_obj + offsetX
-            //   - y_bg = y_obj + offsetY
-            //
             // To center the background region on the element:
             //   - Background region center should be at (x_bg, y_bg)
             //   - Background region extends ±(α·w_obj/2, α·h_obj/2) from center
@@ -650,13 +653,19 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             //
             // This ensures the center of the sampled region aligns with the element center
             
-            // Calculate element center in viewport coordinates
+            // With background-attachment: scroll, background scrolls with element automatically
+            // This means: when element moves in viewport, background moves with it
+            // So we should use viewport coordinates directly (NOT document coordinates)
+            // The background-position is relative to the element, and since background scrolls
+            // with element, we just need to map viewport position to background image coordinates
             const x_obj = elementRect.left + elementRect.width / 2;
             const y_obj = elementRect.top + elementRect.height / 2;
             const w_obj = elementRect.width;
             const h_obj = elementRect.height;
             
             // Background coordinate corresponding to element center
+            // Use viewport coordinates directly - background scrolls with element automatically
+            // offsetX/Y represent how background covers viewport (centering offset)
             const x_bg = x_obj + offsetX;
             const y_bg = y_obj + offsetY;
             
@@ -685,12 +694,14 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             
             // For doc-content elements, use simple direct mapping (no magnification)
             // This ensures the background shows exactly what's behind the element
-            let finalSourceX, finalSourceY, sampledWidth, sampledHeight;
+            let finalSourceX, finalSourceY, sampledWidth, sampledHeight, sourceX, sourceY;
+            let alphaX, alphaY, safeAlphaX, safeAlphaY;
+            let headroomLeft, headroomRight, headroomTop, headroomBottom;
             
             if (isDocContent) {
                 // Simple 1:1 mapping - show the portion of background directly behind the element
                 // Element top-left in viewport: (elementRect.left, elementRect.top)
-                // Map to background coordinates: (elementRect.left + offsetX, elementRect.top + offsetY)
+                // With scroll attachment, use viewport coordinates directly (background scrolls with element)
                 const bgLeft = elementRect.left + offsetX;
                 const bgTop = elementRect.top + offsetY;
                 
@@ -698,55 +709,74 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                 sampledWidth = w_obj;
                 sampledHeight = h_obj;
                 
-                // Position background to show the region starting at (bgLeft, bgTop)
-                finalSourceX = bgLeft;
-                finalSourceY = bgTop;
+                // No magnification for doc-content
+                alphaX = 1.0;
+                alphaY = 1.0;
+                safeAlphaX = 1.0;
+                safeAlphaY = 1.0;
                 
-                // Clamp to background bounds
-                finalSourceX = Math.max(0, Math.min(finalSourceX, scaledWidth - sampledWidth));
-                finalSourceY = Math.max(0, Math.min(finalSourceY, scaledHeight - sampledHeight));
+                // Headroom not used for doc-content (no magnification), set to 0 for debugging
+                headroomLeft = 0;
+                headroomRight = 0;
+                headroomTop = 0;
+                headroomBottom = 0;
+                
+                // Position background to show the region starting at (bgLeft, bgTop)
+                sourceX = bgLeft;
+                sourceY = bgTop;
+                
+                // IMPORTANT: With background-attachment: scroll, negative values are valid!
+                // The background scrolls with the element, so we can use negative positions
+                // to show portions of the background when element is partially outside viewport
+                // Only clamp to prevent showing beyond background image bounds (upper bound)
+                finalSourceX = Math.min(sourceX, scaledWidth - sampledWidth);
+                finalSourceY = Math.min(sourceY, scaledHeight - sampledHeight);
             } else {
                 // Original complex calculation for other elements (with magnification)
-                // Calculate headroom from element center to background edges
-                // Headroom determines how much we can shrink the sampled region (for magnification)
-                const headroomLeft = x_bg; // Distance to left edge
-                const headroomRight = scaledWidth - x_bg; // Distance to right edge
-                const headroomTop = y_bg; // Distance to top edge
-                const headroomBottom = scaledHeight - y_bg; // Distance to bottom edge
-                
-                // Calculate maximum safe alpha for each axis (for magnifying glass, alpha < 1)
-                // For magnifying: sample smaller region (alpha * dimension), need headroom >= (alpha * dimension) / 2
-                // Safe alpha = min(2 * headroom / dimension) for each side, but ensure minimum of 0.7
-                // For X: need headroom >= (alphaX * w_obj) / 2 on both sides
-                const safeAlphaXLeft = headroomLeft >= (w_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomLeft / w_obj) : 0.7;
-                const safeAlphaXRight = headroomRight >= (w_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomRight / w_obj) : 0.7;
-                const safeAlphaX = Math.min(safeAlphaXLeft, safeAlphaXRight);
-                
-                // For Y: need headroom >= (alphaY * h_obj) / 2 on both sides
-                const safeAlphaYTop = headroomTop >= (h_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomTop / h_obj) : 0.7;
-                const safeAlphaYBottom = headroomBottom >= (h_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomBottom / h_obj) : 0.7;
-                const safeAlphaY = Math.min(safeAlphaYTop, safeAlphaYBottom);
-                
-                // Use minimum of requested and safe alpha for each axis
-                // This ensures sampled region always fits within background bounds
-                // For magnifying, we want the smaller alpha (more magnification) that's still safe
-                const alphaX = Math.min(requestedAlphaX, safeAlphaX);
-                const alphaY = Math.min(requestedAlphaY, safeAlphaY);
-                
-                // Sampled region dimensions (with per-axis magnification factors)
-                // For magnifying glass: sample smaller region, expand to element size
+            // Calculate headroom from element center to background edges
+            // Headroom determines how much we can shrink the sampled region (for magnification)
+            headroomLeft = x_bg; // Distance to left edge
+            headroomRight = scaledWidth - x_bg; // Distance to right edge
+            headroomTop = y_bg; // Distance to top edge
+            headroomBottom = scaledHeight - y_bg; // Distance to bottom edge
+            
+            // Calculate maximum safe alpha for each axis (for magnifying glass, alpha < 1)
+            // For magnifying: sample smaller region (alpha * dimension), need headroom >= (alpha * dimension) / 2
+            // Safe alpha = min(2 * headroom / dimension) for each side, but ensure minimum of 0.7
+            // For X: need headroom >= (alphaX * w_obj) / 2 on both sides
+            const safeAlphaXLeft = headroomLeft >= (w_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomLeft / w_obj) : 0.7;
+            const safeAlphaXRight = headroomRight >= (w_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomRight / w_obj) : 0.7;
+            safeAlphaX = Math.min(safeAlphaXLeft, safeAlphaXRight);
+            
+            // For Y: need headroom >= (alphaY * h_obj) / 2 on both sides
+            const safeAlphaYTop = headroomTop >= (h_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomTop / h_obj) : 0.7;
+            const safeAlphaYBottom = headroomBottom >= (h_obj * 0.7 / 2) ? Math.max(0.7, 2 * headroomBottom / h_obj) : 0.7;
+            safeAlphaY = Math.min(safeAlphaYTop, safeAlphaYBottom);
+            
+            // Use minimum of requested and safe alpha for each axis
+            // This ensures sampled region always fits within background bounds
+            // For magnifying, we want the smaller alpha (more magnification) that's still safe
+            alphaX = Math.min(requestedAlphaX, safeAlphaX);
+            alphaY = Math.min(requestedAlphaY, safeAlphaY);
+            
+            // Sampled region dimensions (with per-axis magnification factors)
+            // For magnifying glass: sample smaller region, expand to element size
                 sampledWidth = alphaX * w_obj;
                 sampledHeight = alphaY * h_obj;
-                
-                // Calculate source position from element center
-                // Since we've already constrained alpha to safe values, we can directly calculate
-                // without needing to clamp the center position
-                const sourceX = x_bg - sampledWidth / 2;
-                const sourceY = y_bg - sampledHeight / 2;
-                
-                // Final safety check (shouldn't be needed with proper alpha calculation, but keep for robustness)
-                finalSourceX = Math.max(0, Math.min(sourceX, scaledWidth - sampledWidth));
-                finalSourceY = Math.max(0, Math.min(sourceY, scaledHeight - sampledHeight));
+            
+            // Calculate source position from element center
+            // Since we've already constrained alpha to safe values, we can directly calculate
+            // without needing to clamp the center position
+            sourceX = x_bg - sampledWidth / 2;
+            sourceY = y_bg - sampledHeight / 2;
+            
+            // IMPORTANT: With background-attachment: scroll, negative values are valid!
+            // The background scrolls with the element, so we can use negative positions
+            // to show portions of the background when element is partially outside viewport
+            // Only clamp to prevent showing beyond background image bounds (upper bound)
+            // Note: We removed Math.max(0, ...) to allow negative values for elements above viewport
+            finalSourceX = Math.min(sourceX, scaledWidth - sampledWidth);
+            finalSourceY = Math.min(sourceY, scaledHeight - sampledHeight);
             }
             
             // Track if alpha was reduced from requested value (for debugging)
@@ -758,11 +788,115 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             // Set background-position to show the correct portion
             // Use negative values to shift the background image
             // 
-            // CRITICAL: With background-attachment: fixed, background-position is relative to VIEWPORT
-            // The wrapper div is position: absolute inside the element
-            // For the background to show correctly, we need to account for where the wrapper is in viewport
-            wrapper.style.backgroundSize = `${scaledWidth}px ${scaledHeight}px`;
-            wrapper.style.backgroundPosition = `${-finalSourceX}px ${-finalSourceY}px`;
+            // With background-attachment: scroll, background-position is relative to wrapper element
+            // The background scrolls with the element automatically, so we use viewport coordinates directly
+            const bgSize = `${scaledWidth}px ${scaledHeight}px`;
+            const bgPos = `${-finalSourceX}px ${-finalSourceY}px`;
+            
+            if (isIntroContainer) {
+                // Check wrapper state before setting
+                const wrapperInDOM = wrapper.isConnected;
+                const wrapperDisplay = window.getComputedStyle(wrapper).display;
+                const wrapperVisibility = window.getComputedStyle(wrapper).visibility;
+                const wrapperOpacity = window.getComputedStyle(wrapper).opacity;
+                const wrapperZIndex = window.getComputedStyle(wrapper).zIndex;
+                const wrapperPosition = window.getComputedStyle(wrapper).position;
+                const wrapperWidth = window.getComputedStyle(wrapper).width;
+                const wrapperHeight = window.getComputedStyle(wrapper).height;
+                const wrapperTop = window.getComputedStyle(wrapper).top;
+                const wrapperLeft = window.getComputedStyle(wrapper).left;
+                const wrapperOverflow = window.getComputedStyle(wrapper).overflow;
+                const currentBgPos = window.getComputedStyle(wrapper).backgroundPosition;
+                const currentBgSize = window.getComputedStyle(wrapper).backgroundSize;
+                const currentBgImage = window.getComputedStyle(wrapper).backgroundImage;
+                
+                // Check parent overflow
+                let parentOverflow = 'none';
+                let parentElement = element.parentElement;
+                while (parentElement && parentElement !== document.body) {
+                    const parentOverflowStyle = window.getComputedStyle(parentElement).overflow;
+                    if (parentOverflowStyle !== 'visible') {
+                        parentOverflow = `${parentOverflowStyle} (on ${parentElement.tagName}.${parentElement.className})`;
+                        break;
+                    }
+                    parentElement = parentElement.parentElement;
+                }
+                
+                // Get wrapper bounding rect
+                const wrapperRect = wrapper.getBoundingClientRect();
+                const elementRectForCheck = elementRect || element.getBoundingClientRect();
+                
+                console.log('[updateWrapperBackgroundPosition] intro-container: Setting background', {
+                    'backgroundSize': bgSize,
+                    'backgroundPosition': bgPos,
+                    'finalSourceX': finalSourceX.toFixed(0),
+                    'finalSourceY': finalSourceY.toFixed(0),
+                    'wrapperState': {
+                        'inDOM': wrapperInDOM,
+                        'display': wrapperDisplay,
+                        'visibility': wrapperVisibility,
+                        'opacity': wrapperOpacity,
+                        'zIndex': wrapperZIndex,
+                        'position': wrapperPosition,
+                        'top': wrapperTop,
+                        'left': wrapperLeft,
+                        'width': wrapperWidth,
+                        'height': wrapperHeight,
+                        'overflow': wrapperOverflow,
+                        'rect': {
+                            'top': wrapperRect.top.toFixed(0),
+                            'left': wrapperRect.left.toFixed(0),
+                            'width': wrapperRect.width.toFixed(0),
+                            'height': wrapperRect.height.toFixed(0)
+                        }
+                    },
+                    'elementRect': {
+                        'top': elementRectForCheck.top.toFixed(0),
+                        'left': elementRectForCheck.left.toFixed(0),
+                        'width': elementRectForCheck.width.toFixed(0),
+                        'height': elementRectForCheck.height.toFixed(0)
+                    },
+                    'parentOverflow': parentOverflow,
+                    'currentBackground': {
+                        'position': currentBgPos,
+                        'size': currentBgSize,
+                        'image': currentBgImage !== 'none' ? 'set' : 'none'
+                    }
+                });
+            }
+            
+            wrapper.style.backgroundSize = bgSize;
+            wrapper.style.backgroundPosition = bgPos;
+            
+            if (isIntroContainer) {
+                // Verify it was actually set
+                const actualBgPos = wrapper.style.backgroundPosition;
+                const actualBgSize = wrapper.style.backgroundSize;
+                console.log('[updateWrapperBackgroundPosition] intro-container: After setting', {
+                    'actualBackgroundPosition': actualBgPos,
+                    'actualBackgroundSize': actualBgSize,
+                    'matchesExpected': actualBgPos === bgPos && actualBgSize === bgSize
+                });
+            }
+            
+            // Debug logging for intro-container to verify calculation
+            if (element.classList.contains('intro-container') && this.debugMode) {
+                const scrollY = window.scrollY || window.pageYOffset;
+                const scrollX = window.scrollX || window.pageXOffset;
+                console.log('[Background Position] intro-container:', {
+                    'elementViewportX': x_obj.toFixed(0),
+                    'elementViewportY': y_obj.toFixed(0),
+                    'scrollX': scrollX.toFixed(0),
+                    'scrollY': scrollY.toFixed(0),
+                    'offsetX': offsetX.toFixed(0),
+                    'offsetY': offsetY.toFixed(0),
+                    'x_bg': x_bg.toFixed(0),
+                    'y_bg': y_bg.toFixed(0),
+                    'finalSourceX': finalSourceX.toFixed(0),
+                    'finalSourceY': finalSourceY.toFixed(0),
+                    'backgroundPosition': `${-finalSourceX.toFixed(0)}px ${-finalSourceY.toFixed(0)}px`
+                });
+            }
             
             // Debug logging (only in debug mode or for specific elements)
             if (this.debugMode && (element.classList.contains('timeline-container') || 
@@ -903,16 +1037,42 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                 const rect = element.getBoundingClientRect();
                 
                 // Visibility check: Only update elements near viewport (performance optimization)
-                // Check if element is within reasonable distance of viewport
+                // IMPORTANT: Always update elements that are partially visible (spanning viewport)
+                // This ensures large elements continue updating even when their edges are far outside viewport
+                const isPartiallyVisible = rect.bottom > 0 && rect.top < viewportHeight;
+                
+                // For elements not in viewport, check if they're within margin
                 const margin = 200; // Update elements within 200px of viewport
                 const isNearViewport = rect.bottom >= -margin && 
                                      rect.top <= viewportHeight + margin &&
                                      rect.right >= -margin &&
                                      rect.left <= viewportWidth + margin;
                 
-                if (isNearViewport) {
+                // Always update if element is partially visible OR near viewport
+                if (isPartiallyVisible || isNearViewport) {
                     // Update element and collect background position updates for batching
                     const bgUpdate = this.updateElement(element, scrollY, rect);
+                    
+                    // Debug logging for intro-container
+                    if (element.classList.contains('intro-container')) {
+                        const elementData = this.elements.get(element);
+                        const updateResult = bgUpdate ? 'function' : (bgUpdate === null ? 'null' : 'undefined');
+                        console.log('[Visibility] intro-container:', {
+                            'rect.top': rect.top.toFixed(0),
+                            'rect.bottom': rect.bottom.toFixed(0),
+                            'viewportHeight': viewportHeight,
+                            'isPartiallyVisible': isPartiallyVisible,
+                            'isNearViewport': isNearViewport,
+                            'willCallUpdateElement': true,
+                            'bgUpdateReturned': updateResult,
+                            'hasElementData': !!elementData,
+                            'hasFilterWrapper': !!elementData?.filterWrapper,
+                            'hasFilterId': !!elementData?.filterId,
+                            'lastRect': elementData?._lastElementRect,
+                            'elementIsConnected': element.isConnected
+                        });
+                    }
+                    
                     if (bgUpdate) {
                         bgPositionUpdates.push(bgUpdate);
                     }
@@ -925,8 +1085,23 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                 // Batch all updates in single frame for better performance
                 // This happens after the current frame's calculations, reducing layout thrashing
                 requestAnimationFrame(() => {
-                    bgPositionUpdates.forEach(update => {
-                        update();
+                    // Debug logging for intro-container updates
+                    const introUpdates = bgPositionUpdates.filter((update, idx) => {
+                        // We can't easily identify which update is for intro-container here,
+                        // so we'll log all updates and check in updateWrapperBackgroundPosition
+                        return true;
+                    });
+                    
+                    if (introUpdates.length > 0) {
+                        console.log(`[RAF] Executing ${bgPositionUpdates.length} background position updates`);
+                    }
+                    
+                    bgPositionUpdates.forEach((update, idx) => {
+                        try {
+                            update();
+                        } catch (err) {
+                            console.error(`[RAF] Error executing update ${idx}:`, err);
+                        }
                     });
                 });
             }
@@ -934,11 +1109,17 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
 
         updateElement(element, scrollY = null, rect = null) {
             if (!element || !element.isConnected) {
+                if (element && element.classList.contains('intro-container')) {
+                    console.log('[updateElement] intro-container: element not connected or null');
+                }
                 return null;
             }
 
             const elementData = this.elements.get(element);
             if (!elementData) {
+                if (element.classList.contains('intro-container')) {
+                    console.log('[updateElement] intro-container: no elementData in Map');
+                }
                 return null;
             }
 
@@ -965,7 +1146,7 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                 return; // Will update on next frame
             }
 
-            // Calculate which region of the fixed background is behind this element
+            // Calculate which region of the background is behind this element
             const elementCenterX = rect.left + rect.width / 2;
             const elementCenterY = rect.top + rect.height / 2;
             const backgroundX = elementCenterX / viewportWidth;
@@ -1033,28 +1214,71 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             if (elementData.filterId) {
                 GlassSVGFilter.updateFilterScale(element, scale);
                 
-                // Update wrapper background position on scroll (for fixed background)
-                // Since background-attachment: fixed, the background is fixed to viewport
+                // Update wrapper background position on scroll
+                // With background-attachment: scroll, we use viewport coordinates directly
+                // Viewport coordinates change on scroll, ensuring background updates correctly
                 // Performance: Use cached rect, batch updates, optimize threshold
                 if (elementData.filterWrapper) {
                     const lastRect = elementData._lastElementRect;
                     
+                    // Check if element is partially visible (spans viewport boundaries)
+                    // For partially visible elements, always update to ensure smooth scrolling
+                    const isPartiallyVisible = rect.bottom > 0 && rect.top < window.innerHeight;
+                    
                     // Check if position changed (optimized threshold: 1px for better performance)
-                    // Still smooth but reduces update frequency
+                    // Always update if partially visible (even if change is small) to handle edge cases
                     const positionChanged = !lastRect || 
+                        isPartiallyVisible || // Force update for partially visible elements
                         Math.abs(rect.left - lastRect.left) > 1.0 || 
                         Math.abs(rect.top - lastRect.top) > 1.0;
+                    
+                    // Debug logging for intro-container
+                    if (element.classList.contains('intro-container')) {
+                        console.log('[updateElement] intro-container filterWrapper check:', {
+                            'hasFilterWrapper': true,
+                            'isPartiallyVisible': isPartiallyVisible,
+                            'rect.top': rect.top.toFixed(0),
+                            'lastRect': lastRect,
+                            'positionChanged': positionChanged,
+                            'willReturnUpdate': positionChanged
+                        });
+                    }
                     
                     if (positionChanged) {
                         // Return update function for batching (single RAF loop optimization)
                         // This avoids nested RAF calls and batches DOM updates
+                        const isIntroContainer = element.classList.contains('intro-container');
                         return () => {
+                            if (isIntroContainer) {
+                                console.log('[RAF Update] intro-container: Executing background position update', {
+                                    'rect.top': rect.top.toFixed(0),
+                                    'rect.left': rect.left.toFixed(0)
+                                });
+                            }
+                            
                             // Update background position using cached rect (performance optimization)
-                            this.updateWrapperBackgroundPosition(element, elementData.filterWrapper, rect).catch(err => {
-                                console.warn('Failed to update wrapper background position:', err);
-                            });
-                            elementData._lastElementRect = { left: rect.left, top: rect.top };
+                            this.updateWrapperBackgroundPosition(element, elementData.filterWrapper, rect)
+                                .then(() => {
+                                    if (isIntroContainer) {
+                                        console.log('[RAF Update] intro-container: Background position updated successfully');
+                                    }
+                                    elementData._lastElementRect = { left: rect.left, top: rect.top };
+                                })
+                                .catch(err => {
+                                    console.warn('[RAF Update] Failed to update wrapper background position:', err);
+                                    if (isIntroContainer) {
+                                        console.error('[RAF Update] intro-container update failed:', err);
+                                    }
+                                });
                         };
+                    } else {
+                        if (element.classList.contains('intro-container')) {
+                            console.log('[updateElement] intro-container: positionChanged=false, not updating');
+                        }
+                    }
+                } else {
+                    if (element.classList.contains('intro-container')) {
+                        console.log('[updateElement] intro-container: NO filterWrapper!');
                     }
                 }
             }
