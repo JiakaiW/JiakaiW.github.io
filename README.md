@@ -6,7 +6,7 @@ A modern, modular Jekyll-based personal website showcasing research themes, proj
 
 To run the site locally:
 ```bash
-jekyll serve -l -H localhost
+bundle exec jekyll serve -l -H localhost
 ```
 
 ## Documentation

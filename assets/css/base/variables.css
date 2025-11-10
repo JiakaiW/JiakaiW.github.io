@@ -149,12 +149,20 @@
     --glass-dark-bg-opacity-base: 0.2;
     --glass-dark-border-opacity: 0.2;
     
-    /* Border Radius */
-    --radius-small: 12px;
-    --radius-base: 16px;
-    --radius-medium: 20px;
-    --radius-large: 24px;
-    --radius-xl: 30px;
+    /* Border Radius - Centralized control for all rounded corners */
+    --radius-xs: 16px;       /* Small elements: badges, inline code */
+    --radius-sm: 24px;       /* Small containers: buttons, inputs */
+    --radius-base: 32px;     /* Default container radius */
+    --radius-badge: 24px;    /* Badges and small tags */
+    --radius-md: 40px;       /* Medium containers: cards, news items */
+    --radius-lg: 48px;       /* Large containers: intro, gallery */
+    --radius-xl: 56px;       /* Extra large: theme blocks, timeline */
+    --radius-2xl: 64px;      /* Maximum: overlays, expanded cards */
+    
+    /* Legacy aliases for backward compatibility */
+    --radius-small: var(--radius-base);
+    --radius-medium: var(--radius-lg);
+    --radius-large: var(--radius-xl);
     
     /* Spacing */
     --spacing-xs: 0.25em;

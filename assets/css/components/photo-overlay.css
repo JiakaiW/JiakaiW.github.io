@@ -53,7 +53,7 @@ body .photo-overlay:not(.active) {
     max-width: 80vw;
     max-height: 80vh;
     background: var(--color-dark-grey);
-    border-radius: 15px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     z-index: 1001;

@@ -14,7 +14,7 @@
     backdrop-filter: blur(var(--glass-blur-docs)) saturate(var(--glass-saturation-docs));
     -webkit-backdrop-filter: blur(var(--glass-blur-docs)) saturate(var(--glass-saturation-docs));
     border: 1px solid var(--glass-border);
-    border-radius: 15px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 

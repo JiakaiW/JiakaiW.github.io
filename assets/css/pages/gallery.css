@@ -63,7 +63,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     padding: 2px; /* Matches border width for rim effect */
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 0.3) 0%,
@@ -121,7 +121,7 @@
     /* Border radius = container radius (20px) - border width (2px) = 18px
        This ensures concentric rounded corners where the radius difference 
        equals the distance from border edge to image edge */
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
     transition: transform 0.3s ease;
     position: relative;
     z-index: 1;
@@ -149,7 +149,7 @@
     background: linear-gradient(135deg, rgba(93, 143, 179, 0.8) 0%, rgba(46, 46, 46, 0.9) 100%);
     color: white;
     border: 2px solid rgba(93, 143, 179, 0.5);
-    border-radius: 10px;
+    border-radius: var(--radius-badge);
     padding: 10px 15px;
     cursor: pointer;
     z-index: 1;

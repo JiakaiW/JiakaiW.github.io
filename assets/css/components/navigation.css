@@ -67,7 +67,7 @@ nav {
     background-color: var(--color-white);
     margin: 3px 0;
     transition: 0.3s;
-    border-radius: 3px;
+    border-radius: var(--radius-xs);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -107,7 +107,7 @@ nav {
     text-decoration: none;
     font-size: 1.2em;
     padding: 0.5em 1em;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     transition: all 0.3s ease;
     display: inline-block;
     position: relative;
@@ -171,7 +171,7 @@ nav {
     -webkit-backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
     border: 1px solid rgba(255, 255, 255, 0.2);
     min-width: 220px;
-    border-radius: 12px;
+    border-radius: var(--radius-base);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;

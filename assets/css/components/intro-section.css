@@ -25,6 +25,7 @@
     
     border-radius: var(--radius-large);
     border: 1px solid var(--glass-border);
+    overflow: hidden; /* Clip distorted background to rounded corners */
     
     box-shadow: 
         var(--shadow-lg),
@@ -66,7 +67,7 @@
 .intro-image img {
     width: 100%;
     height: auto;
-    border-radius: 15px;
+    border-radius: var(--radius-md);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     transform: scale(0.75);
@@ -99,7 +100,7 @@
     white-space: nowrap;
     background: linear-gradient(135deg, rgba(93, 143, 179, 0.9) 0%, rgba(137, 207, 240, 0.9) 100%);
     padding: 0.3em 0.6em;
-    border-radius: 10px;
+    border-radius: var(--radius-badge);
     backdrop-filter: blur(5px);
 }
 

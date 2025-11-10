@@ -43,7 +43,7 @@
     backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-intro));
     -webkit-backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-intro));
     border: 1px solid var(--glass-border);
-    border-radius: 15px;
+    border-radius: var(--radius-md);
     padding: 1.5em;
     transition: all var(--transition-slow);
     position: relative;
@@ -63,7 +63,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: 15px;
+    border-radius: var(--radius-md);
     padding: 1px;
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 0.3) 0%,
@@ -88,7 +88,7 @@
     content: '';
     position: absolute;
     inset: -1px;
-    border-radius: 15px;
+    border-radius: var(--radius-md);
     background: radial-gradient(circle at 30% 20%, 
         rgba(137, 207, 240, 0.15) 0%,
         transparent 50%);
@@ -142,7 +142,7 @@
 .news-category {
     display: inline-block;
     padding: 0.3em 0.8em;
-    border-radius: 12px;
+    border-radius: var(--radius-base);
     font-size: 0.75em;
     font-weight: 600;
     text-transform: uppercase;
