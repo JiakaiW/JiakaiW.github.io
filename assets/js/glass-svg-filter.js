@@ -30,12 +30,14 @@
         
         // Chromium browsers support SVG filters in backdrop-filter
         // Firefox supports SVG filters in regular filter property (we'll use pseudo-element approach)
-        // Safari doesn't support SVG filters in backdrop-filter
+        // Safari: Disabled SVG filters due to severe performance issues - use basic CSS backdrop-filter only
         return {
-            supportsBackdropFilter: isChromium,
-            supportsRegularFilter: isChromium || isFirefox,
+            supportsBackdropFilter: isChromium || isSafari, // Safari supports basic backdrop-filter
+            supportsRegularFilter: isChromium || isFirefox, // SVG filters via filter property in Chromium/Firefox only
+            supportsSVGFilters: isChromium || isFirefox, // Explicit flag - Safari excluded due to performance
             isFirefox: isFirefox,
-            isChromium: isChromium
+            isChromium: isChromium,
+            isSafari: isSafari
         };
     }
 
@@ -44,7 +46,7 @@
 let manager = null;
 
 if (svgFilterSupport.supportsRegularFilter) {
-    if (svgFilterSupport.supportsBackdropFilter) {
+    if (svgFilterSupport.supportsBackdropFilter && svgFilterSupport.isChromium) {
         console.log('Initializing SVG filter manager for backdrop-filter (Chrome/Edge)');
     } else {
         console.log('Initializing SVG filter manager for regular filter (Firefox) - using pseudo-element approach');

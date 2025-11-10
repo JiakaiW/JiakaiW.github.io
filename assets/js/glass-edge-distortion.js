@@ -25,7 +25,15 @@ if (!GlassSVGFilter) {
     
 let glassEdgeDistortion = null;
 
-if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
+// Initialize glass effects if backdrop-filter is supported
+// SVG filters are optional - Safari can use basic CSS backdrop-filter without SVG distortion
+if (supportsBackdropFilter) {
+    // Check if we have SVG filter support (Chrome/Firefox) or just basic backdrop-filter (Safari)
+    const hasSVGFilterSupport = GlassDisplacementGenerator && GlassSVGFilter;
+    
+    if (!hasSVGFilterSupport) {
+        console.log('SVG filters not available - Safari will use basic CSS backdrop-filter only');
+    }
     class GlassEdgeDistortion {
         constructor() {
             this.elements = new Map(); // element -> {filterId, lastSize, mapData}
@@ -38,6 +46,24 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             // Debug flag: set to true to enable verbose logging
             // Can be enabled via: glassEdgeDistortion.debugMode = true (when imported)
             this.debugMode = false;
+            
+            // Browser detection for performance optimizations
+            const ua = navigator.userAgent;
+            const vendor = navigator.vendor || '';
+            this.isFirefox = /Firefox/.test(ua);
+            this.isSafari = /Safari/.test(ua) && /Apple/.test(vendor) && !/Chrome/.test(ua);
+            this.hasSVGFilterSupport = hasSVGFilterSupport; // From outer scope
+            
+            // FPS counter for performance measurement (can be enabled independently)
+            this.fpsCounter = {
+                frameTimes: [],
+                lastFrameTime: performance.now(),
+                lastLogTime: performance.now(),
+                minFps: Infinity,
+                maxFps: 0,
+                frameCount: 0,
+                enabled: false // Enable via: glassEdgeDistortion.fpsCounter.enabled = true
+            };
             
             // Performance optimization: Cache viewport dimensions and background scaling
             // These only change on window resize, so we cache them to avoid repeated calculations
@@ -154,14 +180,30 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                 });
             });
 
-            // Set up scroll tracking with single RAF loop (performance optimization)
-            // All updates (filter scale + background position) happen in one RAF frame
+            // Set up scroll tracking with RAF loop (performance optimization)
+            // Filter scale updates happen in RAF frame, background position updates deferred to next frame
+            // This spreads work across frames for better performance and may improve visual consistency
+            // Browser-specific performance optimizations
             let ticking = false;
+            let lastUpdateTime = 0;
+            const firefoxThrottleMs = 25; // ~40fps max for Firefox (increased from 16ms for better performance)
+            
             const handleScroll = () => {
+                const now = performance.now();
+                const timeSinceLastUpdate = now - lastUpdateTime;
+                
+                // Firefox: throttle to max 40fps to improve performance (SVG filters are slower in Firefox)
+                if (this.isFirefox && timeSinceLastUpdate < firefoxThrottleMs) {
+                    return; // Skip this scroll event
+                }
+                
+                // Safari: No throttling needed - SVG filters are disabled, only CSS backdrop-filter
+                
                 if (!ticking) {
                     window.requestAnimationFrame(() => {
-                        // Batch all updates in single frame for better performance
+                        // Execute all updates synchronously in single frame for better performance and visual sync
                         this.updateAllElements();
+                        lastUpdateTime = performance.now();
                         ticking = false;
                     });
                     ticking = true;
@@ -228,6 +270,25 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
         }
 
         initializeElementFilter(element) {
+            // Safari: Disable SVG filters entirely due to severe performance issues
+            // Use basic CSS backdrop-filter only (blur + saturation, no distortion)
+            if (!this.hasSVGFilterSupport || this.isSafari) {
+                // Apply basic CSS backdrop-filter fallback
+                const blurAmount = element.classList.contains('doc-content') ? '1px' : '5px';
+                element.style.backdropFilter = `blur(${blurAmount}) saturate(180%)`;
+                element.style.webkitBackdropFilter = `blur(${blurAmount}) saturate(180%)`;
+                
+                // Store element data without filterId
+                const elementData = this.elements.get(element);
+                if (elementData) {
+                    elementData.filterId = null; // No SVG filter
+                    elementData.filterWrapper = null; // No wrapper needed
+                    elementData.lastWidth = Math.round(element.getBoundingClientRect().width);
+                    elementData.lastHeight = Math.round(element.getBoundingClientRect().height);
+                }
+                return; // Skip SVG filter initialization
+            }
+            
             const rect = element.getBoundingClientRect();
             const width = Math.round(rect.width);
             const height = Math.round(rect.height);
@@ -242,20 +303,26 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             if (!filterId) {
                 // Generate displacement map for new size
                 // Reduced bezel width to 3% for very subtle distorted border region
+                // Firefox: Use lower resolution (96) for better performance
+                const mapResolution = this.isFirefox ? 96 : 128;
                 mapData = GlassDisplacementGenerator.generateDisplacementMap(
                     width,
                     height,
                     0.03, // bezel width (3% - reduced from 8% for very subtle border)
-                    128   // map resolution
+                    mapResolution   // Lower resolution for Firefox
                 );
 
                 // Create SVG filter with moderate scale for subtle but visible distortion
                 // Scale needs to be high because displacement map values are normalized
                 // feDisplacementMap scale multiplies the displacement: scale * (mapValue - 128) / 128
                 // Reduced from 120.0 to 50.0 for less dramatic effect
-                const initialScale = 50.0; // Reduced from 120.0 to 50.0 for less dramatic effect
+                // Firefox: Use lower scale for better performance
+                const initialScale = this.isFirefox ? 40.0 : 50.0;
                 // Tiny blur for doc-content elements, normal blur for others
-                const blurAmount = element.classList.contains('doc-content') ? 1 : 5;
+                // Firefox: Reduce blur for better performance
+                const blurAmount = element.classList.contains('doc-content') 
+                    ? (this.isFirefox ? 0 : 1) 
+                    : (this.isFirefox ? 3 : 5);
                 filterId = GlassSVGFilter.createFilter(element, mapData, {
                     scale: initialScale,
                     specularOpacity: 0.4,
@@ -429,7 +496,8 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                 }
             }
             
-            // Set up wrapper with filter - background position will be calculated and updated
+            // Set up wrapper with filter - background position will be calculated and updated synchronously
+            // Updates happen in same frame as filter scale to eliminate 1-frame lag
             // IMPORTANT: Use !important to override any CSS rules that might affect this wrapper
             // Some elements (like .timeline-container) have CSS rules that apply to all children
             // CRITICAL: Explicitly set border-radius to match parent for proper rounded corners
@@ -484,7 +552,7 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
          */
     async updateWrapperBackgroundPosition(element, wrapper, elementRect = null) {
         const isIntroContainer = element.classList.contains('intro-container');
-        if (isIntroContainer) {
+        if (this.debugMode && isIntroContainer) {
             console.log('[updateWrapperBackgroundPosition] intro-container: Called', {
                 'elementRect': elementRect ? { top: elementRect.top.toFixed(0), left: elementRect.left.toFixed(0) } : 'null'
             });
@@ -793,7 +861,7 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             const bgSize = `${scaledWidth}px ${scaledHeight}px`;
             const bgPos = `${-finalSourceX}px ${-finalSourceY}px`;
             
-            if (isIntroContainer) {
+            if (this.debugMode && isIntroContainer) {
                 // Check wrapper state before setting
                 const wrapperInDOM = wrapper.isConnected;
                 const wrapperDisplay = window.getComputedStyle(wrapper).display;
@@ -868,7 +936,7 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             wrapper.style.backgroundSize = bgSize;
             wrapper.style.backgroundPosition = bgPos;
             
-            if (isIntroContainer) {
+            if (this.debugMode && isIntroContainer) {
                 // Verify it was actually set
                 const actualBgPos = wrapper.style.backgroundPosition;
                 const actualBgSize = wrapper.style.backgroundSize;
@@ -1018,6 +1086,45 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
         }
 
         updateAllElements() {
+            // Measure FPS if enabled (independent of debugMode)
+            const now = performance.now();
+            if (this.fpsCounter.enabled) {
+                const frameTime = now - this.fpsCounter.lastFrameTime;
+                this.fpsCounter.lastFrameTime = now;
+                
+                if (frameTime > 0) {
+                    const fps = 1000 / frameTime;
+                    this.fpsCounter.frameTimes.push(fps);
+                    this.fpsCounter.frameCount++;
+                    
+                    // Keep only last 60 frames (1 second at 60fps)
+                    if (this.fpsCounter.frameTimes.length > 60) {
+                        this.fpsCounter.frameTimes.shift();
+                    }
+                    
+                    // Track min/max
+                    if (fps < this.fpsCounter.minFps) {
+                        this.fpsCounter.minFps = fps;
+                    }
+                    if (fps > this.fpsCounter.maxFps) {
+                        this.fpsCounter.maxFps = fps;
+                    }
+                    
+                    // Log FPS every 2 seconds (make it stand out)
+                    if (now - this.fpsCounter.lastLogTime > 2000) {
+                        const avgFps = this.fpsCounter.frameTimes.length > 0 
+                            ? this.fpsCounter.frameTimes.reduce((a, b) => a + b, 0) / this.fpsCounter.frameTimes.length 
+                            : 0;
+                        console.log(`%c[Glass FPS] Current: ${fps.toFixed(1)} | Avg: ${avgFps.toFixed(1)} | Min: ${this.fpsCounter.minFps.toFixed(1)} | Max: ${this.fpsCounter.maxFps.toFixed(1)} | Frames: ${this.fpsCounter.frameCount}`, 'color: #00ff00; font-weight: bold; font-size: 14px;');
+                        this.fpsCounter.lastLogTime = now;
+                    }
+                }
+            } else if (!this.fpsCounter.enabled && this.fpsCounter.frameTimes.length === 0) {
+                // Initialize FPS counter timing on first call
+                this.fpsCounter.lastFrameTime = now;
+                this.fpsCounter.lastLogTime = now;
+            }
+            
             const scrollY = window.scrollY || window.pageYOffset;
             const viewportHeight = window.innerHeight;
             const viewportWidth = window.innerWidth;
@@ -1053,8 +1160,8 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                     // Update element and collect background position updates for batching
                     const bgUpdate = this.updateElement(element, scrollY, rect);
                     
-                    // Debug logging for intro-container
-                    if (element.classList.contains('intro-container')) {
+                    // Debug logging for intro-container (only in debug mode)
+                    if (this.debugMode && element.classList.contains('intro-container')) {
                         const elementData = this.elements.get(element);
                         const updateResult = bgUpdate ? 'function' : (bgUpdate === null ? 'null' : 'undefined');
                         console.log('[Visibility] intro-container:', {
@@ -1079,28 +1186,20 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                 }
             });
             
-            // Batch apply all background position updates together (reduces reflows)
-            // Use RAF to batch updates in next frame for smooth performance
+            // Execute background position updates asynchronously (deferred to next frame)
+            // This spreads work across frames for better performance in all browsers
+            // Additionally, deferring background position updates may improve visual consistency:
+            // - Filter distortion is processed first (expensive SVG computation)
+            // - Background position updates after filter is fully processed
+            // - This ensures the distorted image is ready before positioning, potentially reducing visual desync
+            // Trade-off: 1-frame lag, but smoother performance and potentially better visual consistency
             if (bgPositionUpdates.length > 0) {
-                // Batch all updates in single frame for better performance
-                // This happens after the current frame's calculations, reducing layout thrashing
                 requestAnimationFrame(() => {
-                    // Debug logging for intro-container updates
-                    const introUpdates = bgPositionUpdates.filter((update, idx) => {
-                        // We can't easily identify which update is for intro-container here,
-                        // so we'll log all updates and check in updateWrapperBackgroundPosition
-                        return true;
-                    });
-                    
-                    if (introUpdates.length > 0) {
-                        console.log(`[RAF] Executing ${bgPositionUpdates.length} background position updates`);
-                    }
-                    
                     bgPositionUpdates.forEach((update, idx) => {
                         try {
                             update();
                         } catch (err) {
-                            console.error(`[RAF] Error executing update ${idx}:`, err);
+                            console.error(`[Update] Error executing background position update ${idx}:`, err);
                         }
                     });
                 });
@@ -1211,29 +1310,35 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
             elementData._targetAlphaY = clampedBaseAlpha;
 
             // Update filter scale (this is the main scroll-based update)
-            if (elementData.filterId) {
+            // Skip if no SVG filter support (Safari) or no filterId
+            if (elementData.filterId && this.hasSVGFilterSupport) {
                 GlassSVGFilter.updateFilterScale(element, scale);
                 
                 // Update wrapper background position on scroll
+                // Background position updates are deferred to next frame (async) for better performance
+                // This spreads work across frames and may improve visual consistency by ensuring
+                // filter distortion is fully processed before background position updates
                 // With background-attachment: scroll, we use viewport coordinates directly
                 // Viewport coordinates change on scroll, ensuring background updates correctly
                 // Performance: Use cached rect, batch updates, optimize threshold
-                if (elementData.filterWrapper) {
+                // Skip if no wrapper (Safari uses basic CSS backdrop-filter only)
+                if (elementData.filterWrapper && this.hasSVGFilterSupport) {
                     const lastRect = elementData._lastElementRect;
                     
                     // Check if element is partially visible (spans viewport boundaries)
                     // For partially visible elements, always update to ensure smooth scrolling
                     const isPartiallyVisible = rect.bottom > 0 && rect.top < window.innerHeight;
                     
-                    // Check if position changed (optimized threshold: 1px for better performance)
-                    // Always update if partially visible (even if change is small) to handle edge cases
+                    // Check if position changed (optimized threshold for performance)
+                    // Firefox: Use larger threshold (2px) to reduce update frequency
+                    const positionThreshold = this.isFirefox ? 2.0 : 1.0;
                     const positionChanged = !lastRect || 
-                        isPartiallyVisible || // Force update for partially visible elements
-                        Math.abs(rect.left - lastRect.left) > 1.0 || 
-                        Math.abs(rect.top - lastRect.top) > 1.0;
+                        (isPartiallyVisible && !this.isFirefox) || // Firefox: Don't force update for partially visible
+                        Math.abs(rect.left - lastRect.left) > positionThreshold || 
+                        Math.abs(rect.top - lastRect.top) > positionThreshold;
                     
-                    // Debug logging for intro-container
-                    if (element.classList.contains('intro-container')) {
+                    // Debug logging for intro-container (only in debug mode)
+                    if (this.debugMode && element.classList.contains('intro-container')) {
                         console.log('[updateElement] intro-container filterWrapper check:', {
                             'hasFilterWrapper': true,
                             'isPartiallyVisible': isPartiallyVisible,
@@ -1249,7 +1354,7 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                         // This avoids nested RAF calls and batches DOM updates
                         const isIntroContainer = element.classList.contains('intro-container');
                         return () => {
-                            if (isIntroContainer) {
+                            if (this.debugMode && isIntroContainer) {
                                 console.log('[RAF Update] intro-container: Executing background position update', {
                                     'rect.top': rect.top.toFixed(0),
                                     'rect.left': rect.left.toFixed(0)
@@ -1259,7 +1364,7 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                             // Update background position using cached rect (performance optimization)
                             this.updateWrapperBackgroundPosition(element, elementData.filterWrapper, rect)
                                 .then(() => {
-                                    if (isIntroContainer) {
+                                    if (this.debugMode && isIntroContainer) {
                                         console.log('[RAF Update] intro-container: Background position updated successfully');
                                     }
                                     elementData._lastElementRect = { left: rect.left, top: rect.top };
@@ -1272,12 +1377,12 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
                                 });
                         };
                     } else {
-                        if (element.classList.contains('intro-container')) {
+                        if (this.debugMode && element.classList.contains('intro-container')) {
                             console.log('[updateElement] intro-container: positionChanged=false, not updating');
                         }
                     }
                 } else {
-                    if (element.classList.contains('intro-container')) {
+                    if (this.debugMode && element.classList.contains('intro-container')) {
                         console.log('[updateElement] intro-container: NO filterWrapper!');
                     }
                 }
@@ -1366,6 +1471,12 @@ if (GlassDisplacementGenerator && GlassSVGFilter && supportsBackdropFilter) {
 
     // Initialize
     glassEdgeDistortion = new GlassEdgeDistortion();
+    
+    // Make available globally for console debugging
+    // Access via: window.glassEdgeDistortion
+    if (typeof window !== 'undefined') {
+        window.glassEdgeDistortion = glassEdgeDistortion;
+    }
 }
 
 // Export as ES6 module (or null if dependencies not available)
