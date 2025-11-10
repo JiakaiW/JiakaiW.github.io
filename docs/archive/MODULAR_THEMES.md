@@ -26,15 +26,15 @@ The research themes section has been refactored from inline HTML to a modular, d
 ### After (Modular - 25 lines)
 
 ```html
-{% for theme in site.data.research_themes %}
+{% raw %}{% for theme in site.data.research_themes %}
 <div class="theme-block" data-theme="{{ theme.id }}">
     <div class="theme-icon">
-        {% include_relative {{ theme.icon }} %}
+        {% include components/theme-block.html theme=theme %}
     </div>
     <h3>{{ theme.title }}</h3>
     <p>{{ theme.description }}</p>
 </div>
-{% endfor %}
+{% endfor %}{% endraw %}
 ```
 
 ## File Organization

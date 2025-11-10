@@ -9,8 +9,16 @@
 <div class="theme-block" data-theme="{{ theme.id }}" data-action="expand-theme" data-action-param="{{ theme.id }}">
     <div class="theme-info">
         <div class="theme-icon">
-            {% assign icon_path = theme.icon | remove_first: '/' %}
-            {% include {{ icon_path }} %}
+            {% assign icon_filename = theme.icon | split: '/' | last %}
+            {% if icon_filename == 'superconducting.svg' %}
+                {% include icons/themes/superconducting.svg %}
+            {% elsif icon_filename == 'qec.svg' %}
+                {% include icons/themes/qec.svg %}
+            {% elsif icon_filename == 'tensor.svg' %}
+                {% include icons/themes/tensor.svg %}
+            {% elsif icon_filename == 'neural.svg' %}
+                {% include icons/themes/neural.svg %}
+            {% endif %}
         </div>
         <h3 class="theme-title">{{ theme.title }}</h3>
         <p class="theme-description">{{ theme.description }}</p>

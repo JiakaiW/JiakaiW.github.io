@@ -48,27 +48,7 @@ title: Home
     
     <div class="theme-grid">
         {% for theme in site.data.research_themes %}
-        <div class="theme-block" data-theme="{{ theme.id }}" data-action="expand-theme" data-action-param="{{ theme.id }}">
-            <div class="theme-info">
-                <div class="theme-icon">
-                    {% include_relative {{ theme.icon }} %}
-                </div>
-                <h3 class="theme-title">{{ theme.title }}</h3>
-                <p class="theme-description">{{ theme.description }}</p>
-                <div class="theme-stats">
-                    {% if theme.stats.completed > 0 %}
-                    <span class="stat"><strong>{{ theme.stats.completed }}</strong> Completed</span>
-                    {% endif %}
-                    {% if theme.stats.ongoing > 0 %}
-                    <span class="stat"><strong>{{ theme.stats.ongoing }}</strong> Ongoing</span>
-                    {% endif %}
-                    {% if theme.stats.potential > 0 %}
-                    <span class="stat"><strong>{{ theme.stats.potential }}</strong> Potential</span>
-                    {% endif %}
-                </div>
-            </div>
-            <div id="{{ theme.id }}-preview"></div>
-        </div>
+            {% include components/theme-block.html theme=theme %}
         {% endfor %}
     </div>
 </section>

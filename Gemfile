@@ -2,15 +2,9 @@
 
 source "https://rubygems.org"
 
-# gem "jekyll"
-# gem "webrick"
-# gem "http_parser.rb", "~> 0.6.0"
-# gem "eventmachine", "~> 1.2.7"
-
-gem "jekyll", "~> 4.2"
+gem "github-pages", group: :jekyll_plugins
 
 group :jekyll_plugins do
   gem "jekyll-timeago", "~> 0.13.1"
 end
-
-gem "sass-embedded", "~> 1.69.5"
+gem "faraday-retry", "~> 2.3"
