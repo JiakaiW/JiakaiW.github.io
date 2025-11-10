@@ -164,8 +164,67 @@ if (svgFilterSupport.supportsRegularFilter) {
             feColorMatrix.setAttribute('in', 'displaced');
             feColorMatrix.setAttribute('type', 'saturate');
             feColorMatrix.setAttribute('values', '1.8'); // 180% saturation
-            // Output directly (no result attribute means it's the final output)
+            feColorMatrix.setAttribute('result', 'saturated');
             filter.appendChild(feColorMatrix);
+
+            // Create specular highlight using specular lighting
+            // Convert displacement map to grayscale for use as surface normal
+            const feColorMatrixToGray = document.createElementNS('http://www.w3.org/2000/svg', 'feColorMatrix');
+            feColorMatrixToGray.setAttribute('in', 'displacementMap');
+            feColorMatrixToGray.setAttribute('type', 'matrix');
+            // Convert to grayscale using luminance weights
+            feColorMatrixToGray.setAttribute('values', '0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0');
+            feColorMatrixToGray.setAttribute('result', 'normalMap');
+            filter.appendChild(feColorMatrixToGray);
+
+            // Create specular lighting effect
+            const feSpecularLighting = document.createElementNS('http://www.w3.org/2000/svg', 'feSpecularLighting');
+            feSpecularLighting.setAttribute('in', 'normalMap');
+            feSpecularLighting.setAttribute('surfaceScale', '3');
+            feSpecularLighting.setAttribute('specularConstant', '1.2');
+            feSpecularLighting.setAttribute('specularExponent', '25');
+            feSpecularLighting.setAttribute('lighting-color', 'white');
+            feSpecularLighting.setAttribute('result', 'specularLight');
+            
+            // Add distant light positioned top-left (typical light source)
+            const feDistantLight = document.createElementNS('http://www.w3.org/2000/svg', 'feDistantLight');
+            feDistantLight.setAttribute('azimuth', '225'); // Top-left direction (225 degrees)
+            feDistantLight.setAttribute('elevation', '60'); // Angle from horizontal
+            feSpecularLighting.appendChild(feDistantLight);
+            filter.appendChild(feSpecularLighting);
+
+            // Apply blur to specular highlight for softness
+            const feSpecularBlur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
+            feSpecularBlur.setAttribute('in', 'specularLight');
+            feSpecularBlur.setAttribute('stdDeviation', specularBlur.toString());
+            feSpecularBlur.setAttribute('result', 'specularBlurred');
+            filter.appendChild(feSpecularBlur);
+
+            // Boost saturation of specular highlight
+            const feSpecularSaturation = document.createElementNS('http://www.w3.org/2000/svg', 'feColorMatrix');
+            feSpecularSaturation.setAttribute('in', 'specularBlurred');
+            feSpecularSaturation.setAttribute('type', 'saturate');
+            feSpecularSaturation.setAttribute('values', specularSaturation.toString());
+            feSpecularSaturation.setAttribute('result', 'specularSaturated');
+            filter.appendChild(feSpecularSaturation);
+
+            // Apply opacity to specular highlight
+            const feSpecularOpacity = document.createElementNS('http://www.w3.org/2000/svg', 'feColorMatrix');
+            feSpecularOpacity.setAttribute('in', 'specularSaturated');
+            feSpecularOpacity.setAttribute('type', 'matrix');
+            // Matrix: [R, G, B, A, 0] format - multiply alpha by opacity
+            const opacityMatrix = `1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${specularOpacity} 0`;
+            feSpecularOpacity.setAttribute('values', opacityMatrix);
+            feSpecularOpacity.setAttribute('result', 'specularFinal');
+            filter.appendChild(feSpecularOpacity);
+
+            // Composite specular highlight on top of saturated background
+            const feComposite = document.createElementNS('http://www.w3.org/2000/svg', 'feComposite');
+            feComposite.setAttribute('in', 'specularFinal');
+            feComposite.setAttribute('in2', 'saturated');
+            feComposite.setAttribute('operator', 'over'); // Overlay mode
+            // Output directly (no result attribute means it's the final output)
+            filter.appendChild(feComposite);
 
             // Add filter to defs
             this.svgDefs.appendChild(filter);
@@ -183,6 +242,13 @@ if (svgFilterSupport.supportsRegularFilter) {
                 element: filter,
                 feImage,
                 feDisplacementMap,
+                feColorMatrixToGray,
+                feSpecularLighting,
+                feDistantLight,
+                feSpecularBlur,
+                feSpecularSaturation,
+                feSpecularOpacity,
+                feComposite,
                 mapData,
                 options
             });
@@ -268,6 +334,44 @@ if (svgFilterSupport.supportsRegularFilter) {
             const filterData = this.filters.get(filterId);
             if (filterData) {
                 filterData.feDisplacementMap.setAttribute('scale', scale.toString());
+            }
+        }
+
+        /**
+         * Update specular highlight parameters
+         * @param {HTMLElement} element - Glass element
+         * @param {Object} params - Specular highlight parameters
+         * @param {number} params.opacity - Specular opacity (0-1)
+         * @param {number} params.saturation - Specular saturation multiplier
+         * @param {number} params.blur - Specular blur amount
+         */
+        updateSpecularHighlight(element, params = {}) {
+            const filterId = this.getFilterId(element);
+            if (!filterId) return;
+
+            const filterData = this.filters.get(filterId);
+            if (!filterData) return;
+
+            const { opacity, saturation, blur } = params;
+
+            if (opacity !== undefined && filterData.feSpecularOpacity) {
+                const opacityMatrix = `1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${opacity} 0`;
+                filterData.feSpecularOpacity.setAttribute('values', opacityMatrix);
+            }
+
+            if (saturation !== undefined && filterData.feSpecularSaturation) {
+                filterData.feSpecularSaturation.setAttribute('values', saturation.toString());
+            }
+
+            if (blur !== undefined && filterData.feSpecularBlur) {
+                filterData.feSpecularBlur.setAttribute('stdDeviation', blur.toString());
+            }
+
+            // Update stored options
+            if (filterData.options) {
+                if (opacity !== undefined) filterData.options.specularOpacity = opacity;
+                if (saturation !== undefined) filterData.options.specularSaturation = saturation;
+                if (blur !== undefined) filterData.options.specularBlur = blur;
             }
         }
 
