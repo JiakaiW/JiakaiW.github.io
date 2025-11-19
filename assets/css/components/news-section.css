@@ -28,7 +28,7 @@
         grid-template-columns: 1fr;
         gap: 1em;
     }
-    
+
     .news-section {
         padding: 0 0.5em;
     }
@@ -36,10 +36,10 @@
 
 .news-item {
     /* Extends glass-base with news-specific styling */
-    background: linear-gradient(135deg, 
-        rgba(var(--glass-primary-rgb), var(--glass-bg-opacity-base)) 0%, 
-        rgba(var(--glass-secondary-rgb), 0.08) 50%,
-        rgba(var(--glass-accent-rgb), 0.3) 100%);
+    background: linear-gradient(135deg,
+            rgba(var(--glass-primary-rgb), var(--glass-bg-opacity-base)) 0%,
+            rgba(var(--glass-secondary-rgb), 0.08) 50%,
+            rgba(var(--glass-accent-rgb), 0.3) 100%);
     backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-intro));
     -webkit-backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-intro));
     border: 1px solid var(--glass-border);
@@ -47,12 +47,14 @@
     padding: 1.5em;
     transition: all var(--transition-slow);
     position: relative;
+    top: 0;
+    /* Ensure top transition works */
     overflow: hidden;
     opacity: 0;
     animation: newsItemFadeIn 0.6s ease-out forwards;
     animation-delay: calc(var(--item-index, 0) * 0.1s);
     isolation: isolate;
-    box-shadow: 
+    box-shadow:
         var(--shadow-lg),
         0 2px 8px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -65,16 +67,16 @@
     inset: 0;
     border-radius: var(--radius-md);
     padding: 1px;
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.3) 0%,
-        rgba(255, 255, 255, 0.05) 50%,
-        rgba(255, 255, 255, 0) 100%);
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0.05) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
-    mask: 
-        linear-gradient(#fff 0 0) content-box, 
+    mask:
+        linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
     mask-composite: exclude;
     opacity: 0.7;
@@ -89,9 +91,9 @@
     position: absolute;
     inset: -1px;
     border-radius: var(--radius-md);
-    background: radial-gradient(circle at 30% 20%, 
-        rgba(137, 207, 240, 0.15) 0%,
-        transparent 50%);
+    background: radial-gradient(circle at 30% 20%,
+            rgba(137, 207, 240, 0.15) 0%,
+            transparent 50%);
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
@@ -107,26 +109,28 @@
 }
 
 .news-item:hover {
-    transform: translateY(-8px);
+    top: -8px;
+    /* Use top instead of transform to preserve background-attachment: fixed */
     border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 
+    box-shadow:
         0 20px 48px rgba(93, 143, 179, 0.25),
         0 8px 16px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    background: linear-gradient(135deg, 
-        rgba(93, 143, 179, 0.25) 0%, 
-        rgba(137, 207, 240, 0.15) 50%,
-        rgba(46, 46, 46, 0.4) 100%);
+    background: linear-gradient(135deg,
+            rgba(93, 143, 179, 0.25) 0%,
+            rgba(137, 207, 240, 0.15) 50%,
+            rgba(46, 46, 46, 0.4) 100%);
 }
 
 @keyframes newsItemFadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        /* transform removed to prevent containing block creation */
     }
+
     to {
         opacity: 1;
-        transform: translateY(0);
+        /* transform removed */
     }
 }
 
@@ -233,9 +237,9 @@
     gap: 0.5em;
     padding: 0.8em 2em;
     /* Extends btn-glass with view-all styling */
-    background: linear-gradient(135deg, 
-        rgba(var(--glass-primary-rgb), 0.2) 0%, 
-        rgba(var(--glass-secondary-rgb), 0.15) 100%);
+    background: linear-gradient(135deg,
+            rgba(var(--glass-primary-rgb), 0.2) 0%,
+            rgba(var(--glass-secondary-rgb), 0.15) 100%);
     backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-intro));
     -webkit-backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-intro));
     border: 1px solid var(--glass-border);
@@ -248,7 +252,7 @@
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    box-shadow: 
+    box-shadow:
         0 4px 16px var(--color-accent-primary-bg),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
@@ -271,12 +275,12 @@
 .view-all-news-button:hover {
     transform: translateY(-3px);
     border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 
+    box-shadow:
         0 8px 24px var(--color-accent-primary-bg),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg, 
-        var(--color-accent-primary-bg) 0%, 
-        rgba(107, 181, 212, 0.2) 100%);
+    background: linear-gradient(135deg,
+            var(--color-accent-primary-bg) 0%,
+            rgba(107, 181, 212, 0.2) 100%);
     color: var(--color-accent-primary-light);
 }
 
@@ -321,14 +325,13 @@ body:has(#allNewsContainer) .news-container {
     .news-page-header h1 {
         font-size: 2em;
     }
-    
+
     .news-page-subtitle {
         font-size: 1em;
     }
-    
+
     .view-all-news-button {
         font-size: 1em;
         padding: 0.7em 1.5em;
     }
 }
-

@@ -10,7 +10,8 @@ header {
     -webkit-backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer)) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-    padding: 0.5em 0;
+    padding: 0.3em 0;
+    /* Reduced from 0.5em for tighter spacing */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -28,10 +29,10 @@ header::before {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, 
-        transparent 0%,
-        rgba(255, 255, 255, 0.3) 50%,
-        transparent 100%);
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 100%);
     pointer-events: none;
     z-index: 1;
 }
@@ -39,6 +40,8 @@ header::before {
 nav {
     display: flex;
     justify-content: center;
+    align-items: center;
+    /* Ensure nav is vertically centered within header */
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
@@ -95,25 +98,37 @@ nav {
     display: flex;
     gap: 2em;
     justify-content: center;
+    align-items: center;
+    /* Ensure vertical centering */
 }
 
 /* Menu Links */
 .menu-link {
     position: relative;
+    display: flex;
+    /* Make menu-link a flex container */
+    align-items: center;
+    /* Vertically center the link inside */
 }
 
-.menu-link > a {
+.menu-link>a {
     color: var(--color-black);
     text-decoration: none;
     font-size: 1.2em;
-    padding: 0.5em 1em;
+    padding: 0.4em 1em;
+    /* Reduced vertical padding from 0.5em */
     border-radius: var(--radius-sm);
     transition: all 0.3s ease;
-    display: inline-block;
+    display: inline-flex;
+    /* Changed to inline-flex for better centering */
+    align-items: center;
+    /* Ensure text is vertically centered */
+    line-height: 1;
+    /* Remove extra line height spacing */
     position: relative;
 }
 
-.menu-link:hover > a {
+.menu-link:hover>a {
     color: var(--color-primary);
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -121,7 +136,7 @@ nav {
 }
 
 /* Blur effect for menu links */
-.menu-link:hover ~ main {
+.menu-link:hover~main {
     filter: blur(10px);
     transition: filter 0.5s ease;
 }
@@ -164,9 +179,9 @@ nav {
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(10px);
-    background: linear-gradient(135deg, 
-        rgba(26, 26, 26, 0.95) 0%, 
-        rgba(46, 46, 46, 0.9) 100%);
+    background: linear-gradient(135deg,
+            rgba(26, 26, 26, 0.95) 0%,
+            rgba(46, 46, 46, 0.9) 100%);
     backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
     -webkit-backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -176,7 +191,7 @@ nav {
     visibility: hidden;
     transition: all 0.3s ease;
     padding: 0.5em 0;
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     z-index: 1000;
@@ -204,16 +219,16 @@ nav {
 
 /* Dark Mode Styles */
 .dark-mode header {
-    background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.9) 0%, 
-        rgba(26, 26, 26, 0.8) 100%);
+    background: linear-gradient(135deg,
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(26, 26, 26, 0.8) 100%);
     backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
     -webkit-backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
     border-bottom-color: rgba(255, 255, 255, 0.15);
 }
 
-.dark-mode .menu-link > a,
-.dark-mode .theme-toggle > a,
+.dark-mode .menu-link>a,
+.dark-mode .theme-toggle>a,
 .dark-mode .search-button a {
     color: var(--color-white);
 }
@@ -233,6 +248,7 @@ nav {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+
     /* Make header transparent on mobile to avoid black background */
     header {
         background-color: transparent;
@@ -241,7 +257,7 @@ nav {
         padding: 1em 0;
         min-height: 60px;
     }
-    
+
     /* Show hamburger menu on mobile */
     .hamburger {
         display: flex !important;
@@ -250,7 +266,7 @@ nav {
         top: 50%;
         transform: translateY(-50%);
     }
-    
+
     /* Adjust search button position on mobile */
     .search-button {
         top: 50%;
@@ -319,11 +335,11 @@ nav {
 }
 
 /* Navigation link styles */
-nav a, nav a:visited {
+nav a,
+nav a:visited {
     color: var(--color-white);
 }
 
 nav a:hover {
     color: var(--color-hover);
 }
-

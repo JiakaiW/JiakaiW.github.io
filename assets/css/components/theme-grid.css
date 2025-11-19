@@ -45,54 +45,75 @@
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    top: 0;
+    /* Ensure top transition works */
     display: flex;
     flex-direction: row;
     gap: 2em;
     align-items: stretch;
     min-height: 250px;
     isolation: isolate;
-    
+
     /* Liquid Glass - Base Layer */
-    background: linear-gradient(135deg, 
-        rgba(93, 143, 179, 0.18) 0%, 
-        rgba(137, 207, 240, 0.10) 50%,
-        rgba(46, 46, 46, 0.15) 100%);
-    
+    background: linear-gradient(135deg,
+            rgba(93, 143, 179, 0.18) 0%,
+            rgba(137, 207, 240, 0.10) 50%,
+            rgba(46, 46, 46, 0.15) 100%);
+
     /* Frosted glass blur - enhanced for image background */
     backdrop-filter: blur(30px) saturate(180%);
     -webkit-backdrop-filter: blur(30px) saturate(180%);
-    
+
     border-radius: var(--radius-xl);
     border: 1.5px solid rgba(255, 255, 255, 0.15);
-    overflow: hidden; /* Clip distorted background to rounded corners */
-    
+    overflow: hidden;
+    /* Clip distorted background to rounded corners */
+
     /* Layered shadows for depth */
-    box-shadow: 
+    box-shadow:
         0 8px 32px rgba(93, 143, 179, 0.12),
         0 2px 8px rgba(0, 0, 0, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    
+
     /* Animation */
     opacity: 0;
     animation: themeBlockFadeIn 0.8s ease-out forwards;
 }
 
 /* Staggered animation delays for theme blocks */
-.theme-block:nth-child(1) { animation-delay: 0.1s; }
-.theme-block:nth-child(2) { animation-delay: 0.2s; }
-.theme-block:nth-child(3) { animation-delay: 0.3s; }
-.theme-block:nth-child(4) { animation-delay: 0.4s; }
-.theme-block:nth-child(5) { animation-delay: 0.5s; }
-.theme-block:nth-child(6) { animation-delay: 0.6s; }
+.theme-block:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.theme-block:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.theme-block:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.theme-block:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.theme-block:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.theme-block:nth-child(6) {
+    animation-delay: 0.6s;
+}
 
 @keyframes themeBlockFadeIn {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        /* transform removed to prevent containing block creation */
     }
+
     to {
         opacity: 1;
-        transform: translateY(0);
+        /* transform removed */
     }
 }
 
@@ -103,16 +124,16 @@
     inset: 0;
     border-radius: var(--radius-xl);
     padding: 1.5px;
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.3) 0%,
-        rgba(255, 255, 255, 0.1) 40%,
-        rgba(255, 255, 255, 0) 70%);
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0.1) 40%,
+            rgba(255, 255, 255, 0) 70%);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
-    mask: 
-        linear-gradient(#fff 0 0) content-box, 
+    mask:
+        linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
     mask-composite: exclude;
     pointer-events: none;
@@ -127,9 +148,9 @@
     position: absolute;
     inset: -1px;
     border-radius: var(--radius-xl);
-    background: radial-gradient(circle at 30% 20%, 
-        rgba(137, 207, 240, 0.15) 0%,
-        transparent 50%);
+    background: radial-gradient(circle at 30% 20%,
+            rgba(137, 207, 240, 0.15) 0%,
+            transparent 50%);
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
@@ -145,16 +166,18 @@
 }
 
 .theme-block:hover {
-    transform: translateY(-10px) scale(1.01);
+    top: -10px;
+    /* Use top instead of transform */
+    /* scale(1.01) removed to avoid transform */
     border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 
+    box-shadow:
         0 20px 48px rgba(93, 143, 179, 0.25),
         0 8px 16px rgba(0, 0, 0, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    background: linear-gradient(135deg, 
-        rgba(93, 143, 179, 0.25) 0%, 
-        rgba(137, 207, 240, 0.15) 50%,
-        rgba(46, 46, 46, 0.18) 100%);
+    background: linear-gradient(135deg,
+            rgba(93, 143, 179, 0.25) 0%,
+            rgba(137, 207, 240, 0.15) 50%,
+            rgba(46, 46, 46, 0.18) 100%);
 }
 
 /* Theme-specific glass tints - unified liquid glass effect */
@@ -162,23 +185,23 @@
 .theme-block[data-theme="qec"]:hover,
 .theme-block[data-theme="tensor"]:hover,
 .theme-block[data-theme="neural"]:hover {
-    background: linear-gradient(135deg, 
-        rgba(93, 143, 179, 0.25) 0%, 
-        rgba(137, 207, 240, 0.15) 50%,
-        rgba(46, 46, 46, 0.18) 100%);
+    background: linear-gradient(135deg,
+            rgba(93, 143, 179, 0.25) 0%,
+            rgba(137, 207, 240, 0.15) 50%,
+            rgba(46, 46, 46, 0.18) 100%);
 }
 
 .theme-block[data-theme="superconducting"]:hover::after,
 .theme-block[data-theme="qec"]:hover::after,
 .theme-block[data-theme="tensor"]:hover::after,
 .theme-block[data-theme="neural"]:hover::after {
-    background: radial-gradient(circle at 30% 20%, 
-        rgba(137, 207, 240, 0.2) 0%,
-        transparent 60%);
+    background: radial-gradient(circle at 30% 20%,
+            rgba(137, 207, 240, 0.2) 0%,
+            transparent 60%);
 }
 
 /* Ensure all content is above glass layers */
-.theme-block > * {
+.theme-block>* {
     position: relative;
     z-index: 2;
 }
@@ -203,11 +226,14 @@
     color: var(--color-theme-1);
     transition: all 0.4s ease;
     flex-shrink: 0;
+    /* Add subtle glow effect */
+    filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 4px currentColor);
 }
 
 .theme-block:hover .theme-icon {
     transform: scale(1.1) rotate(5deg);
-    filter: drop-shadow(0 0 10px currentColor);
+    /* Enhanced glow on hover */
+    filter: drop-shadow(0 0 16px currentColor) drop-shadow(0 0 8px currentColor) drop-shadow(0 0 4px currentColor);
 }
 
 .theme-block[data-theme="superconducting"] .theme-icon {
@@ -319,11 +345,9 @@
     position: relative;
     z-index: 2;
     padding: 0.8em;
-    background: linear-gradient(
-        to bottom,
-        rgba(30, 30, 30, 0.85) 0%,
-        rgba(30, 30, 30, 0.9) 100%
-    );
+    background: linear-gradient(to bottom,
+            rgba(30, 30, 30, 0.85) 0%,
+            rgba(30, 30, 30, 0.9) 100%);
     display: flex;
     flex-direction: column;
     border-radius: var(--radius-badge);
@@ -578,7 +602,7 @@
     .theme-grid {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
-    
+
     .projects-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
@@ -588,7 +612,7 @@
     .theme-block {
         flex-direction: column;
     }
-    
+
     .theme-info {
         flex: 1;
         border-right: none;
@@ -596,7 +620,7 @@
         padding-right: 0;
         padding-bottom: 1.5em;
     }
-    
+
     .theme-projects-preview {
         grid-template-columns: 1fr;
     }
@@ -606,22 +630,21 @@
     .theme-grid {
         gap: 1.5em;
     }
-    
+
     .theme-block {
         min-height: auto;
         padding: 1.5em;
     }
-    
+
     .section-title {
         font-size: 2em;
     }
-    
+
     .projects-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .project-section-title {
         font-size: 1.5em;
     }
 }
-

@@ -4,8 +4,16 @@
  */
 
 /* Base Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html {
     min-height: 100vh;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll on narrow viewports */
     /* Background image on html - this is the primary background */
     background-image: url('/assets/background.jpg');
     background-attachment: fixed;
@@ -173,13 +181,27 @@ main {
     }
 }
 
+/* Responsive padding for narrow viewports */
+@media (max-width: 768px) {
+    main {
+        padding: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 0.5em;
+    }
+}
+
 /* Dark Mode */
 .dark-mode {
     background-color: transparent;
     color: var(--color-white);
 }
 
-.dark-mode header, .dark-mode footer {
+.dark-mode header,
+.dark-mode footer {
     background-color: transparent;
     color: var(--color-white);
 }
@@ -189,15 +211,18 @@ main {
     color: var(--color-white);
 }
 
-.dark-mode .card-container, .dark-mode .carousel {
+.dark-mode .card-container,
+.dark-mode .carousel {
     background-color: black;
 }
 
-.dark-mode .card, .dark-mode .carousel-images img {
+.dark-mode .card,
+.dark-mode .carousel-images img {
     background-color: black;
 }
 
-.dark-mode header a, .dark-mode nav ul li a {
+.dark-mode header a,
+.dark-mode nav ul li a {
     color: var(--color-white);
 }
 
@@ -205,4 +230,3 @@ main {
     background-color: var(--color-black);
     color: var(--color-white);
 }
-
