@@ -12,7 +12,7 @@ header {
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
     padding: 0;
     /* Removed padding to let flexbox and min-height handle spacing */
-    min-height: 70px;
+    height: 70px;
     /* Explicit height for better vertical centering */
     display: flex;
     align-items: center;
@@ -126,9 +126,13 @@ nav {
     /* Use flex for internal text centering */
     align-items: center;
     justify-content: center;
-    line-height: 1.2;
-    /* Tighter line height for better centering */
+    height: 100%;
+    /* Take full 100% height of parent li */
+    line-height: normal;
+    /* Let flexbox handle vertical centering */
     position: relative;
+    box-sizing: border-box;
+    /* Ensure padding doesn't add to height */
 }
 
 .menu-link:hover>a {

@@ -143,6 +143,33 @@ When simulating physics, we must choose this $dt$ carefully.
 
 ![ODE Steps Comparison](/tech-docs/undergrad_guide/ode_steps.png)
 
+### How this applies to Qubits (Vector ODEs)
+
+Now, how do we step a *quantum state* forward?
+A gate like $\sigma_x$ flips a qubit *instantly* in our mathematical model. In the real world, nothing happens instantly. If we want to flip a qubit, we must interact with it throughout time.
+
+Imagine we have a "slow-acting" matrix operation called the **Hamiltonian** ($H$). For example, a time-independent X-rotation. Instead of flipping the bit at once, it rotates the state vector a tiny bit at a time.
+
+**From Scalar to Vector:**
+In standard calculus with a single number $y(t)$, an equation like $\frac{dy}{dt} = k \cdot y$ means the change in $y$ depends on $y$ itself.
+For a quantum state, $|\psi\rangle$ is a **vector**. So the "rate of change" constant $k$ becomes a **matrix** (the Hamiltonian $H$).
+
+We can simulate this step-by-step (Euler Method):
+$$ |\psi(t+dt)\rangle \approx |\psi(t)\rangle - \frac{i}{\hbar} H |\psi(t)\rangle dt $$
+
+Let's visualize this "Matrix-Vector" multiplication. The matrix $H$ mixes the components of $|\psi\rangle$:
+
+$$
+\underbrace{ \begin{pmatrix} \psi_0(t+dt) \\ \psi_1(t+dt) \end{pmatrix} }_{\text{New State}}
+\approx
+\underbrace{ \begin{pmatrix} \psi_0(t) \\ \psi_1(t) \end{pmatrix} }_{\text{Old State}}
+- \frac{i dt}{\hbar}
+\underbrace{ \begin{pmatrix} H_{00} & H_{01} \\ H_{10} & H_{11} \end{pmatrix} }_{\text{Hamiltonian}}
+\underbrace{ \begin{pmatrix} \psi_0(t) \\ \psi_1(t) \end{pmatrix} }_{\text{Old State}}
+$$
+
+Notice how $H_{01}$ allows the value of $\psi_1$ to affect the change in $\psi_0$. This "cross-talk" is exactly how interactions and gates work!
+
 ### The Schrödinger Equation
 
 If we make the time step $dt$ infinitely small, the update rule becomes the **Schrödinger Equation**:
