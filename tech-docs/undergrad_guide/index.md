@@ -321,7 +321,7 @@ print("Saved rabi_off_resonant.png")
 
 What happens if `w_drive` is not exactly `w01`?
 
-* Detailed experimentation is left as an exercise, but intuitively: you will see incomplete flips. The qubit vector on the Bloch sphere won't go all the way to the South Pole ($\vert1\rangle$).
+* Intuitively: you will see incomplete flips. The qubit vector on the Bloch sphere won't go all the way to the South Pole ($\vert1\rangle$).
 
 Here is the simulation for an off-resonant drive where the detuning $\Delta = \omega_d - \omega_{01}$ is significantly large (e.g., $2 \times$ Amplitude):
 
@@ -623,7 +623,7 @@ hilbertspace.add_interaction(
 
 ### Understanding Test: Selective Darkening (Advanced)
 
-Now that you understand coupled systems and matrix elements, here is a challenge based on real research (Nesterov et al., 2022).
+Now that you understand coupled systems and matrix elements, here is a challenge based on real research (Nesterov et al., <https://arxiv.org/abs/2202.04583>).
 
 **The Goal**: Implement a CNOT gate using "Selective Darkening".
 Instead of standard cross-resonance, we drive *both* qubits at the target's frequency $\omega_{01}^B$. By tuning the ratio of amplitudes, we can interfere destructively for the $\vert00\rangle \to \vert01\rangle$ transition (darkening it) while interfering constructively for $\vert10\rangle \to \vert11\rangle$.
