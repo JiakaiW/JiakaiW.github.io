@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="{{ '/assets/css/components/navigation.css' | asset_hash_versioned }}">
 <link rel="stylesheet" href="{{ '/assets/css/components/search-overlay.css' | asset_hash_versioned }}">
 <link rel="stylesheet" href="{{ '/assets/css/components/code-blocks.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/components/syntax-highlighting.css' | asset_hash_versioned }}">
 <link rel="stylesheet" href="{{ '/assets/css/components/carousel.css' | asset_hash_versioned }}">
 <link rel="stylesheet" href="{{ '/assets/css/components/photo-overlay.css' | asset_hash_versioned }}">
 <!-- Page-specific Styles -->
@@ -32,3 +33,6 @@
 <!-- Overlay Initialization - Load synchronously to prevent flash of visibility -->
 <script src="{{ '/assets/js/modules/utils/overlay-init.js' | asset_hash_versioned }}"></script>
 <script src="https://unpkg.com/lunr/lunr.js"></script>
+{% if page.math %}
+{% include mathjax.html %}
+{% endif %}

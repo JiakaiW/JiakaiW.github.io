@@ -10,8 +10,10 @@ header {
     -webkit-backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer)) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-    padding: 0.3em 0;
-    /* Reduced from 0.5em for tighter spacing */
+    padding: 0;
+    /* Removed padding to let flexbox and min-height handle spacing */
+    min-height: 70px;
+    /* Explicit height for better vertical centering */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,11 +43,12 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Ensure nav is vertically centered within header */
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
     width: 100%;
+    height: 100%;
+    /* Take full header height */
 }
 
 /* Hamburger menu button - hidden by default */
@@ -99,16 +102,17 @@ nav {
     gap: 2em;
     justify-content: center;
     align-items: center;
-    /* Ensure vertical centering */
+    height: 100%;
+    /* Take full nav height */
 }
 
 /* Menu Links */
 .menu-link {
     position: relative;
     display: flex;
-    /* Make menu-link a flex container */
     align-items: center;
-    /* Vertically center the link inside */
+    height: 100%;
+    /* Take full menu height */
 }
 
 .menu-link>a {
@@ -116,15 +120,14 @@ nav {
     text-decoration: none;
     font-size: 1.2em;
     padding: 0.4em 1em;
-    /* Reduced vertical padding from 0.5em */
     border-radius: var(--radius-sm);
     transition: all 0.3s ease;
-    display: inline-flex;
-    /* Changed to inline-flex for better centering */
+    display: flex;
+    /* Use flex for internal text centering */
     align-items: center;
-    /* Ensure text is vertically centered */
-    line-height: 1;
-    /* Remove extra line height spacing */
+    justify-content: center;
+    line-height: 1.2;
+    /* Tighter line height for better centering */
     position: relative;
 }
 
