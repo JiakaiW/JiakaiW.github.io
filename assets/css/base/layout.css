@@ -12,8 +12,9 @@
 
 html {
     min-height: 100vh;
-    overflow-x: hidden;
-    /* Prevent horizontal scroll on narrow viewports */
+    /* Use clip to avoid Chrome bug: overflow-x: hidden on root can block vertical scroll */
+    overflow-x: hidden; /* fallback */
+    overflow-x: clip;
     /* Background image on html - this is the primary background */
     background-image: url('/assets/background.jpg');
     background-attachment: fixed;
@@ -68,7 +69,8 @@ body:has(.tech-docs-page) {
     background-color: #000000;
     min-height: 100vh;
     position: relative;
-    overflow-x: hidden;
+    overflow-x: hidden; /* fallback */
+    overflow-x: clip;
 }
 
 body:has(.photo-grid)::before,

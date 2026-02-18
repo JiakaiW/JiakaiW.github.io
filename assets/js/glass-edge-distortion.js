@@ -46,6 +46,8 @@ if (supportsBackdropFilter) {
             // Debug flag: set to true to enable verbose logging
             // Can be enabled via: glassEdgeDistortion.debugMode = true (when imported)
             this.debugMode = false;
+            // Delay heavy filter work so initial scroll/input stays responsive.
+            this.deferInit = true;
 
             // Browser detection for performance optimizations
             const ua = navigator.userAgent;
@@ -135,11 +137,11 @@ if (supportsBackdropFilter) {
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', () => {
                     this.updateViewportCache();
-                    this.startTracking();
+                    this.scheduleStartTracking();
                 });
             } else {
                 this.updateViewportCache();
-                this.startTracking();
+                this.scheduleStartTracking();
             }
 
             // Update viewport cache on window resize (throttled)
@@ -156,6 +158,28 @@ if (supportsBackdropFilter) {
 
             // Handle dynamic content
             this.observeNewElements();
+        }
+
+        scheduleStartTracking() {
+            const start = () => {
+                try {
+                    this.startTracking();
+                } catch (err) {
+                    console.error('[Glass Edge Distortion] Failed to start tracking:', err);
+                }
+            };
+
+            if (!this.deferInit) {
+                start();
+                return;
+            }
+
+            // Prefer idle time to avoid blocking first scroll.
+            if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+                window.requestIdleCallback(start, { timeout: 1000 });
+            } else {
+                setTimeout(start, 0);
+            }
         }
 
         startTracking() {
@@ -175,9 +199,13 @@ if (supportsBackdropFilter) {
 
             selectors.forEach(selector => {
                 const elements = document.querySelectorAll(selector);
-                console.log(`Found ${elements.length} elements for selector: ${selector}`);
+                if (this.debugMode) {
+                    console.log(`Found ${elements.length} elements for selector: ${selector}`);
+                }
                 elements.forEach(el => {
-                    console.log(`Adding element for glass effect:`, el.className, selector);
+                    if (this.debugMode) {
+                        console.log(`Adding element for glass effect:`, el.className, selector);
+                    }
                     this.addElement(el);
                 });
             });
@@ -187,16 +215,21 @@ if (supportsBackdropFilter) {
             // Card images use background-attachment: scroll but their relative position doesn't change on scroll
 
             // Initial update
-            this.updateAllElements();
+            // Avoid a full-page synchronous scan here; we initialize filters lazily
+            // when elements first intersect the viewport.
         }
 
         addElement(element) {
             if (this.elements.has(element)) {
-                console.log('Element already tracked:', element.className);
+                if (this.debugMode) {
+                    console.log('Element already tracked:', element.className);
+                }
                 return;
             }
 
-            console.log('Adding element to glass effect tracking:', element.className, element);
+            if (this.debugMode) {
+                console.log('Adding element to glass effect tracking:', element.className, element);
+            }
 
             // Check filter limit (based on unique filter count, not element count)
             // Since we reuse filters for same-size elements, this allows more elements
@@ -207,10 +240,14 @@ if (supportsBackdropFilter) {
 
             // Initialize displacement map and filter
             const rect = element.getBoundingClientRect();
-            console.log(`Element ${element.className} rect:`, { width: rect.width, height: rect.height });
+            if (this.debugMode) {
+                console.log(`Element ${element.className} rect:`, { width: rect.width, height: rect.height });
+            }
             if (rect.width === 0 || rect.height === 0) {
                 // Element not sized yet or hidden, skip it
-                console.log(`Element ${element.className} has zero size, skipping (may be hidden or not rendered yet)`);
+                if (this.debugMode) {
+                    console.log(`Element ${element.className} has zero size, skipping (may be hidden or not rendered yet)`);
+                }
                 return;
             }
 
@@ -220,18 +257,22 @@ if (supportsBackdropFilter) {
                 lastWidth: rect.width,
                 lastHeight: rect.height,
                 mapData: null,
-                _effectiveScale: 50.0 // Initialize with default scale
+                _effectiveScale: 50.0, // Initialize with default scale
+                _filterInitialized: false
             });
-
-            // Initialize filter (will update elementData)
-            this.initializeElementFilter(element);
 
             // Set up IntersectionObserver for performance
             if (!this.intersectionObserver) {
                 this.intersectionObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            this.updateElement(entry.target);
+                            const el = entry.target;
+                            const data = this.elements.get(el);
+                            if (data && !data._filterInitialized) {
+                                this.initializeElementFilter(el);
+                                data._filterInitialized = true;
+                            }
+                            this.updateElement(el);
                         }
                     });
                 }, {
@@ -986,7 +1027,9 @@ if (supportsBackdropFilter) {
                                 node.matches('.doc-content') ||
                                 node.matches('.timeline-container')
                             )) {
-                                console.log('MutationObserver: Found new glass element', node.className, node);
+                                if (this.debugMode) {
+                                    console.log('MutationObserver: Found new glass element', node.className, node);
+                                }
                                 this.addElement(node);
                             }
 
@@ -995,7 +1038,9 @@ if (supportsBackdropFilter) {
                                 node.querySelectorAll('.glass-base, .btn-glass, .intro-container, .theme-block, .photo-card, .news-item, .expanded-card, .card-text, .doc-content, .timeline-container') :
                                 [];
                             glassElements.forEach(el => {
-                                console.log('MutationObserver: Found glass element in children', el.className, el);
+                                if (this.debugMode) {
+                                    console.log('MutationObserver: Found glass element in children', el.className, el);
+                                }
                                 this.addElement(el);
                             });
                         }
@@ -1011,10 +1056,14 @@ if (supportsBackdropFilter) {
             // Also check for timeline-container after a delay (in case it's created asynchronously)
             setTimeout(() => {
                 const timelineContainers = document.querySelectorAll('.timeline-container');
-                console.log(`Delayed check: Found ${timelineContainers.length} timeline-container elements`);
+                if (this.debugMode) {
+                    console.log(`Delayed check: Found ${timelineContainers.length} timeline-container elements`);
+                }
                 timelineContainers.forEach(el => {
                     if (!this.elements.has(el)) {
-                        console.log('Delayed check: Adding timeline-container', el);
+                        if (this.debugMode) {
+                            console.log('Delayed check: Adding timeline-container', el);
+                        }
                         this.addElement(el);
                     }
                 });
