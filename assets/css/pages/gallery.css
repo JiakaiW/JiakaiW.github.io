@@ -63,7 +63,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: var(--radius-lg);
+    border-radius: inherit;
     padding: 2px; /* Matches border width for rim effect */
     background: linear-gradient(135deg, 
         rgba(255, 255, 255, 0.3) 0%,
@@ -118,10 +118,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Border radius = container radius (20px) - border width (2px) = 18px
-       This ensures concentric rounded corners where the radius difference 
-       equals the distance from border edge to image edge */
-    border-radius: var(--radius-lg);
+    /* Clipped by .photo-card overflow + border-radius so corners match the frame */
+    border-radius: 0;
     transition: transform 0.3s ease;
     position: relative;
     z-index: 1;

@@ -484,7 +484,7 @@ if (supportsBackdropFilter) {
 
             // Check if this is a .doc-content element
             // If it has a card image, use that; otherwise use website background
-            let backgroundImage = '/assets/background.jpg';
+            let backgroundImage = '/assets/background.png';
             let useCardImage = false;
             let docCard = null;
             let cardImage = null;

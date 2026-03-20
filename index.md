@@ -17,7 +17,7 @@ title: Home
 <div class="intro-container">
     <div class="intro-image intro-image-left">
         <img src="/photo-grid/images/me.jpg" alt=" " />
-        <p class="image-caption">During the superconductivity summer school at UMN we went to Minnehaha Falls and I got mud all over myself.</p>
+        <!-- <p class="image-caption">During the superconductivity summer school at UMN we went to Minnehaha Falls and I got mud all over myself.</p> -->
     </div>
     <div class="intro-content">
         <h1>👋 I'm Jiakai Wang</h1>
@@ -26,7 +26,7 @@ title: Home
     </div>
     <div class="intro-image intro-image-right">
         <a href="https://mvavilov.github.io/" target="_blank"><img src="/photo-grid/images/vavilov.jpg" alt=" " /></a>
-        <p class="image-caption"><a href="https://mvavilov.github.io/" target="_blank" style="color:rgb(206, 231, 255); text-decoration: none; font-weight: bold;">Prof. Maxim Vavilov</a> who I work with on superconducting-qubits, QEC and stuff. <br><strong style="color: #e74c3c; font-size: 20px;">Actively hiring students!</strong></p>
+        <p class="image-caption"><a href="https://mvavilov.github.io/" target="_blank" style="color:rgb(206, 231, 255); text-decoration: none; font-weight: bold;">Prof. Maxim Vavilov</a> is actively hiring <br><strong style="color: #e74c3c; font-size: 20px;">highly motivated students!</strong></p>
     </div>
 </div>
 

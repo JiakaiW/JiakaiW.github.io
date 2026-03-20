@@ -16,7 +16,7 @@ html {
     overflow-x: hidden; /* fallback */
     overflow-x: clip;
     /* Background image on html - this is the primary background */
-    background-image: url('/assets/background.jpg');
+    background-image: url('/assets/background.png');
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
@@ -30,7 +30,7 @@ body {
     margin: 0;
     padding: 0;
     /* Background image for better liquid glass effect visibility */
-    background-image: url('/assets/background.jpg');
+    background-image: url('/assets/background.png');
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
@@ -61,7 +61,7 @@ body::before {
 /* Premium Background - Shared across pages */
 body:has(.photo-grid),
 body:has(.tech-docs-page) {
-    background-image: url('/assets/background.jpg');
+    background-image: url('/assets/background.png');
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
@@ -80,7 +80,7 @@ body:has(.tech-docs-page)::before {
 
 html:has(.photo-grid),
 html:has(.tech-docs-page) {
-    background-image: url('/assets/background.jpg');
+    background-image: url('/assets/background.png');
     background-attachment: fixed;
     background-size: cover;
     background-position: center;

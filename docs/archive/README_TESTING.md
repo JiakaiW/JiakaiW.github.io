@@ -88,7 +88,7 @@ The script exits with:
 
 - Ensure `test-background-positioning.html` exists
 - Check that `assets/js/glass-edge-distortion.js` is accessible
-- Verify background image exists at `/assets/background.jpg`
+- Verify background image exists at `/assets/background.png`
 
 ### Browser doesn't launch
 

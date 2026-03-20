@@ -63,9 +63,14 @@
     outline: none;
 }
 
-/* Add hover area for dropdown */
-.menu-link {
-    padding-bottom: 20px;
+/* Extend hover area below menu links so dropdown stays open while mouse moves down */
+.menu-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 20px;
 }
 
 pre, code {

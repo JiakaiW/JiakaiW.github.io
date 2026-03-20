@@ -21,14 +21,6 @@
   themes:
     - qec
 
-- id: qutrit-qubit gates
-  title: Novel Superconducting Qutrit-qubit CNOT gates
-  description: We are wrapping up a paper on implementing CNOT gates between qutrit-qubit systems.
-  url: null
-  image: null
-  status: ongoing
-  themes:
-    - superconducting
 
 - id: readout-simulation
   title: Neural Network for detecting leakage in readout
@@ -58,15 +50,6 @@
   themes:
     - qec
 
-- id: erasure-qec
-  title: Simulating and decoding QEC with erasure errors
-  description: We are continuing our work on simulating and decoding QEC with erasure errors.
-  url: null
-  image: null
-  status: ongoing
-  themes:
-    - qec
-
 - id: tensor-manybody
   title: Many-Body Quantum System Simulation
   description: Using tensor networks to simulate strongly correlated quantum systems.
@@ -76,21 +59,12 @@
   themes:
     - tensor
 
-- id: neural-qec
-  title: Neural QEC Decoders
-  description: Training neural networks to decode quantum error correction codes efficiently.
+
+- id: ML_pulse_optimization
+  title: ML pulse optimization
+  description: Using machine learning to optimize pulse sequences for superconducting qubits.
   url: null
   image: null
   status: potential
   themes:
     - neural
-
-- id: ml-circuit-opt
-  title: Quantum Circuit Optimization with ML
-  description: Using machine learning to optimize quantum circuit compilation and execution.
-  url: null
-  image: null
-  status: potential
-  themes:
-    - neural
-
