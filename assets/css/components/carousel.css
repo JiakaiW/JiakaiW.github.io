@@ -75,3 +75,32 @@
     right: 10px;
 }
 
+@media (max-width: 768px) {
+    .carousel-button {
+        padding: 0.5em 0.75em;
+        font-size: 1em;
+    }
+
+    .carousel-button.prev {
+        left: 5px;
+    }
+
+    .carousel-button.next {
+        right: 5px;
+    }
+}
+
+@media (hover: none) {
+    .carousel-button {
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel-button:hover {
+        transform: translateY(-50%);
+    }
+}
+

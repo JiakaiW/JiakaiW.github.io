@@ -168,3 +168,37 @@
     -webkit-backdrop-filter: none !important;
 }
 
+@media (max-width: 768px) {
+    .search-container {
+        top: 60px;
+        width: 95%;
+    }
+
+    .search-input {
+        font-size: 1.25em;
+    }
+
+    .search-results {
+        max-height: 60vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-container {
+        top: 55px;
+    }
+
+    .search-input {
+        font-size: 1.1em;
+        padding: 0.5em 0;
+    }
+
+    .search-result-item h3 {
+        font-size: 1em;
+    }
+
+    .search-result-item p {
+        font-size: 0.85rem;
+    }
+}
+

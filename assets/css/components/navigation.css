@@ -280,16 +280,19 @@ nav {
         position: fixed !important;
         left: -100% !important;
         top: 60px;
+        height: auto;
         flex-direction: column !important;
+        align-items: stretch;
+        justify-content: flex-start;
         background: rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(40px) saturate(180%);
         -webkit-backdrop-filter: blur(40px) saturate(180%);
         border-right: 1px solid rgba(255, 255, 255, 0.2);
         width: 100%;
-        text-align: center;
+        text-align: left;
         transition: left 0.3s ease-in-out;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        padding: 1em 0;
+        padding: 2em 0 3em;
         z-index: 1000;
         gap: 0;
     }
@@ -306,11 +309,21 @@ nav {
     }
 
     .nav-menu li {
-        margin: 0.5em 0;
+        margin: 0;
     }
 
     .nav-menu .menu-link {
         width: 100%;
+        height: auto;
+    }
+
+    .nav-menu .menu-link > a {
+        padding: 1em 1.5em;
+        font-size: 1.4em;
+        justify-content: flex-start;
+        min-height: 56px;
+        display: flex;
+        align-items: center;
     }
 
     /* Adjust dropdown for mobile */
@@ -321,7 +334,15 @@ nav {
         visibility: visible;
         display: none;
         background-color: rgba(0, 0, 0, 0.1);
-        margin-top: 0.5em;
+        margin-top: 0;
+        padding-left: 1em;
+    }
+
+    .nav-menu .dropdown-content a {
+        padding: 0.75em 1.5em;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
     }
 
     .nav-menu .menu-link.show-dropdown .dropdown-content {

@@ -257,3 +257,45 @@ body .card-overlay:not(.active) {
     }
 }
 
+@media (max-width: 768px) {
+    .card {
+        width: min(300px, calc(100vw - 2em));
+    }
+
+    .expanded-card {
+        width: 95%;
+        height: 85vh;
+        padding: 1em;
+    }
+
+    .expanded-content {
+        padding-right: 0.5em;
+    }
+
+    .close-button {
+        top: 0.5em;
+        right: 0.5em;
+        font-size: 1.5em;
+        width: 2em;
+        height: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        width: min(280px, calc(100vw - 1em));
+    }
+
+    .card-text {
+        height: auto;
+        min-height: 40px;
+        font-size: 1em;
+    }
+
+    .expanded-card {
+        width: 98%;
+        height: 90vh;
+        padding: 0.75em;
+    }
+}
+
