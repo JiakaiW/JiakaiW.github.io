@@ -1,6 +1,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ page.title }}</title>
+<title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+{% assign meta_description = page.description | default: "Jiakai Wang - Physics PhD at UW-Madison. Quantum hardware theory, quantum error correction, tensor/neural networks." | strip_html | strip_newlines | truncate: 200 %}
+<meta name="description" content="{{ meta_description }}">
+<!-- Open Graph -->
+<meta property="og:title" content="{{ page.title | default: site.title }}">
+<meta property="og:description" content="{{ meta_description }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.title }}">
+{% if page.thumbnail %}<meta property="og:image" content="{{ page.thumbnail | absolute_url }}">
+{% else %}<meta property="og:image" content="{{ '/photo-grid/images/me.jpg' | absolute_url }}">
+{% endif %}<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page.title | default: site.title }}">
+<meta name="twitter:description" content="{{ meta_description }}">
+{% if page.thumbnail %}<meta name="twitter:image" content="{{ page.thumbnail | absolute_url }}">
+{% else %}<meta name="twitter:image" content="{{ '/photo-grid/images/me.jpg' | absolute_url }}">
+{% endif %}<link rel="canonical" href="{{ page.url | absolute_url }}">
 <!-- Web Fonts - Outfit for headings only, body uses system fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

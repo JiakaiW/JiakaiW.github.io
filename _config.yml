@@ -18,6 +18,7 @@ sass:
 # Plugins
 plugins:
   - jekyll-timeago
+  - jekyll-sitemap
 
 # Collections
 collections:

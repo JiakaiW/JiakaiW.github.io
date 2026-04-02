@@ -4,7 +4,7 @@ title: novel_SCqubits
 permalink: /potential_directions/novel_SCqubits/
 ---
 <div style="text-align: center;">
-  <img src="/files/meme_algo.png" style="width: 500px;" alt="actual quantum hardware need accerlation">
+  <img src="/files/meme_algo.png" style="max-width: 500px; width: 100%;" alt="actual quantum hardware need accerlation" loading="lazy">
   <p>There is a mismatch between what QML people want and what hardware providers have.</p>
 </div>
 

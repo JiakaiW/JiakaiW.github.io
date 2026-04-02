@@ -2,12 +2,14 @@
 layout: default
 title: MFQEC
 permalink: /projects/mfqec
+description: "Fault-tolerant measurement-free quantum error correction with multiqubit gates for neutral atom platforms."
+thumbnail: /projects/mfqec/images/mfqec_paper.png
 ---
 
 # Measurement-free steane code with neutral atom multi-qubit gates
 
 <div style="text-align: center;">
-  <img src="/projects/mfqec/images/mfqec_paper.png" style="width: 800px;" alt="paper">
+  <img src="/projects/mfqec/images/mfqec_paper.png" style="max-width: 800px; width: 100%;" alt="paper" loading="lazy">
   <!-- <p>.</p> -->
 </div>
 
@@ -22,7 +24,7 @@ permalink: /projects/mfqec
 We find the Steane code augmentated with a) syndrome redundancy b) native multi-qubit gates c) logical ancilla to be fault-tolerance with realistic error from gate simulation.
 
 <div style="text-align: center;">
-  <img src="/projects/mfqec/images/circ.png" style="width: 800px;" alt="the quantum circuit diagram for implementing measurement-free quantum error correction">
+  <img src="/projects/mfqec/images/circ.png" style="max-width: 800px; width: 100%;" alt="the quantum circuit diagram for implementing measurement-free quantum error correction" loading="lazy">
   <p>The quantum circuit diagram for implementing measurement-free quantum error correction.</p>
 </div>
 

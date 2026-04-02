@@ -57,11 +57,6 @@ main a:hover {
     text-decoration: underline;
 }
 
-/* Add hover area for dropdown */
-.menu-link {
-    padding-bottom: 20px;
-}
-
 pre, code {
     white-space: pre-wrap !important;
     word-wrap: break-word !important;

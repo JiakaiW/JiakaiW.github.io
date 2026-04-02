@@ -2,6 +2,8 @@
 layout: default
 title: Fluxonium Erasure Qubit
 permalink: /projects/fluxonium_erasure
+description: "Erasure qubit implementation using single-mode fluxonium artificial atoms with proposals for physical gates."
+thumbnail: /projects/fluxonium_erasure/images/lvl_diagram.png
 ---
 
 # Fluxonium erasure qubit (to appear on arxiv soon)
@@ -20,13 +22,13 @@ permalink: /projects/fluxonium_erasure
 
 
 <div style="text-align: center;">
-<img src="/projects/fluxonium_erasure/images/lvl_diagram.png" style="width: 500px;" alt="qubit level structure">
+<img src="/projects/fluxonium_erasure/images/lvl_diagram.png" style="max-width: 500px; width: 100%;" loading="lazy" alt="qubit level structure">
 <p>Fluxonium has a more complex potential and selection rules than transmon. We utilize the selection rule in <a href="https://journals.aps.org/prxquantum/abstract/10.1103/PRXQuantum.5.040318">integer fluxonium</a> to enhance the computational subspace coherence time and do trade-off with leakage process.</p>
 </div>
 
 ## a) Two-outcome leakage detection measurement via tunable resonator
 
-<img src="/projects/fluxonium_erasure/images/readout.png" style="width: 500px;" alt="fluxonium erasure dispersive readout">
+<img src="/projects/fluxonium_erasure/images/readout.png" style="max-width: 500px; width: 100%;" loading="lazy" alt="fluxonium erasure dispersive readout">
 
 <div style="text-align: center;">
   <p>Dispersive readout can be used to detect leakage without harming qubit coherence in fluxonium. See analytical and numerical analysis on dephasing in the coming paper. </p>
@@ -34,7 +36,7 @@ permalink: /projects/fluxonium_erasure
 
 ## b) Two-outcome leakage detection measurement via transmon
 
-<img src="/projects/fluxonium_erasure/images/readout_transmon.png" style="width: 500px;" alt="fluxonium erasure transmon readout">
+<img src="/projects/fluxonium_erasure/images/readout_transmon.png" style="max-width: 500px; width: 100%;" loading="lazy" alt="fluxonium erasure transmon readout">
 
 <div style="text-align: center;">
   <p>By adjusting non-linear resonator frequency and drive amplitude, we get another "degree of freedom" in the control compared to resonator based readout, making leakage detection less demanding on parameter selection. </p>
@@ -42,7 +44,7 @@ permalink: /projects/fluxonium_erasure
 
 ## c) "Erasure-bias" preserving gates
 
-<img src="/projects/fluxonium_erasure/images/bias_gate.png" style="width: 500px;" alt="fluxonium erasure transmon readout">
+<img src="/projects/fluxonium_erasure/images/bias_gate.png" style="max-width: 500px; width: 100%;" loading="lazy" alt="fluxonium erasure transmon readout">
 
 <div style="text-align: center;">
 <p>Coherence time estimation shows that g-f <u>I</u>nteger<u> F</u>luxonium<u> Q</u>ubit (g-f IFQ) is an erasure-dominant qubit with super-long computational subspace coherence time, this feature needs to be preserve in gate operations. We show that by using large enough detuning, intermediate state decay is minimized, and additional leakage can be converted to erasure by the aforementioned leakage detection measurement via transmon. This established g-f IFQ as an erasure qubit.</p>
