@@ -1,10 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
-// Configuration
-const contentDir = '..';  // Root directory (parent of scripts/)
-const outputFile = '../assets/search-index.json';  // Output to assets directory
-const excludeDirs = ['assets', 'files', '_site', 'node_modules', '.git', 'scripts'];
+// Configuration - use __dirname so paths work regardless of CWD
+const contentDir = path.resolve(__dirname, '..');
+const outputFile = path.resolve(__dirname, '../assets/search-index.json');
+const excludeDirs = ['assets', 'files', '_site', 'node_modules', '.git', 'scripts', 'vendor'];
 const fileTypes = ['.md', '.html'];
 
 // Function to extract text content from HTML
@@ -12,14 +12,14 @@ function extractTextFromHtml(html) {
     // Remove scripts and style elements
     html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
     html = html.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
-    
+
     // Remove HTML tags and decode entities
     let text = html.replace(/<[^>]+>/g, ' ');
     text = text.replace(/&[^;]+;/g, ' ');
-    
+
     // Clean up whitespace
     text = text.replace(/\s+/g, ' ').trim();
-    
+
     return text;
 }
 
@@ -27,17 +27,17 @@ function extractTextFromHtml(html) {
 function extractFrontmatter(content) {
     const match = content.match(/^---\s*\n([\s\S]*?)\n---/);
     if (!match) return {};
-    
+
     const frontmatter = {};
     const lines = match[1].split('\n');
-    
+
     lines.forEach(line => {
         const [key, ...values] = line.split(':').map(s => s.trim());
         if (key && values.length) {
             frontmatter[key] = values.join(':');
         }
     });
-    
+
     return frontmatter;
 }
 
@@ -48,17 +48,39 @@ function extractTitle(content, filePath) {
     if (frontmatter.title) {
         return frontmatter.title;
     }
-    
+
     // Try to get first h1 heading
     const h1Match = content.match(/^#\s+(.+)$/m);
     if (h1Match) {
         return h1Match[1];
     }
-    
+
     // Fallback to filename
     return path.basename(filePath, path.extname(filePath))
         .replace(/-/g, ' ')
         .replace(/\b\w/g, l => l.toUpperCase());
+}
+
+// Function to get URL from frontmatter permalink or file path
+function extractUrl(content, filePath) {
+    const frontmatter = extractFrontmatter(content);
+
+    // Use permalink from frontmatter if available (strip trailing slash for consistency)
+    if (frontmatter.permalink) {
+        return frontmatter.permalink.replace(/\/+$/, '') || '/';
+    }
+
+    // Fall back to file-path-derived URL
+    let urlPath = '/' + path.relative(contentDir, filePath)
+        .replace(/\\/g, '/')
+        .replace(/\.md$/, '')
+        .replace(/\.html$/, '')
+        .replace(/index$/, '');
+
+    // Remove trailing slash (except for root)
+    urlPath = urlPath.replace(/\/+$/, '') || '/';
+
+    return urlPath;
 }
 
 // Function to walk directory recursively
@@ -85,18 +107,12 @@ function generateSearchIndex() {
         if (!fileTypes.includes(ext)) return;
 
         const content = fs.readFileSync(filePath, 'utf8');
-        
+
         // Skip files without frontmatter (likely not content pages)
         if (!content.startsWith('---')) return;
-        
-        // Get URL path
-        let urlPath = '/' + path.relative(contentDir, filePath)
-            .replace(/\\/g, '/')
-            .replace(/\.md$/, '')
-            .replace(/\.html$/, '')
-            .replace(/index$/, '');
 
         const title = extractTitle(content, filePath);
+        const urlPath = extractUrl(content, filePath);
         const textContent = extractTextFromHtml(content);
 
         searchData.push({
@@ -119,4 +135,3 @@ function generateSearchIndex() {
 
 // Run the generator
 generateSearchIndex();
-
