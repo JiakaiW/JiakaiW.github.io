@@ -55,6 +55,13 @@ title: Home
     </div>
 </div>
 
+<div class="brutal-marquee-container">
+    <div class="brutal-marquee">
+        <span class="marquee-text">QUANTUM HARDWARE THEORY • ERROR CORRECTION • TENSOR NETWORKS • NEURAL NETWORKS • QUANTUM HARDWARE THEORY • ERROR CORRECTION • TENSOR NETWORKS • NEURAL NETWORKS • </span>
+        <span class="marquee-text">QUANTUM HARDWARE THEORY • ERROR CORRECTION • TENSOR NETWORKS • NEURAL NETWORKS • QUANTUM HARDWARE THEORY • ERROR CORRECTION • TENSOR NETWORKS • NEURAL NETWORKS • </span>
+    </div>
+</div>
+
 <section class="news-section">
     <h2 class="section-title">Updates</h2>
     <div class="news-container" id="newsContainer">

@@ -142,12 +142,11 @@
     padding-right: 2em;
 }
 
-/* Theme Icon */
 .theme-icon {
     width: 80px;
     height: 80px;
     margin: 0 auto 1em;
-    color: var(--color-theme-1);
+    color: var(--color-accent-primary);
     transition: all 0.4s ease;
     flex-shrink: 0;
     filter: none;
@@ -158,21 +157,7 @@
     filter: none;
 }
 
-.theme-block[data-theme="superconducting"] .theme-icon {
-    color: var(--color-theme-1);
-}
 
-.theme-block[data-theme="qec"] .theme-icon {
-    color: var(--color-theme-2);
-}
-
-.theme-block[data-theme="tensor"] .theme-icon {
-    color: var(--color-theme-3);
-}
-
-.theme-block[data-theme="neural"] .theme-icon {
-    color: var(--color-theme-4);
-}
 
 /* Theme Title */
 .theme-title {
@@ -249,7 +234,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Background image for preview projects */
 .preview-project-bg {
     position: absolute;
     top: 0;
@@ -260,6 +244,12 @@
     z-index: 1;
     border-radius: var(--radius-badge);
     pointer-events: none;
+    filter: grayscale(100%) contrast(150%);
+    transition: filter var(--transition-fast);
+}
+
+.preview-project:hover .preview-project-bg {
+    filter: grayscale(0%) contrast(120%);
 }
 
 /* Content wrapper with overlay - dark background when there's an image */
@@ -447,6 +437,12 @@
     object-fit: cover;
     border-radius: var(--radius-badge);
     margin-bottom: 1em;
+    filter: grayscale(100%) contrast(150%);
+    transition: filter var(--transition-fast);
+}
+
+.project-item:hover .project-thumbnail {
+    filter: grayscale(0%) contrast(120%);
 }
 
 .project-content {

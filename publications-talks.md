@@ -1,47 +1,81 @@
 
 
 <style>
-.publication-item {
-    padding: 1.2em 1.5em;
-    margin-bottom: 1em;
-    background: linear-gradient(135deg, rgba(30, 30, 30, 0.3) 0%, rgba(46, 46, 46, 0.4) 100%);
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-sm);
-}
-.publication-title {
-    font-size: 1.15em;
-    font-weight: 600;
-    margin-bottom: 0.4em;
-    line-height: 1.4;
-}
-.publication-authors {
-    font-size: 0.95em;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 0.3em;
-}
-.publication-venue {
-    font-size: 0.95em;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 0.4em;
-}
-.publication-links {
+.publication-db {
     display: flex;
-    gap: 1em;
-    font-size: 0.9em;
+    flex-direction: column;
+    width: 100%;
+    margin: 2rem auto;
+    border: var(--border-thickness-heavy) solid var(--color-border);
+    background: var(--color-bg-base);
 }
-.publication-links a {
-    color: var(--color-primary) !important;
-    text-decoration: none;
+.db-header {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr 120px;
+    border-bottom: var(--border-thickness-heavy) solid var(--color-border);
+    font-weight: 700;
+    text-transform: uppercase;
+    background: var(--color-accent-primary);
+    color: var(--color-bg-base);
 }
-.publication-links a:hover {
-    text-decoration: underline;
+.db-header .db-cell {
+    border-right: var(--border-thickness-heavy) solid var(--color-border);
 }
-#publications-list .loading-msg {
-    text-align: center;
-    padding: 2em;
-    color: rgba(255, 255, 255, 0.6);
+.db-row {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr 120px;
+    border-bottom: var(--border-thickness) solid var(--color-border);
+    transition: background var(--transition-fast);
+}
+.db-row:hover {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-base);
+}
+.db-row:hover .db-cell, .db-row:hover .db-title, .db-row:hover .db-authors, .db-row:hover .db-venue, .db-row:hover a {
+    color: var(--color-bg-base);
+}
+.db-row:hover a {
+    border-color: var(--color-bg-base);
+}
+.db-row:hover a:hover {
+    background: var(--color-bg-base);
+    color: var(--color-accent-primary);
+}
+.db-row:last-child {
+    border-bottom: none;
+}
+.db-cell {
+    padding: 1rem;
+    border-right: var(--border-thickness) solid var(--color-border);
+    font-family: var(--font-family-body);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+}
+.db-cell:last-child, .db-header .db-cell:last-child {
+    border-right: none;
+}
+.db-title { font-weight: 700; color: var(--color-text-title); line-height: 1.4; text-transform: uppercase; display: block; }
+.db-authors { color: var(--color-text-body); }
+.db-venue { color: var(--color-text-muted); font-size: 0.8em; }
+.db-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.db-links a { 
+    border: 1px solid var(--color-accent-primary); 
+    padding: 2px 6px; 
+    text-decoration: none; 
+    color: var(--color-accent-primary);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+.db-links a:hover {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-base);
+}
+@media (max-width: 768px) {
+    .db-header { display: none; }
+    .db-row { grid-template-columns: 1fr; }
+    .db-cell { border-right: none; border-bottom: 1px dashed var(--color-border); padding: 0.75rem; }
 }
 </style>
 
@@ -100,65 +134,129 @@ try {
 
     pubs.sort((a, b) => b.year - a.year);
 
-    container.innerHTML = pubs.map(pub => {
+    const headerHtml = `
+        <div class="db-header">
+            <div class="db-cell">TITLE</div>
+            <div class="db-cell">AUTHORS</div>
+            <div class="db-cell">VENUE / TIMESTAMP</div>
+            <div class="db-cell">LINKS</div>
+        </div>
+    `;
+
+    container.innerHTML = '<div class="publication-db">' + headerHtml + pubs.map(pub => {
         const authors = pub.authors.map(a =>
             a.includes('Jiakai') || a.includes('Wang, Jiakai') ? `<strong>${a}</strong>` : a
         ).join(', ');
 
         let venue = '';
         if (pub.journalRef) {
-            venue = `<div class="publication-venue"><strong>${pub.journalRef}</strong></div>
-                     <div style="font-size:0.85em;color:rgba(255,255,255,0.5);">arXiv:${pub.arxivId}${pub.categories[0] ? ` [${pub.categories[0]}]` : ''}</div>`;
+            venue = `<strong>${pub.journalRef}</strong><br>arXiv:${pub.arxivId}${pub.categories[0] ? ` [${pub.categories[0]}]` : ''}`;
         } else {
-            venue = `<div class="publication-venue">arXiv:${pub.arxivId}${pub.categories[0] ? ` [${pub.categories[0]}]` : ''}</div>`;
+            venue = `arXiv:${pub.arxivId}${pub.categories[0] ? ` [${pub.categories[0]}]` : ''}`;
         }
 
-        return `<div class="publication-item">
-            <div class="publication-title">${pub.title}</div>
-            <div class="publication-authors">${authors}</div>
-            ${venue}
-            <div class="publication-links">
-                <a href="https://arxiv.org/abs/${pub.arxivId}" target="_blank">arXiv</a>
-                <a href="https://arxiv.org/pdf/${pub.arxivId}.pdf" target="_blank">PDF</a>
-                ${pub.doi ? `<a href="https://doi.org/${pub.doi}" target="_blank">DOI</a>` : ''}
+        return `
+        <div class="db-row">
+            <div class="db-cell"><span class="db-title">${pub.title}</span></div>
+            <div class="db-cell"><span class="db-authors">${authors}</span></div>
+            <div class="db-cell"><span class="db-venue">${venue}</span></div>
+            <div class="db-cell db-links">
+                <a href="https://arxiv.org/abs/${pub.arxivId}" target="_blank">ARXIV_</a>
+                <a href="https://arxiv.org/pdf/${pub.arxivId}.pdf" target="_blank">PDF_</a>
+                ${pub.doi ? `<a href="https://doi.org/${pub.doi}" target="_blank">DOI_</a>` : ''}
             </div>
         </div>`;
-    }).join('');
+    }).join('') + '</div>';
 
 } catch (e) {
     console.error('Error loading publications:', e);
     container.innerHTML = `
-        <div class="publication-item">
-            <div class="publication-title">Proposal for erasure conversion in integer fluxonium qubits</div>
-            <div class="publication-authors"><strong>Jiakai Wang</strong>, Raymond A. Mencia, Vladimir E. Manucharyan, Maxim G. Vavilov</div>
-            <div class="publication-venue">arXiv:2603.21003 [quant-ph]</div>
-            <div class="publication-links">
-                <a href="https://arxiv.org/abs/2603.21003" target="_blank">arXiv</a>
-                <a href="https://arxiv.org/pdf/2603.21003.pdf" target="_blank">PDF</a>
+        <div class="publication-db">
+            <div class="db-header">
+                <div class="db-cell">TITLE</div>
+                <div class="db-cell">AUTHORS</div>
+                <div class="db-cell">VENUE / TIMESTAMP</div>
+                <div class="db-cell">LINKS</div>
             </div>
-        </div>
-        <div class="publication-item">
-            <div class="publication-title">Fault-tolerant measurement-free quantum error correction with multi-qubit gates</div>
-            <div class="publication-authors">Michael A. Perlin, Vickram N. Premakumar, <strong>Jiakai Wang</strong>, Mark Saffman, Robert Joynt</div>
-            <div class="publication-venue"><strong>Phys. Rev. A 108, 062426 (2023)</strong></div>
-            <div class="publication-links">
-                <a href="https://arxiv.org/abs/2007.09804" target="_blank">arXiv</a>
-                <a href="https://arxiv.org/pdf/2007.09804.pdf" target="_blank">PDF</a>
-                <a href="https://doi.org/10.1103/PhysRevA.108.062426" target="_blank">DOI</a>
+            <div class="db-row">
+                <div class="db-cell"><span class="db-title">Proposal for erasure conversion in integer fluxonium qubits</span></div>
+                <div class="db-cell"><span class="db-authors"><strong>Jiakai Wang</strong>, Raymond A. Mencia, Vladimir E. Manucharyan, Maxim G. Vavilov</span></div>
+                <div class="db-cell"><span class="db-venue">arXiv:2603.21003 [quant-ph]</span></div>
+                <div class="db-cell db-links">
+                    <a href="https://arxiv.org/abs/2603.21003" target="_blank">ARXIV_</a>
+                    <a href="https://arxiv.org/pdf/2603.21003.pdf" target="_blank">PDF_</a>
+                </div>
+            </div>
+            <div class="db-row">
+                <div class="db-cell"><span class="db-title">Fault-tolerant measurement-free quantum error correction with multi-qubit gates</span></div>
+                <div class="db-cell"><span class="db-authors">Michael A. Perlin, Vickram N. Premakumar, <strong>Jiakai Wang</strong>, Mark Saffman, Robert Joynt</span></div>
+                <div class="db-cell"><span class="db-venue"><strong>Phys. Rev. A 108, 062426 (2023)</strong></span></div>
+                <div class="db-cell db-links">
+                    <a href="https://arxiv.org/abs/2007.09804" target="_blank">ARXIV_</a>
+                    <a href="https://arxiv.org/pdf/2007.09804.pdf" target="_blank">PDF_</a>
+                    <a href="https://doi.org/10.1103/PhysRevA.108.062426" target="_blank">DOI_</a>
+                </div>
             </div>
         </div>`;
 }
 </script>
 
-# Talks
-APS March Meeting 2026 Selective darkening gate for gof integer fluxonium erasure detection, https://summit.aps.org/events/MAR-C04/9
+<h2 class="section-title" style="margin-top:2em; margin-bottom:1em;">Talks _ Posters</h2>
 
-[APS March Meeting 2025 Erasure conversion in integer fluxonium qubits, pptx](/projects/fluxonium_erasure/images/Fluxonium_erasure.pptx), https://schedule.aps.org/smt/2025/events/MAR-J18/3
+<div class="publication-db">
+    <div class="db-header">
+        <div class="db-cell">TITLE</div>
+        <div class="db-cell">TYPE</div>
+        <div class="db-cell">VENUE / TIMESTAMP</div>
+        <div class="db-cell">LINKS</div>
+    </div>
+    
+    <div class="db-row">
+        <div class="db-cell"><span class="db-title">Selective darkening gate for gof integer fluxonium erasure detection</span></div>
+        <div class="db-cell"><span class="db-authors">Talk</span></div>
+        <div class="db-cell"><span class="db-venue">APS March Meeting 2026</span></div>
+        <div class="db-cell db-links">
+            <a href="https://summit.aps.org/events/MAR-C04/9" target="_blank">EVENT_</a>
+        </div>
+    </div>
 
-[APS March Meeting 2024 Fluxonium leakage detection, slides](/projects/fluxonium_erasure/images/APSMM24_fluxonium.pdf), https://meetings.aps.org/Meeting/MAR24/Session/G47.8
+    <div class="db-row">
+        <div class="db-cell"><span class="db-title">Erasure conversion in integer fluxonium qubits</span></div>
+        <div class="db-cell"><span class="db-authors">Talk</span></div>
+        <div class="db-cell"><span class="db-venue">APS March Meeting 2025</span></div>
+        <div class="db-cell db-links">
+            <a href="/projects/fluxonium_erasure/images/Fluxonium_erasure.pptx" target="_blank">PPTX_</a>
+            <a href="https://schedule.aps.org/smt/2025/events/MAR-J18/3" target="_blank">EVENT_</a>
+        </div>
+    </div>
 
-[APS March Meeting 2024 Measurement-Free quantum error correction, slides](/projects/mfqec/images/APSMM24_MFQEC.pdf), https://meetings.aps.org/Meeting/MAR24/Session/A49.8
+    <div class="db-row">
+        <div class="db-cell"><span class="db-title">Fluxonium leakage detection</span></div>
+        <div class="db-cell"><span class="db-authors">Talk</span></div>
+        <div class="db-cell"><span class="db-venue">APS March Meeting 2024</span></div>
+        <div class="db-cell db-links">
+            <a href="/projects/fluxonium_erasure/images/APSMM24_fluxonium.pdf" target="_blank">SLIDES_</a>
+            <a href="https://meetings.aps.org/Meeting/MAR24/Session/G47.8" target="_blank">EVENT_</a>
+        </div>
+    </div>
 
-# Posters
+    <div class="db-row">
+        <div class="db-cell"><span class="db-title">Measurement-Free quantum error correction</span></div>
+        <div class="db-cell"><span class="db-authors">Talk</span></div>
+        <div class="db-cell"><span class="db-venue">APS March Meeting 2024</span></div>
+        <div class="db-cell db-links">
+            <a href="/projects/mfqec/images/APSMM24_MFQEC.pdf" target="_blank">SLIDES_</a>
+            <a href="https://meetings.aps.org/Meeting/MAR24/Session/A49.8" target="_blank">EVENT_</a>
+        </div>
+    </div>
 
-[IMSI quantum hardware workshop poster 2024, poster file](/projects/fluxonium_erasure/images/leakage_detection_poster.pdf), https://www.imsi.institute/quantum-hardware-poster-session/
+    <div class="db-row">
+        <div class="db-cell"><span class="db-title">IMSI quantum hardware workshop</span></div>
+        <div class="db-cell"><span class="db-authors">Poster</span></div>
+        <div class="db-cell"><span class="db-venue">IMSI 2024</span></div>
+        <div class="db-cell db-links">
+            <a href="/projects/fluxonium_erasure/images/leakage_detection_poster.pdf" target="_blank">POSTER_</a>
+            <a href="https://www.imsi.institute/quantum-hardware-poster-session/" target="_blank">EVENT_</a>
+        </div>
+    </div>
+</div>

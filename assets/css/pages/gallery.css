@@ -68,9 +68,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Clipped by .photo-card overflow + border-radius so corners match the frame */
     border-radius: 0;
-    transition: transform 0.3s ease;
+    filter: grayscale(100%) contrast(150%);
+    transition: transform var(--transition-base), filter var(--transition-fast);
     position: relative;
     z-index: 1;
     display: block;
@@ -78,6 +78,7 @@
 
 .photo-card:hover img {
     transform: scale(1.05);
+    filter: grayscale(0%) contrast(120%);
 }
 
 /* Gallery container for carousel functionality */

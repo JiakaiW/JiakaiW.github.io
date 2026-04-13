@@ -197,7 +197,7 @@
 .tile-icon svg {
     width: 36px;
     height: 36px;
-    fill: var(--color-border);
+    fill: var(--color-accent-primary);
 }
 
 .theme-tile:hover .tile-icon svg {
@@ -234,11 +234,6 @@
     display: none; /* Hide arrow for more brutal aesthetic */
 }
 
-/* Per-theme icon colors - Inverted on hover for contrast */
-.theme-tile[data-theme="superconducting"] .tile-icon svg { fill: var(--color-theme-1); }
-.theme-tile[data-theme="qec"]             .tile-icon svg { fill: var(--color-theme-2); }
-.theme-tile[data-theme="tensor"]          .tile-icon svg { fill: var(--color-theme-3); }
-.theme-tile[data-theme="neural"]          .tile-icon svg { fill: var(--color-theme-1); }
 
 .theme-tile:hover .tile-icon svg { fill: var(--color-bg-base) !important; }
 

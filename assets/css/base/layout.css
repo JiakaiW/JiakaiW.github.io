@@ -40,6 +40,51 @@ main {
     background: transparent;
 }
 
+/* ========================================
+   Kinetic Typography Marquee
+   ======================================== */
+
+.brutal-marquee-container {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: var(--color-accent-primary);
+    color: var(--color-bg-base);
+    overflow: hidden;
+    padding: 1.5rem 0;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    border-top: var(--border-thickness-heavy) solid var(--color-border);
+    border-bottom: var(--border-thickness-heavy) solid var(--color-border);
+    display: flex;
+    white-space: nowrap;
+}
+
+.brutal-marquee {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: brutal-scroll 40s linear infinite;
+    flex-wrap: nowrap;
+}
+
+.marquee-text {
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-family: var(--font-family-heading);
+    font-weight: 800;
+    text-transform: uppercase;
+    padding-right: 2rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+@keyframes brutal-scroll {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+}
+
 /* Brutalist Header/Footer backgrounds */
 header, footer, nav {
     background: var(--color-bg-panes) !important;
