@@ -1,52 +1,55 @@
 
-
 <style>
 .publication-db {
     display: flex;
     flex-direction: column;
     width: 100%;
     margin: 2rem auto;
-    border: var(--border-thickness-heavy) solid var(--color-border);
+    border: var(--border-thickness) solid var(--color-border);
+    border-radius: var(--radius-xl);
     background: var(--color-bg-base);
+    overflow: hidden;
+    box-shadow: var(--shadow-solid);
 }
 .db-header {
     display: grid;
     grid-template-columns: 2fr 1.5fr 1.5fr 120px;
-    border-bottom: var(--border-thickness-heavy) solid var(--color-border);
-    font-weight: 700;
+    border-bottom: var(--border-thickness) solid var(--color-border);
+    font-weight: 600;
     text-transform: uppercase;
-    background: var(--color-accent-primary);
-    color: var(--color-bg-base);
+    background: var(--color-bg-panes);
+    color: var(--color-text-muted);
 }
 .db-header .db-cell {
-    border-right: var(--border-thickness-heavy) solid var(--color-border);
+    border-right: 1px dashed var(--color-border);
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
 }
 .db-row {
     display: grid;
     grid-template-columns: 2fr 1.5fr 1.5fr 120px;
     border-bottom: var(--border-thickness) solid var(--color-border);
-    transition: background var(--transition-fast);
+    transition: background var(--transition-base);
 }
 .db-row:hover {
-    background: var(--color-accent-primary);
-    color: var(--color-bg-base);
+    background: var(--color-hover-bg);
 }
-.db-row:hover .db-cell, .db-row:hover .db-title, .db-row:hover .db-authors, .db-row:hover .db-venue, .db-row:hover a {
-    color: var(--color-bg-base);
+.db-row:hover .db-title {
+    color: var(--color-hover-text);
 }
 .db-row:hover a {
-    border-color: var(--color-bg-base);
+    border-color: var(--color-accent-primary);
 }
 .db-row:hover a:hover {
-    background: var(--color-bg-base);
-    color: var(--color-accent-primary);
+    background: var(--color-accent-primary);
+    color: var(--color-bg-base);
 }
 .db-row:last-child {
     border-bottom: none;
 }
 .db-cell {
     padding: 1rem;
-    border-right: var(--border-thickness) solid var(--color-border);
+    border-right: 1px dashed var(--color-border);
     font-family: var(--font-family-body);
     font-size: 0.85rem;
     display: flex;
@@ -55,14 +58,14 @@
 .db-cell:last-child, .db-header .db-cell:last-child {
     border-right: none;
 }
-.db-title { font-weight: 700; color: var(--color-text-title); line-height: 1.4; text-transform: uppercase; display: block; }
+.db-title { font-weight: 600; color: var(--color-text-title); line-height: 1.4; display: block; transition: color var(--transition-fast); letter-spacing: 0.02em; }
 .db-authors { color: var(--color-text-body); }
 .db-venue { color: var(--color-text-muted); font-size: 0.8em; }
 .db-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.db-links a { 
-    border: 1px solid var(--color-accent-primary); 
-    padding: 2px 6px; 
-    text-decoration: none; 
+.db-links a {
+    border: 1px solid var(--color-accent-primary);
+    padding: 2px 6px;
+    text-decoration: none;
     color: var(--color-accent-primary);
     text-transform: uppercase;
     font-size: 0.75rem;
@@ -106,7 +109,7 @@ try {
 
     const pubs = [];
     entries.forEach(entry => {
-        const arxivId = entry.querySelector('id')?.textContent.split('/abs/')[1];
+        const arxivId = entry.querySelector('id')?.textContent.split['/abs/'](1);
         const journalRefNodes = entry.getElementsByTagNameNS('http://arxiv.org/schemas/atom', 'journal_ref');
         const doiNodes = entry.getElementsByTagNameNS('http://arxiv.org/schemas/atom', 'doi');
         const published = entry.querySelector('published')?.textContent;
@@ -201,7 +204,7 @@ try {
 }
 </script>
 
-<h2 class="section-title" style="margin-top:2em; margin-bottom:1em;">Talks _ Posters</h2>
+<h2 class="section-title" style="margin-top:2em; margin-bottom:1em;">Talks & Posters</h2>
 
 <div class="publication-db">
     <div class="db-header">
@@ -210,7 +213,7 @@ try {
         <div class="db-cell">VENUE / TIMESTAMP</div>
         <div class="db-cell">LINKS</div>
     </div>
-    
+
     <div class="db-row">
         <div class="db-cell"><span class="db-title">Selective darkening gate for gof integer fluxonium erasure detection</span></div>
         <div class="db-cell"><span class="db-authors">Talk</span></div>

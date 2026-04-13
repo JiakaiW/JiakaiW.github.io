@@ -119,13 +119,13 @@ footer {
 }
 
 /* ========================================
-   Global Brutalist Image Treatment
+   Global Image Treatment (Neo-Brutalist)
    ======================================== */
 img {
-    filter: grayscale(100%) contrast(150%);
-    transition: filter var(--transition-fast), transform var(--transition-base);
+    filter: grayscale(80%) brightness(0.8);
+    transition: filter var(--transition-base), transform var(--transition-base);
 }
 
 img:hover {
-    filter: grayscale(0%) contrast(120%);
+    filter: grayscale(0%) brightness(1);
 }

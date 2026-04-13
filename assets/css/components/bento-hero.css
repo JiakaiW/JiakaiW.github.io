@@ -9,8 +9,8 @@
     max-width: 1200px;
     margin: 2em auto;
     background: var(--color-bg-base);
-    border: var(--border-thickness-heavy) solid var(--color-border);
-    border-radius: 0;
+    border: var(--border-thickness) solid var(--color-border);
+    border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: var(--shadow-solid);
 }
@@ -19,9 +19,9 @@
 .bento-bio {
     display: flex;
     flex-direction: column;
-    padding: 1.75em;
+    padding: 2em;
     gap: 1em;
-    border-right: var(--border-thickness-heavy) solid var(--color-border);
+    border-right: var(--border-thickness) solid var(--color-border);
     justify-content: space-between;
     background-color: var(--color-bg-panes);
 }
@@ -30,15 +30,12 @@
     position: relative;
     align-self: flex-start;
     display: inline-block;
-    border: var(--border-thickness) solid var(--color-border);
-    padding: 0.5em;
-    background: var(--color-bg-base);
 }
 
 .bio-photo {
     width: 100%;
-    max-width: 280px;
-    border-radius: 0;
+    max-width: 250px;
+    border-radius: var(--radius-lg);
     display: block;
     cursor: pointer;
 }
@@ -62,11 +59,12 @@
     color: var(--color-text-title);
     font-size: clamp(1em, 2vw, 1.25em);
     font-family: var(--font-family-body);
-    font-weight: 600;
+    font-weight: 500;
     margin: 0 0 0.75em 0;
     text-transform: uppercase;
-    border-bottom: 1px dashed var(--color-border);
+    border-bottom: 1px solid var(--color-border);
     padding-bottom: 0.5em;
+    letter-spacing: 0.05em;
 }
 
 .bento-keywords {
@@ -85,17 +83,22 @@
     align-items: center;
     gap: 1em;
     padding: 1em;
-    border-radius: 0;
+    border-radius: var(--radius-md);
     background: var(--color-bg-base);
     border: var(--border-thickness) solid var(--color-border);
     flex-shrink: 0;
-    box-shadow: 2px 2px 0px 0px var(--color-accent-primary);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.bento-advisor:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-solid);
 }
 
 .advisor-photo {
     width: 56px;
     height: 56px;
-    border-radius: 0;
+    border-radius: var(--radius-sm);
     object-fit: cover;
     flex-shrink: 0;
     filter: grayscale(100%) contrast(150%);
@@ -136,11 +139,8 @@
 }
 
 .hiring-emphasis {
-    color: var(--color-accent-secondary);
-    background: transparent;
-    padding: 0 4px;
+    color: var(--color-accent-secondary); /* Amber */
     font-weight: 700;
-    border: 1px solid var(--color-accent-secondary);
 }
 
 /* ── Right: 2×2 theme tile grid ── */
@@ -167,17 +167,16 @@
 /* Inner structural borders */
 .theme-tile:nth-child(1),
 .theme-tile:nth-child(2) {
-    border-bottom: var(--border-thickness-heavy) solid var(--color-border);
+    border-bottom: var(--border-thickness) solid var(--color-border);
 }
 
 .theme-tile:nth-child(1),
 .theme-tile:nth-child(3) {
-    border-right: var(--border-thickness-heavy) solid var(--color-border);
+    border-right: var(--border-thickness) solid var(--color-border);
 }
 
 .theme-tile:hover {
-    background: var(--color-accent-primary);
-    color: var(--color-bg-base);
+    background: var(--color-hover-bg);
 }
 
 .tile-icon {
@@ -186,28 +185,34 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(2px 2px 0 #000);
+    filter: none;
 }
 
 .tile-icon svg {
     width: 36px;
     height: 36px;
     fill: var(--color-accent-primary);
+    transition: transform var(--transition-base);
 }
 
 .theme-tile:hover .tile-icon svg {
-    fill: var(--color-bg-base);
+    transform: scale(1.1);
 }
 
 .tile-title {
     font-size: clamp(0.75em, 1.25vw, 0.9em);
-    font-weight: 700;
+    font-weight: 600;
     color: var(--color-text-title);
     text-align: center;
     font-family: var(--font-family-body);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-top: 5px;
+    transition: color var(--transition-fast);
+}
+
+.theme-tile:hover .tile-title {
+    color: var(--color-hover-text);
 }
 
 .tile-desc {
@@ -216,21 +221,12 @@
     font-family: var(--font-family-body);
     text-align: center;
     margin-top: 0.5em;
-    line-height: 1.4;
-    text-transform: lowercase;
-}
-
-.theme-tile:hover .tile-title,
-.theme-tile:hover .tile-desc {
-    color: var(--color-bg-base);
+    line-height: 1.5;
 }
 
 .tile-arrow {
-    display: none; /* Hide arrow for more brutal aesthetic */
+    display: none;
 }
-
-
-.theme-tile:hover .tile-icon svg { fill: var(--color-bg-base) !important; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
@@ -240,6 +236,6 @@
     }
     .bento-bio {
         border-right: none;
-        border-bottom: var(--border-thickness-heavy) solid var(--color-border);
+        border-bottom: var(--border-thickness) solid var(--color-border);
     }
 }
