@@ -45,7 +45,7 @@ body {
     z-index: 1;
 }
 
-/* Dark overlay to enhance glass effect visibility and text readability */
+/* Dark overlay to ensure text readability over the background image */
 body::before {
     content: '';
     position: fixed;
@@ -53,7 +53,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.30);
     z-index: -1;
     pointer-events: none;
 }
@@ -75,7 +75,7 @@ body:has(.tech-docs-page) {
 
 body:has(.photo-grid)::before,
 body:has(.tech-docs-page)::before {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.45);
 }
 
 html:has(.photo-grid),
@@ -96,26 +96,24 @@ body:has(.tech-docs-page) {
     overscroll-behavior: contain;
 }
 
-/* Make header transparent to show gradient */
+/* Keep header/footer opaque on gallery and docs pages */
 body:has(.photo-grid) header,
 body:has(.photo-grid) .header,
 body:has(.photo-grid) nav,
 body:has(.tech-docs-page) header,
 body:has(.tech-docs-page) .header,
 body:has(.tech-docs-page) nav {
-    background: transparent !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(4, 8, 16, 0.70) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
-/* Make footer transparent to show gradient */
+/* Footer on gallery/docs pages */
 body:has(.photo-grid) footer,
 body:has(.photo-grid) #footer,
 body:has(.tech-docs-page) footer,
 body:has(.tech-docs-page) #footer {
-    background: transparent !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(4, 8, 16, 0.78) !important;
 }
 
 /* Make main content transparent */

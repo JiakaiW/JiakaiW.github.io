@@ -54,26 +54,12 @@
     min-height: 250px;
     isolation: isolate;
 
-    /* Liquid Glass - Base Layer */
-    background: linear-gradient(135deg,
-            rgba(93, 143, 179, 0.18) 0%,
-            rgba(137, 207, 240, 0.10) 50%,
-            rgba(46, 46, 46, 0.15) 100%);
-
-    /* Frosted glass blur - enhanced for image background */
-    backdrop-filter: blur(30px) saturate(180%);
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-
+    /* Flat panel */
+    background: var(--panel-bg);
     border-radius: var(--radius-xl);
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--panel-border);
     overflow: hidden;
-    /* Clip distorted background to rounded corners */
-
-    /* Layered shadows for depth */
-    box-shadow:
-        0 8px 32px rgba(93, 143, 179, 0.12),
-        0 2px 8px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    box-shadow: var(--shadow-lg);
 
     /* Animation */
     opacity: 0;
@@ -117,87 +103,25 @@
     }
 }
 
-/* Liquid Glass - Highlight Layer (light refraction) */
-.theme-block::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-xl);
-    padding: 1.5px;
-    background: linear-gradient(135deg,
-            rgba(255, 255, 255, 0.3) 0%,
-            rgba(255, 255, 255, 0.1) 40%,
-            rgba(255, 255, 255, 0) 70%);
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    pointer-events: none;
-    opacity: 0.7;
-    transition: opacity 0.4s ease;
-    z-index: 1;
-}
-
-/* Liquid Glass - Illumination Layer (ambient glow) */
+/* No glass pseudo-element layers in flat design */
+.theme-block::before,
 .theme-block::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: var(--radius-xl);
-    background: radial-gradient(circle at 30% 20%,
-            rgba(137, 207, 240, 0.15) 0%,
-            transparent 50%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.theme-block:hover::before {
-    opacity: 1;
-}
-
-.theme-block:hover::after {
-    opacity: 0.8;
+    display: none;
 }
 
 .theme-block:hover {
-    top: -10px;
-    /* Use top instead of transform */
-    /* scale(1.01) removed to avoid transform */
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow:
-        0 20px 48px rgba(93, 143, 179, 0.25),
-        0 8px 16px rgba(0, 0, 0, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    background: linear-gradient(135deg,
-            rgba(93, 143, 179, 0.25) 0%,
-            rgba(137, 207, 240, 0.15) 50%,
-            rgba(46, 46, 46, 0.18) 100%);
+    top: -6px;
+    border-color: var(--panel-border-hover);
+    box-shadow: 0 14px 44px rgba(0, 0, 0, 0.60);
+    background: var(--panel-bg-hover);
 }
 
-/* Theme-specific glass tints - unified liquid glass effect */
+/* Theme-specific hover — flat panels share the same hover bg */
 .theme-block[data-theme="superconducting"]:hover,
 .theme-block[data-theme="qec"]:hover,
 .theme-block[data-theme="tensor"]:hover,
 .theme-block[data-theme="neural"]:hover {
-    background: linear-gradient(135deg,
-            rgba(93, 143, 179, 0.25) 0%,
-            rgba(137, 207, 240, 0.15) 50%,
-            rgba(46, 46, 46, 0.18) 100%);
-}
-
-.theme-block[data-theme="superconducting"]:hover::after,
-.theme-block[data-theme="qec"]:hover::after,
-.theme-block[data-theme="tensor"]:hover::after,
-.theme-block[data-theme="neural"]:hover::after {
-    background: radial-gradient(circle at 30% 20%,
-            rgba(137, 207, 240, 0.2) 0%,
-            transparent 60%);
+    background: var(--panel-bg-hover);
 }
 
 /* Ensure all content is above glass layers */
@@ -226,14 +150,12 @@
     color: var(--color-theme-1);
     transition: all 0.4s ease;
     flex-shrink: 0;
-    /* Add subtle glow effect */
-    filter: drop-shadow(0 0 8px currentColor) drop-shadow(0 0 4px currentColor);
+    filter: none;
 }
 
 .theme-block:hover .theme-icon {
-    transform: scale(1.1) rotate(5deg);
-    /* Enhanced glow on hover */
-    filter: drop-shadow(0 0 16px currentColor) drop-shadow(0 0 8px currentColor) drop-shadow(0 0 4px currentColor);
+    transform: scale(1.1);
+    filter: none;
 }
 
 .theme-block[data-theme="superconducting"] .theme-icon {

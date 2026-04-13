@@ -32,15 +32,11 @@
     }
 }
 
-/* Photo card styling with glass effect */
+/* Photo card - flat panel, image fills it */
 .photo-card {
-    /* Remove background from card - image will fill the space */
     background: transparent;
-    /* Extends glass-base - uses variables */
-    backdrop-filter: blur(var(--glass-blur-gallery)) saturate(var(--glass-saturation-gallery));
-    -webkit-backdrop-filter: blur(var(--glass-blur-gallery)) saturate(var(--glass-saturation-gallery));
-    border: 2px solid var(--glass-border);
-    border-radius: var(--radius-medium);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius-lg);
     padding: 0; /* No padding - image fills to border */
     cursor: pointer;
     transition: all 0.4s ease;
@@ -52,65 +48,19 @@
     justify-content: center;
     align-items: center;
     isolation: isolate;
-    box-shadow: 
-        0 8px 32px rgba(93, 143, 179, 0.15),
-        0 2px 8px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-lg);
 }
 
-/* Glass highlight layer - border rim light effect */
-.photo-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 2px; /* Matches border width for rim effect */
-    background: linear-gradient(135deg, 
-        rgba(255, 255, 255, 0.3) 0%,
-        rgba(255, 255, 255, 0.05) 50%,
-        rgba(255, 255, 255, 0) 100%);
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.7;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* Illumination layer */
+/* No glass pseudo-element layers in flat design */
+.photo-card::before,
 .photo-card::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(93, 143, 179, 0.15) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.photo-card:hover::before {
-    opacity: 1;
-}
-
-.photo-card:hover::after {
-    opacity: 0.8;
+    display: none;
 }
 
 .photo-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 
-        0 20px 48px rgba(93, 143, 179, 0.25),
-        0 8px 16px rgba(0, 0, 0, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    /* Keep background transparent on hover - glass effect comes from backdrop-filter */
+    transform: translateY(-6px);
+    border-color: var(--panel-border-hover);
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.60);
     background: transparent;
 }
 

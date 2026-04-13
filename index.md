@@ -4,9 +4,8 @@ title: Home
 ---
 
 <!-- Home page component styles -->
-<link rel="stylesheet" href="{{ '/assets/css/components/intro-section.css' | asset_hash_versioned }}">
+<link rel="stylesheet" href="{{ '/assets/css/components/bento-hero.css' | asset_hash_versioned }}">
 <link rel="stylesheet" href="{{ '/assets/css/components/card-overlay.css' | asset_hash_versioned }}">
-<link rel="stylesheet" href="{{ '/assets/css/components/theme-grid.css' | asset_hash_versioned }}">
 <link rel="stylesheet" href="{{ '/assets/css/components/news-section.css' | asset_hash_versioned }}">
 <link rel="stylesheet" href="{{ '/assets/css/pages/timeline.css' | asset_hash_versioned }}">
 <script src="{{ '/assets/js/home.js' | asset_hash_versioned }}" type="module" defer></script>
@@ -14,19 +13,41 @@ title: Home
 
 {% include components/glass-filters.html %}
 
-<div class="intro-container">
-    <div class="intro-image intro-image-left">
-        <img src="/photo-grid/images/me.jpg" alt=" " />
-        <!-- <p class="image-caption">During the superconductivity summer school at UMN we went to Minnehaha Falls and I got mud all over myself.</p> -->
+<div class="bento-hero">
+    <div class="bento-bio">
+        <div class="bento-bio-photo-block">
+            <img class="bio-photo" src="/photo-grid/images/me.jpg" alt="Jiakai Wang">
+        </div>
+        <div class="bento-bio-content">
+            <h1>Jiakai Wang</h1>
+            <p class="bento-title">Physics PhD @ UW-Madison</p>
+            <p class="bento-keywords">Quantum hardware theory · Quantum error correction · Tensor networks · Neural networks</p>
+        </div>
+        <div class="bento-advisor">
+            <a href="https://mvavilov.github.io/" target="_blank">
+                <img class="advisor-photo" src="/photo-grid/images/vavilov.jpg" alt="Prof. Maxim Vavilov">
+            </a>
+            <div class="advisor-text">
+                <a class="advisor-name-link" href="https://mvavilov.github.io/" target="_blank">Prof. Maxim Vavilov</a>
+                <p class="advisor-hiring-note">is actively hiring <span class="hiring-emphasis">highly motivated students!</span></p>
+            </div>
+        </div>
     </div>
-    <div class="intro-content">
-        <h1>👋 I'm Jiakai Wang</h1>
-        <h2>Physics Ph.D @ UW-Madison</h2>
-        <h3>Quantum hardware theory<br>Quantum error correction<br>Tensor/neural networks</h3>
-    </div>
-    <div class="intro-image intro-image-right">
-        <a href="https://mvavilov.github.io/" target="_blank"><img src="/photo-grid/images/vavilov.jpg" alt=" " /></a>
-        <p class="image-caption"><a href="https://mvavilov.github.io/" target="_blank" style="color:rgb(206, 231, 255); text-decoration: none; font-weight: bold;">Prof. Maxim Vavilov</a> is actively hiring <br><strong style="color: #e74c3c; font-size: 20px;">highly motivated students!</strong></p>
+    <div class="bento-themes-grid">
+        {% for theme in site.data.research_themes %}
+        <a class="theme-tile" href="/research/#{{ theme.id }}" data-theme="{{ theme.id }}">
+            <div class="tile-icon">
+                {% assign icon_filename = theme.icon | split: '/' | last %}
+                {% if icon_filename == 'superconducting.svg' %}{% include icons/themes/superconducting.svg %}
+                {% elsif icon_filename == 'qec.svg' %}{% include icons/themes/qec.svg %}
+                {% elsif icon_filename == 'tensor.svg' %}{% include icons/themes/tensor.svg %}
+                {% elsif icon_filename == 'neural.svg' %}{% include icons/themes/neural.svg %}
+                {% endif %}
+            </div>
+            <span class="tile-title">{{ theme.title }}</span>
+            <span class="tile-arrow">→</span>
+        </a>
+        {% endfor %}
     </div>
 </div>
 
@@ -42,16 +63,5 @@ title: Home
 <section class="timeline-section">
     <div id="timeline-widget"></div>
 </section>
-
-<section class="research-themes">
-    <h2 class="section-title">Research Themes</h2>
-    
-    <div class="theme-grid">
-        {% for theme in site.data.research_themes %}
-            {% include components/theme-block.html theme=theme %}
-        {% endfor %}
-    </div>
-</section>
-
 
 {% include_relative photo-grid/gallery.md %}

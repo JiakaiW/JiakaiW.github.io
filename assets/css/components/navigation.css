@@ -5,11 +5,11 @@
 
 /* Layout */
 header {
-    background: transparent !important;
-    backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer)) !important;
-    -webkit-backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer)) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(4, 8, 16, 0.70) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.40);
     padding: 0;
     /* Removed padding to let flexbox and min-height handle spacing */
     height: 70px;
@@ -23,7 +23,7 @@ header {
     isolation: isolate;
 }
 
-/* Glass highlight on header top edge */
+/* Thin top accent line */
 header::before {
     content: '';
     position: absolute;
@@ -31,10 +31,7 @@ header::before {
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg,
-            transparent 0%,
-            rgba(255, 255, 255, 0.3) 50%,
-            transparent 100%);
+    background: rgba(255, 255, 255, 0.10);
     pointer-events: none;
     z-index: 1;
 }
@@ -132,9 +129,7 @@ nav {
 
 .menu-link:hover>a {
     color: var(--color-primary);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.07);
 }
 
 /* Blur effect for menu links */
@@ -181,21 +176,15 @@ nav {
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(10px);
-    background: linear-gradient(135deg,
-            rgba(26, 26, 26, 0.95) 0%,
-            rgba(46, 46, 46, 0.9) 100%);
-    backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
-    -webkit-backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(6, 10, 20, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.10);
     min-width: 220px;
     border-radius: var(--radius-base);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
     padding: 0.5em 0;
-    box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.50);
     z-index: 1000;
     isolation: isolate;
 }
@@ -221,12 +210,8 @@ nav {
 
 /* Dark Mode Styles */
 .dark-mode header {
-    background: linear-gradient(135deg,
-            rgba(0, 0, 0, 0.9) 0%,
-            rgba(26, 26, 26, 0.8) 100%);
-    backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
-    -webkit-backdrop-filter: blur(var(--glass-blur-footer)) saturate(var(--glass-saturation-footer));
-    border-bottom-color: rgba(255, 255, 255, 0.15);
+    background: rgba(2, 4, 10, 0.82) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
 .dark-mode .menu-link>a,
@@ -251,11 +236,11 @@ nav {
 /* Responsive Styles */
 @media (max-width: 768px) {
 
-    /* Make header transparent on mobile to avoid black background */
+    /* Header on mobile */
     header {
-        background-color: transparent;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        background: rgba(4, 8, 16, 0.82) !important;
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
         padding: 1em 0;
         min-height: 60px;
     }
@@ -284,10 +269,10 @@ nav {
         flex-direction: column !important;
         align-items: stretch;
         justify-content: flex-start;
-        background: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(40px) saturate(180%);
-        -webkit-backdrop-filter: blur(40px) saturate(180%);
-        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(4, 8, 18, 0.96);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-right: 1px solid rgba(255, 255, 255, 0.10);
         width: 100%;
         text-align: left;
         transition: left 0.3s ease-in-out;
@@ -298,9 +283,7 @@ nav {
     }
 
     .dark-mode .nav-menu {
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(40px) saturate(180%);
-        -webkit-backdrop-filter: blur(40px) saturate(180%);
+        background: rgba(2, 4, 12, 0.98);
     }
 
     /* Show menu when active */

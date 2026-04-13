@@ -5,21 +5,22 @@
 
 /* News Section Styles */
 .news-section {
-    margin: 4em auto;
+    margin: 2.5em auto;
     max-width: 1200px;
     padding: 0 1em;
 }
 
 .news-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
-    gap: 1.5em;
-    margin-top: 2em;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25em;
+    margin-top: 1.5em;
 }
 
-@media (min-width: 1200px) {
+@media (max-width: 1024px) {
     .news-container {
         grid-template-columns: repeat(2, 1fr);
+        gap: 1em;
     }
 }
 
@@ -35,91 +36,32 @@
 }
 
 .news-item {
-    /* Extends glass-base with news-specific styling */
-    background: linear-gradient(135deg,
-            rgba(var(--glass-primary-rgb), var(--glass-bg-opacity-base)) 0%,
-            rgba(var(--glass-secondary-rgb), 0.08) 50%,
-            rgba(var(--glass-accent-rgb), 0.3) 100%);
-    backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-intro));
-    -webkit-backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-intro));
-    border: 1px solid var(--glass-border);
+    /* Flat panel */
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
     border-radius: var(--radius-md);
     padding: 1.5em;
-    transition: all var(--transition-slow);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base), top var(--transition-base), background var(--transition-base);
     position: relative;
     top: 0;
-    /* Ensure top transition works */
     overflow: hidden;
     opacity: 0;
     animation: newsItemFadeIn 0.6s ease-out forwards;
     animation-delay: calc(var(--item-index, 0) * 0.1s);
     isolation: isolate;
-    box-shadow:
-        var(--shadow-lg),
-        0 2px 8px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-md);
 }
 
-/* Glass highlight layer */
+/* No glass pseudo-element layers in flat design */
 .news-item::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-md);
-    padding: 1px;
-    background: linear-gradient(135deg,
-            rgba(255, 255, 255, 0.3) 0%,
-            rgba(255, 255, 255, 0.05) 50%,
-            rgba(255, 255, 255, 0) 100%);
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    opacity: 0.7;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Liquid Glass - Illumination Layer (ambient glow) */
-.news-item::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: var(--radius-md);
-    background: radial-gradient(circle at 30% 20%,
-            rgba(137, 207, 240, 0.15) 0%,
-            transparent 50%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.news-item:hover::before {
-    opacity: 1;
-}
-
-.news-item:hover::after {
-    opacity: 0.8;
+    display: none;
 }
 
 .news-item:hover {
-    top: -8px;
-    /* Use top instead of transform to preserve background-attachment: fixed */
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow:
-        0 20px 48px rgba(93, 143, 179, 0.25),
-        0 8px 16px rgba(0, 0, 0, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    background: linear-gradient(135deg,
-            rgba(93, 143, 179, 0.25) 0%,
-            rgba(137, 207, 240, 0.15) 50%,
-            rgba(46, 46, 46, 0.4) 100%);
+    top: -5px;
+    border-color: var(--panel-border-hover);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.55);
+    background: var(--panel-bg-hover);
 }
 
 @keyframes newsItemFadeIn {
@@ -151,8 +93,6 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     /* Colors are set inline via JavaScript based on category type */
 }
 
@@ -236,13 +176,8 @@
     align-items: center;
     gap: 0.5em;
     padding: 0.8em 2em;
-    /* Extends btn-glass with view-all styling */
-    background: linear-gradient(135deg,
-            rgba(var(--glass-primary-rgb), 0.2) 0%,
-            rgba(var(--glass-secondary-rgb), 0.15) 100%);
-    backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-intro));
-    -webkit-backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-intro));
-    border: 1px solid var(--glass-border);
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
     border-radius: var(--radius-small);
     color: var(--color-accent-primary);
     text-decoration: none;
@@ -273,14 +208,10 @@
 }
 
 .view-all-news-button:hover {
-    transform: translateY(-3px);
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow:
-        0 8px 24px var(--color-accent-primary-bg),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    background: linear-gradient(135deg,
-            var(--color-accent-primary-bg) 0%,
-            rgba(107, 181, 212, 0.2) 100%);
+    transform: translateY(-2px);
+    border-color: var(--panel-border-hover);
+    box-shadow: var(--shadow-lg);
+    background: var(--panel-bg-hover);
     color: var(--color-accent-primary-light);
 }
 

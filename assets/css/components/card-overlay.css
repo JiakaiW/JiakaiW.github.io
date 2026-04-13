@@ -60,16 +60,9 @@
     height: 50px; /* Fixed height for the text area */
     padding: 0.5em; /* Padding for the content inside */
     
-    /* Enhanced glass effect - uses variables */
-    background: linear-gradient(135deg, 
-        rgba(26, 26, 26, 0.85) 0%, 
-        rgba(46, 46, 46, 0.9) 100%);
-    backdrop-filter: blur(var(--glass-blur-search)) saturate(var(--glass-saturation-search));
-    -webkit-backdrop-filter: blur(var(--glass-blur-search)) saturate(var(--glass-saturation-search));
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 
-        0 -4px 16px rgba(0, 0, 0, 0.3),
-        var(--shadow-inset);
+    background: rgba(6, 10, 18, 0.90);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.40);
 
     /* Center text using flexbox */
     display: flex;
@@ -128,14 +121,8 @@ body .card-overlay:not(.active) {
 }
 
 .expanded-card {
-    /* Glass effect using CSS backdrop-filter - shows DOM content (home page elements) through glass */
-    /* Background is semi-transparent to show blurred content behind - reduced alpha for more transparency */
-    background: linear-gradient(135deg, 
-        rgba(26, 26, 26, 0.4) 0%, 
-        rgba(46, 46, 46, 0.35) 100%);
-    /* CSS backdrop-filter blurs the DOM content behind the card (home page elements) */
-    backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-heavy));
-    -webkit-backdrop-filter: blur(var(--glass-blur-intro)) saturate(var(--glass-saturation-heavy));
+    /* Flat dark modal panel */
+    background: var(--panel-bg-heavy);
     width: 90%;
     max-width: 1200px;
     height: 80vh;
@@ -145,10 +132,8 @@ body .card-overlay:not(.active) {
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, var(--glass-border-opacity-hover));
-    box-shadow: 
-        0 12px 48px rgba(0, 0, 0, 0.5),
-        var(--shadow-inset);
+    border: 1px solid var(--panel-border-hover);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.65);
     z-index: 1;
     isolation: isolate;
 }
@@ -189,10 +174,8 @@ body .card-overlay:not(.active) {
     position: absolute;
     top: 1em;
     right: 1em;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(10, 15, 28, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     font-size: 2em;
     cursor: pointer;
     color: var(--color-white);

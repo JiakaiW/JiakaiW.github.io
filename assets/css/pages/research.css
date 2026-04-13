@@ -1,0 +1,143 @@
+/**
+ * Research Page
+ * Dedicated /research/ page — per-theme sections with project grids.
+ * Relies on theme-grid.css for .projects-grid, .project-item, etc.
+ */
+
+.research-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1em;
+}
+
+.research-page-header {
+    text-align: center;
+    margin: 1em auto 3em;
+    max-width: 800px;
+}
+
+.research-page-header h1 {
+    font-size: clamp(2em, 5vw, 3em);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5em 0;
+    color: var(--color-text-title);
+}
+
+.research-page-subtitle {
+    font-size: 1.1em;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Individual theme section */
+.research-theme-section {
+    margin-bottom: 4em;
+    scroll-margin-top: 90px; /* clears the 70px sticky header */
+}
+
+/* Theme header panel */
+.research-theme-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5em;
+    padding: 2em;
+    margin-bottom: 2em;
+    background: var(--panel-bg);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--panel-border);
+    box-shadow: var(--shadow-lg);
+}
+
+.research-theme-icon {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    margin-top: 0.25em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.research-theme-icon svg {
+    width: 80px;
+    height: 80px;
+    fill: currentColor;
+}
+
+/* Per-theme icon colors */
+.research-theme-icon[data-theme="superconducting"] { color: var(--color-theme-1); }
+.research-theme-icon[data-theme="qec"]             { color: var(--color-theme-2); }
+.research-theme-icon[data-theme="tensor"]          { color: var(--color-theme-3); }
+.research-theme-icon[data-theme="neural"]          { color: var(--color-theme-4); }
+
+.research-theme-meta {
+    flex: 1;
+    min-width: 0;
+}
+
+.research-theme-meta h2 {
+    font-size: clamp(1.4em, 3vw, 1.8em);
+    margin: 0 0 0.5em 0;
+    font-weight: 600;
+    color: var(--color-text-title);
+}
+
+.theme-description {
+    color: var(--color-text-secondary);
+    font-size: 1em;
+    line-height: 1.6;
+    margin: 0 0 1em 0;
+}
+
+/* 3-col project grid on wide screens */
+@media (min-width: 1200px) {
+    .research-theme-section .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Stack header on medium screens */
+@media (max-width: 1024px) {
+    .research-theme-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .research-theme-icon {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .research-page {
+        padding: 0 0.5em;
+    }
+
+    .research-theme-header {
+        padding: 1.5em;
+        gap: 1em;
+    }
+
+    .research-theme-section {
+        margin-bottom: 3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .research-page-header {
+        margin-bottom: 2em;
+    }
+
+    .research-theme-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .research-theme-icon svg {
+        width: 60px;
+        height: 60px;
+    }
+}

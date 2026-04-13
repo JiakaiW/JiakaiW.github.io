@@ -153,9 +153,9 @@
 }
 
 .search-active.search-overlay {
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     pointer-events: auto;
     opacity: 1;
 }

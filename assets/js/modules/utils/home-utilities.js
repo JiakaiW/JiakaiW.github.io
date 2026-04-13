@@ -65,7 +65,7 @@ export function autoSizeText() {
  * @function initializeIntroImageClick
  */
 export function initializeIntroImageClick() {
-    const introImage = querySelector(`.${CSS_CLASSES.INTRO_IMAGE} img`);
+    const introImage = querySelector('.bio-photo');
     if (!introImage) return;
     
     introImage.style.cursor = 'pointer';
@@ -109,7 +109,7 @@ export function initializeIntroImageClick() {
         element.style.left = `${x}px`;
         element.style.top = `${y}px`;
         
-        const container = querySelector(`.${CSS_CLASSES.INTRO_IMAGE}`);
+        const container = querySelector('.bento-bio-photo-block');
         if (container) {
             container.appendChild(element);
             
