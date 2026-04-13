@@ -41,13 +41,9 @@
     border-radius: 0;
     display: block;
     cursor: pointer;
-    /* Brutalist Image Treatment */
-    filter: grayscale(100%) contrast(150%) sepia(50%) hue-rotate(150deg);
-    transition: filter var(--transition-fast), transform var(--transition-base);
 }
 
 .bio-photo:hover {
-    filter: grayscale(0%) contrast(120%);
     transform: scale(1.02);
 }
 
@@ -108,7 +104,6 @@
 }
 
 .advisor-photo:hover {
-    filter: grayscale(0%);
 }
 
 .advisor-text {

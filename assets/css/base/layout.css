@@ -34,59 +34,74 @@ body {
 /* Base Terminal Layout constraints */
 main {
     padding: 2em;
-    text-align: left; /* Terminal is left aligned */
+    text-align: left;
+    /* Terminal is left aligned */
     max-width: 1200px;
     margin: 0 auto;
     background: transparent;
 }
 
 /* ========================================
-   Kinetic Typography Marquee
+   Footer — JJ Rendering Background
    ======================================== */
 
-.brutal-marquee-container {
-    width: 100vw;
+footer#footer {
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    background: var(--color-accent-primary);
-    color: var(--color-bg-base);
     overflow: hidden;
-    padding: 1.5rem 0;
-    margin-top: 4rem;
-    margin-bottom: 4rem;
-    border-top: var(--border-thickness-heavy) solid var(--color-border);
-    border-bottom: var(--border-thickness-heavy) solid var(--color-border);
+    border-top: var(--border-thickness-heavy) solid var(--color-border) !important;
+    border-bottom: none !important;
+    min-height: 400px;
+}
+
+.footer-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.footer-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    filter: grayscale(100%) contrast(180%) brightness(0.45);
+}
+
+.footer-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(5, 5, 5, 0.6) 0%,
+            rgba(5, 5, 5, 0.2) 50%,
+            rgba(5, 5, 5, 0.5) 100%);
+}
+
+footer .footer-content {
+    position: relative;
+    z-index: 1;
     display: flex;
-    white-space: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 4em 2em;
 }
 
-.brutal-marquee {
-    display: inline-flex;
-    white-space: nowrap;
-    animation: brutal-scroll 40s linear infinite;
-    flex-wrap: nowrap;
-}
-
-.marquee-text {
-    font-size: clamp(3rem, 6vw, 6rem);
-    font-family: var(--font-family-heading);
-    font-weight: 800;
+footer .footer-section {
+    text-align: center;
+    font-family: var(--font-family-body);
+    font-size: 0.8em;
+    color: var(--color-text-muted);
     text-transform: uppercase;
-    padding-right: 2rem;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.05em;
 }
 
-@keyframes brutal-scroll {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-50%, 0, 0); }
+footer .footer-section p {
+    margin: 0.25em 0;
 }
 
 /* Brutalist Header/Footer backgrounds */
-header, footer, nav {
+header,
+footer,
+nav {
     background: var(--color-bg-panes) !important;
     border-bottom: var(--border-thickness) solid var(--color-border);
 }
@@ -101,4 +116,16 @@ footer {
     main {
         padding: 1em;
     }
+}
+
+/* ========================================
+   Global Brutalist Image Treatment
+   ======================================== */
+img {
+    filter: grayscale(100%) contrast(150%);
+    transition: filter var(--transition-fast), transform var(--transition-base);
+}
+
+img:hover {
+    filter: grayscale(0%) contrast(120%);
 }

@@ -63,14 +63,10 @@
 .research-theme-icon svg {
     width: 80px;
     height: 80px;
-    fill: currentColor;
+    fill: var(--color-accent-primary);
 }
 
-/* Per-theme icon colors */
-.research-theme-icon[data-theme="superconducting"] { color: var(--color-theme-1); }
-.research-theme-icon[data-theme="qec"]             { color: var(--color-theme-2); }
-.research-theme-icon[data-theme="tensor"]          { color: var(--color-theme-3); }
-.research-theme-icon[data-theme="neural"]          { color: var(--color-theme-4); }
+
 
 .research-theme-meta {
     flex: 1;
