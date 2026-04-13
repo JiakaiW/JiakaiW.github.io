@@ -1,46 +1,53 @@
 /**
- * Bento Hero Component
+ * Bento Hero Component - Terminal Brutalism
  * Split bento-grid hero: bio panel (left) + 2×2 theme tiles (right)
  */
 
 .bento-hero {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 70vh;
     max-width: 1200px;
     margin: 2em auto;
-    background: var(--panel-bg);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--panel-border);
+    background: var(--color-bg-base);
+    border: var(--border-thickness-heavy) solid var(--color-border);
+    border-radius: 0;
     overflow: hidden;
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--shadow-solid);
 }
 
 /* ── Left: bio panel ── */
 .bento-bio {
     display: flex;
     flex-direction: column;
-    padding: 2.5em;
-    gap: 1.5em;
-    border-right: 1px solid var(--panel-border);
+    padding: 1.75em;
+    gap: 1em;
+    border-right: var(--border-thickness-heavy) solid var(--color-border);
     justify-content: space-between;
+    background-color: var(--color-bg-panes);
 }
 
 .bento-bio-photo-block {
     position: relative;
+    align-self: flex-start;
     display: inline-block;
+    border: var(--border-thickness) solid var(--color-border);
+    padding: 0.5em;
+    background: var(--color-bg-base);
 }
 
 .bio-photo {
     width: 100%;
     max-width: 280px;
-    border-radius: var(--radius-lg);
+    border-radius: 0;
     display: block;
     cursor: pointer;
-    transition: transform var(--transition-base);
+    /* Brutalist Image Treatment */
+    filter: grayscale(100%) contrast(150%) sepia(50%) hue-rotate(150deg);
+    transition: filter var(--transition-fast), transform var(--transition-base);
 }
 
 .bio-photo:hover {
+    filter: grayscale(0%) contrast(120%);
     transform: scale(1.02);
 }
 
@@ -49,27 +56,32 @@
 }
 
 .bento-bio-content h1 {
-    font-family: var(--font-family-heading);
-    font-size: clamp(1.8em, 3.5vw, 2.8em);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-size: clamp(2em, 4vw, 3em);
     margin: 0 0 0.3em 0;
-    color: var(--color-text-title);
+    color: var(--color-accent-primary);
+    text-transform: uppercase;
 }
 
 .bento-title {
-    color: var(--color-accent-primary-light);
+    color: var(--color-text-title);
     font-size: clamp(1em, 2vw, 1.25em);
-    font-weight: 500;
+    font-family: var(--font-family-body);
+    font-weight: 600;
     margin: 0 0 0.75em 0;
+    text-transform: uppercase;
+    border-bottom: 1px dashed var(--color-border);
+    padding-bottom: 0.5em;
 }
 
 .bento-keywords {
-    color: var(--color-text-secondary);
+    color: var(--color-text-body);
     font-size: clamp(0.85em, 1.5vw, 1em);
     line-height: 1.7;
     margin: 0;
+    text-transform: lowercase;
 }
+
+
 
 /* Advisor block */
 .bento-advisor {
@@ -77,23 +89,26 @@
     align-items: center;
     gap: 1em;
     padding: 1em;
-    border-radius: var(--radius-md);
-    background: var(--panel-bg-subtle);
-    border: 1px solid var(--panel-border);
+    border-radius: 0;
+    background: var(--color-bg-base);
+    border: var(--border-thickness) solid var(--color-border);
     flex-shrink: 0;
+    box-shadow: 2px 2px 0px 0px var(--color-accent-primary);
 }
 
 .advisor-photo {
     width: 56px;
     height: 56px;
-    border-radius: 50%;
+    border-radius: 0;
     object-fit: cover;
     flex-shrink: 0;
-    transition: transform var(--transition-base);
+    filter: grayscale(100%) contrast(150%);
+    border: 1px solid var(--color-border);
+    transition: filter var(--transition-fast);
 }
 
 .advisor-photo:hover {
-    transform: scale(1.05);
+    filter: grayscale(0%);
 }
 
 .advisor-text {
@@ -102,28 +117,35 @@
 }
 
 .advisor-name-link {
-    color: var(--color-accent-primary-light);
+    color: var(--color-accent-primary);
+    font-family: var(--font-family-body);
     font-weight: 600;
     font-size: 0.9em;
     text-decoration: none;
     display: block;
     margin-bottom: 0.25em;
+    text-transform: uppercase;
 }
 
 .advisor-name-link:hover {
-    text-decoration: underline;
+    background-color: var(--color-accent-primary);
+    color: var(--color-bg-base);
 }
 
 .advisor-hiring-note {
     margin: 0;
-    font-size: 0.85em;
-    color: var(--color-text-secondary);
-    line-height: 1.4;
+    font-size: 0.75em;
+    color: var(--color-text-muted);
+    font-family: var(--font-family-body);
+    text-transform: uppercase;
 }
 
 .hiring-emphasis {
-    color: #e74c3c;
+    color: var(--color-accent-secondary);
+    background: transparent;
+    padding: 0 4px;
     font-weight: 700;
+    border: 1px solid var(--color-accent-secondary);
 }
 
 /* ── Right: 2×2 theme tile grid ── */
@@ -131,6 +153,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    background: var(--color-bg-base);
 }
 
 .theme-tile {
@@ -138,72 +161,86 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.6em;
-    padding: 2em 1.5em;
-    text-decoration: none;
-    transition: background var(--transition-base), border-color var(--transition-base);
+    gap: 0.4em;
+    padding: 1.25em 1em;
+    text-decoration: none !important;
+    transition: none;
     position: relative;
+    border: none;
 }
 
-/* Inner structural borders (no gap — colored separators) */
+/* Inner structural borders */
 .theme-tile:nth-child(1),
 .theme-tile:nth-child(2) {
-    border-bottom: 1px solid var(--panel-border);
+    border-bottom: var(--border-thickness-heavy) solid var(--color-border);
 }
 
 .theme-tile:nth-child(1),
 .theme-tile:nth-child(3) {
-    border-right: 1px solid var(--panel-border);
+    border-right: var(--border-thickness-heavy) solid var(--color-border);
 }
 
 .theme-tile:hover {
-    background: var(--panel-bg-hover);
-    z-index: 1;
+    background: var(--color-accent-primary);
+    color: var(--color-bg-base);
 }
 
 .tile-icon {
-    width: 48px;
-    height: 48px;
-    transition: transform var(--transition-base);
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
+    filter: drop-shadow(2px 2px 0 #000);
 }
 
 .tile-icon svg {
-    width: 48px;
-    height: 48px;
-    fill: currentColor;
+    width: 36px;
+    height: 36px;
+    fill: var(--color-border);
 }
 
-.theme-tile:hover .tile-icon {
-    transform: scale(1.12);
+.theme-tile:hover .tile-icon svg {
+    fill: var(--color-bg-base);
 }
 
 .tile-title {
-    font-size: clamp(0.85em, 1.5vw, 1em);
-    font-weight: 600;
+    font-size: clamp(0.75em, 1.25vw, 0.9em);
+    font-weight: 700;
     color: var(--color-text-title);
     text-align: center;
-    font-family: var(--font-family-heading);
+    font-family: var(--font-family-body);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 5px;
+}
+
+.tile-desc {
+    font-size: 0.75em;
+    color: var(--color-text-muted);
+    font-family: var(--font-family-body);
+    text-align: center;
+    margin-top: 0.5em;
+    line-height: 1.4;
+    text-transform: lowercase;
+}
+
+.theme-tile:hover .tile-title,
+.theme-tile:hover .tile-desc {
+    color: var(--color-bg-base);
 }
 
 .tile-arrow {
-    color: var(--color-text-muted);
-    font-size: 1em;
-    transition: transform var(--transition-base), color var(--transition-base);
+    display: none; /* Hide arrow for more brutal aesthetic */
 }
 
-.theme-tile:hover .tile-arrow {
-    transform: translateX(4px);
-    color: var(--color-accent-primary-light);
-}
+/* Per-theme icon colors - Inverted on hover for contrast */
+.theme-tile[data-theme="superconducting"] .tile-icon svg { fill: var(--color-theme-1); }
+.theme-tile[data-theme="qec"]             .tile-icon svg { fill: var(--color-theme-2); }
+.theme-tile[data-theme="tensor"]          .tile-icon svg { fill: var(--color-theme-3); }
+.theme-tile[data-theme="neural"]          .tile-icon svg { fill: var(--color-theme-1); }
 
-/* Per-theme icon colors */
-.theme-tile[data-theme="superconducting"] .tile-icon { color: var(--color-theme-1); }
-.theme-tile[data-theme="qec"]             .tile-icon { color: var(--color-theme-2); }
-.theme-tile[data-theme="tensor"]          .tile-icon { color: var(--color-theme-3); }
-.theme-tile[data-theme="neural"]          .tile-icon { color: var(--color-theme-4); }
+.theme-tile:hover .tile-icon svg { fill: var(--color-bg-base) !important; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
@@ -211,63 +248,8 @@
         grid-template-columns: 1fr;
         min-height: auto;
     }
-
     .bento-bio {
         border-right: none;
-        border-bottom: 1px solid var(--panel-border);
-        padding: 2em;
-    }
-
-    .bento-themes-grid {
-        /* Keep 2-column tile grid even on mobile */
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-    }
-
-    .theme-tile {
-        padding: 1.5em 1em;
-        gap: 0.5em;
-    }
-
-    .tile-icon {
-        width: 40px;
-        height: 40px;
-    }
-
-    .tile-icon svg {
-        width: 40px;
-        height: 40px;
-    }
-}
-
-@media (max-width: 480px) {
-    .bento-bio {
-        padding: 1.5em;
-        gap: 1.25em;
-    }
-
-    .bio-photo {
-        max-width: 200px;
-    }
-
-    .theme-tile {
-        padding: 1.25em 0.75em;
-    }
-
-    .tile-icon {
-        width: 36px;
-        height: 36px;
-    }
-
-    .tile-icon svg {
-        width: 36px;
-        height: 36px;
-    }
-}
-
-/* Landscape tablet — reduce hero height */
-@media (max-height: 700px) {
-    .bento-hero {
-        min-height: auto;
+        border-bottom: var(--border-thickness-heavy) solid var(--color-border);
     }
 }

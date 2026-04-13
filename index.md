@@ -11,8 +11,6 @@ title: Home
 <script src="{{ '/assets/js/home.js' | asset_hash_versioned }}" type="module" defer></script>
 <script src="{{ '/assets/js/timeline-modular.js' | asset_hash_versioned }}" type="module" defer></script>
 
-{% include components/glass-filters.html %}
-
 <div class="bento-hero">
     <div class="bento-bio">
         <div class="bento-bio-photo-block">
@@ -21,7 +19,13 @@ title: Home
         <div class="bento-bio-content">
             <h1>Jiakai Wang</h1>
             <p class="bento-title">Physics PhD @ UW-Madison</p>
-            <p class="bento-keywords">Quantum hardware theory · Quantum error correction · Tensor networks · Neural networks</p>
+
+            <div style="margin-top: 1.5em; display: flex; gap: 1em; flex-wrap: wrap;">
+                <a href="{{ '/assets/Jiakai_resume.pdf' | asset_hash_versioned }}" target="_blank" class="btn-glass-primary">RESUME_</a>
+                <a href="/tech-docs/" class="btn-glass-secondary">TECH_DOCS</a>
+                <a href="https://github.com/JiakaiW" target="_blank" class="btn-glass-secondary">GITHUB_</a>
+                <a href="https://www.linkedin.com/in/jiakaiW/" target="_blank" class="btn-glass-secondary">LINKEDIN_</a>
+            </div>
         </div>
         <div class="bento-advisor">
             <a href="https://mvavilov.github.io/" target="_blank">
@@ -35,7 +39,7 @@ title: Home
     </div>
     <div class="bento-themes-grid">
         {% for theme in site.data.research_themes %}
-        <a class="theme-tile" href="/research/#{{ theme.id }}" data-theme="{{ theme.id }}">
+        <a class="theme-tile" href="#{{ theme.id }}" data-theme="{{ theme.id }}">
             <div class="tile-icon">
                 {% assign icon_filename = theme.icon | split: '/' | last %}
                 {% if icon_filename == 'superconducting.svg' %}{% include icons/themes/superconducting.svg %}
@@ -45,22 +49,26 @@ title: Home
                 {% endif %}
             </div>
             <span class="tile-title">{{ theme.title }}</span>
-            <span class="tile-arrow">→</span>
+            <p class="tile-desc">{{ theme.description }}</p>
         </a>
         {% endfor %}
     </div>
 </div>
 
-
 <section class="news-section">
-    <h2 class="section-title">News & Updates</h2>
+    <h2 class="section-title">Updates</h2>
     <div class="news-container" id="newsContainer">
-        <!-- News items will be loaded here by JavaScript -->
-        <p class="loading-message">Loading news...</p>
+        <p class="loading-message">Loading logs...</p>
     </div>
 </section>
 
-<section class="timeline-section">
+<!-- Include Monolithic Content Pages -->
+{% include_relative research.md %}
+
+{% include_relative publications-talks.md %}
+
+<section class="timeline-section" style="margin-top: 4em;">
+    <h2 class="section-title" style="margin-bottom: 1em;">Timeline</h2>
     <div id="timeline-widget"></div>
 </section>
 

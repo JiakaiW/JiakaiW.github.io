@@ -1,241 +1,61 @@
 /**
- * Flat Panel Effects — replaces glass morphism
- * Clean, planar dark panels that let the background image show through subtly.
- *
- * Note: Requires variables.css to be loaded first
+ * Flat Panel Effects — overrides legacy glass morphism
+ * Terminal Brutalism implementation
  */
 
-/* Hide the SVG filter background element (glass distortion disabled) */
-.glass-svg-filter-background {
+/* Hide any remaining background filters */
+.glass-svg-filter-background, .glass-base::before, .glass-base::after {
     display: none !important;
 }
 
 /* ─────────────────────────────────────────────
    Base Panel
 ────────────────────────────────────────────── */
-.glass-base {
-    background: var(--panel-bg);
-    border-radius: var(--radius-base);
-    border: 1px solid var(--panel-border);
-    box-shadow: var(--shadow-lg);
-    isolation: isolate;
-    position: relative;
-    overflow: hidden;
-    transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-fast);
+.glass-base, .glass-light, .glass-heavy, .glass-subtle, .glass-dark {
+    background: var(--color-bg-base);
+    border-radius: 0 !important;
+    border: var(--border-thickness) solid var(--color-border);
+    box-shadow: none;
+    transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-/* Disable the old highlight/glow pseudo-element layers */
-.glass-base::before,
-.glass-base::after {
-    display: none;
-}
-
-.glass-base:hover {
-    transform: translateY(-2px);
-    border-color: var(--panel-border-hover);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.60);
-}
-
-/* Ensure content stacks correctly */
-.glass-base > * {
-    position: relative;
-    z-index: 1;
-}
-
-/* ─────────────────────────────────────────────
-   Panel Variants
-────────────────────────────────────────────── */
-
-/* Light Panel */
-.glass-light {
-    background: var(--panel-bg-light);
-    border: 1px solid var(--panel-border);
-    box-shadow: var(--shadow-md);
-}
-
-.glass-light::before,
-.glass-light::after {
-    display: none;
-}
-
-/* Heavy Panel */
-.glass-heavy {
-    background: var(--panel-bg-heavy);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: var(--shadow-xl);
-}
-
-.glass-heavy::before,
-.glass-heavy::after {
-    display: none;
-}
-
-/* Subtle Panel */
-.glass-subtle {
-    background: var(--panel-bg-subtle);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    box-shadow: var(--shadow-sm);
-}
-
-.glass-subtle::before,
-.glass-subtle::after {
-    display: none;
-}
-
-/* Dark Panel */
-.glass-dark {
-    background: rgba(2, 4, 10, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    box-shadow: var(--shadow-xl);
-}
-
-.glass-dark::after {
-    display: none;
-}
-
-/* ─────────────────────────────────────────────
-   Dark Mode
-────────────────────────────────────────────── */
-.dark-mode .glass-base {
-    background: rgba(4, 8, 16, 0.90);
-    border-color: rgba(255, 255, 255, 0.12);
-}
-
-.dark-mode .glass-base::after {
-    display: none;
-}
-
-.dark-mode .glass-base:hover {
-    border-color: rgba(255, 255, 255, 0.28);
-    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.70);
-}
-
-.dark-mode .glass-light {
-    background: rgba(8, 14, 26, 0.75);
-    border-color: rgba(255, 255, 255, 0.10);
-}
-
-.dark-mode .glass-heavy {
-    background: rgba(2, 4, 10, 0.96);
-    border-color: rgba(255, 255, 255, 0.15);
-}
-
-.dark-mode .glass-dark {
-    background: rgba(0, 0, 0, 0.98);
-    border-color: rgba(255, 255, 255, 0.12);
-}
-
-/* ─────────────────────────────────────────────
-   Performance
-────────────────────────────────────────────── */
-.glass-base,
-.glass-light,
-.glass-heavy,
-.glass-subtle,
-.glass-dark {
-    will-change: transform;
+.glass-base:hover, .glass-light:hover, .glass-heavy:hover, .glass-subtle:hover, .glass-dark:hover {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-base);
+    transform: none;
+    box-shadow: var(--shadow-solid);
 }
 
 /* ─────────────────────────────────────────────
    Button Variants
 ────────────────────────────────────────────── */
-.btn-glass {
-    background: var(--panel-bg);
-    border: 1px solid var(--panel-border);
-    border-radius: var(--radius-sm);
-    padding: 0.75em 1.5em;
-    font-weight: 600;
+.btn-glass, .btn-glass-primary, .btn-glass-secondary, .btn-glass-ghost {
+    background: var(--color-bg-base);
+    border: var(--border-thickness) solid var(--color-border);
+    border-radius: 0;
+    padding: 0.5em 1em;
+    font-family: var(--font-family-body);
+    font-weight: 700;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-fast), background var(--transition-base);
-    color: var(--color-white);
+    transition: background var(--transition-fast);
+    color: var(--color-text-title);
     text-decoration: none;
     display: inline-block;
-    box-shadow: var(--shadow-md);
-    isolation: isolate;
-    position: relative;
-}
-
-.btn-glass::before {
-    display: none;
-}
-
-.btn-glass:hover {
-    transform: translateY(-2px);
-    border-color: var(--panel-border-hover);
-    box-shadow: var(--shadow-lg);
-    background: var(--panel-bg-hover);
-}
-
-.btn-glass:active {
-    transform: translateY(0);
-}
-
-.btn-glass:focus {
-    outline: 2px solid rgba(137, 207, 240, 0.5);
-    outline-offset: 2px;
-}
-
-.btn-glass:focus:not(:focus-visible) {
-    outline: none;
-}
-
-/* Primary Button */
-.btn-glass-primary {
-    background: rgba(82, 153, 183, 0.20);
-    border-color: rgba(82, 153, 183, 0.35);
-}
-
-.btn-glass-primary:hover {
-    background: rgba(82, 153, 183, 0.30);
-    border-color: rgba(82, 153, 183, 0.55);
-}
-
-/* Secondary Button */
-.btn-glass-secondary {
-    background: rgba(137, 207, 240, 0.12);
-    border-color: rgba(137, 207, 240, 0.25);
-}
-
-.btn-glass-secondary:hover {
-    background: rgba(137, 207, 240, 0.20);
-    border-color: rgba(137, 207, 240, 0.42);
-}
-
-/* Ghost Button */
-.btn-glass-ghost {
-    background: transparent;
-    border-color: rgba(255, 255, 255, 0.15);
     box-shadow: none;
 }
 
-.btn-glass-ghost:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.28);
-    box-shadow: var(--shadow-sm);
-}
-
-.btn-glass-ghost:focus {
-    outline-color: rgba(255, 255, 255, 0.35);
-}
-
-.dark-mode .btn-glass {
-    background: rgba(4, 8, 16, 0.88);
-    border-color: rgba(255, 255, 255, 0.12);
+.btn-glass:hover, .btn-glass-primary:hover, .btn-glass-secondary:hover, .btn-glass-ghost:hover {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-base);
+    border-color: var(--color-accent-primary);
+    transform: none;
+    box-shadow: var(--shadow-solid);
 }
 
 /* ─────────────────────────────────────────────
-   Reduced Motion
+   Dark Mode overrides
 ────────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-    .glass-base,
-    .glass-light,
-    .glass-heavy,
-    .glass-subtle,
-    .glass-dark {
-        transition: none;
-    }
-
-    .glass-base:hover {
-        transform: none;
-    }
+.dark-mode .glass-base {
+    background: var(--color-bg-base);
 }

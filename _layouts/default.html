@@ -10,9 +10,7 @@
     <script src="{{ '/assets/js/main.js' | asset_hash_versioned }}" type="module" defer></script>
 </head>
 <body{% if page.glass_effects == false %} data-glass-effects="false"{% endif %}>
-    <header>
-        {% include navigation.html %}
-    </header>
+
 
     {% include overlays.html %}
 

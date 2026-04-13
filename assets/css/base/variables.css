@@ -1,249 +1,75 @@
 /**
- * CSS Variables - Design System
- * Single source of truth for all design tokens
- * Extract magic numbers to variables for maintainability
+ * CSS Variables - Terminal Brutalism
+ * High-contrast, sharp, and highly functional structure
  */
 
 :root {
-    /* Color Palette */
-    --color-light-grey: #2e2e2e;
-    --color-dark-grey: #1a1a1a;
-    --color-black: #000000;
-    --color-white: #ffffff;
-    --color-primary: #5d8fb3;
-    --color-primary-light: #89CFF0;
-    --color-primary-dark: #4a7a9a;
-    --color-secondary: #89CFF0;
-    --color-hover: #555;
-
-    /* Typography Colors - Hierarchy for Glass Morphism */
+    /* Color Palette - Brutal */
+    --color-bg-base: #050505;
+    --color-bg-panes: #0a0a0a;
+    --color-border: #ffffff;
     --color-text-title: #ffffff;
-    /* Pure white for section titles - maximum contrast */
-    --color-text-body: rgba(255, 255, 255, 0.88);
-    /* Slightly grey body text - reduces eye strain */
-    --color-text-secondary: rgba(255, 255, 255, 0.75);
-    /* Secondary text - subtitles, metadata */
-    --color-text-muted: rgba(255, 255, 255, 0.6);
-    /* Muted text - captions, hints */
-
-    /* Sophisticated Color System - Functional & Meaningful */
-    /* Core Principle: Limited hues, semantic meaning, unified system/status tags */
-
-    /* System/Status Tags - Unified Content Type Color */
-    /* All content types (publication, talk, paper) use the same professional identity */
-    --color-content-type: #30476E;
-    /* Dark, rich, muted blue - unified professional identity */
-    --color-content-type-light: #7A9FC2;
-    /* Lighter variant for text on dark backgrounds - improved contrast */
-    --color-content-type-bg: rgba(48, 71, 110, 0.25);
-    /* Background for tags - slightly increased opacity */
-    --color-content-type-border: rgba(48, 71, 110, 0.5);
-    /* Border for tags - increased for better definition */
-
-    /* Primary Accent - CTA/Opportunity Tags */
-    --color-accent-primary: #5299B7;
-    /* Desaturated, mature light blue/cyan - for CTAs/opportunities */
-    --color-accent-primary-light: #8FC4E0;
-    /* Lighter variant for text on dark backgrounds - improved contrast */
-    --color-accent-primary-dark: #3A7B99;
-    /* Darker variant for depth */
-    --color-accent-primary-bg: rgba(82, 153, 183, 0.25);
-    --color-accent-primary-border: rgba(82, 153, 183, 0.5);
-
-    /* Semantic Status Colors */
-    --color-status-ongoing: #4F8A8B;
-    /* Muted deep teal - active/ongoing status */
-    --color-status-ongoing-light: #6BA8A9;
-    /* Lighter for text */
-    --color-status-ongoing-bg: rgba(79, 138, 139, 0.2);
-    --color-status-ongoing-border: rgba(79, 138, 139, 0.4);
-
-    --color-status-completed: #6B7B8B;
-    /* Medium-dark cool gray - archived/finished */
-    --color-status-completed-light: #8A9AAB;
-    /* Lighter for text */
-    --color-status-completed-bg: rgba(107, 123, 139, 0.2);
-    --color-status-completed-border: rgba(107, 123, 139, 0.4);
-
-    /* Research Theme Colors - Vibrant Palette for Visual Impact */
-    --color-theme-1: #4FC3F7;
-    /* Bright Cyan - stands out beautifully */
-    --color-theme-1-light: #81D4FA;
-
-    --color-theme-2: #26C6DA;
-    /* Vibrant Teal - energetic and modern */
-    --color-theme-2-light: #4DD0E1;
-
-    --color-theme-3: #AB47BC;
-    /* Rich Purple - creative and bold */
-    --color-theme-3-light: #CE93D8;
-
-    --color-theme-4: #FF7043;
-    /* Warm Coral/Orange - inviting and dynamic */
-    --color-theme-4-light: #FFAB91;
-
-    /* Legacy aliases for backward compatibility */
-    --color-accent-blue: var(--color-accent-primary);
-    --color-accent-blue-light: var(--color-accent-primary-light);
-    --color-accent-blue-dark: var(--color-accent-primary-dark);
-    --color-accent-secondary: var(--color-content-type);
-    --color-accent-secondary-light: var(--color-content-type-light);
-    --color-success: var(--color-status-completed);
-    --color-success-text: var(--color-status-completed-light);
-    --color-success-light: var(--color-status-completed-bg);
-    --color-warning: var(--color-status-ongoing);
-    --color-warning-text: var(--color-status-ongoing-light);
-    --color-warning-light: var(--color-status-ongoing-bg);
-    --color-info: var(--color-accent-primary);
-    --color-info-text: var(--color-accent-primary-light);
-    --color-info-light: var(--color-accent-primary-bg);
-    --color-utility-1: var(--color-theme-3);
-    --color-utility-1-light: var(--color-theme-3-light);
-    --color-utility-2: var(--color-theme-4);
-    --color-utility-2-light: var(--color-theme-4-light);
-    /* Font Families - Different fonts for different purposes */
-    --font-family-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    --font-family-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+    --color-text-body: #cccccc;
+    --color-text-muted: #888888;
+    
+    /* Brand/Accent Colors */
+    --color-accent-primary: #00F0FF; /* Electric Cyan */
+    --color-accent-secondary: #FF4400; /* Warning Orange */
+    --color-accent-tertiary: #39FF14; /* Phosphor Green */
+    
+    /* States & Feedback */
+    --color-hover-bg: var(--color-accent-primary);
+    --color-hover-text: #000000;
+    
+    /* Typography System */
+    --font-family-heading: 'Syne', system-ui, sans-serif;
+    --font-family-body: 'IBM Plex Mono', 'Menlo', 'Courier New', monospace;
     --font-family: var(--font-family-body);
-    /* Default to body font */
+    
+    /* Grid/Layout constraints */
+    --border-thickness: 1px;
+    --border-thickness-heavy: 3px;
+    
+    /* Spatial / Negative Space */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 32px;
+    --spacing-xl: 64px;
+    
+    /* Brutalist Geometry - NO ROUNDED CORNERS */
+    --radius-xs: 0px;
+    --radius-sm: 0px;
+    --radius-base: 0px;
+    --radius-badge: 0px;
+    --radius-md: 0px;
+    --radius-lg: 0px;
+    --radius-xl: 0px;
+    --radius-2xl: 0px;
+    --radius-small: 0px;
+    --radius-medium: 0px;
+    --radius-large: 0px;
 
-    /* Flat Panel Variables */
-    --panel-bg: rgba(6, 10, 18, 0.82);
-    --panel-bg-hover: rgba(10, 15, 28, 0.88);
-    --panel-bg-light: rgba(12, 18, 32, 0.65);
-    --panel-bg-heavy: rgba(3, 6, 12, 0.92);
-    --panel-bg-subtle: rgba(10, 16, 30, 0.45);
-    --panel-border: rgba(255, 255, 255, 0.09);
-    --panel-border-hover: rgba(255, 255, 255, 0.22);
-
-    /* Glass Effect Variables - neutralised (kept for any legacy references) */
-    --glass-blur-light: 0px;
-    --glass-blur-base: 0px;
-    --glass-blur-heavy: 0px;
-    --glass-blur-intro: 0px;
-    --glass-blur-timeline: 0px;
-    --glass-blur-gallery: 0px;
-    --glass-blur-footer: 0px;
-    --glass-blur-docs: 0px;
-    --glass-blur-docs-content: 0px;
-    --glass-blur-search: 0px;
-    --glass-blur-overlay: 0px;
-    --glass-blur-card: 0px;
-
-    /* Glass Saturation - neutralised */
-    --glass-saturation-light: 100%;
-    --glass-saturation-base: 100%;
-    --glass-saturation-heavy: 100%;
-    --glass-saturation-intro: 100%;
-    --glass-saturation-timeline: 100%;
-    --glass-saturation-gallery: 100%;
-    --glass-saturation-footer: 100%;
-    --glass-saturation-docs: 100%;
-    --glass-saturation-search: 100%;
-    --glass-saturation-overlay: 100%;
-    --glass-saturation-card: 100%;
-
-    /* Glass Opacity - neutralised */
-    --glass-border-opacity: 0.09;
-    --glass-border-opacity-hover: 0.22;
-    --glass-bg-opacity-base: 0;
-    --glass-bg-opacity-light: 0;
-    --glass-bg-opacity-heavy: 0;
-    --glass-highlight-opacity: 0;
-    --glass-highlight-opacity-hover: 0;
-    --glass-illumination-opacity: 0;
-    --glass-illumination-opacity-hover: 0;
-
-    /* Glass Colors - Primary (RGB: 93, 143, 179) */
-    --glass-primary-rgb: 93, 143, 179;
-    --glass-primary: rgba(93, 143, 179, var(--glass-bg-opacity-base));
-
-    /* Glass Colors - Secondary (RGB: 137, 207, 240) */
-    --glass-secondary-rgb: 137, 207, 240;
-    --glass-secondary: rgba(137, 207, 240, 0.08);
-
-    /* Glass Colors - Accent (RGB: 46, 46, 46) */
-    --glass-accent-rgb: 46, 46, 46;
-    --glass-accent: rgba(46, 46, 46, 0.15);
-
-    /* Glass Colors - Highlight */
-    --glass-highlight: rgba(255, 255, 255, var(--glass-highlight-opacity));
-    --glass-border: rgba(255, 255, 255, var(--glass-border-opacity));
-
-    /* Dynamic Lighting */
-    --glass-light-x: 50%;
-    --glass-light-y: 0%;
-
-    /* Dark Mode Glass Variables */
-    --glass-dark-bg-opacity-base: 0.2;
-    --glass-dark-border-opacity: 0.2;
-
-    /* Border Radius - Centralized control for all rounded corners */
-    --radius-xs: 6px;
-    /* Small elements: badges, inline code */
-    --radius-sm: 8px;
-    /* Small containers: buttons, inputs */
-    --radius-base: 12px;
-    /* Default container radius */
-    --radius-badge: 8px;
-    /* Badges and small tags */
-    --radius-md: 14px;
-    /* Medium containers: cards, news items */
-    --radius-lg: 16px;
-    /* Large containers: intro, gallery */
-    --radius-xl: 18px;
-    /* Extra large: theme blocks, timeline */
-    --radius-2xl: 22px;
-    /* Maximum: overlays, expanded cards */
-
-    /* Legacy aliases for backward compatibility */
-    --radius-small: var(--radius-base);
-    --radius-medium: var(--radius-lg);
-    --radius-large: var(--radius-xl);
-
-    /* Spacing */
-    --spacing-xs: 0.25em;
-    --spacing-sm: 0.5em;
-    --spacing-md: 1em;
-    --spacing-lg: 1.5em;
-    --spacing-xl: 2em;
-
-    /* Shadows */
-    --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.35);
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.40);
-    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.45);
-    --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.50);
-    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-
-    /* Transitions */
-    --transition-fast: 0.2s ease;
-    --transition-base: 0.3s ease;
-    --transition-slow: 0.4s ease;
-}
-
-/* Reduce border-radius on mobile */
-@media (max-width: 768px) {
-    :root {
-        --radius-xs: 5px;
-        --radius-sm: 6px;
-        --radius-base: 8px;
-        --radius-badge: 6px;
-        --radius-md: 10px;
-        --radius-lg: 12px;
-        --radius-xl: 14px;
-        --radius-2xl: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    :root {
-        --radius-xs: 4px;
-        --radius-sm: 5px;
-        --radius-base: 6px;
-        --radius-badge: 5px;
-        --radius-md: 8px;
-        --radius-lg: 10px;
-        --radius-xl: 12px;
-        --radius-2xl: 14px;
-    }
+    /* Theme Legacy Mapping (to avoid breaking undocumented places) */
+    --color-theme-1: var(--color-accent-primary);
+    --color-theme-2: var(--color-accent-secondary);
+    --color-theme-3: var(--color-accent-tertiary);
+    
+    --color-primary: var(--color-accent-primary);
+    --color-content-type: var(--color-text-body);
+    --color-status-ongoing: var(--color-accent-secondary);
+    --color-status-completed: var(--color-accent-tertiary);
+    
+    /* Flat Design (no shadow unless it's a solid brutal shadow) */
+    --shadow-solid: 4px 4px 0px 0px var(--color-accent-primary);
+    --shadow-solid-hover: 8px 8px 0px 0px var(--color-accent-primary);
+    --shadow-none: none;
+    
+    --transition-fast: 0.1s step-end;
+    --transition-base: 0.2s cubic-bezier(0, 0, 0.2, 1);
+    
+    /* Background grid */
+    --grid-pattern: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), 
+                    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    --grid-size: 40px;
 }

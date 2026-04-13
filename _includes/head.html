@@ -18,10 +18,10 @@
 {% if page.thumbnail %}<meta name="twitter:image" content="{{ page.thumbnail | absolute_url }}">
 {% else %}<meta name="twitter:image" content="{{ '/photo-grid/images/me.jpg' | absolute_url }}">
 {% endif %}<link rel="canonical" href="{{ page.url | absolute_url }}">
-<!-- Web Fonts - Outfit for headings only, body uses system fonts -->
+<!-- Web Fonts - Syne for headings, IBM Plex Mono for body -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <!-- Base Variables - Must load first -->
 <link rel="stylesheet" href="{{ '/assets/css/base/variables.css' | asset_hash_versioned }}">
 <!-- Base Styles -->

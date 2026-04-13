@@ -16,8 +16,8 @@
 /* Photo grid layout */
 .photo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-    gap: 2em;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    gap: 1em;
     padding: 2em;
     justify-content: center;
     max-width: 1200px;
@@ -26,8 +26,8 @@
 
 @media (max-width: 768px) {
     .photo-grid {
-        grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
-        gap: 1.5em;
+        grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+        gap: 1em;
         padding: 1em;
     }
 }
@@ -42,7 +42,7 @@
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
-    min-height: 300px;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -1,4 +1,4 @@
-/* Segmented Timeline Widget - Liquid Glass Theme */
+/* Segmented Timeline Widget - Terminal Brutalism */
 
 .timeline-section {
     max-width: 1200px;
@@ -6,49 +6,28 @@
     padding: 0 1em;
 }
 
-/* Header with liquid glass effect */
 .timeline-header {
-    text-align: center;
-    margin-bottom: 2em;
+    text-align: left; /* Shift to left side for terminal block */
+    margin-bottom: 1em;
+    border-bottom: var(--border-thickness-heavy) solid var(--color-border);
 }
 
 .timeline-title {
     font-size: 2.5em;
-    font-weight: 500;
-    margin: 0 0 0.3em 0;
-    color: var(--color-text-title);
-    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 0 0 0.2em 0;
+    color: var(--color-accent-primary);
+    text-transform: uppercase;
 }
 
-.timeline-subtitle {
-    font-size: 1.1em;
-    color: var(--color-text-secondary);
-    margin: 0;
-}
-
-/* Main timeline container - flat panel */
+/* Main timeline container - flat raw borders */
 .timeline-container {
     position: relative;
-    isolation: isolate;
-
-    background: var(--panel-bg);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--panel-border);
+    background: var(--color-bg-base);
+    border-radius: 0;
+    border: var(--border-thickness) solid var(--color-border);
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
     padding: 2em;
-}
-
-/* No glass pseudo-element layers in flat design */
-.timeline-container::before,
-.timeline-container::after {
-    display: none;
-}
-
-/* Ensure content is above glass layers */
-.timeline-container > * {
-    position: relative;
-    z-index: 2;
 }
 
 /* Timeline content area */
@@ -64,23 +43,24 @@
     position: absolute;
     inset: 0;
     display: flex;
+    border-bottom: 1px dotted var(--color-border);
 }
 
 .timeline-segment {
-    border-right: 2px solid rgba(255, 255, 255, 0.1);
-    transition: background-color 0.3s ease;
+    border-right: 1px dashed var(--color-text-muted);
+    transition: background-color var(--transition-fast);
 }
 
 .timeline-segment.segment-now {
-    border-right-color: rgba(231, 76, 60, 0.3);
+    border-right: var(--border-thickness-heavy) solid var(--color-accent-secondary);
 }
 
 .timeline-segment.segment-even {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: transparent;
 }
 
 .timeline-segment.segment-odd {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--color-bg-panes);
 }
 
 /* Time markers */
@@ -101,20 +81,17 @@
 
 .marker-boundary .marker-line {
     width: 2px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--color-border);
 }
 
 .marker-intermediate .marker-line {
     width: 1px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .marker-now .marker-line {
     width: 3px;
-    background: linear-gradient(180deg, 
-        rgba(231, 76, 60, 0.8) 0%, 
-        rgba(231, 76, 60, 0.4) 100%);
-    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+    background-color: var(--color-accent-secondary);
 }
 
 .marker-label {
@@ -122,20 +99,19 @@
     top: 0.5em;
     left: 50%;
     transform: translateX(-50%);
+    font-family: var(--font-family-body);
     font-size: 0.75em;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--color-text-muted);
     white-space: nowrap;
-    font-weight: 500;
+    text-transform: uppercase;
 }
 
 .label-now {
-    background: rgba(231, 76, 60, 0.9);
-    color: white;
-    padding: 0.3em 0.6em;
-    border-radius: var(--radius-xs);
+    background: var(--color-bg-base);
+    color: var(--color-accent-secondary);
+    padding: 0.2em 0.5em;
+    border: 1px solid var(--color-accent-secondary);
     font-weight: 700;
-    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
-    top: 0.3em;
 }
 
 /* Projects container */
@@ -147,8 +123,8 @@
 
 .timeline-project-wrapper {
     position: relative;
-    height: 40px;
-    margin-bottom: 12px;
+    height: 35px;
+    margin-bottom: 8px;
 }
 
 /* Individual project bar */
@@ -156,205 +132,81 @@
     position: absolute;
     top: 0;
     height: 100%;
-    border-radius: var(--radius-base);
+    border-radius: 0;
     padding: 0 1em;
     display: flex;
     align-items: center;
-    cursor: pointer;
-    overflow: visible;
-    white-space: nowrap;
+    cursor: default;
+    overflow: hidden;
     position: relative;
-    isolation: isolate;
     
-    /* Flat panel for project bars */
-    background: var(--panel-bg-subtle);
-    border: 1px solid var(--panel-border);
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
-    
-    /* Allow expansion on hover */
-    min-width: var(--original-width, auto);
-    width: var(--original-width, auto);
+    /* Flat brutalist panel */
+    background: var(--color-bg-base);
+    border: var(--border-thickness) solid var(--color-border);
+    transition: background var(--transition-fast), color var(--transition-fast);
 }
 
-/* Base color layer - completely transparent, no color */
-.timeline-project::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-base);
-    background: transparent;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-    z-index: 0;
+.timeline-project:hover {
+    background: var(--color-accent-primary);
+    color: var(--color-bg-base);
+    border-color: var(--color-accent-primary);
+    z-index: 10;
+    /* Removed the transform that established a new bounding context */
+    /* transform: translateY(-3px); */
+    width: max-content !important; /* Allow the bar to expand if needed without clipping tooltip */
 }
 
-/* No glass highlight in flat design */
-.timeline-project::after {
+/* Base color layer (disabled) */
+.timeline-project::before, .timeline-project::after {
     display: none;
 }
 
-.timeline-project:hover,
-.timeline-project.project-hovered {
-    transform: translateY(-3px);
-    width: fit-content !important;
-    min-width: var(--original-width, auto);
-    max-width: min(60%, max-content);
-    border-color: var(--panel-border-hover);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.50);
-    z-index: 10;
-}
-
-/* Keep transparent on hover */
-.timeline-project:hover::before,
-.timeline-project.project-hovered::before {
-    opacity: 0;
-}
-
-.timeline-project:hover::after,
-.timeline-project.project-hovered::after {
-    opacity: 1;
-}
-
 .project-title {
-    color: white;
+    color: var(--color-text-title);
+    font-family: var(--font-family-body);
     font-weight: 700;
-    font-size: 0.9em;
+    font-size: 0.85em;
     white-space: nowrap;
-    text-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.8),
-        0 1px 3px rgba(0, 0, 0, 0.6);
     position: relative;
     z-index: 2;
-    transition: all 0.4s ease;
-    letter-spacing: 0.01em;
-    
-    /* Show ellipsis when not hovered */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-}
-
-.timeline-project:hover .project-title,
-.timeline-project.project-hovered .project-title {
-    overflow: visible;
-    text-overflow: unset;
-    max-width: none;
-    text-shadow: 
-        0 2px 12px rgba(0, 0, 0, 0.9),
-        0 1px 4px rgba(0, 0, 0, 0.7);
-}
-
-/* Tooltip */
-.project-tooltip {
-    position: fixed;
-    bottom: calc(100% + 15px);
-    left: 50%;
-    transform: translateX(-50%);
-    
-    background: rgba(6, 10, 20, 0.97);
-    border: 1px solid var(--panel-border-hover);
-    border-radius: var(--radius-sm);
-    padding: 1em 1.2em;
-    min-width: 280px;
-    max-width: 350px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
-    
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 9999;
-    pointer-events: none;
-}
-
-.timeline-project:hover .project-tooltip,
-.timeline-project.project-hovered .project-tooltip {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(-5px);
-    z-index: 9999;
-}
-
-.tooltip-arrow {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid rgba(26, 26, 26, 0.95);
-}
-
-.tooltip-title {
-    font-weight: 600;
-    font-size: 1em;
-    color: var(--color-content-type-light);
-    margin-bottom: 0.5em;
-}
-
-.tooltip-dates {
-    font-size: 0.85em;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 0.7em;
-    display: flex;
-    align-items: center;
-    gap: 0.3em;
-}
-
-.tooltip-description {
-    font-size: 0.85em;
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.4;
-    margin-bottom: 0.7em;
-}
-
-.tooltip-status {
-    display: inline-block;
-    padding: 0.3em 0.8em;
-    border-radius: var(--radius-base);
-    font-size: 0.75em;
-    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: -0.02em;
 }
 
-.tooltip-status.status-completed {
-    background: var(--color-status-completed-bg);
-    color: var(--color-status-completed-light);
-    border: 1px solid var(--color-status-completed-border);
+.timeline-project:hover .project-title {
+    color: var(--color-bg-base);
 }
 
-.tooltip-status.status-ongoing {
-    background: var(--color-status-ongoing-bg);
-    color: var(--color-status-ongoing-light);
-    border: 1px solid var(--color-status-ongoing-border);
+.project-dates {
+    font-family: var(--font-family-body);
+    font-size: 0.7em;
+    color: transparent;
+    margin-left: 10px;
+    white-space: nowrap;
 }
 
-.tooltip-status.status-scheduled {
-    background: var(--color-content-type-bg);
-    color: var(--color-content-type-light);
-    border: 1px solid var(--color-content-type-border);
+.timeline-project:hover .project-dates {
+    color: var(--color-bg-base);
 }
 
 /* Legend */
 .timeline-legend {
-    margin-top: 2em;
-    padding-top: 1.5em;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1em;
+    padding-top: 1em;
+    border-top: var(--border-thickness) solid var(--color-border);
     display: flex;
     gap: 2em;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.7);
+    font-family: var(--font-family-body);
+    font-size: 0.8em;
+    color: var(--color-text-body);
+    text-transform: uppercase;
 }
 
 /* Responsive design */
@@ -368,7 +220,7 @@
     }
     
     .timeline-project-wrapper {
-        height: 35px;
+        height: 30px;
         margin-bottom: 10px;
     }
     
@@ -376,43 +228,7 @@
         font-size: 0.8em;
     }
     
-    .project-tooltip {
-        min-width: 240px;
-        max-width: 280px;
-        font-size: 0.9em;
-    }
-    
     .marker-label {
         font-size: 0.65em;
     }
-    
-    .timeline-legend {
-        flex-direction: column;
-        gap: 1em;
-    }
 }
-
-@media (max-width: 480px) {
-    .timeline-title {
-        font-size: 1.5em;
-    }
-    
-    .timeline-subtitle {
-        font-size: 0.95em;
-    }
-    
-    .timeline-container {
-        padding: 1em 0.8em;
-    }
-    
-    .timeline-project-wrapper {
-        height: 30px;
-        margin-bottom: 8px;
-    }
-    
-    .project-title {
-        font-size: 0.75em;
-        padding: 0 0.5em;
-    }
-}
-

@@ -1,8 +1,4 @@
----
-layout: tech-docs
-title: Publications and Talks
-permalink: /publications-talks/
----
+
 
 <style>
 .publication-item {

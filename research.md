@@ -1,8 +1,4 @@
----
-layout: default
-title: Research
-permalink: /research/
----
+
 <link rel="stylesheet" href="{{ '/assets/css/components/card-overlay.css' | asset_hash_versioned }}">
 <link rel="stylesheet" href="{{ '/assets/css/components/theme-grid.css' | asset_hash_versioned }}">
 <link rel="stylesheet" href="{{ '/assets/css/pages/research.css' | asset_hash_versioned }}">

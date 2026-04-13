@@ -206,15 +206,7 @@ export class SegmentedTimeline {
                                          data-index="${idx}"
                                          style="left: ${startPos}%; width: ${width}%; --original-width: ${width}%; color: ${project.color};">
                                         <span class="project-title">${project.title}</span>
-                                        <div class="project-tooltip">
-                                            <div class="tooltip-title">${project.title}</div>
-                                            <div class="tooltip-dates">
-                                                📅 ${this.formatDate(project.start)} → ${this.formatDate(project.end)}
-                                            </div>
-                                            <div class="tooltip-description">${project.description}</div>
-                                            <div class="tooltip-status status-${project.status}">${project.status}</div>
-                                            <div class="tooltip-arrow"></div>
-                                        </div>
+                                        <span class="project-dates">[${this.formatDate(project.start)} to ${this.formatDate(project.end)}]</span>
                                     </div>
                                 </div>
                             `;

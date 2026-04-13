@@ -7,7 +7,7 @@
 
 - id: superconducting
   title: Superconducting Qubit Simulation
-  description: Finite element simulation of superconducting circuits, fluxonium design, and device characterization
+  description: Hamiltonian engineering of superconducting circuits, fluxonium design, and device characterization
   icon: /assets/icons/themes/superconducting.svg
 
 - id: qec
