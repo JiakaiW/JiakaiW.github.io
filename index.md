@@ -35,7 +35,7 @@ hide_header: true
             <dd>
               <span class="jw-availability">
                 <span class="jw-blinker"></span>
-                Open to 2026 summer internships — quantum hardware, ML for quantum, quant research.
+                Open to summer internships.
               </span>
             </dd>
           </div>
