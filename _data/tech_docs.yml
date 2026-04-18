@@ -1,0 +1,44 @@
+# Tech Docs Index
+# Drives the filterable tech-docs grid on the homepage via /tech-docs.json.
+
+- id: undergrad-guide
+  title: "Intuitive Guide to Superconducting Qubit Simulation"
+  description: "From Hamiltonians and diagonalization to pulse control, Rabi oscillations, and coupled Fluxoniums — written for motivated undergrads."
+  tags: [quantum, education, scqubits, qutip]
+  url: /tech-docs/undergrad_guide/
+
+- id: bloch-sphere
+  title: "Dephasing in Bloch Sphere (Blender)"
+  description: "Photon-shot-noise dephasing visualized as an animated Bloch sphere rendered in Blender 3.6."
+  tags: [blender, visualization, quantum]
+  url: /tech-docs/blender-bloch-sphere/
+
+- id: jj-chain
+  title: "Visualizing a Josephson Junction Chain"
+  description: "A Blender script that renders a stylized JJ chain chip — useful for presentations and papers."
+  tags: [blender, visualization, hardware]
+  url: /tech-docs/blender-JJ-Chain/
+
+- id: docker-htcondor
+  title: "Using Docker with HTCondor"
+  description: "End-to-end guide: building a Docker image, pushing to Docker Hub, and submitting GPU/CPU jobs on HTCondor for large-scale QEC simulations."
+  tags: [hpc, docker, devops]
+  url: /tech-docs/docker-htcondor/
+
+- id: quant-ph-graph
+  title: "Parsing 70k Quantum Physics Papers"
+  description: "arXiv API + Semantic Scholar + HDBSCAN clustering + ForceAtlas2 graph — building a citation graph for LLM context."
+  tags: [ml, data, nlp, visualization]
+  url: /tech-docs/parsing-all-quant-ph-papers/
+
+- id: thumbnail-prediction
+  title: "Predicting Visual Engagement with MobileNetV3"
+  description: "Fine-tuning a vision model on 209K video thumbnails to predict popularity, with gradual backbone unfreezing and custom PyTorch Lightning callbacks."
+  tags: [ml, vision, pytorch]
+  url: /tech-docs/thumbnail-visual-engagement-prediction/
+
+- id: prompt-engineering
+  title: "Prompt Engineering for Physicists"
+  description: "Practical prompt patterns for research: from generating 1600-line design documents to multi-phase implementation with cheap models."
+  tags: [ai, productivity, llm]
+  url: /tech-docs/prompt-engineering/

@@ -1,6 +1,21 @@
----
-layout: default
----
-<div class="tech-docs-page">
-    {{ content }}
-</div> 
+<!DOCTYPE html>
+<html lang="en" data-mode="dark">
+<head>
+  {% include head.html %}
+  <link rel="stylesheet" href="{{ '/assets/css/pages/home-design.css' | asset_hash_versioned }}">
+  <script src="{{ '/assets/js/main.js' | asset_hash_versioned }}" type="module" defer></script>
+</head>
+<body>
+  {% include overlays.html %}
+
+  {% include jw-topnav.html %}
+
+  <main class="jw-tdoc-main">
+    <div class="tech-docs-page">
+      {{ content }}
+    </div>
+  </main>
+
+  {% include jw-footer.html extra_class="jw-tdoc-footer" %}
+</body>
+</html>

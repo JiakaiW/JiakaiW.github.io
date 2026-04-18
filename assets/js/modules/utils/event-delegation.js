@@ -127,6 +127,17 @@ export function setupEventDelegation() {
 }
 
 /**
+ * Toggle dark/light mode and persist preference
+ */
+function toggleMode() {
+    const html = document.documentElement;
+    const next = html.dataset.mode === 'dark' ? 'light' : 'dark';
+    html.dataset.mode = next;
+    localStorage.setItem('jw.mode', next);
+    document.body.classList.toggle('dark-mode', next === 'dark');
+}
+
+/**
  * Handle a data-action attribute action
  * @param {string} action - The action to perform
  * @param {string} actionParam - Optional parameter for the action
@@ -202,7 +213,11 @@ function handleAction(action, actionParam, e, caption) {
                 overlayManager.expandPhoto(actionParam, caption || '');
             }
             break;
-        
+
+        case ACTIONS.TOGGLE_MODE:
+            toggleMode();
+            break;
+
         default:
             // Allow other actions to bubble up or be handled elsewhere
             break;

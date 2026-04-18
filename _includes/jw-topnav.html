@@ -1,0 +1,41 @@
+{%- comment -%}
+Shared neo-brutalist top nav. Used by the homepage (index.md) and the
+tech-docs layout. Params:
+  home_link  — href for the brand link (default "/", homepage passes "#top")
+  link_base  — prefix for section anchors (default "/" for cross-page,
+               homepage passes "" for local anchors)
+{%- endcomment -%}
+{%- comment -%}
+  NB: Liquid's `default` filter treats "" as blank, so we can't use it for
+  link_base (homepage intentionally passes ""). Use `if == nil` instead, and
+  require callers to pass an explicit empty string when they mean local anchors.
+{%- endcomment -%}
+{%- if include.home_link == nil -%}{%- assign home_link = "/" -%}{%- else -%}{%- assign home_link = include.home_link -%}{%- endif -%}
+{%- if include.link_base == nil -%}{%- assign link_base = "/" -%}{%- else -%}{%- assign link_base = include.link_base -%}{%- endif -%}
+<nav class="jw-topnav">
+  <div class="jw-topnav-inner">
+    <a href="{{ home_link }}" class="jw-brand">
+      <span class="jw-brand-mark">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="3"/>
+          <path d="M8 8 L16 16 M16 8 L8 16"/>
+        </svg>
+      </span>
+      <span class="mono jw-brand-handle">Jiakai Wang</span>
+    </a>
+    <div class="jw-topnav-links">
+      <a href="{{ link_base }}#research"><span class="mono">RESEARCH</span></a>
+      <a href="{{ link_base }}#publications"><span class="mono">PUBS</span></a>
+      <a href="{{ link_base }}#timeline"><span class="mono">TIMELINE</span></a>
+      <a href="{{ link_base }}#techdocs"><span class="mono">DOCS</span></a>
+      <a href="{{ link_base }}#updates"><span class="mono">UPDATES</span></a>
+    </div>
+    <div class="jw-topnav-actions">
+      <button class="jw-mode-toggle" data-action="toggle-mode" aria-label="Toggle dark/light mode">
+        <span class="jw-mode-icon-dark">☀</span>
+        <span class="jw-mode-icon-light">☽</span>
+      </button>
+      <a href="{{ '/assets/Jiakai_resume.pdf' | asset_hash_versioned }}" target="_blank" class="btn btn-xs btn-primary"><span class="mono">RESUME_</span></a>
+    </div>
+  </div>
+</nav>

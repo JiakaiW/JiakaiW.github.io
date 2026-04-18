@@ -43,7 +43,8 @@ export const ACTIONS = {
     EXPAND_THEME: 'expand-theme',
     EXPAND_CARD: 'expand-card',
     EXPAND_PHOTO: 'expand-photo',
-    SEARCH: 'search'
+    SEARCH: 'search',
+    TOGGLE_MODE: 'toggle-mode'
 };
 
 /**
@@ -71,7 +72,8 @@ export const API_ENDPOINTS = {
     PROJECTS_DATA: '/projects-data.json',
     NEWS_FEED: '/news-feed.json',
     SEARCH_INDEX: '/assets/search-index.json',
-    TIMELINE_DATA: '/timeline-data.json'
+    TIMELINE_DATA: '/timeline-data.json',
+    TECH_DOCS: '/tech-docs.json'
 };
 
 /**

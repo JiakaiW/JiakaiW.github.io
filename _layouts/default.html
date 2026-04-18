@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="dark">
 <head>
     {% include head.html %}
     {% if page.glass_effects != false %}
@@ -14,10 +14,16 @@
 
     {% include overlays.html %}
 
+    {% unless page.hide_header %}
+    <header>
+        {% include navigation.html %}
+    </header>
+    {% endunless %}
+
     <main>
         {{ content }}
     </main>
 
-    {% include footer.html %}
+    {% unless page.hide_footer %}{% include footer.html %}{% endunless %}
 </body>
 </html>

@@ -1,3 +1,21 @@
+<script>(function(){
+  // Restore user tweaks (mode, accent, density, displayFont, grid) before paint
+  // so tech-docs and other pages inherit the same look as the homepage. Without
+  // this, --accent falls back to its base (teal) while the homepage overrides
+  // it to lime via data-accent; these defaults keep the two in sync.
+  var root = document.documentElement;
+  var DEFAULTS = { mode:'dark', density:'cozy', displayFont:'sans', accent:'lime', grid:'on' };
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem('jw.tweaks') || '{}') || {}; } catch(e) {}
+  var savedMode = localStorage.getItem('jw.mode');
+  if (savedMode) saved.mode = savedMode;
+  var t = Object.assign({}, DEFAULTS, saved);
+  root.dataset.mode = t.mode;
+  root.dataset.accent = t.accent;
+  root.dataset.density = t.density;
+  root.dataset.displayFont = t.displayFont;
+  root.dataset.grid = t.grid;
+}());</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
@@ -18,10 +36,10 @@
 {% if page.thumbnail %}<meta name="twitter:image" content="{{ page.thumbnail | absolute_url }}">
 {% else %}<meta name="twitter:image" content="{{ '/photo-grid/images/me.jpg' | absolute_url }}">
 {% endif %}<link rel="canonical" href="{{ page.url | absolute_url }}">
-<!-- Web Fonts - Syne for headings, IBM Plex Mono for body -->
+<!-- Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <!-- Base Variables - Must load first -->
 <link rel="stylesheet" href="{{ '/assets/css/base/variables.css' | asset_hash_versioned }}">
 <!-- Base Styles -->

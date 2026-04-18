@@ -1,0 +1,17 @@
+---
+layout: null
+permalink: /tech-docs.json
+---
+{
+  "docs": [
+    {% for d in site.data.tech_docs %}
+    {
+      "id": "{{ d.id }}",
+      "title": {{ d.title | jsonify }},
+      "description": {{ d.description | jsonify }},
+      "tags": {{ d.tags | jsonify }},
+      "url": {{ d.url | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}

@@ -1,0 +1,32 @@
+{%- comment -%}
+Shared neo-brutalist footer. Used by the homepage (index.md) and the
+tech-docs layout. Params:
+  extra_class  — extra class appended to <footer> (e.g. "jw-tdoc-footer")
+{%- endcomment -%}
+{%- assign extra_class = include.extra_class | default: "" -%}
+<footer class="jw-footer {{ extra_class }}">
+  <div class="jw-footer-top">
+    <div>
+      <span style="color:var(--text);font-weight:600;">Jiakai Wang</span>
+      <span style="color:var(--text-muted);margin-left:12px;">Physics PhD — UW-Madison</span>
+    </div>
+    <span class="mono muted">© {{ site.time | date: "%Y" }}</span>
+  </div>
+  <div class="jw-footer-bottom">
+    <div class="jw-footer-col">
+      <span class="mono muted">CONTACT</span>
+      <a href="mailto:jiakai.wang@wisc.edu">jiakai.wang@wisc.edu</a>
+    </div>
+    <div class="jw-footer-col">
+      <span class="mono muted">ELSEWHERE</span>
+      <a href="https://github.com/JiakaiW" target="_blank" rel="noopener">github.com/JiakaiW</a>
+      <a href="https://www.linkedin.com/in/jiakaiW/" target="_blank" rel="noopener">linkedin.com/in/jiakaiW</a>
+    </div>
+    <div class="jw-footer-col">
+      <span class="mono muted">RESEARCH</span>
+      <span style="color:var(--text-body);">Superconducting qubits</span>
+      <span style="color:var(--text-body);">Quantum error correction</span>
+      <span style="color:var(--text-body);">Tensor networks · ML</span>
+    </div>
+  </div>
+</footer>

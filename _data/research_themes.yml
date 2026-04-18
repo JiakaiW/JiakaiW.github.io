@@ -1,27 +1,35 @@
 # Research Themes Configuration
 # Stats (completed/ongoing/potential counts) are automatically calculated from projects.yml
+# by _plugins/theme_stats_generator.rb at build time.
 # To add a new theme:
-# 1. Add an entry here with id, title, description, and icon path
+# 1. Add an entry here with id, title, short, tag, description, and icon path
 # 2. Create the icon SVG in /assets/icons/themes/
 # 3. Add projects to _data/projects.yml with this theme ID in the "themes" array
 
 - id: superconducting
   title: Superconducting Qubit Simulation
+  short: SC
+  tag: hardware
   description: Hamiltonian engineering of superconducting circuits, fluxonium design, and device characterization
   icon: /assets/icons/themes/superconducting.svg
 
 - id: qec
   title: Quantum Error Correction
+  short: QEC
+  tag: protocols
   description: Hardware-aware QEC schemes, measurement-free protocols, and erasure-based error correction
   icon: /assets/icons/themes/qec.svg
 
 - id: tensor
   title: Tensor Networks
+  short: TN
+  tag: numerics
   description: Tensor network methods for quantum simulation and optimization
   icon: /assets/icons/themes/tensor.svg
 
 - id: neural
   title: Neural Networks
+  short: NN
+  tag: ml
   description: Machine learning applications for quantum computing, from decoder optimization to circuit design
   icon: /assets/icons/themes/neural.svg
-

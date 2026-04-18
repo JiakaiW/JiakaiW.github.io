@@ -2,5 +2,17 @@
 layout: null
 permalink: /timeline-data.json
 ---
-{{ site.data.timeline_projects | jsonify }}
-
+{
+  "projects": [
+    {% for p in site.data.timeline_projects.projects %}
+    {
+      "title": {{ p.title | jsonify }},
+      "start": "{{ p.start | date: '%Y-%m' }}",
+      "end": "{{ p.end | date: '%Y-%m' }}",
+      "status": "{{ p.status }}",
+      "theme": "{{ p.theme }}",
+      "description": {{ p.description | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}

@@ -9,14 +9,13 @@
             <a href="/">Home</a>
         </li>
         <li class="menu-link">
-            <a href="/research/">Research</a>
+            <a href="/#research">Research</a>
         </li>
         <li class="menu-link">
-            <a href="/publications-talks/">Publications/Talks</a>
+            <a href="/#publications">Publications/Talks</a>
             <div class="dropdown-content">
-                <a href="/publications-talks/#publications">Publications</a>
-                <a href="/publications-talks/#talks">Conference Talks</a>
-                <a href="/publications-talks/#posters">Research Posters</a>
+                <a href="/#publications">Publications</a>
+                <a href="/#publications">Talks &amp; Posters</a>
             </div>
         </li>
         <li class="menu-link">
@@ -33,6 +32,14 @@
         </li>
     </ul>
 </nav>
+<button
+    class="mode-toggle"
+    data-action="toggle-mode"
+    aria-label="Toggle dark/light mode"
+>
+    <span class="mode-icon mode-icon-dark">☀</span>
+    <span class="mode-icon mode-icon-light">☽</span>
+</button>
 <div class="search-button">
     <a href="#" data-action="toggle-search">
         <img src="{{ '/assets/search_icon.png' | asset_hash_versioned }}" alt="Search" style="width: 36px; height: 36px; vertical-align: middle;">

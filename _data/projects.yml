@@ -9,6 +9,7 @@
   url: /projects/fluxonium_erasure.html
   image: /projects/fluxonium_erasure/images/lvl_diagram.png
   status: completed
+  year: 2026
   themes:
     - superconducting
 
@@ -18,6 +19,7 @@
   url: /projects/hpc.html
   image: /projects/hpc/images/GPU_pauli_frame.png
   status: completed
+  year: 2024
   themes:
     - qec
 
@@ -28,6 +30,7 @@
   url: null
   image: null
   status: potential
+  year: 2026
   themes:
     - superconducting
 
@@ -37,6 +40,7 @@
   url: null
   image: null
   status: potential
+  year: 2026
   themes:
     - superconducting
 
@@ -47,6 +51,7 @@
   url: /projects/mfqec.html
   image: /projects/mfqec/images/circ_simple.png
   status: completed
+  year: 2023
   themes:
     - qec
 
@@ -56,6 +61,7 @@
   url: null
   image: null
   status: potential
+  year: 2026
   themes:
     - tensor
 
@@ -66,5 +72,6 @@
   url: null
   image: null
   status: potential
+  year: 2026
   themes:
     - neural

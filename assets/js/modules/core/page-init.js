@@ -23,8 +23,10 @@ registerService(SERVICE_NAMES.MOBILE_MENU_MANAGER, mobileMenuManager);
  * @function initPage
  */
 function initPage() {
-    // Always use dark mode
-    document.body.classList.add(CSS_CLASSES.DARK_MODE);
+    // Sync legacy dark-mode body class with data-mode attribute
+    const mode = document.documentElement.dataset.mode || 'dark';
+    document.documentElement.dataset.mode = mode;
+    document.body.classList.toggle(CSS_CLASSES.DARK_MODE, mode === 'dark');
 
     // Set up event delegation for data-action attributes
     setupEventDelegation();

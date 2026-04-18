@@ -1,24 +1,26 @@
 # Timeline Projects
-# Data for the segmented timeline widget on homepage
+# Data for the gantt chart on the homepage.
+# `theme` must be the id of an entry in research_themes.yml — color is derived
+# client-side from the CSS custom property --theme-{id}.
 
 projects:
   - title: "Gate optimization method using ML"
     start: "2025-10-01"
     end: "2026-08-30"
     status: "ongoing"
-    color: "rgb(79, 138, 139)"
+    theme: "neural"
     description: "We have a novel method on gate optimization"
 
   - title: "Gate optimization method using tensor network"
     start: "2025-10-01"
     end: "2026-08-30"
     status: "ongoing"
-    color: "rgb(79, 138, 139)"
+    theme: "tensor"
     description: "We have a novel method on gate optimization"
-  
+
   - title: "Fluxonium w/ dispersive erasure detection"
     start: "2024-10-01"
     end: "2026-06-30"
     status: "ongoing"
-    color: "rgb(107, 123, 139)"
-    description: "Bring erasure conversion to single-mode superconducting qubit"  
+    theme: "superconducting"
+    description: "Bring erasure conversion to single-mode superconducting qubit"
