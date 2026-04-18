@@ -15,20 +15,27 @@ The website now uses a **data-driven architecture** where:
 ```
 Content Layer (Data)
 ├── _data/
-│   ├── research_themes.yml    # Theme definitions
-│   └── projects.yml            # All project data
+│   ├── research_themes.yml     # Theme definitions
+│   ├── projects.yml            # All project data
+│   ├── timeline_projects.yml   # Gantt timeline entries
+│   └── tech_docs.yml           # Tech-docs index
+├── _news/                      # One markdown file per news item
 │
 Template Layer (Jekyll)
 ├── _plugins/
-│   └── theme_stats_generator.rb # Auto-calculates stats
-├── projects-data.json           # API endpoint (generated)
-├── news-feed.json              # News API (generated)
-└── index.md                    # Theme rendering template
+│   ├── theme_stats_generator.rb  # Auto-calculates per-theme project counts
+│   └── asset_versioning.rb       # Content-hash cache-busting filters
+├── api/                        # Generated JSON (consumed by frontend)
+│   ├── projects-data.json
+│   ├── news-feed.json
+│   ├── timeline-data.json
+│   └── tech-docs.json
+└── index.md                    # Homepage template
 │
 Presentation Layer
-├── assets/css/components/      # Component styles (theme-grid, news-section, etc.)
-├── assets/js/modules/          # ES6 modules (theme-manager, news-manager, etc.)
-└── assets/icons/themes/        # SVG icons
+├── assets/css/pages/home-design.css  # Homepage styles (scoped under .jw-home)
+├── assets/js/home-design.js          # Homepage entry (renders themes, gantt, etc.)
+└── assets/icons/themes/              # SVG icons
 ```
 
 ## How It Works
@@ -74,9 +81,11 @@ When Jekyll builds:
    - Counts projects per theme by status
    - Injects stats into `research_themes` data
 
-2. **JSON files generated**
+2. **JSON files generated** (under `/api/`)
    - `projects-data.json`: All projects + theme stats
    - `news-feed.json`: All news items sorted by date
+   - `timeline-data.json`: Gantt entries from `timeline_projects.yml`
+   - `tech-docs.json`: Tech-docs index from `tech_docs.yml`
 
 3. **HTML generated**
    - `index.md` loops through `site.data.research_themes`
@@ -89,7 +98,7 @@ When page loads:
 
 1. **Fetch data**
    ```javascript
-   await themeManager.loadProjectsData()  // Loads /projects-data.json
+   await themeManager.loadProjectsData()  // Loads /api/projects-data.json
    ```
 
 2. **Build theme structure**

@@ -79,7 +79,7 @@ hide_header: true
         <div class="jw-section-aside mono muted">4 themes · 8 projects</div>
       </header>
       <h2 class="jw-section-title"><span class="jw-prompt">&gt;</span> What I work on</h2>
-      <p class="jw-lead">I do quantum hardware theory — mostly superconducting qubits, with detours into error correction, tensor networks, and machine learning where they actually solve something. Click a theme to filter.</p>
+      <p class="jw-lead">Quantum hardware theory across four threads — superconducting qubit design, error-correction protocols, and two numerical directions I'm developing for Hamiltonian engineering: tensor networks (large-scale circuit analysis) and generative ML (qubit control). Click a theme to see what's published, in prep, or planned.</p>
       <div id="jw-theme-explorer">
         <div class="jw-explorer">
           <div class="jw-explorer-tabs"></div>
@@ -88,30 +88,30 @@ hide_header: true
       </div>
     </section>
 
-    <!-- 02 Publications -->
-    <section id="publications" class="jw-section">
-      <header class="jw-section-head">
-        <div class="jw-section-head-left">
-          <span class="jw-section-index mono">02</span>
-          <span class="jw-section-label mono">PUBLICATIONS</span>
-        </div>
-        <div class="jw-section-aside mono muted">papers, talks, posters</div>
-      </header>
-      <h2 class="jw-section-title"><span class="jw-prompt">&gt;</span> Papers, talks, posters</h2>
-      <div id="jw-publications"></div>
-    </section>
-
-    <!-- 03 Timeline -->
+    <!-- 02 Timeline -->
     <section id="timeline" class="jw-section">
       <header class="jw-section-head">
         <div class="jw-section-head-left">
-          <span class="jw-section-index mono">03</span>
+          <span class="jw-section-index mono">02</span>
           <span class="jw-section-label mono">TIMELINE</span>
         </div>
         <div class="jw-section-aside mono muted">gantt · 2021–2027</div>
       </header>
       <h2 class="jw-section-title"><span class="jw-prompt">&gt;</span> Project schedule</h2>
       <div class="jw-gantt" id="jw-gantt"></div>
+    </section>
+
+    <!-- 03 Publications -->
+    <section id="publications" class="jw-section">
+      <header class="jw-section-head">
+        <div class="jw-section-head-left">
+          <span class="jw-section-index mono">03</span>
+          <span class="jw-section-label mono">PUBLICATIONS</span>
+        </div>
+        <div class="jw-section-aside mono muted">papers, talks, posters</div>
+      </header>
+      <h2 class="jw-section-title"><span class="jw-prompt">&gt;</span> Papers, talks, posters</h2>
+      <div id="jw-publications"></div>
     </section>
 
     <!-- 04 Tech Docs -->

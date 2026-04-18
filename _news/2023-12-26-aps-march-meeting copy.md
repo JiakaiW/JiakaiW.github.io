@@ -1,6 +1,6 @@
 ---
 date: 2026-03-17
-title: "My first first-authoer paper accepted by PRX Quantum!"
+title: "My first first-author paper accepted by PRX Quantum!"
 category: paper
 link: null
 ---

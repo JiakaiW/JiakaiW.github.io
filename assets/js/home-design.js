@@ -149,7 +149,7 @@ function renderActiveThemeCard(theme) {
   body.appendChild(p);
   const stats = document.createElement('div');
   stats.className = 'jw-atc-stats';
-  [['completed','shipped'],['ongoing','active'],['potential','draft']].forEach(([key,label]) => {
+  [['completed','published'],['ongoing','in prep'],['potential','planned']].forEach(([key,label]) => {
     const d = document.createElement('div');
     const num = document.createElement('div');
     num.className = 'jw-stat-num mono';
@@ -256,7 +256,7 @@ function renderProjectList(projectsArg) {
 }
 
 function makePill(status) {
-  const labels = { completed:'SHIPPED', ongoing:'ACTIVE', potential:'DRAFT' };
+  const labels = { completed:'PUBLISHED', ongoing:'IN PREP', potential:'PLANNED' };
   const pill = document.createElement('span');
   pill.className = `jw-pill jw-pill-${status}`;
   const dot = document.createElement('span');

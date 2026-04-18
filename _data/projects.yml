@@ -13,17 +13,6 @@
   themes:
     - superconducting
 
-- id: hpc-quantum
-  title: GPU Pauli frame QEC simulation
-  description: GPU-accelerated simulation tools for superconducting quantum circuits and coupled systems.
-  url: /projects/hpc.html
-  image: /projects/hpc/images/GPU_pauli_frame.png
-  status: completed
-  year: 2024
-  themes:
-    - qec
-
-
 - id: readout-simulation
   title: Neural Network for detecting leakage in readout
   description: Depending on experimentalist's need, we have a potential small project on implementing a neural network for detecting leakage in readout.
@@ -56,22 +45,22 @@
     - qec
 
 - id: tensor-manybody
-  title: Many-Body Quantum System Simulation
-  description: Using tensor networks to simulate strongly correlated quantum systems.
+  title: Tensor-network simulation for large-scale superconducting circuits
+  description: Python package under development for tensor-network simulation of large multi-mode superconducting circuits, enabling Hamiltonian engineering beyond exact diagonalization. Preprint in preparation.
   url: null
   image: null
-  status: potential
+  status: ongoing
   year: 2026
   themes:
     - tensor
 
 
 - id: ML_pulse_optimization
-  title: ML pulse optimization
-  description: Using machine learning to optimize pulse sequences for superconducting qubits.
+  title: Generative ML for superconducting qubit control
+  description: Generative ML model for superconducting qubit control and Hamiltonian engineering. Preprint in preparation.
   url: null
   image: null
-  status: potential
+  status: ongoing
   year: 2026
   themes:
     - neural
