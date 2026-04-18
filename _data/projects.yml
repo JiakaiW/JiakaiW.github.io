@@ -13,23 +13,13 @@
   themes:
     - superconducting
 
-- id: readout-simulation
-  title: Neural Network for detecting leakage in readout
-  description: Depending on experimentalist's need, we have a potential small project on implementing a neural network for detecting leakage in readout.
-  url: null
-  image: null
-  status: potential
-  year: 2026
-  themes:
-    - superconducting
-
 - id: pulse-optimization
-  title: Methodological paper on optimizing pulse sequences
-  description: We are writing a methodological paper on optimizing pulse sequences for superconducting qubits.
+  title: Optimizing pulse to reduce leakage
+  description: Potential project to optimize pulse sequences for reducing leakage in superconducting qubits.
   url: null
   image: null
   status: potential
-  year: 2026
+  year: 2027
   themes:
     - superconducting
 
