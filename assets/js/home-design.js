@@ -39,11 +39,15 @@ const TALKS = [
 // ── Utilities ──────────────────────────────────────────────
 
 function iconMask(id, size) {
-  const img = document.createElement('img');
-  img.src = `/assets/icons/themes/${id}.svg`;
-  img.style.cssText = `width:${size}px;height:${size}px;-webkit-mask-image:url(/assets/icons/themes/${id}.svg);mask-image:url(/assets/icons/themes/${id}.svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;background-color:currentColor;display:block;`;
-  img.alt = id;
-  return img;
+  // Use a <span> rather than <img>: an <img> would render the SVG source on
+  // top of the mask, and currentColor inside an <img>-loaded SVG resolves to
+  // black (the SVG sandbox can't see the host page's color), making the icon
+  // appear black in dark mode.
+  const el = document.createElement('span');
+  el.setAttribute('role', 'img');
+  el.setAttribute('aria-label', id);
+  el.style.cssText = `width:${size}px;height:${size}px;-webkit-mask-image:url(/assets/icons/themes/${id}.svg);mask-image:url(/assets/icons/themes/${id}.svg);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;background-color:currentColor;display:block;`;
+  return el;
 }
 
 function mono(text) {
@@ -217,8 +221,9 @@ function renderProjectList(projectsArg) {
     p.themes.forEach(tid => {
       const chip = document.createElement('span');
       chip.className = `jw-chip jw-chip-${tid}`;
-      chip.appendChild(iconMask(tid, 12));
-      chip.querySelector('img').style.cssText += `background-color:var(--theme-${tid});`;
+      const chipIcon = iconMask(tid, 12);
+      chipIcon.style.cssText += `background-color:var(--theme-${tid});`;
+      chip.appendChild(chipIcon);
       chip.appendChild(mono(themes.find(t=>t.id===tid)?.short || tid));
       themesCell.appendChild(chip);
     });
