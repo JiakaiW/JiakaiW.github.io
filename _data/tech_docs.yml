@@ -36,9 +36,3 @@
   description: "Fine-tuning a vision model on 209K video thumbnails to predict popularity, with gradual backbone unfreezing and custom PyTorch Lightning callbacks."
   tags: [ml, vision, pytorch]
   url: /tech-docs/thumbnail-visual-engagement-prediction/
-
-- id: prompt-engineering
-  title: "Prompt Engineering for Physicists"
-  description: "Practical prompt patterns for research: from generating 1600-line design documents to multi-phase implementation with cheap models."
-  tags: [ai, productivity, llm]
-  url: /tech-docs/prompt-engineering/
